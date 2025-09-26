@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/theme.dart';
-import 'package:medigo/features/auth/presentation/forget_password/pages/reset_password_screen.dart';
+import 'package:medigo/features/auth/presentation/pages/forget_password/pages/reset_password_screen.dart';
 
 void main() {
   runApp(const MainApp());

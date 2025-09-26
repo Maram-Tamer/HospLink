@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:medigo/core/components/buttons/main_button.dart';
-import 'package:medigo/core/components/inputs/main_text_form_field.dart';
+import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/auth/presentation/pages/forget_password/widgets/otp_input_fields.dart';
 
-class ForgetBody extends StatelessWidget {
-  const ForgetBody({super.key});
+class OTPverficationBody extends StatelessWidget {
+  const OTPverficationBody({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,23 +19,19 @@ class ForgetBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Forgot password",
+              "Enter 4 Digits Code",
               style: AppFontStyles.getSize32(fontWeight: FontWeight.w500),
             ),
-            Gap(15),
+            Gap(20),
             Text(
-              style: AppFontStyles.getSize14(
+              "Enter the 4 digits code that you received onyour email.",
+              style: AppFontStyles.getSize16(
                 fontColor: AppColors.slateGrayColor,
               ),
-              "Enter your email for the verification proccesss,we will send 4 digits code to your email.",
             ),
-            Gap(45),
-            MainTextFormField(
-              ispassword: false,
-              colorFill: Colors.transparent,
-              label: "Email",
-            ),
-            Gap(80),
+            Gap(40),
+            OtpInputFields(),
+            Gap(40),
             Center(
               child: MainButton(
                 buttonText: "Continue",

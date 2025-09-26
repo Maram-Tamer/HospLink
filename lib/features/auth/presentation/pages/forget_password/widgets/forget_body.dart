@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:medigo/core/components/buttons/main_button.dart';
-import 'package:medigo/core/components/inputs/main_text_form_field.dart';
+import 'package:medigo/components/buttons/main_button.dart';
+import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
-class ResetPassBody extends StatelessWidget {
-  const ResetPassBody({super.key});
+class ForgetBody extends StatelessWidget {
+  const ForgetBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ResetPassBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Reset Password",
+              "Forgot password",
               style: AppFontStyles.getSize32(fontWeight: FontWeight.w500),
             ),
             Gap(15),
@@ -25,24 +25,18 @@ class ResetPassBody extends StatelessWidget {
               style: AppFontStyles.getSize14(
                 fontColor: AppColors.slateGrayColor,
               ),
-              "Set the new password for your account so you can login and access all the features.",
+              "Enter your email for the verification proccesss,we will send 4 digits code to your email.",
             ),
             Gap(45),
             MainTextFormField(
-              label: "New Password",
-              ispassword: true,
+              ispassword: false,
               colorFill: Colors.transparent,
+              label: "Email",
             ),
-            Gap(20),
-            MainTextFormField(
-              label: "Confirm Password",
-              ispassword: true,
-              colorFill: Colors.transparent,
-            ),
-            Gap(60),
+            Gap(80),
             Center(
               child: MainButton(
-                buttonText: "Update Password",
+                buttonText: "Continue",
                 onPressed: () {},
                 width: 295,
               ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medigo/features/auth/presentation/forget_password/widgets/reset_pass_body.dart';
+import 'package:medigo/features/auth/presentation/pages/forget_password/widgets/reset_pass_body.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({super.key});

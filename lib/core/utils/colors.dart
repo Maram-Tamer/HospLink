@@ -9,4 +9,6 @@ class AppColors {
   static const slateGrayColor = Color(0xff677294);
   static const whiteColor = Colors.white;
   static const blackColor = Colors.black;
+    static const fillTextForm = Color(0xfff3f4f6);
+
 }

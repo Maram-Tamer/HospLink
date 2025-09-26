@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
+  easy_radio:
+    dependency: "direct main"
+    description:
+      name: easy_radio
+      sha256: "6f8a2b947ee581e3c4750a5b3ada6af423e88174fe15e03d74d1a912ef911435"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -224,6 +232,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.0.1"
+  simple_flutter_stepper:
+    dependency: "direct main"
+    description:
+      name: simple_flutter_stepper
+      sha256: f82be148f96ed622621c063217b325794e2ab0d2b7e079c2ec98efa8d3e6b708
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.4"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -14,7 +14,9 @@ dependencies:
   go_router: ^16.2.4
   pin_code_fields: ^8.0.1
   flutter_svg: ^2.2.0
-
+  simple_flutter_stepper: ^0.1.4
+  easy_radio: ^0.0.3
+  
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

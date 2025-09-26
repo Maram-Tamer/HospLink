@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/theme.dart';
+import 'package:medigo/features/auth/presentation/pages/UserData/page/uyserData.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/reset_password_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.lightTheme,
-      home: ResetPasswordScreen(),
+      home: Enter_UserData(),
       debugShowCheckedModeBanner: false,
     );
   }

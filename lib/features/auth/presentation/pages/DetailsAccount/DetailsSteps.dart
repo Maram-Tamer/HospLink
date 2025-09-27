@@ -5,15 +5,18 @@ import 'package:medigo/components/ScrrenBackgroung/background.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/auth/presentation/pages/UserData/page/step_1.dart';
-import 'package:medigo/features/auth/presentation/pages/UserData/page/step_2.dart';
-import 'package:medigo/features/auth/presentation/pages/UserData/page/step_3.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step1.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step2.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step3.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_screen.dart';
 import 'package:simple_flutter_stepper/simple_flutter_stepper.dart';
 import 'package:simple_flutter_stepper/simple_flutter_stepper.dart';
 
 class Enter_UserData extends StatefulWidget {
-  const Enter_UserData({super.key});
+  Enter_UserData({super.key});
 
   @override
   State<Enter_UserData> createState() => _Enter_UserDataState();
@@ -33,11 +36,11 @@ class _Enter_UserDataState extends State<Enter_UserData> {
   getBody(int step) {
     switch (step) {
       case 0:
-        return Step_1();
+        return Hospital_Step1();
       case 1:
-        return Step_2();
+        return Hospital_Step2();
       case 2:
-        return Step_3();
+        return Hospital_Step3();
       default:
         return const SizedBox.shrink();
     }
@@ -79,12 +82,12 @@ class _Enter_UserDataState extends State<Enter_UserData> {
                     fontSize: 14.0,
                     color: Colors.black,
                   ),
-                  titles: const ['Step 1', 'Step 2', 'Step 3'],
+                  titles: const ['Step 1/3', 'Step 2/3', 'Step 3/3'],
                   duration: const Duration(milliseconds: 500),
                   activeColor: AppColors.primaryGreenColor,
                   hasAppBar: true,
                   centerTitle: true,
-                  appBarTitle: const Text('Simple Stepper'),
+                  appBarTitle: const Text('Patient Details Data'),
                   previousButtonTitle: currentStep > 0 ? 'Previous' : null,
                   nextButtonTitle: currentStep == 2 ? 'Done' : 'Next',
                   nextButtonStyle: ElevatedButton.styleFrom(

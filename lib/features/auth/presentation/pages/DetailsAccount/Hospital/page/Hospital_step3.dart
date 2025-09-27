@@ -1,8 +1,6 @@
-import 'package:easy_radio/easy_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:group_button/group_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';

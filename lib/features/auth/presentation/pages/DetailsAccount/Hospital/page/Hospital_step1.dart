@@ -1,28 +1,24 @@
+import 'package:easy_radio/easy_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medigo/components/ScrrenBackgroung/background.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:easy_radio/easy_radio.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 
 enum Gender { Male, Female }
 
 class Hospital_Step1 extends StatefulWidget {
-  Hospital_Step1({super.key});
+  const Hospital_Step1({super.key});
 
   @override
   State<Hospital_Step1> createState() => _Hospital_Step1State();
 }
 
 class _Hospital_Step1State extends State<Hospital_Step1> {
-  Gender? _radioSelected = Gender.Male;
+  final Gender _radioSelected = Gender.Male;
   int? _groupValueGender = 1;
   TextEditingController dateSelected = TextEditingController();
   @override
@@ -38,7 +34,10 @@ class _Hospital_Step1State extends State<Hospital_Step1> {
             Spacer(flex: 2),
             Text(
               'Hospital Name',
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.w600,fontColor: AppColors.primaryGreenColor),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.w600,
+                fontColor: AppColors.primaryGreenColor,
+              ),
             ),
             Gap(10),
 
@@ -68,7 +67,13 @@ class _Hospital_Step1State extends State<Hospital_Step1> {
                 SizedBox(
                   width: 40,
                   height: 40,
-                  child: SvgPicture.asset(AppIcons.hospitalLoginSVG,colorFilter: ColorFilter.mode(AppColors.primaryGreenColor, BlendMode.srcIn),),
+                  child: SvgPicture.asset(
+                    AppIcons.hospitalLoginSVG,
+                    colorFilter: ColorFilter.mode(
+                      AppColors.primaryGreenColor,
+                      BlendMode.srcIn,
+                    ),
+                  ),
                 ),
               ],
             ),

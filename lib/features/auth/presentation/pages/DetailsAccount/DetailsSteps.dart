@@ -2,21 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:medigo/components/ScrrenBackgroung/background.dart';
-import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step1.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step2.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step3.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_screen.dart';
-import 'package:simple_flutter_stepper/simple_flutter_stepper.dart';
 import 'package:simple_flutter_stepper/simple_flutter_stepper.dart';
 
 class Enter_UserData extends StatefulWidget {
-  Enter_UserData({super.key});
+  const Enter_UserData({super.key});
 
   @override
   State<Enter_UserData> createState() => _Enter_UserDataState();

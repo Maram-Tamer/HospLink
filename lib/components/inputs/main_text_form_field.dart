@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
@@ -55,16 +54,22 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
         filled: true,
         fillColor: widget.colorFill ?? AppColors.slateGrayColor,
         suffixIcon: widget.ispassword
-            ? GestureDetector(
-                onTap: () {
+            ? Transform.flip(
+              flipY: true,
+              child: IconButton(
+                icon: Icon(
+                  isObsecure
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  color: Color(0xffB1B5C4),
+                ),
+                onPressed: () {
                   setState(() {
                     isObsecure = !isObsecure;
                   });
                 },
-                child: SvgPicture.asset(
-                  isObsecure ? AppIcons.unvisibleSVG : AppIcons.visibleSVG,
-                ),
-              )
+              ),
+            )
             : null,
         prefixIconConstraints: BoxConstraints(maxHeight: 35, maxWidth: 35),
         prefixIcon: (widget.prefixIcon != null)

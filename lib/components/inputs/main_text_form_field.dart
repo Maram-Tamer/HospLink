@@ -18,7 +18,6 @@ class MainTextFormField extends StatefulWidget {
     this.label,
     this.prefixIcon,
     this.textColor,
-
   });
   bool ispassword = false;
   String? Function(String?)? validator;
@@ -49,40 +48,40 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
       decoration: InputDecoration(
         label: Text(
           widget.label ?? "",
-          style: AppFontStyles.getSize14(fontColor: widget.textColor??AppColors.greyColor),
+          style: AppFontStyles.getSize14(
+            fontColor: widget.textColor ?? AppColors.greyColor,
+          ),
         ),
         filled: true,
-        fillColor: widget.colorFill ?? AppColors.slateGrayColor,
+        fillColor: widget.colorFill ?? AppColors.geyTextform,
         suffixIcon: widget.ispassword
             ? Transform.flip(
-              flipY: true,
-              child: IconButton(
-                icon: Icon(
-                  isObsecure
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  color: Color(0xffB1B5C4),
+                flipY: true,
+                child: IconButton(
+                  icon: Icon(
+                    isObsecure ? Icons.visibility : Icons.visibility_off,
+                    color: Color(0xffB1B5C4),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isObsecure = !isObsecure;
+                    });
+                  },
                 ),
-                onPressed: () {
-                  setState(() {
-                    isObsecure = !isObsecure;
-                  });
-                },
-              ),
-            )
+              )
             : null,
         prefixIconConstraints: BoxConstraints(maxHeight: 35, maxWidth: 35),
         prefixIcon: (widget.prefixIcon != null)
             ? Padding(
-              padding: const EdgeInsets.only(left: 8,right: 5),
-              child: SvgPicture.asset(
+                padding: const EdgeInsets.only(left: 8, right: 5),
+                child: SvgPicture.asset(
                   widget.prefixIcon ?? '',
                   colorFilter: ColorFilter.mode(
                     AppColors.primaryGreenColor,
                     BlendMode.srcIn,
                   ),
                 ),
-            )
+              )
             : null,
         hint: Text(
           widget.textFormFieldText ?? "",

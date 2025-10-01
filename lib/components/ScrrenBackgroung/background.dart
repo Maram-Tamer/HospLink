@@ -11,8 +11,8 @@ class AppBackground extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFFDFFFEF), // أخضر فاتح
-            Color(0xFFE6F4FF), // أزرق فاتح
+            Color.fromARGB(255, 209, 255, 231), // أخضر فاتح
+            Color.fromARGB(255, 193, 227, 254), // أزرق فاتح
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

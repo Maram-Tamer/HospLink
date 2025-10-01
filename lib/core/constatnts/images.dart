@@ -3,7 +3,7 @@ class AppImages {
   
   static const String appLogoSVG = 'assets/images/app_logo.svg';
   static const String facebookLogoSVG = 'assets/images/facebook_logo.svg';
-  static const String googleLogoSVG = 'assets/images/google_logo.svg';
+  static const String googleLogoSVG = 'assets/images/Googole_logo.svg';
   
   // PNG Images
   static const String onboardingImage1PNG = 'assets/images/on_boarding_image1.png';

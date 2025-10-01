@@ -19,6 +19,8 @@ dependencies:
   syncfusion_flutter_datepicker: ^31.1.21
   intl: ^0.20.2
   group_button: ^5.3.4
+  device_preview: ^1.2.0
+  roundcheckbox: ^2.0.5
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

@@ -10,30 +10,34 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/widget/card_login_with.dart';
+import 'package:roundcheckbox/roundcheckbox.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({
+class RegesterScreen extends StatefulWidget {
+  RegesterScreen({
     super.key,
     required this.icon,
     required this.subTitle,
     required this.title,
-    required this.route,
-    required this.routeAfterLogin,
+    required this.routeLogin,
+    required this.routeAfterRegister,
   });
   String icon;
   String title;
   String subTitle;
-  String route;
-  String routeAfterLogin;
+  String routeLogin;
+  String routeAfterRegister;
+
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegesterScreen> createState() => _RegesterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegesterScreenState extends State<RegesterScreen> {
   bool _obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -118,16 +122,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
+                  const SizedBox(height: 30),
+                  MainTextFormField(
+                    label: 'Confirm Password',
+                    ispassword: true,
+                    controller: _confirmpasswordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (value.length < 6) {
+                        return 'Password must be at least 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
 
-                  Gap(20),
                   Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
                       onTap: () {
-                        pushWithReplacment(
-                          context: context,
-                          route: Routes.forgetPassword,
-                        );
+                        pushTo(context: context, route: Routes.forgetPassword);
                       },
                       child: const Text(
                         'Forgot password?',
@@ -140,12 +155,66 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
+
+                  Row(
+                    children: [
+                      RoundCheckBox(
+                        size: 25,
+                        checkedColor: AppColors.primaryGreenColor,
+                        onTap: (selected) {},
+                      ),
+                      Gap(10),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'This must be approved  ',
+                              style: TextStyle(
+                                color: AppColors.greyColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor:
+                                      Colors.transparent, // يلغي الخلفية
+                                ),
+                                onPressed: () {
+                                  pushTo(
+                                    context: context,
+                                    route: Routes.Privacy,
+                                  );
+                                },
+                                child: Text(
+                                  maxLines: 2,
+                                  ' Privacy Policy.',
+                                  style: TextStyle(
+                                    color: AppColors.primaryGreenColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor:
+                                        AppColors.primaryGreenColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Gap(10),
                   MainButton(
-                    buttonText: ' Login',
+                    buttonText: ' Sign Up',
                     onPressed: () {
                       pushAndRemoveUntil(
                         context: context,
-                        route: widget.routeAfterLogin,
+                        route: widget.routeAfterRegister,
                       );
                     },
                   ),
@@ -182,7 +251,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text("Don't have an account? ", style: TextStyle(fontSize: 17)),
                 GestureDetector(
                   onTap: () {
-                    pushWithReplacment(context: context, route: widget.route);
+                    pushWithReplacment(
+                      context: context,
+                      route: widget.routeLogin,
+                    );
                   },
                   child: const Text(
                     'Sign up',

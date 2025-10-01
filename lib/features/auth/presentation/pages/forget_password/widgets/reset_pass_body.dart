@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
+import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
@@ -28,22 +30,16 @@ class ResetPassBody extends StatelessWidget {
               "Set the new password for your account so you can login and access all the features.",
             ),
             Gap(45),
-            MainTextFormField(
-              label: "New Password",
-              ispassword: true,
-              colorFill: Colors.transparent,
-            ),
+            MainTextFormField(label: "New Password", ispassword: true),
             Gap(20),
-            MainTextFormField(
-              label: "Confirm Password",
-              ispassword: true,
-              colorFill: Colors.transparent,
-            ),
+            MainTextFormField(label: "Confirm Password", ispassword: true),
             Gap(60),
             Center(
               child: MainButton(
                 buttonText: "Update Password",
-                onPressed: () {},
+                onPressed: () {
+                  pushWithReplacment(context: context, route: Routes.login_H);
+                },
                 width: 295,
               ),
             ),

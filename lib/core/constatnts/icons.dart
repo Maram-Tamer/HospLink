@@ -70,5 +70,6 @@ class AppIcons {
   static const String visibleSVG = '${_path}visible.svg';
   static const String unvisibleSVG = '${_path}unvisible.svg';
     static const String sick = '${_path}sick.png';
+    static const String back = 'assets/icons/back.svg';
 
 }

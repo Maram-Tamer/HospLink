@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 
-Future<void> pushWithoutReplacment({
+Future<void> pushTo({
   required BuildContext context,
   required String route,
   Object? extra,

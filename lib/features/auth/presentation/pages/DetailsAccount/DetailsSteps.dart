@@ -2,17 +2,21 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:medigo/components/ScrrenBackgroung/background.dart';
+import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
-import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_screen.dart';
 import 'package:simple_flutter_stepper/simple_flutter_stepper.dart';
 
 class Enter_UserData extends StatefulWidget {
-  const Enter_UserData({super.key});
-
+  const Enter_UserData({
+    super.key,
+    required this.steps,
+    required this.title,
+    required this.route,
+  });
+  final List<Widget> steps;
+  final String title;
+  final String route;
   @override
   State<Enter_UserData> createState() => _Enter_UserDataState();
 }
@@ -31,11 +35,11 @@ class _Enter_UserDataState extends State<Enter_UserData> {
   getBody(int step) {
     switch (step) {
       case 0:
-        return Hospital_Step1();
+        return widget.steps[0];
       case 1:
-        return Hospital_Step2();
+        return widget.steps[1];
       case 2:
-        return Hospital_Step3();
+        return widget.steps[2];
       default:
         return const SizedBox.shrink();
     }
@@ -55,12 +59,7 @@ class _Enter_UserDataState extends State<Enter_UserData> {
                   buttonPadding: const EdgeInsets.all(10),
                   nextOnTap: () {
                     if (currentStep == 2) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ForgetPasswordScreen(),
-                        ),
-                      );
+                      pushWithReplacment(context: context, route: widget.route);
                     } else {
                       goToStep(currentStep + 1);
                     }
@@ -82,7 +81,8 @@ class _Enter_UserDataState extends State<Enter_UserData> {
                   activeColor: AppColors.primaryGreenColor,
                   hasAppBar: true,
                   centerTitle: true,
-                  appBarTitle: const Text('Patient Details Data'),
+                  appBarTitle:  Text(widget.title),
+                  appBarBackgroundColor: AppColors.AppBarColor,
                   previousButtonTitle: currentStep > 0 ? 'Previous' : null,
                   nextButtonTitle: currentStep == 2 ? 'Done' : 'Next',
                   nextButtonStyle: ElevatedButton.styleFrom(

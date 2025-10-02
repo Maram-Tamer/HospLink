@@ -49,119 +49,86 @@ class _Main_ScreenState extends State<Main_Screen_P> {
   BottomNavigationBar _BottomNavigation() {
     return BottomNavigationBar(
       elevation: 0,
+
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
-
       items: [
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppIcons.callSVG),
+          icon: SizedBox(
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(AppIcons.homeMain),
+          ),
           activeIcon: SizedBox(
-            width: 50,
-            height: 50,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.primaryGreenColor,
-              ),
-              padding: EdgeInsets.all(8),
-              child: SvgPicture.asset(
-                AppIcons.callSVG,
-                colorFilter: ColorFilter.mode(
-                  AppColors.whiteColor,
-                  BlendMode.srcIn,
-                ),
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(
+              AppIcons.homeActivMain,
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryGreenColor,
+                BlendMode.srcIn,
               ),
             ),
           ),
-          label: 'profile',
+          label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppIcons.emailSVG),
+          icon: SizedBox(
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(AppIcons.favoritMain),
+          ),
           activeIcon: SizedBox(
-            width: 50,
-            height: 50,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.primaryGreenColor,
-              ),
-              padding: EdgeInsets.all(8),
-              child: SvgPicture.asset(
-                AppIcons.emailSVG,
-                colorFilter: ColorFilter.mode(
-                  AppColors.whiteColor,
-                  BlendMode.srcIn,
-                ),
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(
+              AppIcons.favoritActivMain,
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryGreenColor,
+                BlendMode.srcIn,
               ),
             ),
           ),
-          label: 'profile',
+
+          label: 'Favorit',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppIcons.clockSVG),
+          icon: SizedBox(
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(AppIcons.hospitalMain),
+          ),
           activeIcon: SizedBox(
-            width: 50,
-            height: 50,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.primaryGreenColor,
-              ),
-              padding: EdgeInsets.all(8),
-              child: SvgPicture.asset(
-                AppIcons.clockSVG,
-                colorFilter: ColorFilter.mode(
-                  AppColors.whiteColor,
-                  BlendMode.srcIn,
-                ),
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(
+              AppIcons.hospitalActivMain,
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryGreenColor,
+                BlendMode.srcIn,
               ),
             ),
           ),
-          label: 'profile',
+          label: 'Hospital',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppIcons.clockSVG),
+          icon: SizedBox(
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(AppIcons.settingMain),
+          ),
           activeIcon: SizedBox(
-            width: 50,
-            height: 50,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.primaryGreenColor,
-              ),
-              padding: EdgeInsets.all(8),
-              child: SvgPicture.asset(
-                AppIcons.clockSVG,
-                colorFilter: ColorFilter.mode(
-                  AppColors.whiteColor,
-                  BlendMode.srcIn,
-                ),
+            width: 30,
+            height: 30,
+            child: SvgPicture.asset(
+              AppIcons.settingAcivMain,
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryGreenColor,
+                BlendMode.srcIn,
               ),
             ),
           ),
-          label: 'profile',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(AppIcons.clockSVG),
-          activeIcon: SizedBox(
-            width: 50,
-            height: 50,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.primaryGreenColor,
-              ),
-              padding: EdgeInsets.all(8),
-              child: SvgPicture.asset(
-                AppIcons.clockSVG,
-                colorFilter: ColorFilter.mode(
-                  AppColors.whiteColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
-          ),
-          label: 'profile',
+          label: 'Setting',
         ),
       ],
       currentIndex: currentIndex,

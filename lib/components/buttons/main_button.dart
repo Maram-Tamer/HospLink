@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
@@ -41,7 +40,10 @@ class MainButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           buttonText,
-          style: AppFontStyles.getSize18(fontColor: textColor),
+          style: AppFontStyles.getSize18(
+            fontColor: textColor,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );

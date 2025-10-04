@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
@@ -15,6 +16,8 @@ class MainTextFormField extends StatefulWidget {
     required this.ispassword,
     this.colorFill,
     this.label,
+    this.prefixIcon,
+    this.textColor,
   });
   bool ispassword = false;
   String? Function(String?)? validator;
@@ -23,6 +26,8 @@ class MainTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final Color? colorFill;
   final String? label;
+  final String? prefixIcon;
+  final Color? textColor;
 
   @override
   State<MainTextFormField> createState() => _MainTextFormFieldState();
@@ -39,24 +44,42 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
       controller: widget.controller,
       maxLines: widget.maxTextLines,
       style: AppFontStyles.getSize18(),
+
       decoration: InputDecoration(
         label: Text(
           widget.label ?? "",
-          style: AppFontStyles.getSize14(fontColor: AppColors.greyColor),
+          style: AppFontStyles.getSize14(
+            fontColor: widget.textColor ?? AppColors.greyColor,
+          ),
         ),
         filled: true,
-        fillColor: widget.colorFill ?? AppColors.slateGrayColor,
+        fillColor: widget.colorFill ?? AppColors.geyTextform,
         suffixIcon: widget.ispassword
-            ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isObsecure = !isObsecure;
-                  });
-                },
-                child: Icon(
-                  isObsecure
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined,
+            ? Transform.flip(
+                flipY: true,
+                child: IconButton(
+                  icon: Icon(
+                    isObsecure ? Icons.visibility : Icons.visibility_off,
+                    color: Color(0xffB1B5C4),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isObsecure = !isObsecure;
+                    });
+                  },
+                ),
+              )
+            : null,
+        prefixIconConstraints: BoxConstraints(maxHeight: 35, maxWidth: 35),
+        prefixIcon: (widget.prefixIcon != null)
+            ? Padding(
+                padding: const EdgeInsets.only(left: 8, right: 5),
+                child: SvgPicture.asset(
+                  widget.prefixIcon ?? '',
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primaryGreenColor,
+                    BlendMode.srcIn,
+                  ),
                 ),
               )
             : null,

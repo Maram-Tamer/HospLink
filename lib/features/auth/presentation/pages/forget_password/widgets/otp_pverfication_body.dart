@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
+import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/widgets/otp_input_fields.dart';
 
 class OTPverficationBody extends StatelessWidget {
-  const OTPverficationBody({
-    super.key,
-  });
+  const OTPverficationBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,12 @@ class OTPverficationBody extends StatelessWidget {
             Center(
               child: MainButton(
                 buttonText: "Continue",
-                onPressed: () {},
+                onPressed: () {
+                  pushWithReplacment(
+                    context: context,
+                    route: Routes.ResetPassword,
+                  );  
+                },
                 width: 295,
               ),
             ),

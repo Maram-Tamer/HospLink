@@ -6,8 +6,10 @@ import 'package:medigo/core/utils/fonts.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     //scaffold theme
-    scaffoldBackgroundColor: AppColors.whiteColor,
+    scaffoldBackgroundColor: Colors.transparent,
+
     appBarTheme: AppBarTheme(
+
       centerTitle: true,
       titleTextStyle: AppFontStyles.getSize24(fontColor: AppColors.blackColor),
       backgroundColor: AppColors.whiteColor,
@@ -67,7 +69,9 @@ class AppTheme {
     ),
     //input decoration theme
     inputDecorationTheme: InputDecorationTheme(
+      
       enabledBorder: OutlineInputBorder(
+        
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(
           color: AppColors.slateGrayColor.withValues(alpha: 0.2),
@@ -75,6 +79,7 @@ class AppTheme {
         ),
       ),
       focusedBorder: OutlineInputBorder(
+      
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: AppColors.primaryGreenColor, width: 1),
       ),

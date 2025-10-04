@@ -1,11 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M6.4 8C6.73137 8 7 7.73137 7 7.4V3.6C7 3.26863 7.26863 3 7.6 3H16.4C16.7314 3 17 3.26863 17 3.6V7.4C17 7.73137 17.2686 8 17.6 8H19.4C19.7314 8 20 8.26863 20 8.6V20.4C20 20.7314 19.7314 21 19.4 21H4.6C4.26863 21 4 20.7314 4 20.4V8.6C4 8.26863 4.26863 8 4.6 8H6.4Z" stroke="#000000" stroke-width="1.5"/>
-<path d="M9.99219 8H11.9922M13.9922 8H11.9922M11.9922 8V6M11.9922 8V10" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 17.01L16.01 16.9989" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 13.01L16.01 12.9989" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12 13.01L12.01 12.9989" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8 13.01L8.01 12.9989" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8 17.01L8.01 16.9989" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12 17.01L12.01 16.9989" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="invisible_box" data-name="invisible box">
+      <rect width="48" height="48" fill="none"/>
+    </g>
+    <g id="Medical">
+      <g>
+        <path d="M41,42H40V9a2.9,2.9,0,0,0-3-3H30V4a2,2,0,0,0-2-2H20a2,2,0,0,0-2,2V6H11A2.9,2.9,0,0,0,8,9V42H7a2,2,0,0,0,0,4H41a2,2,0,0,0,0-4ZM21,7h2V5a1,1,0,0,1,2,0V7h2a1,1,0,0,1,0,2H25v2a1,1,0,0,1-2,0V9H21a1,1,0,0,1,0-2ZM36,42H27V35H21v7H12V10h6v2a2,2,0,0,0,2,2h8a2,2,0,0,0,2-2V10h6Z"/>
+        <rect x="16" y="17" width="6" height="6"/>
+        <rect x="26" y="17" width="6" height="6"/>
+        <rect x="16" y="26" width="6" height="6"/>
+        <rect x="26" y="26" width="6" height="6"/>
+      </g>
+    </g>
+  </g>
 </svg>

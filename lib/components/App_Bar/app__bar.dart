@@ -5,7 +5,7 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
 class App_Bar extends StatelessWidget implements PreferredSizeWidget {
-  App_Bar({
+  const App_Bar({
     super.key,
     this.title = '',
     this.leading = false,

@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             SvgPicture.asset(AppImages.appLogoSVG, width: 200),
             Text(
-              'Doctor Hunt',
+              'Doctor Hunt ',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,

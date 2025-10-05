@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const primaryGreenColor = Color(0xff0EBE7F);
+  static const primaryGreenColor = Color(0xff260b80);
   static const greenWithOpacity = Color(0xfd3f4e8);
 
   static const cardColor = Color(0xffF5EFE1);
@@ -15,5 +15,8 @@ class AppColors {
   static const AppBarColor = Color(0xffcffce9);
   static const geyTextform = Color.fromARGB(205, 243, 243, 243);
     static const BlueBouttmnavigation = Color(0xffc1e3fe);
+  static const grey2Color = Color(0xffe5e7eb);
+    static const blueLight = Color(0xffcaf0f8);
+
 
 }

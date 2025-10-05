@@ -6,13 +6,13 @@ import 'package:medigo/core/utils/fonts.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     //scaffold theme
-    scaffoldBackgroundColor: Colors.transparent,
+    scaffoldBackgroundColor: AppColors.blueLight,
 
     appBarTheme: AppBarTheme(
 
       centerTitle: true,
       titleTextStyle: AppFontStyles.getSize24(fontColor: AppColors.blackColor),
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.blueLight,
       foregroundColor: AppColors.primaryGreenColor,
       surfaceTintColor: Colors.transparent,
     ),

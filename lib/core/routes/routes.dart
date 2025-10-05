@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/icons.dart';
+import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/DetailsSteps.dart';
@@ -48,7 +49,7 @@ class Routes {
       GoRoute(
         path: login_P,
         builder: (context, state) => LoginScreen(
-          icon: AppIcons.profileActiveSVG,
+          icon: AppImages.profileWelcom,
           title: 'As Patient',
           subTitle:
               'You can send a request to the hospital for emergency treatment as soon as possible.',
@@ -59,7 +60,7 @@ class Routes {
       GoRoute(
         path: login_H,
         builder: (context, state) => LoginScreen(
-          icon: AppIcons.hospitalHomeActiveSVG,
+          icon: AppImages.hpspitalWelcom,
           title: 'As Hospital',
           subTitle: 'You can receive emergency request calls.',
           route: Routes.register_H,
@@ -69,7 +70,7 @@ class Routes {
       GoRoute(
         path: register_P,
         builder: (context, state) => RegesterScreen(
-          icon: AppIcons.profileActiveSVG,
+          icon: AppImages.profileWelcom,
           title: 'As Patient',
           subTitle:
               'You can send a request to the hospital for emergency treatment as soon as possible.',
@@ -80,7 +81,7 @@ class Routes {
       GoRoute(
         path: register_H,
         builder: (context, state) => RegesterScreen(
-          icon: AppIcons.hospitalHomeActiveSVG,
+          icon: AppImages.hpspitalWelcom,
           title: 'As Hospital',
           subTitle:
               'You can send a request to the hospital for emergency treatment as soon as possible.',

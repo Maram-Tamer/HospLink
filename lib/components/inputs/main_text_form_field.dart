@@ -39,6 +39,7 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      
       obscureText: widget.ispassword && isObsecure,
       validator: widget.validator,
       controller: widget.controller,
@@ -46,6 +47,7 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
       style: AppFontStyles.getSize18(),
 
       decoration: InputDecoration(
+        
         label: Text(
           widget.label ?? "",
           style: AppFontStyles.getSize14(

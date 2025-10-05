@@ -4,26 +4,30 @@ import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/DetailsSteps.dart';
-import 'package:medigo/features/auth/presentation/pages/Login/login_screen.dart';
-import 'package:medigo/features/auth/presentation/pages/Welcome/page/welcome_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step3.dart';
+import 'package:medigo/features/auth/presentation/pages/Login/login_screen.dart';
+import 'package:medigo/features/auth/presentation/pages/Welcome/page/welcome_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/otp_verfication_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/reset_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy_policy_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
+import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
+import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
+import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/splash/splash_screen.dart';
 
 class Routes {
-  //static const String splash = '/';
+  static const String splash = '/';
   static const String OnBoarding_1 = '/OnBoarding1';
   static const String OnBoarding_2 = '/OnBoarding2';
   static const String OnBoarding_3 = '/OnBoarding3';
-  static const String welcom = '/';
+  static const String welcom = '/welcome';
   static const String login_P = '/login-p';
   static const String login_H = '/login-h';
   static const String register_P = '/register-p';
@@ -41,10 +45,19 @@ class Routes {
 
   static final routes = GoRouter(
     routes: [
-      //GoRoute(path: splash, builder: (context, state) => ),
-      //GoRoute(path: OnBoarding_1, builder: (context, state) => ),
-      //GoRoute(path: OnBoarding_2, builder: (context, state) => ),
-      //GoRoute(path: OnBoarding_3, builder: (context, state) => ),
+      GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(
+        path: OnBoarding_1,
+        builder: (context, state) => FirstOnboardingScreen(),
+      ),
+      GoRoute(
+        path: OnBoarding_2,
+        builder: (context, state) => SecondOnboardingScreen(),
+      ),
+      GoRoute(
+        path: OnBoarding_3,
+        builder: (context, state) => ThirdOnboardingScreen(),
+      ),
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login_P,

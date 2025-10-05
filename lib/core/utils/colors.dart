@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+
   static const primaryGreenColor = Color(0xff260b80);
-  static const greenWithOpacity = Color(0xfd3f4e8);
+
+  static const greenWithOpacity = Color(0x0fd3f4e8);
+
 
   static const cardColor = Color(0xffF5EFE1);
   static const darkColor = Color(0xff2F2F2F);

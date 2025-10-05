@@ -18,5 +18,8 @@ class AppImages {
     static const String facebook = 'assets/images/facebook.png';
   static const String google = 'assets/images/google.png';
   static const String apple = 'assets/images/apple.png';
+  static const String bgLayer2PNG = 'assets/images/bg.png';
+  static const String bgLayer1PNG = 'assets/images/bglayer_1.png';
+  static const String bgWhitePNG = 'assets/images/bgwhite.png';
 
 }

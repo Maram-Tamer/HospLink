@@ -4,7 +4,6 @@ import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/auth/presentation/pages/Login/login_screen.dart';
 
 class CardLogin_RegisterWith extends StatelessWidget {
   const CardLogin_RegisterWith({

@@ -33,7 +33,7 @@ class RegesterScreen extends StatefulWidget {
 }
 
 class _RegesterScreenState extends State<RegesterScreen> {
-  bool _obscurePassword = true;
+  final bool _obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();

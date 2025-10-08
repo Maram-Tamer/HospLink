@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
@@ -20,6 +19,7 @@ import 'package:medigo/features/auth/presentation/pages/signup/pages/register.da
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/search/page/search_screen.dart';
 import 'package:medigo/features/splash/splash_screen.dart';
 
 class Routes {
@@ -42,10 +42,12 @@ class Routes {
 
   static const String Main_patient = '/main-p';
   static const String Main_hospital = '/main-h';
+  static const String Search = '/Search';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: OnBoarding_1,
         builder: (context, state) => FirstOnboardingScreen(),

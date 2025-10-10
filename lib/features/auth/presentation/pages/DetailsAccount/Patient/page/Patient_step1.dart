@@ -19,14 +19,14 @@ import 'package:intl/intl.dart' as intl;
 enum Gender { Male, Female }
 
 class Patient_Step1 extends StatefulWidget {
-  Patient_Step1({super.key});
+  const Patient_Step1({super.key});
 
   @override
   State<Patient_Step1> createState() => _Patient_Step1State();
 }
 
 class _Patient_Step1State extends State<Patient_Step1> {
-  Gender? _radioSelected = Gender.Male;
+  final Gender? _radioSelected = Gender.Male;
   int? _groupValueGender = 1;
   TextEditingController dateSelected = TextEditingController();
   @override

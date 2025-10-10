@@ -19,6 +19,7 @@ import 'package:medigo/features/chat/chatScreen.dart';
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/search/page/search_screen.dart';
 import 'package:medigo/features/splash/splash_screen.dart';
 
 class Routes {
@@ -47,11 +48,12 @@ class Routes {
 
   static const String Main_patient = '/main-p';
   static const String Main_hospital = '/main-h';
-  static const String chat = 'chat';
-
+  static const String chat = '/chat';
+  static const String Search = '/Search';
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: OnBoarding_1,
         builder: (context, state) => FirstOnboardingScreen(),

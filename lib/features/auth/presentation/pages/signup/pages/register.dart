@@ -39,133 +39,196 @@ class _RegesterScreenState extends State<RegesterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmpasswordController =
       TextEditingController();
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Stack(
-              children: [
-                Column(
+       resizeToAvoidBottomInset: true,
+      body: Form(
+        key: _formKey,
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  ClipPath(
+                    clipper: DeepBottomCurve(),
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      width: double.infinity,
+                      height: 500,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryGreenColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                top: 0,
+                right: MediaQuery.of(context).size.width / 2 - 100,
+                child: Column(
                   children: [
-                    ClipPath(
-                      clipper: DeepBottomCurve(),
-                      child: Container(
-                        padding: EdgeInsets.all(0),
-                        width: double.infinity,
-                        height: 500,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryGreenColor,
-                        ),
+                    SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Image.asset(AppImages.LogolPNG),
+                    ),
+                    Text(
+                      'Media Go!',
+                      style: AppFontStyles.getSize32(
+                        fontColor: AppColors.whiteColor,
                       ),
                     ),
                   ],
                 ),
-                Positioned(
-                  top: 30,
-                  right: MediaQuery.of(context).size.width / 2 - 100,
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: Image.asset(AppImages.LogolPNG),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).size.height / 2 - 200,
+                right: 25,
+                left: 25,
+                child: Container(
+                  height: 450,
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(widget.icon),
+                      Gap(20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: MainTextFormField(
+                          label: 'Email',
+                          ispassword: false,
+                          controller: _emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            final emailRegex = RegExp(
+                              r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
+                            );
+                            if (!emailRegex.hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+      
+                      Gap(20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: MainTextFormField(
+                          label: 'Password',
+                          ispassword: true,
+                          controller: _passwordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Gap(20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: MainTextFormField(
+                          label: 'Confirm Password',
+                          ispassword: true,
+                          controller: _confirmpasswordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your Confirm password';
+                            }
+                            if (value.length < 6) {
+                              return 'Password must be at least 6 characters';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Gap(5),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Checkbox(
+                            value: isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                isChecked = value!;
+                              });
+                            },
+      
+                            shape: CircleBorder(),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'You must accept the ',
+                                  style: AppFontStyles.getSize14(
+                                    fontColor: AppColors.darkGreyColor,
+                                  ),
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      padding: EdgeInsets.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    ),
+                                    onPressed: () {
+                                      pushTo(
+                                        context: context,
+                                        route: Routes.Privacy,
+                                      );
+                                    },
+                                    child: Text(
+                                      'Privacy Policy',
+                                      style: TextStyle(
+                                        color: AppColors.darkGreyColor,
+                                        fontSize: 14,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(10),
+      
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: MainButton(
+                          buttonText: 'Sign Up',
+                          onPressed: () {
+                            pushWithReplacment(
+                              context: context,
+                              route: widget.routeAfterRegister,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  top: MediaQuery.of(context).size.height / 2 - 200,
-                  right: 25,
-                  left: 25,
-                  child: Container(
-                    height: 400,
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(widget.icon),
-                        Gap(20),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: MainTextFormField(
-                            label: 'Email',
-                            ispassword: false,
-                            controller: _emailController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              final emailRegex = RegExp(
-                                r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-                              );
-                              if (!emailRegex.hasMatch(value)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-
-                        Gap(20),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: MainTextFormField(
-                            label: 'Password',
-                            ispassword: true,
-                            controller: _passwordController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Gap(20),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: MainTextFormField(
-                            label: 'Confirm Password',
-                            ispassword: true,
-                            controller: _confirmpasswordController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your Confirm password';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Gap(20),
-
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: MainButton(
-                            buttonText: 'Login',
-                            onPressed: () {
-                              pushWithReplacment(
-                                context: context,
-                                route: widget.routeAfterRegister,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

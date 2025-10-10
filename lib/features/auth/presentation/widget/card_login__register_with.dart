@@ -12,7 +12,7 @@ class CardLogin_RegisterWith extends StatelessWidget {
     required this.widget,
     required this.title,
     required this.subtitle,
-    required this.route
+    required this.route,
   });
   final String title;
   final String subtitle;
@@ -62,34 +62,34 @@ class CardLogin_RegisterWith extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleAvatar(
-                  radius: 30,
+                  radius: 25,
                   backgroundColor: AppColors.whiteColor,
 
                   child: CircleAvatar(
                     backgroundColor: AppColors.whiteColor,
-                    radius: 20,
+                    radius: 15,
                     child: Image.asset(AppImages.facebook),
                   ),
                 ),
                 Gap(20),
                 CircleAvatar(
-                  radius: 30,
+                  radius: 25,
                   backgroundColor: AppColors.whiteColor,
 
                   child: CircleAvatar(
                     backgroundColor: AppColors.whiteColor,
-                    radius: 20,
+                    radius: 15,
                     child: Image.asset(AppImages.google),
                   ),
                 ),
                 Gap(20),
                 CircleAvatar(
-                  radius: 30,
+                  radius: 25,
                   backgroundColor: AppColors.whiteColor,
 
                   child: CircleAvatar(
                     backgroundColor: AppColors.whiteColor,
-                    radius: 20,
+                    radius: 15,
                     child: Image.asset(AppImages.apple),
                   ),
                 ),

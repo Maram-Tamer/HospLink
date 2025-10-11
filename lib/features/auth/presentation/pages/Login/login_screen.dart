@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/images.dart';

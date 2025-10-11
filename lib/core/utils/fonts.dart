@@ -3,7 +3,7 @@ import 'package:medigo/core/utils/colors.dart';
 
 class AppFontStyles {
   static TextStyle getSize12({
-    double fontSize = 14,
+    double fontSize = 12,
     Color? fontColor = AppColors.darkGreyColor,
     FontWeight fontWeight = FontWeight.w400,
   }) => TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: fontColor);

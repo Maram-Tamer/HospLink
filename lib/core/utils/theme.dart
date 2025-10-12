@@ -9,7 +9,6 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.blueLight,
 
     appBarTheme: AppBarTheme(
-
       centerTitle: true,
       titleTextStyle: AppFontStyles.getSize24(fontColor: AppColors.blackColor),
       backgroundColor: AppColors.blueLight,
@@ -69,9 +68,7 @@ class AppTheme {
     ),
     //input decoration theme
     inputDecorationTheme: InputDecorationTheme(
-      
       enabledBorder: OutlineInputBorder(
-        
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(
           color: AppColors.slateGrayColor.withValues(alpha: 0.2),
@@ -79,7 +76,6 @@ class AppTheme {
         ),
       ),
       focusedBorder: OutlineInputBorder(
-      
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: AppColors.primaryGreenColor, width: 1),
       ),

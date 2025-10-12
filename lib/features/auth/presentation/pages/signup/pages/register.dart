@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:medigo/components/ScrrenBackgroung/background.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/images.dart';
@@ -11,10 +9,9 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/widget/card_login__register_with.dart';
 import 'package:medigo/features/auth/presentation/widget/curveContaner.dart';
-import 'package:roundcheckbox/roundcheckbox.dart';
 
 class RegesterScreen extends StatefulWidget {
-  RegesterScreen({
+  const RegesterScreen({
     super.key,
     required this.icon,
     required this.subTitle,
@@ -22,18 +19,18 @@ class RegesterScreen extends StatefulWidget {
     required this.routeLogin,
     required this.routeAfterRegister,
   });
-  String icon;
-  String title;
-  String subTitle;
-  String routeLogin;
-  String routeAfterRegister;
+  final String icon;
+  final String title;
+  final String subTitle;
+  final String routeLogin;
+  final String routeAfterRegister;
 
   @override
   State<RegesterScreen> createState() => _RegesterScreenState();
 }
 
 class _RegesterScreenState extends State<RegesterScreen> {
-  final bool _obscurePassword = true;
+  final bool obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -44,7 +41,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: true,
       body: Form(
         key: _formKey,
         child: SizedBox(
@@ -120,7 +117,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                           },
                         ),
                       ),
-      
+
                       Gap(20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -168,7 +165,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                                 isChecked = value!;
                               });
                             },
-      
+
                             shape: CircleBorder(),
                           ),
                           RichText(
@@ -211,7 +208,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                         ],
                       ),
                       Gap(10),
-      
+
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: MainButton(

@@ -11,7 +11,7 @@ import 'package:medigo/features/auth/presentation/widget/card_login__register_wi
 import 'package:medigo/features/auth/presentation/widget/curveContaner.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({
+  const LoginScreen({
     super.key,
     required this.icon,
     required this.subTitle,
@@ -19,17 +19,17 @@ class LoginScreen extends StatefulWidget {
     required this.route,
     required this.routeAfterLogin,
   });
-  String icon;
-  String title;
-  String subTitle;
-  String route;
-  String routeAfterLogin;
+  final String icon;
+  final String title;
+  final String subTitle;
+  final String route;
+  final String routeAfterLogin;
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final bool _obscurePassword = true;
+  final bool obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: true,
       body: Form(
         key: _formKey,
         child: SizedBox(
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                       ),
-      
+
                       Gap(20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Gap(20),
-      
+
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: MainButton(

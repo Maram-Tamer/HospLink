@@ -12,17 +12,17 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
-enum Gender { Male, Female }
+enum Gender { male, female }
 
-class Hospital_Step1 extends StatefulWidget {
-  const Hospital_Step1({super.key});
+class HospitalStep1 extends StatefulWidget {
+  const HospitalStep1({super.key});
 
   @override
-  State<Hospital_Step1> createState() => _Hospital_Step1State();
+  State<HospitalStep1> createState() => HospitalStep1State();
 }
 
-class _Hospital_Step1State extends State<Hospital_Step1> {
-  final Gender _radioSelected = Gender.Male;
+class HospitalStep1State extends State<HospitalStep1> {
+  final Gender radioSelected = Gender.male;
   int? _groupValueGender = 1;
   TextEditingController dateSelected = TextEditingController();
   @override

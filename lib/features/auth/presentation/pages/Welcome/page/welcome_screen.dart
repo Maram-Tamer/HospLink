@@ -133,12 +133,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     Gap(30),
                     isSelected
-                        ? cartWelcom(
+                        ? CartWelcom(
                             image: AppImages.hpspitalWelcom,
                             routeLogin: Routes.login_H,
                             routeRegister: Routes.register_H,
                           )
-                        : cartWelcom(
+                        : CartWelcom(
                             image: AppImages.profileWelcom,
                             routeLogin: Routes.login_P,
                             routeRegister: Routes.register_P,

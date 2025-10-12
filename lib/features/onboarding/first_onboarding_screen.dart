@@ -53,7 +53,7 @@ class FirstOnboardingScreen extends StatelessWidget {
                 onPressed: () {
                   pushAndRemoveUntil(
                     context: context,
-                    route: Routes.OnBoarding_2,
+                    route: Routes.onBoarding_2,
                   );
                 },
                 style: ElevatedButton.styleFrom(

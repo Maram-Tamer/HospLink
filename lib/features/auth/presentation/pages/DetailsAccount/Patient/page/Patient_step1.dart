@@ -1,32 +1,28 @@
+import 'package:easy_radio/easy_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:medigo/components/App_Bar/app__bar.dart';
-import 'package:medigo/components/ScrrenBackgroung/background.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:easy_radio/easy_radio.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 
-enum Gender { Male, Female }
+enum Gender { male, female }
 
-class Patient_Step1 extends StatefulWidget {
-  const Patient_Step1({super.key});
+class PatientStep1 extends StatefulWidget {
+  const PatientStep1({super.key});
 
   @override
-  State<Patient_Step1> createState() => _Patient_Step1State();
+  State<PatientStep1> createState() => PatientStep1State();
 }
 
-class _Patient_Step1State extends State<Patient_Step1> {
-  final Gender? _radioSelected = Gender.Male;
+class PatientStep1State extends State<PatientStep1> {
+  final Gender radioSelected = Gender.male;
   int? _groupValueGender = 1;
   TextEditingController dateSelected = TextEditingController();
   @override

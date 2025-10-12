@@ -4,26 +4,22 @@ import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/utils/colors.dart';
 
-class cartWelcom extends StatelessWidget {
-  cartWelcom({
+class CartWelcom extends StatelessWidget {
+  const CartWelcom({
     super.key,
     required this.image,
     required this.routeLogin,
     required this.routeRegister,
   });
-  String image;
-  String routeLogin;
-  String routeRegister;
+  final String image;
+  final String routeLogin;
+  final String routeRegister;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: 50,
-          height: 50,
-          child: Image.asset(image),
-        ),
+        SizedBox(width: 50, height: 50, child: Image.asset(image)),
         Gap(20),
         MainButton(
           width: 350,

@@ -38,8 +38,8 @@ class OTPverficationBody extends StatelessWidget {
                 onPressed: () {
                   pushWithReplacment(
                     context: context,
-                    route: Routes.ResetPassword,
-                  );  
+                    route: Routes.resetPassword,
+                  );
                 },
                 width: 295,
               ),

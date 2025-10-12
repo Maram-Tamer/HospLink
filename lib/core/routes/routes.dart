@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
-import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
+import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
@@ -24,9 +24,9 @@ import 'package:medigo/features/splash/splash_screen.dart';
 
 class Routes {
   static const String splash = '/';
-  static const String OnBoarding_1 = '/OnBoarding1';
-  static const String OnBoarding_2 = '/OnBoarding2';
-  static const String OnBoarding_3 = '/OnBoarding3';
+  static const String onBoarding_1 = '/OnBoarding1';
+  static const String onBoarding_2 = '/OnBoarding2';
+  static const String onBoarding_3 = '/OnBoarding3';
   static const String welcom = '/welcome';
   static const String login_P = '/login-p';
   static const String login_H = '/login-h';
@@ -34,8 +34,8 @@ class Routes {
   static const String register_H = '/register-h';
   static const String Privacy = '/privacy';
   static const String forgetPassword = '/forget_password';
-  static const String OTP = '/otp';
-  static const String ResetPassword = '/reset-password';
+  static const String oTP = '/otp';
+  static const String resetPassword = '/reset-password';
 
   static const String EnerData_P = '/details-p';
   static const String EnerData_H = '/details-h';
@@ -55,15 +55,15 @@ class Routes {
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
-        path: OnBoarding_1,
+        path: onBoarding_1,
         builder: (context, state) => FirstOnboardingScreen(),
       ),
       GoRoute(
-        path: OnBoarding_2,
+        path: onBoarding_2,
         builder: (context, state) => SecondOnboardingScreen(),
       ),
       GoRoute(
-        path: OnBoarding_3,
+        path: onBoarding_3,
         builder: (context, state) => ThirdOnboardingScreen(),
       ),
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
@@ -118,14 +118,14 @@ class Routes {
         path: forgetPassword,
         builder: (context, state) => ForgetPasswordScreen(),
       ),
-      GoRoute(path: OTP, builder: (context, state) => OtpVerficationScreen()),
+      GoRoute(path: oTP, builder: (context, state) => OtpVerficationScreen()),
       GoRoute(
-        path: ResetPassword,
+        path: resetPassword,
         builder: (context, state) => ResetPasswordScreen(),
       ),
       GoRoute(
         path: Patient_Step_1,
-        builder: (context, state) => Patient_Step1(),
+        builder: (context, state) => PatientStep1(),
       ),
       GoRoute(
         path: Patient_Step_2,
@@ -137,7 +137,7 @@ class Routes {
       ),
       GoRoute(
         path: Hospital_Step_1,
-        builder: (context, state) => Hospital_Step1(),
+        builder: (context, state) => HospitalStep1(),
       ),
       GoRoute(
         path: Hospital_Step_2,

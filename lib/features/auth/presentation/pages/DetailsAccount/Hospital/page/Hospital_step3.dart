@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medigo/components/App_Bar/app__bar.dart';
-import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/routes/navigation.dart';
-import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
@@ -21,14 +17,11 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(title: 'Step 3 of 3'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            steps_3(context),
-
             Gap(30),
             Text(
               'Website',
@@ -148,74 +141,6 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Expanded(
-                child: MainButton(
-                  buttonText: 'Back',
-                  onPressed: () {
-                    pushWithReplacment(
-                      context: context,
-                      route: Routes.Hospital_Step_2,
-                    );
-                  },
-                  height: 45,
-                ),
-              ),
-              Gap(20),
-              Expanded(
-                child: MainButton(
-                  buttonText: 'Done',
-                  onPressed: () {
-                    pushWithReplacment(context: context, route: Routes.login_H);
-                  },
-                  height: 45,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
-}
-
-Row steps_3(BuildContext context) {
-  return Row(
-    children: [
-      Container(
-        height: 5,
-        width: MediaQuery.of(context).size.width / 3.33,
-        decoration: BoxDecoration(
-          color: AppColors.primaryGreenColor,
-
-          borderRadius: BorderRadius.circular(15),
-        ),
-      ),
-      Gap(3),
-      Container(
-        height: 5,
-        width: MediaQuery.of(context).size.width / 3.37,
-        decoration: BoxDecoration(
-          color: AppColors.primaryGreenColor,
-
-          borderRadius: BorderRadius.circular(15),
-        ),
-      ),
-      Gap(3),
-      Container(
-        height: 10,
-        width: MediaQuery.of(context).size.width / 3.37,
-        decoration: BoxDecoration(
-          color: AppColors.primaryGreenColor,
-
-          borderRadius: BorderRadius.circular(15),
-        ),
-      ),
-    ],
-  );
 }

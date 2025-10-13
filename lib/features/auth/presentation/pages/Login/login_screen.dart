@@ -38,139 +38,130 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       resizeToAvoidBottomInset: true,
-      body: Form(
-        key: _formKey,
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  ClipPath(
-                    clipper: DeepBottomCurve(),
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      height: 450,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryGreenColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Positioned(
-                top: 0,
-                right: MediaQuery.of(context).size.width / 2 - 100,
-                child: Column(
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                Column(
                   children: [
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Image.asset(AppImages.LogolPNG),
-                    ),
-                    Text(
-                      'Media Go!',
-                      style: AppFontStyles.getSize32(
-                        fontColor: AppColors.whiteColor,
+                    ClipPath(
+                      clipper: DeepBottomCurve(),
+                      child: Container(
+                        padding: EdgeInsets.all(0),
+                        width: double.infinity,
+                        height: 450,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryGreenColor,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height / 2 - 200,
-                right: 25,
-                left: 25,
-                child: Container(
-                  height: 400,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(30),
+                Positioned(
+                  top: 30,
+                  right: MediaQuery.of(context).size.width / 2 - 100,
+                  child: SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Image.asset(AppImages.LogolPNG),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(widget.icon),
-                      Gap(20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MainTextFormField(
-                          label: 'Email',
-                          ispassword: false,
-                          controller: _emailController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            final emailRegex = RegExp(
-                              r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-                            );
-                            if (!emailRegex.hasMatch(value)) {
-                              return 'Please enter a valid email';
-                            }
-                            return null;
-                          },
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height / 2 - 200,
+                  right: 25,
+                  left: 25,
+                  child: Container(
+                    height: 400,
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(widget.icon),
+                        Gap(20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: MainTextFormField(
+                            label: 'Email',
+                            ispassword: false,
+                            controller: _emailController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                              final emailRegex = RegExp(
+                                r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
+                              );
+                              if (!emailRegex.hasMatch(value)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                      ),
-      
-                      Gap(20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MainTextFormField(
-                          label: 'Password',
-                          ispassword: true,
-                          controller: _passwordController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            if (value.length < 6) {
-                              return 'Password must be at least 6 characters';
-                            }
-                            return null;
-                          },
+
+                        Gap(20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: MainTextFormField(
+                            label: 'Password',
+                            ispassword: true,
+                            controller: _passwordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              if (value.length < 6) {
+                                return 'Password must be at least 6 characters';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                      ),
-                      Gap(10),
-                      Align(
-                        alignment: AlignmentGeometry.centerRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            pushWithReplacment(
-                              context: context,
-                              route: Routes.forgetPassword,
-                            );
-                          },
-                          child: Text(
-                            'Forget Password ?',
-                            style: AppFontStyles.getSize14(
-                              fontWeight: FontWeight.w500,
-                              fontColor: AppColors.primaryGreenColor,
+                        Gap(10),
+                        Align(
+                          alignment: AlignmentGeometry.centerRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              pushWithReplacment(
+                                context: context,
+                                route: Routes.forgetPassword,
+                              );
+                            },
+                            child: Text(
+                              'Forget Password ?',
+                              style: AppFontStyles.getSize14(
+                                fontWeight: FontWeight.w500,
+                                fontColor: AppColors.primaryGreenColor,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Gap(20),
-      
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MainButton(
-                          buttonText: 'Login',
-                          onPressed: () {
-                            pushAndRemoveUntil(
-                              context: context,
-                              route: widget.routeAfterLogin,
-                            );
-                          },
+                        Gap(20),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: MainButton(
+                            buttonText: 'Login',
+                            onPressed: () {
+                              pushAndRemoveUntil(
+                                context: context,
+                                route: widget.routeAfterLogin,
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

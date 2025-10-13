@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/colors.dart';
 
 class AppFontStyles {
-  static TextStyle getSize12({
-    double fontSize = 14,
-    Color? fontColor = AppColors.darkGreyColor,
-    FontWeight fontWeight = FontWeight.w400,
-  }) => TextStyle(fontSize: fontSize, fontWeight: fontWeight, color: fontColor);
-
   static TextStyle getSize14({
     double fontSize = 14,
     Color? fontColor = AppColors.darkGreyColor,

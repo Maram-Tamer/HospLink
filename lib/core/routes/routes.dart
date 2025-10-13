@@ -19,8 +19,8 @@ import 'package:medigo/features/chat/chatScreen.dart';
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/search/page/search_screen.dart';
 import 'package:medigo/features/splash/splash_screen.dart';
-//import 'package:medigo/features/search/page/search_screen.dart';
 
 class Routes {
   static const String splash = '/';
@@ -54,7 +54,7 @@ class Routes {
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       //GoRoute(path: Search, builder: (context, state) => SearchScreen()),
-      //GoRoute(path: Search, builder: (context, state) => SearchScreen()),
+      GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: OnBoarding_1,
         builder: (context, state) => FirstOnboardingScreen(),

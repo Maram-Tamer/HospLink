@@ -24,7 +24,7 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
-      backgroundColor: AppColors.AppBarColor,
+      backgroundColor: AppColors.blueLight,
       title: Text(title, style: AppFontStyles.getSize24()),
 
       centerTitle: true,
@@ -38,7 +38,7 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: SvgPicture.asset(AppIcons.back),
+                  icon: SvgPicture.asset(AppIcons.backSVG),
                 ),
               )
               : null,

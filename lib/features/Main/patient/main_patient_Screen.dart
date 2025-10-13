@@ -5,7 +5,7 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Hospital/presentation/page/home.dart';
 
 class Main_Screen_P extends StatefulWidget {
-  Main_Screen_P({super.key, this.initialIndex});
+  const Main_Screen_P({super.key, this.initialIndex});
   final int? initialIndex;
   @override
   State<Main_Screen_P> createState() => _Main_ScreenState();

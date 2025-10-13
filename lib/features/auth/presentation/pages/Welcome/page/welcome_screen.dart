@@ -14,7 +14,7 @@ import 'package:medigo/main.dart';
 import '../../login/login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  WelcomeScreen({super.key});
+  const WelcomeScreen({super.key});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();

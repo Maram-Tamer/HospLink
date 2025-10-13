@@ -1,9 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/DetailsSteps.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
@@ -17,9 +15,11 @@ import 'package:medigo/features/auth/presentation/pages/forget_password/pages/ot
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/reset_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy_policy_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
+import 'package:medigo/features/chat/chatScreen.dart';
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+//import 'package:medigo/features/search/page/search_screen.dart';
 import 'package:medigo/features/splash/splash_screen.dart';
 
 class Routes {
@@ -39,13 +39,21 @@ class Routes {
 
   static const String EnerData_P = '/details-p';
   static const String EnerData_H = '/details-h';
+  static const String Patient_Step_1 = '/patient-1';
+  static const String Patient_Step_2 = '/patient-2';
+  static const String Patient_Step_3 = '/patient-3';
+  static const String Hospital_Step_1 = '/hospital-1';
+  static const String Hospital_Step_2 = '/hospital-2';
+  static const String Hospital_Step_3 = '/hospital-3';
 
   static const String Main_patient = '/main-p';
   static const String Main_hospital = '/main-h';
-
+  static const String chat = '/chat';
+  static const String Search = '/Search';
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+     //GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: OnBoarding_1,
         builder: (context, state) => FirstOnboardingScreen(),
@@ -88,7 +96,7 @@ class Routes {
           subTitle:
               'You can send a request to the hospital for emergency treatment as soon as possible.',
           routeLogin: Routes.login_P,
-          routeAfterRegister: Routes.EnerData_P,
+          routeAfterRegister: Routes.Patient_Step_1,
         ),
       ),
       GoRoute(
@@ -99,7 +107,7 @@ class Routes {
           subTitle:
               'You can send a request to the hospital for emergency treatment as soon as possible.',
           routeLogin: Routes.login_H,
-          routeAfterRegister: Routes.EnerData_H,
+          routeAfterRegister: Routes.Hospital_Step_1,
         ),
       ),
       GoRoute(
@@ -116,20 +124,28 @@ class Routes {
         builder: (context, state) => ResetPasswordScreen(),
       ),
       GoRoute(
-        path: EnerData_H,
-        builder: (context, state) => Enter_UserData(
-          steps: [Hospital_Step1(), Hospital_Step2(), Hospital_Step3()],
-          title: 'Hospital Details',
-          route: Routes.login_H,
-        ),
+        path: Patient_Step_1,
+        builder: (context, state) => Patient_Step1(),
       ),
       GoRoute(
-        path: EnerData_P,
-        builder: (context, state) => Enter_UserData(
-          steps: [Patient_Step1(), Patient_Step2(), Patient_Step3()],
-          title: 'Patient Details',
-          route: Routes.login_P,
-        ),
+        path: Patient_Step_2,
+        builder: (context, state) => Patient_Step2(),
+      ),
+      GoRoute(
+        path: Patient_Step_3,
+        builder: (context, state) => Patient_Step3(),
+      ),
+      GoRoute(
+        path: Hospital_Step_1,
+        builder: (context, state) => Hospital_Step1(),
+      ),
+      GoRoute(
+        path: Hospital_Step_2,
+        builder: (context, state) => Hospital_Step2(),
+      ),
+      GoRoute(
+        path: Hospital_Step_3,
+        builder: (context, state) => Hospital_Step3(),
       ),
 
       GoRoute(
@@ -137,6 +153,7 @@ class Routes {
         builder: (context, state) => Main_Screen_H(),
       ),
       GoRoute(path: Main_patient, builder: (context, state) => Main_Screen_P()),
+      GoRoute(path: chat, builder: (context, state) => ChatScreen()),
     ],
   );
 }

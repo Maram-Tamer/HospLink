@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:medigo/components/App_Bar/app__bar.dart';
+import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
+import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
@@ -24,46 +28,39 @@ class _Hospital_Step1State extends State<Hospital_Step1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: App_Bar(title: 'Step 1 of 3'),
       //backgroundColor: AppColors.whiteColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Steps_1(context),
+            Gap(30),
+
             ImageProfile(),
             Spacer(flex: 2),
             Text(
               'Hospital Name',
-              style: AppFontStyles.getSize18(
+              style: AppFontStyles.getSize14(
                 fontWeight: FontWeight.w600,
                 fontColor: AppColors.primaryGreenColor,
               ),
             ),
             Gap(10),
 
-            Directionality(
-              textDirection: TextDirection.ltr,
-
-              child: MainTextFormField(
-                label: 'Name',
-                ispassword: false,
-                colorFill: AppColors.fillTextForm,
-              ),
+            MainTextFormField(
+              label: 'Name',
+              ispassword: false,
+              colorFill: AppColors.fillTextForm,
             ),
             Spacer(),
 
             SelectDate(context),
             Spacer(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'Hospital type',
-                  style: AppFontStyles.getSize18(
-                    fontWeight: FontWeight.w600,
-                    fontColor: AppColors.primaryGreenColor,
-                  ),
-                ),
                 SizedBox(
                   width: 40,
                   height: 40,
@@ -75,6 +72,14 @@ class _Hospital_Step1State extends State<Hospital_Step1> {
                     ),
                   ),
                 ),
+                Gap(5),
+                Text(
+                  'Hospital type',
+                  style: AppFontStyles.getSize14(
+                    fontWeight: FontWeight.w600,
+                    fontColor: AppColors.primaryGreenColor,
+                  ),
+                ),
               ],
             ),
             Gap(15),
@@ -83,52 +88,71 @@ class _Hospital_Step1State extends State<Hospital_Step1> {
           ],
         ),
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Gap(20),
+              MainButton(
+                buttonText: 'Next',
+                onPressed: () {
+                  pushWithReplacment(
+                    context: context,
+                    route: Routes.Hospital_Step_2,
+                  );
+                },
+                height: 45,
+                width: MediaQuery.of(context).size.width / 2 - 20,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
   Column SelectDate(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Text(
             'Date of Establishment',
-            style: AppFontStyles.getSize18(
+            style: AppFontStyles.getSize14(
               fontWeight: FontWeight.w600,
               fontColor: AppColors.primaryGreenColor,
             ),
           ),
         ),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: TextFormField(
-            onTap: () async {
-              var selectDate = await showDatePicker(
-                context: context,
-                firstDate: DateTime.now(),
-                initialDate: DateTime.now(),
-                lastDate: DateTime.now().add(Duration(days: 365 * 3)),
-              );
-              if (selectDate != null) {
-                setState(() {
-                  dateSelected.text = intl.DateFormat(
-                    "yyyy-MM-dd",
-                  ).format(selectDate);
-                });
-              }
-            },
+        TextFormField(
+          onTap: () async {
+            var selectDate = await showDatePicker(
+              context: context,
+              firstDate: DateTime.now(),
+              initialDate: DateTime.now(),
+              lastDate: DateTime.now().add(Duration(days: 365 * 3)),
+            );
+            if (selectDate != null) {
+              setState(() {
+                dateSelected.text = intl.DateFormat(
+                  "yyyy-MM-dd",
+                ).format(selectDate);
+              });
+            }
+          },
 
-            readOnly: true,
-            controller: dateSelected,
-            decoration: InputDecoration(
-              hint: Text(' Click To Select Date'),
-              filled: true, // ← تفعيل تعبئة اللون
-              fillColor: AppColors.fillTextForm, // ←
-              suffixIcon: Icon(
-                Icons.calendar_month_sharp,
-                color: AppColors.primaryGreenColor,
-              ),
+          readOnly: true,
+          controller: dateSelected,
+          decoration: InputDecoration(
+            hint: Text(' Click To Select Date'),
+            filled: true, // ← تفعيل تعبئة اللون
+            fillColor: AppColors.fillTextForm, // ←
+            suffixIcon: Icon(
+              Icons.calendar_month_sharp,
+              color: AppColors.primaryGreenColor,
             ),
           ),
         ),
@@ -170,25 +194,52 @@ class _Hospital_Step1State extends State<Hospital_Step1> {
     );
   }
 
+  Row Steps_1(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 10,
+          width: MediaQuery.of(context).size.width / 3.33,
+          decoration: BoxDecoration(
+            color: AppColors.primaryGreenColor,
+
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        Gap(3),
+        Container(
+          height: 5,
+          width: MediaQuery.of(context).size.width / 3.37,
+          decoration: BoxDecoration(
+            color: AppColors.greyColor,
+
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        Gap(3),
+        Container(
+          height: 5,
+          width: MediaQuery.of(context).size.width / 3.37,
+          decoration: BoxDecoration(
+            color: AppColors.greyColor,
+
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ],
+    );
+  }
+
   Column RadioButtomGroup() {
     return Column(
       children: [
         //Spacer(),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: RadioItem('Public Hospital', 1),
-        ),
+        RadioItem('Public Hospital', 1),
         Gap(15),
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: RadioItem('Private Hospital', 2),
-        ),
+        RadioItem('Private Hospital', 2),
         Gap(15),
 
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: RadioItem('University Hospital', 3),
-        ),
+        RadioItem('University Hospital', 3),
         Gap(15),
 
         //Spacer(),
@@ -204,6 +255,7 @@ class _Hospital_Step1State extends State<Hospital_Step1> {
           activeBorderColor: AppColors.primaryGreenColor,
           inactiveBorderColor: AppColors.greyColor,
           value: value,
+          radius: 9,
           groupValue: _groupValueGender,
           onChanged: (value) {
             setState(() {

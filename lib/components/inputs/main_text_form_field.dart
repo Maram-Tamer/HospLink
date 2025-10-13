@@ -17,6 +17,7 @@ class MainTextFormField extends StatefulWidget {
     this.colorFill,
     this.label,
     this.prefixIcon,
+    this.sufixIcon,
     this.textColor,
   });
   bool ispassword = false;
@@ -27,6 +28,7 @@ class MainTextFormField extends StatefulWidget {
   final Color? colorFill;
   final String? label;
   final String? prefixIcon;
+  final String? sufixIcon;
   final Color? textColor;
 
   @override
@@ -85,6 +87,9 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
                 ),
               )
             : null,
+
+        
+
         hint: Text(
           widget.textFormFieldText ?? "",
           style: AppFontStyles.getSize18(fontColor: AppColors.greyColor),

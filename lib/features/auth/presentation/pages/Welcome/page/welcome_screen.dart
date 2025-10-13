@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:medigo/components/ScrrenBackgroung/background.dart';
-import 'package:medigo/components/buttons/main_button.dart';
-import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/constatnts/images.dart';
-import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/pages/Welcome/widget/cart_welcom.dart';
-import 'package:medigo/main.dart';
-import '../../login/login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -160,5 +153,3 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 }
-
-

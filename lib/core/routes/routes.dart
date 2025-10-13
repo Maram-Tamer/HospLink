@@ -53,6 +53,7 @@ class Routes {
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      //GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: onBoarding_1,
@@ -69,46 +70,50 @@ class Routes {
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login_P,
-        builder: (context, state) => LoginScreen(
-          icon: AppImages.profileWelcom,
-          title: 'As Patient',
-          subTitle:
-              'You can send a request to the hospital for emergency treatment as soon as possible.',
-          route: Routes.register_P,
-          routeAfterLogin: Routes.Main_patient,
-        ),
+        builder:
+            (context, state) => LoginScreen(
+              icon: AppImages.profileWelcom,
+              title: 'As Patient',
+              subTitle:
+                  'You can send a request to the hospital for emergency treatment as soon as possible.',
+              route: Routes.register_P,
+              routeAfterLogin: Routes.Main_patient,
+            ),
       ),
       GoRoute(
         path: login_H,
-        builder: (context, state) => LoginScreen(
-          icon: AppImages.hpspitalWelcom,
-          title: 'As Hospital',
-          subTitle: 'You can receive emergency request calls.',
-          route: Routes.register_H,
-          routeAfterLogin: Routes.Main_hospital,
-        ),
+        builder:
+            (context, state) => LoginScreen(
+              icon: AppImages.hpspitalWelcom,
+              title: 'As Hospital',
+              subTitle: 'You can receive emergency request calls.',
+              route: Routes.register_H,
+              routeAfterLogin: Routes.Main_hospital,
+            ),
       ),
       GoRoute(
         path: register_P,
-        builder: (context, state) => RegesterScreen(
-          icon: AppImages.profileWelcom,
-          title: 'As Patient',
-          subTitle:
-              'You can send a request to the hospital for emergency treatment as soon as possible.',
-          routeLogin: Routes.login_P,
-          routeAfterRegister: Routes.Patient_Step_1,
-        ),
+        builder:
+            (context, state) => RegesterScreen(
+              icon: AppImages.profileWelcom,
+              title: 'As Patient',
+              subTitle:
+                  'You can send a request to the hospital for emergency treatment as soon as possible.',
+              routeLogin: Routes.login_P,
+              routeAfterRegister: Routes.Patient_Step_1,
+            ),
       ),
       GoRoute(
         path: register_H,
-        builder: (context, state) => RegesterScreen(
-          icon: AppImages.hpspitalWelcom,
-          title: 'As Hospital',
-          subTitle:
-              'You can send a request to the hospital for emergency treatment as soon as possible.',
-          routeLogin: Routes.login_H,
-          routeAfterRegister: Routes.Hospital_Step_1,
-        ),
+        builder:
+            (context, state) => RegesterScreen(
+              icon: AppImages.hpspitalWelcom,
+              title: 'As Hospital',
+              subTitle:
+                  'You can send a request to the hospital for emergency treatment as soon as possible.',
+              routeLogin: Routes.login_H,
+              routeAfterRegister: Routes.Hospital_Step_1,
+            ),
       ),
       GoRoute(
         path: Privacy,

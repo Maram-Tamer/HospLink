@@ -23,6 +23,8 @@ import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospita
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/password/change_password.dart';
+import 'package:medigo/features/profile/page/edit_profile_screen.dart';
 import 'package:medigo/features/search/page/search_screen.dart';
 import 'package:medigo/features/splash/splash_screen.dart';
 
@@ -58,6 +60,9 @@ class Routes {
   static const String UnifiledpatientData = '/unfiled-patient-data';
   static const String Notification = '/notification';
   static const String MedicalHistory = '/midecal-history';
+
+  static const String EditProfile = '/EditProfile';
+  static const String ChangePassword = '/ChangePassword';
 
   static final routes = GoRouter(
     routes: [
@@ -173,6 +178,14 @@ class Routes {
         builder: (context, state) => Main_Screen_H(),
       ),
       GoRoute(path: Main_patient, builder: (context, state) => Main_Screen_P()),
+      GoRoute(
+        path: EditProfile,
+        builder: (context, state) => EditProfileScreen(),
+      ),
+      GoRoute(
+        path: ChangePassword,
+        builder: (context, state) => ChangePasswordScreen(),
+      ),
       GoRoute(path: chat, builder: (context, state) => ChatScreen()),
     ],
   );

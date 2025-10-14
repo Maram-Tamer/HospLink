@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
-import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
+import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/DetailsSteps.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
@@ -19,6 +19,8 @@ import 'package:medigo/features/auth/presentation/pages/signup/pages/register.da
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/password/change_password.dart';
+import 'package:medigo/features/profile/page/edit_profile_screen.dart';
 import 'package:medigo/features/search/page/search_screen.dart';
 import 'package:medigo/features/splash/splash_screen.dart';
 
@@ -43,6 +45,9 @@ class Routes {
   static const String Main_patient = '/main-p';
   static const String Main_hospital = '/main-h';
   static const String Search = '/Search';
+
+  static const String EditProfile = '/EditProfile';
+  static const String ChangePassword = '/ChangePassword';
 
   static final routes = GoRouter(
     routes: [
@@ -139,6 +144,14 @@ class Routes {
         builder: (context, state) => Main_Screen_H(),
       ),
       GoRoute(path: Main_patient, builder: (context, state) => Main_Screen_P()),
+      GoRoute(
+        path: EditProfile,
+        builder: (context, state) => EditProfileScreen(),
+      ),
+      GoRoute(
+        path: ChangePassword,
+        builder: (context, state) => ChangePasswordScreen(),
+      ),
     ],
   );
 }

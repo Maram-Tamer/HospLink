@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
-      pushWithReplacment(context: context, route: Routes.OnBoarding_1);
+      pushWithReplacment(context: context, route: Routes.ChangePassword);
     });
     super.initState();
   }

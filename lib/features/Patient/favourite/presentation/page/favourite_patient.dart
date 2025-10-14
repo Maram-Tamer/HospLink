@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/ScrrenBackgroung/background.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Patient/widgets/hospital_card.dart';
+import 'package:medigo/features/Patient/home/widget/hospital_card.dart';
 
 class FavouritePatient extends StatefulWidget {
   const FavouritePatient({super.key});
@@ -13,6 +13,7 @@ class FavouritePatient extends StatefulWidget {
 
 class _FavouritePatientState extends State<FavouritePatient> {
   bool isNearest = true;
+  @override
   Widget build(BuildContext context) {
     return AppBackground(
       child: Scaffold(

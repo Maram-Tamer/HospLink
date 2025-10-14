@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
   static const primaryGreenColor = Color(0xff260b80);
 
   static const greenWithOpacity = Color(0x0fd3f4e8);
-
 
   static const cardColor = Color(0xffF5EFE1);
   static const darkColor = Color(0xff2F2F2F);
@@ -17,12 +15,13 @@ class AppColors {
   static const fillTextForm = Color(0xfff3f4f6);
   static const AppBarColor = Color(0xffcffce9);
   static const geyTextform = Color.fromARGB(205, 243, 243, 243);
-    static const BlueBouttmnavigation = Color(0xffc1e3fe);
+  static const BlueBouttmnavigation = Color(0xffc1e3fe);
   static const grey2Color = Color(0xffe5e7eb);
-    static const blueLight = Color(0xffcaf0f8);
-    static const blue2 = Color(0xff0466c8);
-      static const greyTextForm = Color(0xfff3f4f6);
-
-
+  static const blueLight = Color(0xffcaf0f8);
+  static const blue2 = Color(0xff0466c8);
+  static const greyTextForm = Color(0xfff3f4f6);
+  static const red = Colors.red;
+  static const green = Colors.green;
+    static const yellow = Colors.yellow;
 
 }

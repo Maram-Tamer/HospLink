@@ -77,7 +77,13 @@ class AppIcons {
   static const String homeMain = 'assets/icons/home_main.svg';
   static const String settingAcivMain = 'assets/icons/settingActiv_mian.svg';
   static const String favoritActivMain = 'assets/icons/favoriActiv_main.svg';
-    static const String homeActivMain = 'assets/icons/homeActiv_main.svg';
+  static const String homeActivMain = 'assets/icons/homeActiv_main.svg';
   static const String hospitalActivMain = 'assets/icons/hospitalActiv_main.svg';
+  static const String webSVG = 'assets/icons/web.svg';
+  static const String chat2SVG = 'assets/icons/Chat2.svg';
+  static const String send2SVG = 'assets/icons/send2.svg';
+  static const String completeSVG = 'assets/icons/complete.svg';
+  static const String notificationFill = 'assets/icons/NotificationFill.svg';
+  static const String notificationUnread = 'assets/icons/NotificationUnread.svg';
 
 }

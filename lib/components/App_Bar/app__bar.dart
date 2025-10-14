@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
 class App_Bar extends StatelessWidget implements PreferredSizeWidget {
-  const App_Bar({
+  App_Bar({
     super.key,
     this.title = '',
     this.leading = false,
-    //this.action = false,
-    //this.icon,
-    // this.onPress,
+    this.action = false,
+    this.icon,
+    this.onPressAction,
   });
   final String title;
   final bool leading;
-  //final bool action;
-  //final String? icon;
-  //void Function()? onPress;
+  final bool action;
+  final String? icon;
+  void Function()? onPressAction;
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +28,34 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
 
       centerTitle: true,
       leadingWidth: 75,
-      leading:
-          leading
-              ? Padding(
-                padding: const EdgeInsets.only(left: 12),
-                child: //SvgPicture.asset(App_Assets.backArrowSVG)
-                    IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: SvgPicture.asset(AppIcons.backSVG),
+      leading: leading
+          ? Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: //SvgPicture.asset(App_Assets.backArrowSVG)
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back_ios, color: AppColors.darkColor),
+              ),
+            )
+          : null,
+      actions: [
+        action
+            ? IconButton(
+                onPressed: onPressAction,
+                icon: SvgPicture.asset(
+                  icon!,
+                  height: 24,
+                  width: 24,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.primaryGreenColor,
+                    BlendMode.srcIn,
+                  ),
                 ),
               )
-              : null,
+            : const SizedBox(),
+      ],
     );
   }
 

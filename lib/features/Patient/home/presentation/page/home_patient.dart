@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/ScrrenBackgroung/background.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
+import 'package:medigo/core/constatnts/icons.dart';
+import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Patient/widgets/hospital_card.dart';
+import 'package:medigo/features/Patient/home/widget/hospital_card.dart';
 
 class HomePatient extends StatefulWidget {
   const HomePatient({super.key});
@@ -15,24 +19,20 @@ class HomePatient extends StatefulWidget {
 
 class _HomePatientState extends State<HomePatient> {
   bool isNearest = true;
+  @override
   Widget build(BuildContext context) {
-    return AppBackground(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Hospitals', style: AppFontStyles.getSize24()),
-          backgroundColor: Colors.grey.shade100,
-          centerTitle: false,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications, color: AppColors.slateGrayColor),
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [searchAndFilters(), Gap(20), hospitalsListShow()],
-          ),
+    return Scaffold(
+      appBar: App_Bar(
+        title: 'Hospitals',
+        action: true,
+        icon: AppIcons.notificationFill,
+        onPressAction: () {
+          pushTo(context: context, route: Routes.Notification);
+        },
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [searchAndFilters(), Gap(20), hospitalsListShow()],
         ),
       ),
     );
@@ -40,16 +40,38 @@ class _HomePatientState extends State<HomePatient> {
 
   Container searchAndFilters() {
     return Container(
-      color: AppColors.grey2Color.withOpacity(0.8),
+      color: AppColors.blueLight.withOpacity(0.8),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
             Gap(20),
-            MainTextFormField(
-              ispassword: false,
-              label: 'Search',
-              prefixIcon: 'assets/icons/search.svg',
+            GestureDetector(
+              onTap: () {
+                pushTo(context: context, route: Routes.Search);
+              },
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: AppColors.fillTextForm,
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: AppColors.greyColor),
+                ),
+                child: Row(
+                  children: [
+                    Gap(15),
+                    Icon(Icons.search, color: AppColors.darkGreyColor),
+                    Gap(10),
+
+                    Text(
+                      'Search for hospital',
+                      style: AppFontStyles.getSize16(
+                        fontColor: AppColors.darkGreyColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Gap(20),
             Container(
@@ -74,7 +96,7 @@ class _HomePatientState extends State<HomePatient> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isNearest = !isNearest;
+                          isNearest = true;
                         });
                       },
                       child: Text(
@@ -98,7 +120,7 @@ class _HomePatientState extends State<HomePatient> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isNearest = !isNearest;
+                          isNearest = false;
                         });
                       },
                       child: Text(
@@ -124,7 +146,7 @@ class _HomePatientState extends State<HomePatient> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ListView.separated(
-        itemCount: 5,
+        itemCount: 8,
         itemBuilder: (context, index) {
           return HospitalCard();
         },

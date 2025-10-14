@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      sha256: "108837e11848ca776c53b30bc870086f84b62ed6e01c503ed976e8f8c7df9c04"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   easy_radio:
     dependency: "direct main"
     description:
@@ -405,6 +413,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_parsing:
     dependency: transitive
     description:
@@ -590,18 +606,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "7c700778e2b390412f3a364aa38fbc010570ade19684b9d6613d17e7ca284898"
+      sha256: "3135dc6b427686cdda1546bdeab3a4a45372f5bb3d95369e007776b605f863ac"
       url: "https://pub.dev"
     source: hosted
-    version: "31.1.21"
+    version: "31.1.23"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      sha256: f4cea1c28175a858875507e30d553acfefd2465ed8954052c5a3cb32958d443a
+      sha256: a68ab02632eaa29b37d5a469839aae3f072d20e01ea7636f24216221ba19eb7c
       url: "https://pub.dev"
     source: hosted
-    version: "31.1.21"
+    version: "31.1.23"
   term_glyph:
     dependency: transitive
     description:

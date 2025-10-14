@@ -1,16 +1,14 @@
 import 'dart:io';
-import 'dart:typed_data' ;
+import 'dart:typed_data';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Patient/notification/notification_screen.dart';
 
-enum PatientType {
-  iAmPatient,
-  anotherPatient,
-}
+enum PatientType { iAmPatient, anotherPatient }
 
 class UnifiedPatientScreen extends StatefulWidget {
   const UnifiedPatientScreen({super.key});
@@ -21,15 +19,16 @@ class UnifiedPatientScreen extends StatefulWidget {
 
 class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   // Controllers
   final TextEditingController _nationalIdController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _caseDescriptionController = TextEditingController();
-  
+  final TextEditingController _caseDescriptionController =
+      TextEditingController();
+
   // State variables
   PatientType _selectedPatientType = PatientType.iAmPatient;
   String selectedGender = "Male";
@@ -40,7 +39,15 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
   final ImagePicker _picker = ImagePicker();
 
   final List<String> bloodTypes = [
-    "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"
+    "A+",
+    "A-",
+    "B+",
+    "B-",
+    "AB+",
+    "AB-",
+    "O+",
+    "O-",
+    "I Don't Know",
   ];
 
   @override
@@ -172,9 +179,11 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     if (selectedBloodType.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(_selectedPatientType == PatientType.iAmPatient 
-              ? 'Please select your blood type' 
-              : 'Please select blood type'),
+          content: Text(
+            _selectedPatientType == PatientType.iAmPatient
+                ? 'Please select your blood type'
+                : 'Please select blood type',
+          ),
           backgroundColor: Colors.red,
         ),
       );
@@ -194,9 +203,11 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(_selectedPatientType == PatientType.iAmPatient 
-            ? 'Your application has been submitted successfully!' 
-            : 'Patient data has been submitted successfully!'),
+        content: Text(
+          _selectedPatientType == PatientType.iAmPatient
+              ? 'Your application has been submitted successfully!'
+              : 'Patient data has been submitted successfully!',
+        ),
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
       ),
@@ -208,27 +219,14 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.fillTextForm,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.blueLight,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: AppColors.darkColor),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications, color: AppColors.darkColor),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationScreen(),
-                ),
-              );
-            },
-          ),
-        ],
+
         title: Text(
           "Patient Data",
           style: AppFontStyles.getSize18(
@@ -238,52 +236,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
           ),
         ),
         centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: AppColors.fillTextForm,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: AppColors.greyColor.withOpacity(0.3),
-              ),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<PatientType>(
-                value: _selectedPatientType,
-                isExpanded: true,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                icon: Icon(
-                  Icons.keyboard_arrow_down,
-                  color: AppColors.greyColor,
-                ),
-                style: AppFontStyles.getSize16(
-                  fontSize: 16,
-                  fontColor: AppColors.darkColor,
-                  fontWeight: FontWeight.w500,
-                ),
-                items: [
-                  DropdownMenuItem(
-                    value: PatientType.iAmPatient,
-                    child: Text("I am the patient"),
-                  ),
-                  DropdownMenuItem(
-                    value: PatientType.anotherPatient,
-                    child: Text("Another patient"),
-                  ),
-                ],
-                onChanged: (PatientType? newValue) {
-                  if (newValue != null) {
-                    setState(() {
-                      _selectedPatientType = newValue;
-                    });
-                  }
-                },
-              ),
-            ),
-          ),
-        ),
+        bottom: choosPatient(),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -408,7 +361,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                   controller: _caseDescriptionController,
                   hintText: "Write a detailed description of the case",
                   maxLines: 4,
-                  validator: (value) => _validateRequired(value, "Case Description"),
+                  validator: (value) =>
+                      _validateRequired(value, "Case Description"),
                 ),
                 const SizedBox(height: 16),
 
@@ -456,6 +410,50 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     );
   }
 
+  PreferredSize choosPatient() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(60),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.fillTextForm,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: AppColors.greyColor.withOpacity(0.3)),
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<PatientType>(
+            value: _selectedPatientType,
+            isExpanded: true,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            icon: Icon(Icons.keyboard_arrow_down, color: AppColors.greyColor),
+            style: AppFontStyles.getSize16(
+              fontSize: 16,
+              fontColor: AppColors.darkColor,
+              fontWeight: FontWeight.w500,
+            ),
+            items: [
+              DropdownMenuItem(
+                value: PatientType.iAmPatient,
+                child: Text("I am the patient"),
+              ),
+              DropdownMenuItem(
+                value: PatientType.anotherPatient,
+                child: Text("Another patient"),
+              ),
+            ],
+            onChanged: (PatientType? newValue) {
+              if (newValue != null) {
+                setState(() {
+                  _selectedPatientType = newValue;
+                });
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildTextField({
     required String label,
     required TextEditingController controller,
@@ -476,37 +474,14 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(
+
+        MainTextFormField(
+          label: hintText,
+          ispassword: false,
           controller: controller,
-          keyboardType: keyboardType,
-          maxLines: maxLines,
+          maxTextLines: maxLines,
           validator: validator,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: AppFontStyles.getSize14(
-              fontSize: 14,
-              fontColor: AppColors.greyColor,
-              fontWeight: FontWeight.w400,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.fillTextForm),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.fillTextForm),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: AppColors.primaryGreenColor),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.red),
-            ),
-            filled: true,
-            fillColor: AppColors.fillTextForm,
-          ),
+          keyboardType: keyboardType,
         ),
       ],
     );
@@ -526,7 +501,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: selectedBloodType.isEmpty ? null : selectedBloodType,
+          initialValue: selectedBloodType.isEmpty ? null : selectedBloodType,
           decoration: InputDecoration(
             hintText: "Select blood type",
             hintStyle: AppFontStyles.getSize14(
@@ -583,63 +558,62 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
           onTap: () {
             _showImageSourceDialog();
           },
-          child: Container(
-            width: double.infinity,
-            height: 120,
-            decoration: BoxDecoration(
-              color: AppColors.fillTextForm,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: AppColors.greyColor.withOpacity(0.3),
-                style: BorderStyle.solid,
-                width: 1,
-              ),
-            ),
-            child: (selectedImage != null || selectedImageBytes != null)
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: kIsWeb
-                        ? Image.memory(
-                            selectedImageBytes!,
-                            width: double.infinity,
-                            height: 120,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            selectedImage!,
-                            width: double.infinity,
-                            height: 120,
-                            fit: BoxFit.cover,
+          child: DottedBorder(
+            color: AppColors.greyColor,
+            strokeWidth: 1,
+            dashPattern: [5, 3],
+            borderType: BorderType.RRect,
+            radius: Radius.circular(8),
+            child: Container(
+              width: double.infinity,
+              height: 120,
+              decoration: BoxDecoration(color: AppColors.fillTextForm),
+              child: (selectedImage != null || selectedImageBytes != null)
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: kIsWeb
+                          ? Image.memory(
+                              selectedImageBytes!,
+                              width: double.infinity,
+                              height: 120,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              selectedImage!,
+                              width: double.infinity,
+                              height: 120,
+                              fit: BoxFit.cover,
+                            ),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.cloud_upload_outlined,
+                          size: 32,
+                          color: AppColors.greyColor.withOpacity(0.6),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "Tap to upload image",
+                          style: AppFontStyles.getSize14(
+                            fontSize: 14,
+                            fontColor: AppColors.greyColor,
+                            fontWeight: FontWeight.w400,
                           ),
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.cloud_upload_outlined,
-                        size: 32,
-                        color: AppColors.greyColor.withOpacity(0.6),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Tap to upload image",
-                        style: AppFontStyles.getSize14(
-                          fontSize: 14,
-                          fontColor: AppColors.greyColor,
-                          fontWeight: FontWeight.w400,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        "PNG, JPG, GIF up to 10MB",
-                        style: AppFontStyles.getSize14(
-                          fontSize: 12,
-                          fontColor: AppColors.greyColor.withOpacity(0.7),
-                          fontWeight: FontWeight.w400,
+                        const SizedBox(height: 4),
+                        Text(
+                          "PNG, JPG, GIF up to 10MB",
+                          style: AppFontStyles.getSize14(
+                            fontSize: 12,
+                            fontColor: AppColors.greyColor.withOpacity(0.7),
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+            ),
           ),
         ),
         if (selectedImage != null || selectedImageBytes != null) ...[
@@ -679,7 +653,10 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 12,
+                  ),
                 ),
               ),
             ],

@@ -2,6 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
+import 'package:medigo/features/Patient/notification/page/notification_screen.dart';
+import 'package:medigo/features/Patient/patient_data/page/unified_patient_screen.dart';
+import 'package:medigo/features/Patient/setting/page/hospital_history.dart' show HospitalHistory;
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
@@ -16,6 +19,7 @@ import 'package:medigo/features/auth/presentation/pages/forget_password/pages/re
 import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy_policy_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
 import 'package:medigo/features/chat/chatScreen.dart';
+import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
@@ -50,11 +54,26 @@ class Routes {
   static const String Main_hospital = '/main-h';
   static const String chat = '/chat';
   static const String Search = '/Search';
+  static const String HospitalDetails = '/hospital-details';
+  static const String UnifiledpatientData = '/unfiled-patient-data';
+  static const String Notification = '/notification';
+  static const String MedicalHistory = '/midecal-history';
+
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       //GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(path: Search, builder: (context, state) => SearchScreen()),
+            GoRoute(path: Notification, builder: (context, state) => NotificationScreen()),
+            GoRoute(path: MedicalHistory, builder: (context, state) => HospitalHistory()),
+
+      GoRoute(
+        path: HospitalDetails,
+          
+        builder: (context, state) => HospitalDetailsScreen(isAccepted: state.extra as bool ,),
+      ),
+      GoRoute(path: UnifiledpatientData, builder: (context, state) => UnifiedPatientScreen()),
+
       GoRoute(
         path: onBoarding_1,
         builder: (context, state) => FirstOnboardingScreen(),
@@ -70,50 +89,46 @@ class Routes {
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login_P,
-        builder:
-            (context, state) => LoginScreen(
-              icon: AppImages.profileWelcom,
-              title: 'As Patient',
-              subTitle:
-                  'You can send a request to the hospital for emergency treatment as soon as possible.',
-              route: Routes.register_P,
-              routeAfterLogin: Routes.Main_patient,
-            ),
+        builder: (context, state) => LoginScreen(
+          icon: AppImages.profileWelcom,
+          title: 'As Patient',
+          subTitle:
+              'You can send a request to the hospital for emergency treatment as soon as possible.',
+          route: Routes.register_P,
+          routeAfterLogin: Routes.Main_patient,
+        ),
       ),
       GoRoute(
         path: login_H,
-        builder:
-            (context, state) => LoginScreen(
-              icon: AppImages.hpspitalWelcom,
-              title: 'As Hospital',
-              subTitle: 'You can receive emergency request calls.',
-              route: Routes.register_H,
-              routeAfterLogin: Routes.Main_hospital,
-            ),
+        builder: (context, state) => LoginScreen(
+          icon: AppImages.hpspitalWelcom,
+          title: 'As Hospital',
+          subTitle: 'You can receive emergency request calls.',
+          route: Routes.register_H,
+          routeAfterLogin: Routes.Main_hospital,
+        ),
       ),
       GoRoute(
         path: register_P,
-        builder:
-            (context, state) => RegesterScreen(
-              icon: AppImages.profileWelcom,
-              title: 'As Patient',
-              subTitle:
-                  'You can send a request to the hospital for emergency treatment as soon as possible.',
-              routeLogin: Routes.login_P,
-              routeAfterRegister: Routes.Patient_Step_1,
-            ),
+        builder: (context, state) => RegesterScreen(
+          icon: AppImages.profileWelcom,
+          title: 'As Patient',
+          subTitle:
+              'You can send a request to the hospital for emergency treatment as soon as possible.',
+          routeLogin: Routes.login_P,
+          routeAfterRegister: Routes.Patient_Step_1,
+        ),
       ),
       GoRoute(
         path: register_H,
-        builder:
-            (context, state) => RegesterScreen(
-              icon: AppImages.hpspitalWelcom,
-              title: 'As Hospital',
-              subTitle:
-                  'You can send a request to the hospital for emergency treatment as soon as possible.',
-              routeLogin: Routes.login_H,
-              routeAfterRegister: Routes.Hospital_Step_1,
-            ),
+        builder: (context, state) => RegesterScreen(
+          icon: AppImages.hpspitalWelcom,
+          title: 'As Hospital',
+          subTitle:
+              'You can send a request to the hospital for emergency treatment as soon as possible.',
+          routeLogin: Routes.login_H,
+          routeAfterRegister: Routes.Hospital_Step_1,
+        ),
       ),
       GoRoute(
         path: Privacy,

@@ -19,6 +19,7 @@ class MainTextFormField extends StatefulWidget {
     this.prefixIcon,
     this.sufixIcon,
     this.textColor,
+    this.keyboardType
   });
   bool ispassword = false;
   String? Function(String?)? validator;
@@ -30,6 +31,8 @@ class MainTextFormField extends StatefulWidget {
   final String? prefixIcon;
   final String? sufixIcon;
   final Color? textColor;
+    final TextInputType? keyboardType;
+
 
   @override
   State<MainTextFormField> createState() => _MainTextFormFieldState();

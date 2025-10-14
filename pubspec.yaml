@@ -22,6 +22,7 @@ dependencies:
   device_preview: ^1.2.0
   roundcheckbox: ^2.0.5
   image_picker: ^1.1.0
+  dotted_border: ^2.1.0
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/colors.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/widgets/settings_items.dart';
+import 'package:medigo/features/Patient/setting/widget/settings_items.dart';
 
 class SettingsGroup extends StatelessWidget {
   final List<SettingsItem> items;
@@ -29,7 +29,7 @@ class SettingsGroup extends StatelessWidget {
             children: [
               item,
               if (index != items.length - 1)
-                const Divider(height: 1, color: Color(0xFFEFEFEF)),
+                const Divider(height: 1, color: AppColors.whiteColor),
             ],
           );
         }),

@@ -39,10 +39,15 @@ class _SettingsItemState extends State<SettingsItem> {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: widget.onPressed,
-      leading: CircleAvatar(
-        radius: 18,
-        backgroundColor: widget.iconColor.withValues(alpha: .15),
-        child: Icon(widget.icon, color: widget.iconColor),
+      leading: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: widget.iconColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(widget.icon, color: AppColors.whiteColor, size: 20),
+        ),
       ),
       title: Text(
         widget.title,

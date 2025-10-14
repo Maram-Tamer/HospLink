@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/theme.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/settings.dart';
 
 void main() {
   runApp(const MainApp());
@@ -17,15 +17,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp.router(
-    //   routerConfig: Routes.routes,
-    //   theme: AppTheme.lightTheme,
-    //   debugShowCheckedModeBanner: false,
-    // );
-    return MaterialApp(
-      home: SettingsScreen(),
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-    );
+     return MaterialApp.router(
+       routerConfig: Routes.routes,
+       theme: AppTheme.lightTheme,
+       debugShowCheckedModeBanner: false,
+     );
+    
   }
 }

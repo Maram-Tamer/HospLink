@@ -2,10 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
+import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/widgets/settings_group.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/widgets/settings_items.dart';
+import 'package:medigo/features/Patient/setting/widget/settings_group.dart';
+import 'package:medigo/features/Patient/setting/widget/settings_items.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -13,16 +16,18 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text("Settings")),
+      appBar: App_Bar(title: "Settings"),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
+            Gap(20),
             Text(
               "Account",
               style: AppFontStyles.getSize18(
-                fontColor: AppColors.darkGreyColor,
+                fontColor: AppColors.blackColor,
                 fontSize: 20,
+                fontWeight: FontWeight.w500,
               ),
             ),
             const Gap(10),
@@ -38,7 +43,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.medical_information,
                   iconColor: Colors.red,
                   title: "Medical History",
-                  onPressed: () => log("Medical History tapped"),
+                  onPressed: () => pushTo(context: context, route: Routes.MedicalHistory),
                 ),
                 SettingsItem(
                   icon: Icons.lock,
@@ -54,6 +59,7 @@ class SettingsScreen extends StatelessWidget {
               style: AppFontStyles.getSize18(
                 fontColor: AppColors.darkGreyColor,
                 fontSize: 20,
+                fontWeight: FontWeight.w500,
               ),
             ),
             const Gap(10),
@@ -92,17 +98,20 @@ class SettingsScreen extends StatelessWidget {
                   title: "Sent FeadBack",
                   onPressed: () => log("Send Feedback tapped"),
                 ),
+                SettingsItem(
+                  icon: Icons.info_outline,
+                  iconColor: Colors.lightBlueAccent,
+                  title: "About Us",
+                  onPressed: () => log("Send Feedback tapped"),
+                ),
+                SettingsItem(
+                  icon: Icons.logout,
+                  iconColor: AppColors.red,
+                  title: "Logout",
+                  onPressed: () => pushAndRemoveUntil(context: context, route: Routes.welcom),
+                ),
               ],
             ),
-            //  Gap(10),
-
-            // Padding(
-            //   padding: EdgeInsets.symmetric(vertical: 10),
-            //   child: MainButton(
-            //     buttonText: "Logout",
-            //     onPressed: () => log("Logout tapped"),
-            //   ),
-            // ),
           ],
         ),
       ),

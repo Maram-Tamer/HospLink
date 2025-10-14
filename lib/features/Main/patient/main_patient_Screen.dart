@@ -4,6 +4,8 @@ import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Patient/favourite/presentation/page/favourite_patient.dart';
 import 'package:medigo/features/Patient/home/presentation/page/home_patient.dart';
+import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
+import 'package:medigo/features/Patient/setting/page/settings.dart';
 
 class Main_Screen_P extends StatefulWidget {
   const Main_Screen_P({super.key, this.initialIndex});
@@ -30,14 +32,13 @@ class _Main_ScreenState extends State<Main_Screen_P> {
   List<Widget> screens = [
     HomePatient(),
     FavouritePatient(),
-    HomePatient(),
-    HomePatient(),
-    HomePatient(),
+    HospitalDetailsScreen(isAccepted: true,),
+    SettingsScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.BlueBouttmnavigation,
+      backgroundColor: AppColors.blueLight,
       body: screens[currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -62,13 +63,13 @@ class _Main_ScreenState extends State<Main_Screen_P> {
       items: [
         BottomNavigationBarItem(
           icon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(AppIcons.homeMain),
           ),
           activeIcon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(
               AppIcons.homeActivMain,
               colorFilter: ColorFilter.mode(
@@ -81,13 +82,13 @@ class _Main_ScreenState extends State<Main_Screen_P> {
         ),
         BottomNavigationBarItem(
           icon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(AppIcons.favoritMain),
           ),
           activeIcon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(
               AppIcons.favoritActivMain,
               colorFilter: ColorFilter.mode(
@@ -101,13 +102,13 @@ class _Main_ScreenState extends State<Main_Screen_P> {
         ),
         BottomNavigationBarItem(
           icon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(AppIcons.hospitalMain),
           ),
           activeIcon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(
               AppIcons.hospitalActivMain,
               colorFilter: ColorFilter.mode(
@@ -120,13 +121,13 @@ class _Main_ScreenState extends State<Main_Screen_P> {
         ),
         BottomNavigationBarItem(
           icon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(AppIcons.settingMain),
           ),
           activeIcon: SizedBox(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             child: SvgPicture.asset(
               AppIcons.settingAcivMain,
               colorFilter: ColorFilter.mode(

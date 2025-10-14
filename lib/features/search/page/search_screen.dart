@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/utils/colors.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -63,7 +64,7 @@ class SearchScreen extends StatelessWidget {
                   onPressed: () {
                     print('Clear clicked');
                   },
-                  child: Text('Clear', style: TextStyle(color: Colors.blue)),
+                  child: Text('Clear', style: TextStyle(color: AppColors.whiteColor)),
                 ),
               ],
             ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
+import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/widgets/star_rating.dart';
 
 class HospitalHistory extends StatefulWidget {
   const HospitalHistory({super.key});
@@ -12,17 +13,10 @@ class HospitalHistory extends StatefulWidget {
 }
 
 class _HospitalHistoryState extends State<HospitalHistory> {
-  final List<int> ratings = List.filled(3, 0);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Hospital History'),
-        elevation: 10,
-        shadowColor: AppColors.darkGreyColor.withValues(alpha: .3),
-      ),
+      appBar: App_Bar(title: 'Hospital History', leading: true),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView.separated(
@@ -35,15 +29,20 @@ class _HospitalHistoryState extends State<HospitalHistory> {
               ),
               child: Row(
                 children: [
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppColors.blackColor,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        AppImages.hospitalPhoto2,
+
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    width: 100,
-                    height: 100,
                   ),
+
                   Gap(10),
                   Expanded(
                     child: Column(
@@ -57,13 +56,32 @@ class _HospitalHistoryState extends State<HospitalHistory> {
                           style: AppFontStyles.getSize16(),
                         ),
                         const Gap(8),
-                        StarRating(
-                          rating: ratings[index],
-                          onRatingChanged: (newRating) {
-                            setState(() {
-                              ratings[index] = newRating;
-                            });
-                          },
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: AppColors.yellow, size: 20),
+                            Gap(8),
+                            Text(
+                              "4.8",
+                              style: AppFontStyles.getSize14(
+                                fontColor: AppColors.darkColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Gap(20),
+                            Icon(
+                              Icons.date_range,
+                              color: AppColors.blue2,
+                              size: 20,
+                            ),
+                            Gap(8),
+                            Text(
+                              "10/1/2025",
+                              style: AppFontStyles.getSize14(
+                                fontColor: AppColors.darkColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -75,7 +93,7 @@ class _HospitalHistoryState extends State<HospitalHistory> {
           separatorBuilder: (context, index) {
             return Gap(10);
           },
-          itemCount: 3,
+          itemCount: 9,
         ),
       ),
     );

@@ -23,8 +23,13 @@ class ChatScreen extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.arrow_back_sharp),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_sharp,
+                        color: AppColors.BlueBouttmnavigation,
+                      ),
                     ),
                     CircleAvatar(
                       radius: 20,

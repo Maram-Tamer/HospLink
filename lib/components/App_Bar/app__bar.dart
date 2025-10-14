@@ -11,8 +11,13 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
     this.action = false,
     this.icon,
     this.onPressAction,
+    this.color = AppColors.blueLight,
+    this.colorIconBack = AppColors.darkColor,
   });
   final String title;
+  final Color color;
+  final Color colorIconBack;
+
   final bool leading;
   final bool action;
   final String? icon;
@@ -23,7 +28,7 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
-      backgroundColor: AppColors.blueLight,
+      backgroundColor: color,
       title: Text(title, style: AppFontStyles.getSize24()),
 
       centerTitle: true,
@@ -36,7 +41,7 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back_ios, color: AppColors.darkColor),
+                icon: Icon(Icons.arrow_back_ios, color: colorIconBack),
               ),
             )
           : null,

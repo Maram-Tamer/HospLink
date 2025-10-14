@@ -157,7 +157,7 @@ Row Steps_2(BuildContext context) {
     children: [
       Container(
         height: 5,
-        width: MediaQuery.of(context).size.width / 3.33,
+        width: MediaQuery.of(context).size.width / 3.5,
         decoration: BoxDecoration(
           color: AppColors.primaryGreenColor,
 

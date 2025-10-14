@@ -8,10 +8,12 @@ class HospitalDetailsTile extends StatelessWidget {
   const HospitalDetailsTile({
     super.key,
     required this.text,
-     required this.icon,
+    required this.icon,
+    this.color = AppColors.primaryGreenColor,
   });
   final String text;
-   final String icon;
+  final String icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class HospitalDetailsTile extends StatelessWidget {
         SvgPicture.asset(
           icon,
           colorFilter: ColorFilter.mode(
-            AppColors.primaryGreenColor,
+            color,
             BlendMode.srcIn,
           ),
           height: 25,

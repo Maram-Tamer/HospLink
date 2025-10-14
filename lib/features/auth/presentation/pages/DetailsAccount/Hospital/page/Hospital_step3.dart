@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/svg.dart';
@@ -97,7 +98,7 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
               textDirection: TextDirection.ltr,
 
               child: Text(
-                "Upload the official document from the hospital.", // النص اللي فوق
+                "Upload the official document from the hospital.",
                 style: AppFontStyles.getSize16(
                   fontColor: AppColors.primaryGreenColor,
                   fontWeight: FontWeight.w600,
@@ -106,40 +107,86 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
             ),
             Gap(10),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GestureDetector(
-                onTap: () {},
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 140,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.fillTextForm,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColors.primaryGreenColor),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DottedBorder(
+                color: AppColors.greyColor,
+                strokeWidth: 1,
+                dashPattern: [5, 3],
+                borderType: BorderType.RRect,
+                radius: Radius.circular(8),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 140,
+                    child: Container(
+                      decoration: BoxDecoration(color: AppColors.fillTextForm),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "click to select file",
+                            style: AppFontStyles.getSize16(
+                              fontColor: AppColors.darkGreyColor,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SvgPicture.asset(
+                            AppIcons.fileSVG,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.contain,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.darkGreyColor,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center, // توسيط عمودي
-                      children: [
-                        Text(
-                          "click to select file", // النص اللي فوق
-                          style: AppFontStyles.getSize16(
-                            fontColor: AppColors.darkGreyColor,
+                  ),
+                ),
+              ),
+            ),
+            Gap(20),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DottedBorder(
+                color: AppColors.greyColor,
+                strokeWidth: 1,
+                dashPattern: [5, 3],
+                borderType: BorderType.RRect,
+                radius: Radius.circular(8),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 100,
+                    child: Container(
+                      decoration: BoxDecoration(color: AppColors.fillTextForm),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "click to set Location",
+                            style: AppFontStyles.getSize16(
+                              fontColor: AppColors.darkGreyColor,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 10), // مسافة بين النص والأيقونة
-                        SvgPicture.asset(
-                          AppIcons.fileSVG,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.contain,
-                          colorFilter: ColorFilter.mode(
-                            AppColors.darkGreyColor,
-                            BlendMode.srcIn,
+                          const SizedBox(height: 10),
+                          SvgPicture.asset(
+                            AppIcons.locationLine_SVG,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.contain,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.darkGreyColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -189,7 +236,7 @@ Row steps_3(BuildContext context) {
     children: [
       Container(
         height: 5,
-        width: MediaQuery.of(context).size.width / 3.33,
+        width: MediaQuery.of(context).size.width / 3.5,
         decoration: BoxDecoration(
           color: AppColors.primaryGreenColor,
 

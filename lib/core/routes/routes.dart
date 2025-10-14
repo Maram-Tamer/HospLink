@@ -4,7 +4,8 @@ import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Patient/notification/page/notification_screen.dart';
 import 'package:medigo/features/Patient/patient_data/page/unified_patient_screen.dart';
-import 'package:medigo/features/Patient/setting/page/hospital_history.dart' show HospitalHistory;
+import 'package:medigo/features/Patient/setting/page/hospital_history.dart'
+    show HospitalHistory;
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
@@ -18,14 +19,14 @@ import 'package:medigo/features/auth/presentation/pages/forget_password/pages/ot
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/reset_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy_policy_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
-import 'package:medigo/features/chat/chatScreen.dart';
+import 'package:medigo/features/Patient/chat/chatScreen.dart';
 import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
 import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
 import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
-import 'package:medigo/features/password/change_password.dart';
-import 'package:medigo/features/profile/page/edit_profile_screen.dart';
-import 'package:medigo/features/search/page/search_screen.dart';
+import 'package:medigo/features/Patient/setting/page/change_password.dart';
+import 'package:medigo/features/Patient/setting/page/edit_profile_screen.dart';
+import 'package:medigo/features/Patient/search/search_screen.dart';
 import 'package:medigo/features/splash/splash_screen.dart';
 
 class Routes {
@@ -69,15 +70,25 @@ class Routes {
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       //GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(path: Search, builder: (context, state) => SearchScreen()),
-            GoRoute(path: Notification, builder: (context, state) => NotificationScreen()),
-            GoRoute(path: MedicalHistory, builder: (context, state) => HospitalHistory()),
+      GoRoute(
+        path: Notification,
+        builder: (context, state) => NotificationScreen(),
+      ),
+      GoRoute(
+        path: MedicalHistory,
+        builder: (context, state) => HospitalHistory(),
+      ),
 
       GoRoute(
         path: HospitalDetails,
-          
-        builder: (context, state) => HospitalDetailsScreen(isAccepted: state.extra as bool ,),
+
+        builder: (context, state) =>
+            HospitalDetailsScreen(isAccepted: state.extra as bool),
       ),
-      GoRoute(path: UnifiledpatientData, builder: (context, state) => UnifiedPatientScreen()),
+      GoRoute(
+        path: UnifiledpatientData,
+        builder: (context, state) => UnifiedPatientScreen(),
+      ),
 
       GoRoute(
         path: onBoarding_1,

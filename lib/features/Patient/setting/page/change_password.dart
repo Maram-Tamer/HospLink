@@ -38,7 +38,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         child: Column(
           children: [
             Container(
-              color: AppColors.primaryGreenColor,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(25),
+                  bottomRight: Radius.circular(25),
+                ),
+                color: AppColors.primaryGreenColor,
+              ),
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 25),
               child: Column(

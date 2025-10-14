@@ -37,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.person,
                   iconColor: Colors.green,
                   title: "Edit Profile",
-                  onPressed: () => log("Edit Profile tapped"),
+                  onPressed: () => pushTo(context: context, route: Routes.EditProfile),
                 ),
                 SettingsItem(
                   icon: Icons.medical_information,
@@ -49,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.lock,
                   iconColor: Colors.blue,
                   title: "Change Password",
-                  onPressed: () => log("Change Password tapped"),
+                  onPressed: () => pushTo(context: context, route: Routes.ChangePassword),
                 ),
               ],
             ),

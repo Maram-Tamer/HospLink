@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/images.dart';
@@ -37,6 +38,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: App_Bar(
+        leading: true,
+        color: AppColors.primaryGreenColor,
+        colorIconBack: AppColors.whiteColor,
+      ),
       resizeToAvoidBottomInset: true,
       body: Form(
         key: _formKey,

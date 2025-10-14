@@ -84,6 +84,15 @@ class AppIcons {
   static const String send2SVG = 'assets/icons/send2.svg';
   static const String completeSVG = 'assets/icons/complete.svg';
   static const String notificationFill = 'assets/icons/NotificationFill.svg';
-  static const String notificationUnread = 'assets/icons/NotificationUnread.svg';
+  static const String notificationUnread =
+      'assets/icons/NotificationUnread.svg';
 
+  static const String camera2SVG = 'assets/icons/Camera2.svg';
+  static const String edit2SVG = 'assets/icons/edit2.svg';
+  static const String lockSVG = 'assets/icons/lock.svg';
+  static const String connectSVG = 'assets/icons/connect.svg';
+  static const String callFillSVG = 'assets/icons/callFill.svg';
+  static const String infoSVG = 'assets/icons/info.svg';
+  static const String starSVG = 'assets/icons/star.svg';
+  static const String logOutSVG = 'assets/icons/logout.svg';
 }

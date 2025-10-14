@@ -122,6 +122,7 @@ class Patient_Step2 extends StatelessWidget {
 
               MainTextFormField(
                 prefixIcon: AppIcons.callSVG,
+               // sufixIcon: AppIcons.connectSVG,
 
                 label: 'Phone',
                 ispassword: false,
@@ -175,7 +176,7 @@ class Patient_Step2 extends StatelessWidget {
       children: [
         Container(
           height: 5,
-          width: MediaQuery.of(context).size.width / 3.33,
+          width: MediaQuery.of(context).size.width / 3.5,
           decoration: BoxDecoration(
             color: AppColors.primaryGreenColor,
 

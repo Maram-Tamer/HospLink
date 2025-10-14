@@ -106,7 +106,7 @@ class PatientStep1State extends State<PatientStep1> {
       children: [
         Container(
           height: 10,
-          width: MediaQuery.of(context).size.width / 3.33,
+          width: MediaQuery.of(context).size.width / 3.5,
           decoration: BoxDecoration(
             color: AppColors.primaryGreenColor,
 

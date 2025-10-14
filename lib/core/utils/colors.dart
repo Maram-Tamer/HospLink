@@ -22,6 +22,5 @@ class AppColors {
   static const greyTextForm = Color(0xfff3f4f6);
   static const red = Colors.red;
   static const green = Colors.green;
-    static const yellow = Colors.yellow;
-
+  static const yellow = Color.fromARGB(255, 241, 219, 24);
 }

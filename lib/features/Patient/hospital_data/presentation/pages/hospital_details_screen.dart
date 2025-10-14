@@ -23,7 +23,7 @@ class HospitalDetailsScreen extends StatefulWidget {
 
 class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
   final List<int> ratings = List.filled(3, 0);
- int currentRating = 0;
+  int currentRating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
               // Rating and cases
               Row(
                 children: [
-                  Icon(Icons.star, color: AppColors.primaryGreenColor),
+                  Icon(Icons.star, color: AppColors.yellow),
                   Text(
                     "4.8",
                     style: AppFontStyles.getSize16(
@@ -140,6 +140,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
               HospitalDetailsTile(
                 text: "20 El Marghani St, Cairo",
                 icon: AppIcons.locationSVG,
+                color: AppColors.red,
               ),
               const Gap(10),
               HospitalDetailsTile(
@@ -154,7 +155,8 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
               const Gap(10),
               HospitalDetailsTile(
                 text: "+20 105645454",
-                icon: AppIcons.callSVG,
+                icon: AppIcons.callFillSVG,
+                color: AppColors.green,
               ),
               const Gap(20),
 
@@ -185,9 +187,9 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
       ),
       builder: (context) {
         return StatefulBuilder(
-          builder: (context, setState) =>
-           Directionality(
-            textDirection: TextDirection.ltr, // or rtl if you want Arabic layout
+          builder: (context, setState) => Directionality(
+            textDirection:
+                TextDirection.ltr, // or rtl if you want Arabic layout
             child: Padding(
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -216,7 +218,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                     ],
                   ),
                   const Gap(10),
-          
+
                   Text(
                     "Share your experience",
                     style: AppFontStyles.getSize16(
@@ -224,14 +226,16 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                     ),
                   ),
                   const Gap(10),
-          
+
                   // Comment field
                   TextFormField(
                     controller: commentController,
                     maxLines: 4,
                     decoration: InputDecoration(
                       hintText: "Write your review here...",
-                      hintStyle: AppFontStyles.getSize14(fontColor: Colors.grey),
+                      hintStyle: AppFontStyles.getSize14(
+                        fontColor: Colors.grey,
+                      ),
                       filled: true,
                       fillColor: const Color(0xfff5f5f5),
                       border: OutlineInputBorder(
@@ -255,7 +259,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                     ],
                   ),
                   const Gap(20),
-          
+
                   // Submit button
                   SizedBox(
                     width: double.infinity,

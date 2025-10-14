@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';
-import 'package:medigo/features/Hospital/presentation/page/home.dart';
+import 'package:medigo/features/Patient/favourite/presentation/page/favourite_patient.dart';
+import 'package:medigo/features/Patient/home/presentation/page/home_patient.dart';
 
 class Main_Screen_P extends StatefulWidget {
   const Main_Screen_P({super.key, this.initialIndex});
@@ -26,7 +27,13 @@ class _Main_ScreenState extends State<Main_Screen_P> {
     currentIndex = widget.initialIndex ?? currentIndex;
   }
 
-  List<Widget> screens = [Home_H(), Home_H(), Home_H(), Home_H(), Home_H()];
+  List<Widget> screens = [
+    HomePatient(),
+    FavouritePatient(),
+    HomePatient(),
+    HomePatient(),
+    HomePatient(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +97,7 @@ class _Main_ScreenState extends State<Main_Screen_P> {
             ),
           ),
 
-          label: 'Favorit',
+          label: 'Favourite',
         ),
         BottomNavigationBarItem(
           icon: SizedBox(

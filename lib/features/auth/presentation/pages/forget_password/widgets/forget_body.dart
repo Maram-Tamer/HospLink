@@ -30,16 +30,13 @@ class ForgetBody extends StatelessWidget {
               "Enter your email for the verification proccesss,we will send 4 digits code to your email.",
             ),
             Gap(45),
-            MainTextFormField(
-              ispassword: false,
-              label: "Email",
-            ),
+            MainTextFormField(ispassword: false, label: "Email"),
             Gap(80),
             Center(
               child: MainButton(
                 buttonText: "Continue",
                 onPressed: () {
-                  pushWithReplacment(context: context, route: Routes.OTP);
+                  pushWithReplacment(context: context, route: Routes.oTP);
                 },
                 width: 295,
               ),

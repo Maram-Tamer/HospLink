@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:group_button/group_button.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
+import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/constatnts/icons.dart';
+import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
@@ -16,6 +20,7 @@ class Patient_Step3 extends StatefulWidget {
 
 class _Patient_Step3State extends State<Patient_Step3> {
   int? _groupValue = 1;
+
   final controller = GroupButtonController();
   final List<String> chronicDiseases = [
     "Diabetes",
@@ -39,25 +44,18 @@ class _Patient_Step3State extends State<Patient_Step3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: App_Bar(title: 'Step 3 of 3'),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            steps_3(context),
+            Gap(50),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text(
-                    'Determine your blood type.',
-                    style: AppFontStyles.getSize16(
-                      fontWeight: FontWeight.w600,
-                      fontColor: AppColors.primaryGreenColor,
-                    ),
-                  ),
-                ),
-                Gap(5),
                 SizedBox(
                   width: 20,
                   height: 20,
@@ -67,6 +65,15 @@ class _Patient_Step3State extends State<Patient_Step3> {
                       AppColors.primaryGreenColor,
                       BlendMode.srcIn,
                     ),
+                  ),
+                ),
+                Gap(5),
+
+                Text(
+                  'Determine your blood type.',
+                  style: AppFontStyles.getSize16(
+                    fontWeight: FontWeight.w600,
+                    fontColor: AppColors.primaryGreenColor,
                   ),
                 ),
               ],
@@ -80,7 +87,7 @@ class _Patient_Step3State extends State<Patient_Step3> {
                 spacing: 10,
                 runSpacing: 10,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                selectedColor: Colors.green, // لون عند التحديد
+                selectedColor: AppColors.primaryGreenColor, // لون عند التحديد
                 unselectedColor: Colors.white,
                 selectedTextStyle: TextStyle(color: Colors.white),
                 unselectedTextStyle: TextStyle(color: Colors.black),
@@ -89,25 +96,23 @@ class _Patient_Step3State extends State<Patient_Step3> {
             ),
             Gap(30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Text(
-                    'Do you have any chronic illnesses?',
-                    style: AppFontStyles.getSize16(
-                      fontColor: AppColors.primaryGreenColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                Gap(5),
                 SizedBox(
                   width: 20,
                   height: 20,
                   child: Image.asset(
                     AppIcons.sick,
                     color: AppColors.primaryGreenColor,
+                  ),
+                ),
+                Gap(5),
+
+                Text(
+                  'Do you have any chronic illnesses?',
+                  style: AppFontStyles.getSize16(
+                    fontColor: AppColors.primaryGreenColor,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -120,7 +125,7 @@ class _Patient_Step3State extends State<Patient_Step3> {
                 spacing: 10,
                 runSpacing: 10,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                selectedColor: Colors.green, // لون عند التحديد
+                selectedColor: AppColors.primaryGreenColor, // لون عند التحديد
                 unselectedColor: Colors.white,
                 selectedTextStyle: TextStyle(color: Colors.white),
                 unselectedTextStyle: TextStyle(color: Colors.black),
@@ -130,6 +135,74 @@ class _Patient_Step3State extends State<Patient_Step3> {
           ],
         ),
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: MainButton(
+                  buttonText: 'Back',
+                  onPressed: () {
+                    pushWithReplacment(
+                      context: context,
+                      route: Routes.Patient_Step_2,
+                    );
+                  },
+                  height: 45,
+                ),
+              ),
+              Gap(20),
+              Expanded(
+                child: MainButton(
+                  buttonText: 'Done',
+                  onPressed: () {
+                    pushWithReplacment(context: context, route: Routes.login_P);
+                  },
+                  height: 45,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row steps_3(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 5,
+          width: MediaQuery.of(context).size.width / 3.33,
+          decoration: BoxDecoration(
+            color: AppColors.primaryGreenColor,
+
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        Gap(3),
+        Container(
+          height: 5,
+          width: MediaQuery.of(context).size.width / 3.37,
+          decoration: BoxDecoration(
+            color: AppColors.primaryGreenColor,
+
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        Gap(3),
+        Container(
+          height: 10,
+          width: MediaQuery.of(context).size.width / 3.37,
+          decoration: BoxDecoration(
+            color: AppColors.primaryGreenColor,
+
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+      ],
     );
   }
 

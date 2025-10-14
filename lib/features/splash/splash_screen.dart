@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/utils/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,7 +17,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
+<<<<<<< HEAD
       pushWithReplacment(context: context, route: Routes.ChangePassword);
+=======
+      pushWithReplacment(context: context, route: Routes.onBoarding_1);
+>>>>>>> ee8000fe3c7d70064a952179550f27a07b057179
     });
     super.initState();
   }
@@ -24,33 +29,31 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        alignment: Alignment.center, // parent بالنسبه لل
-        children: [
-          Image.asset(
-            AppImages.bgLayer2PNG,
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-          ),
-
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(AppImages.appLogoSVG, width: 200),
-              Gap(20),
-              Text(
-                'Doctor Hunt ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+      backgroundColor: AppColors.blueLight,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              AppImages.appLogoSVG,
+              width: 200,
+              colorFilter: ColorFilter.mode(
+                AppColors.primaryGreenColor,
+                BlendMode.srcIn,
               ),
-            ],
-          ),
-        ],
+            ),
+            Gap(20),
+            Text(
+              'Doctor Hunt ',
+              style: TextStyle(
+                color: AppColors.primaryGreenColor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

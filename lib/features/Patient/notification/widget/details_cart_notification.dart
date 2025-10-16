@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Patient/notification/page/notification_screen.dart';
 import 'package:medigo/features/Patient/notification/widget/notification_item.dart';
 
 class DetailsCartNotification extends StatelessWidget {
-  const DetailsCartNotification({
-    super.key,
-    required this.notification,
-  });
+  const DetailsCartNotification({super.key, required this.notification});
 
   final NotificationItem notification;
 

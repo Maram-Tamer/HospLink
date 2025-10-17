@@ -18,9 +18,13 @@ class AppColors {
   static const BlueBouttmnavigation = Color(0xffc1e3fe);
   static const grey2Color = Color(0xffe5e7eb);
   static const blueLight = Color(0xffcaf0f8);
+  static const blueLight2 = Color(0xffcaf0f8);
+
   static const blue2 = Color(0xff0466c8);
   static const greyTextForm = Color(0xfff3f4f6);
   static const red = Colors.red;
+  static const red2 = Color(0xfffee2e2);
+
   static const green = Colors.green;
   static const yellow = Color.fromARGB(255, 241, 219, 24);
 }

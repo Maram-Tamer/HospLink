@@ -95,4 +95,9 @@ class AppIcons {
   static const String infoSVG = 'assets/icons/info.svg';
   static const String starSVG = 'assets/icons/star.svg';
   static const String logOutSVG = 'assets/icons/logout.svg';
+
+  static const String notificationFill2 = 'assets/icons/notificationFill2.svg';
+  static const String patientHistory = 'assets/icons/persons.svg';
+  static const String patient = 'assets/icons/patient.svg';
+  static const String patientFill = 'assets/icons/patientFill.svg';
 }

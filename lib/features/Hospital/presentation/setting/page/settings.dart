@@ -7,11 +7,11 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Patient/setting/widget/settings_group.dart';
-import 'package:medigo/features/Patient/setting/widget/settings_items.dart';
+import 'package:medigo/components/setting%20items/settings_group.dart';
+import 'package:medigo/components/setting%20items/settings_items.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class SettingsHospitalScreen extends StatelessWidget {
+  const SettingsHospitalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +37,22 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.person,
                   iconColor: Colors.green,
                   title: "Edit Profile",
-                  onPressed: () =>
-                      pushTo(context: context, route: Routes.EditProfile),
+                  /*onPressed: () =>
+                      pushTo(context: context, route: Routes.EditProfile),*/
                 ),
                 SettingsItem(
-                  icon: Icons.medical_information,
+                  icon: Icons.history_rounded,
                   iconColor: Colors.red,
                   title: "Patients History",
                   onPressed: () =>
-                      pushTo(context: context, route: Routes.MedicalHistory),
+                      pushTo(context: context, route: Routes.PatientHistory),
                 ),
                 SettingsItem(
                   icon: Icons.lock,
                   iconColor: Colors.blue,
                   title: "Change Password",
-                  onPressed: () =>
-                      pushTo(context: context, route: Routes.ChangePassword),
+                /*  onPressed: () =>
+                      pushTo(context: context, route: Routes.ChangePassword),*/
                 ),
               ],
             ),

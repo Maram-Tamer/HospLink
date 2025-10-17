@@ -25,6 +25,10 @@ class AppImages {
   static const String hospitalPhoto2 = 'assets/images/HospitalPhoto2.jpg';
   static const String hospitalPhoto3 = 'assets/images/HospitalPhoto3.jpg';
   static const String hospitalPhoto4 = 'assets/images/HospitalPhoto4.jpg';
+  static const String PatientPhoto1 = 'assets/images/PatientPhoto1.png';
+  static const String PatientPhoto2 = 'assets/images/PatientPhoto2.jpg';
+  static const String PatientPhoto3 = 'assets/images/PatientPhoto3.png';
+  static const String PatientPhoto4 = 'assets/images/PatientPhoto4.png';
 
   static const String map = 'assets/images/map.jpg';
 }

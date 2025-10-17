@@ -18,19 +18,19 @@ class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
-Widget build(BuildContext context) {
-  return MaterialApp(
-    home: HospitalDetailsScreen(isAccepted: true),
-  );
+//Widget build(BuildContext context) {
+// return MaterialApp(
+ //   home: HospitalDetailsScreen(isAccepted: true),
+ // );
 
-}
+//}
 
-  // Widget build(BuildContext context) {
-  //    return MaterialApp.router(
-  //      routerConfig: Routes.routes,
-  //      theme: AppTheme.lightTheme,
-  //      debugShowCheckedModeBanner: false,
-  //    );
+   Widget build(BuildContext context) {
+      return MaterialApp.router(
+        routerConfig: Routes.routes,
+        theme: AppTheme.lightTheme,
+        debugShowCheckedModeBanner: false,
+      );
     
-  // }
+   }
 }

@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
+import 'package:medigo/features/Hospital/presentation/patient_details/presentation/pages/patient_details_screen.dart';
 import 'package:medigo/features/Hospital/presentation/setting/page/pateint_history.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
@@ -66,10 +67,16 @@ class Routes {
   static const String EditProfile = '/EditProfile';
   static const String ChangePassword = '/ChangePassword';
   static const String PatientHistory = '/patient-history';
+  static const String PatientDetails = '/patient-details';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(
+        path: PatientDetails,
+        builder: (context, state) => PatientDetailsScreen(isAccepted: state.extra as bool,),
+      ),
+
       GoRoute(
         path: PatientHistory,
         builder: (context, state) => PatientHistoryScrren(),

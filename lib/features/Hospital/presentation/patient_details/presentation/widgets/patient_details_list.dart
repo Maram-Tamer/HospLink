@@ -7,9 +7,7 @@ import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Patient/hospital_data/presentation/widgets/hospital_detail_tile.dart';
 
 class PatientDetailsList extends StatelessWidget {
-  const PatientDetailsList({
-    super.key,
-  });
+  const PatientDetailsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +15,7 @@ class PatientDetailsList extends StatelessWidget {
       children: [
         Text(
           "How do you describe a patient person?The Benefits of Being a Patient Person - MindfulHaving patience means being able to wait calmly in the face of frustration or adversity, so anywhere there is frustration or adversity—i.e., nearly everywhere—we have the opportunity to practice it. A patient person is able to wait calmly in the face of frustration or adversity",
-          style: AppFontStyles.getSize16(
-            fontColor: AppColors.darkGreyColor,
-          ),
+          style: AppFontStyles.getSize16(fontColor: AppColors.darkGreyColor),
           maxLines: 6,
           overflow: TextOverflow.ellipsis,
         ),
@@ -34,7 +30,7 @@ class PatientDetailsList extends StatelessWidget {
         const Gap(10),
         HospitalDetailsTile(
           text: "Blood Type: O+",
-          icon: AppIcons.bloodTypeIMageNoBgSVG,
+          icon: AppIcons.booldSVG,
           color: AppColors.red,
         ),
         const Gap(15),
@@ -46,7 +42,7 @@ class PatientDetailsList extends StatelessWidget {
         const Gap(15),
         HospitalDetailsTile(
           text: "San Francisco, CA, USA",
-          icon: AppIcons.locationSVG,
+          icon: AppIcons.locationLine_SVG,
           color: AppColors.red,
         ),
         const Gap(15),

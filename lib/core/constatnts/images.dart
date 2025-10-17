@@ -10,9 +10,9 @@ class AppImages {
       'assets/images/on_boarding_image2.png';
   static const String onboardingImage3PNG =
       'assets/images/on_boarding_image3.png';
-  static const String ProfilePNG = 'assets/images/user.png';
-  static const String HospitalPNG = 'assets/images/hospital.png';
-  static const String LogolPNG = 'assets/images/logo.png';
+  static const String profilePNG = 'assets/images/user.png';
+  static const String hospitalPNG = 'assets/images/hospital.png';
+  static const String logolPNG = 'assets/images/logo.png';
   static const String profileWelcom = 'assets/images/profile_welcom.png';
   static const String hpspitalWelcom = 'assets/images/Hospital_welcom.png';
   static const String facebook = 'assets/images/facebook.png';
@@ -31,4 +31,6 @@ class AppImages {
   static const String PatientPhoto4 = 'assets/images/PatientPhoto4.png';
 
   static const String map = 'assets/images/map.jpg';
+
+  static const String patientPNG = 'assets/images/patient.png';
 }

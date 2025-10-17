@@ -77,7 +77,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                     SizedBox(
                       width: 200,
                       height: 200,
-                      child: Image.asset(AppImages.LogolPNG),
+                      child: Image.asset(AppImages.logolPNG),
                     ),
                     Text(
                       'Media Go!',

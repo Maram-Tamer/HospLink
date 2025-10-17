@@ -32,7 +32,7 @@ class HospitalDetailsTile extends StatelessWidget {
         Text(
           text,
           maxLines: 2,
-          style: AppFontStyles.getSize16(fontColor: AppColors.darkColor),
+          style: AppFontStyles.getSize16(fontColor: AppColors.darkColor,fontWeight: FontWeight.w500),
         ),
       ],
     );

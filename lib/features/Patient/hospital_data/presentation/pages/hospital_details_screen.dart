@@ -67,10 +67,10 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryGreenColor.withOpacity(0.2),
+                      color: AppColors.primaryGreenColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: SvgPicture.asset(AppIcons.chat2SVG, height: 35),
+                    child: SvgPicture.asset(AppIcons.chat2SVG, height: 35,colorFilter: ColorFilter.mode(AppColors.whiteColor, BlendMode.srcIn),),
                   ),
                 ),
               ],

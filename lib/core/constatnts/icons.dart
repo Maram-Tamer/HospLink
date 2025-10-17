@@ -43,6 +43,12 @@ class AppIcons {
       '${_path}notificationBell.svg';
   static const String emptyIMageBgSVG = '${_path}empty_image_bg.svg';
   static const String emptyIMageNoBgSVG = '${_path}empty_image_no_bg.svg';
+  static const String bloodTypeIMageNoBgSVG = '${_path}blood_type.svg';
+  static const String birthdayIMageNoBgSVG = '${_path}birthday.svg';
+  static const String genderIMageNoBgSVG = '${_path}man_woman.svg';
+
+
+
   //hospital Profile
   static const String editSVG = '${_path}edit.svg';
 

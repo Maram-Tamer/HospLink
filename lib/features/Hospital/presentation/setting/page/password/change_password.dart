@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/colors.dart';
 
-class ChangePasswordScreen extends StatefulWidget {
-  const ChangePasswordScreen({super.key});
+class ChangePasswordScreenH extends StatefulWidget {
+  const ChangePasswordScreenH({super.key});
 
   @override
-  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
+  State<ChangePasswordScreenH> createState() => _ChangePasswordScreenHState();
 }
 
-class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
   final currentPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();

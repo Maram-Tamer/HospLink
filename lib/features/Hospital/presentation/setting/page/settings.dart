@@ -38,7 +38,7 @@ class SettingsHospitalScreen extends StatelessWidget {
                   iconColor: Colors.green,
                   title: "Edit Profile",
                   onPressed: () =>
-                      pushTo(context: context, route: Routes.EditProfile),
+                      pushTo(context: context, route: Routes.editProfile_H),
                 ),
                 SettingsItem(
                   icon: Icons.history_rounded,
@@ -52,7 +52,7 @@ class SettingsHospitalScreen extends StatelessWidget {
                   iconColor: Colors.blue,
                   title: "Change Password",
                   onPressed: () =>
-                      pushTo(context: context, route: Routes.ChangePassword),
+                      pushTo(context: context, route: Routes.editPassword_H),
                 ),
               ],
             ),

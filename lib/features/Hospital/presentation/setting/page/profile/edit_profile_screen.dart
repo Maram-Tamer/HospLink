@@ -3,8 +3,8 @@ import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/utils/colors.dart';
 
-class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
+class EditProfileScreenH extends StatelessWidget {
+  const EditProfileScreenH({super.key});
 
   @override
   Widget build(BuildContext context) {

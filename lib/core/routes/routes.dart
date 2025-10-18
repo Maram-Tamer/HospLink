@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/features/Hospital/presentation/patient_details/presentation/pages/patient_details_screen.dart';
+import 'package:medigo/features/Hospital/presentation/setting/page/password/change_password.dart';
 import 'package:medigo/features/Hospital/presentation/setting/page/pateint_history.dart';
+import 'package:medigo/features/Hospital/presentation/setting/page/profile/edit_profile_screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Patient/notification/page/notification_screen.dart';
@@ -32,8 +34,6 @@ import 'package:medigo/features/splash/splash_screen.dart';
 class Routes {
   static const String splash = '/';
   static const String onBoarding_1 = '/OnBoarding1';
-  static const String onBoarding_2 = '/OnBoarding2';
-  static const String onBoarding_3 = '/OnBoarding3';
   static const String welcom = '/welcome';
   static const String login_P = '/login-p';
   static const String login_H = '/login-h';
@@ -66,10 +66,21 @@ class Routes {
   static const String ChangePassword = '/ChangePassword';
   static const String PatientHistory = '/patient-history';
   static const String PatientDetails = '/patient-details';
+  static const String editPassword_H = '/editpasswordH';
+  static const String editProfile_H = '/editProfileH';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(
+        path: editPassword_H,
+        builder: (context, state) => ChangePasswordScreenH(),
+      ),
+      GoRoute(
+        path: editProfile_H,
+        builder: (context, state) => EditProfileScreenH(),
+      ),
+
       GoRoute(
         path: PatientDetails,
         builder: (context, state) =>
@@ -193,7 +204,7 @@ class Routes {
       GoRoute(path: Main_patient, builder: (context, state) => Main_Screen_P()),
       GoRoute(
         path: EditProfile,
-        builder: (context, state) => EditProfileScreen(),
+        builder: (context, state) => EditProfileScreenH(),
       ),
       GoRoute(
         path: ChangePassword,

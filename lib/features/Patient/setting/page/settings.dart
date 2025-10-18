@@ -7,8 +7,8 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Patient/setting/widget/settings_group.dart';
-import 'package:medigo/features/Patient/setting/widget/settings_items.dart';
+import 'package:medigo/components/setting%20items/settings_group.dart';
+import 'package:medigo/components/setting%20items/settings_items.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

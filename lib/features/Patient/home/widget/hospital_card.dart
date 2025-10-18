@@ -73,7 +73,9 @@ class _HospitalCardState extends State<HospitalCard> {
                           ),
                           Gap(5),
                           Text(
-                            '123 Main St, City, Country',
+                            '123 Main St, City',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                             style: AppFontStyles.getSize12(
                               fontColor: AppColors.slateGrayColor,
                             ),

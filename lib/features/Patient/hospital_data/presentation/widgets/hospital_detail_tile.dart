@@ -21,18 +21,18 @@ class HospitalDetailsTile extends StatelessWidget {
       children: [
         SvgPicture.asset(
           icon,
-          colorFilter: ColorFilter.mode(
-            color,
-            BlendMode.srcIn,
-          ),
-          height: 25,
-          width: 25,
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+          height: 20,
+          width: 20,
         ),
         Gap(10),
         Text(
           text,
           maxLines: 2,
-          style: AppFontStyles.getSize16(fontColor: AppColors.darkColor),
+          style: AppFontStyles.getSize14(
+            fontColor: AppColors.darkColor,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );

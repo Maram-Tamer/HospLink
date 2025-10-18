@@ -10,8 +10,8 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Patient/hospital_data/presentation/widgets/hospital_detail_tile.dart';
-import 'package:medigo/features/Patient/hospital_data/presentation/widgets/photo_hospital.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/widgets/star_rating.dart';
+import 'package:medigo/features/patient/hospital_data/presentation/widgets/photo_card.dart';
 
 class HospitalDetailsScreen extends StatefulWidget {
   HospitalDetailsScreen({super.key, required this.isAccepted});
@@ -67,10 +67,17 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryGreenColor.withOpacity(0.2),
+                      color: AppColors.primaryGreenColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: SvgPicture.asset(AppIcons.chat2SVG, height: 35),
+                    child: SvgPicture.asset(
+                      AppIcons.chat2SVG,
+                      height: 35,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.whiteColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -89,7 +96,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Hospital Header Image
-              PhotoHospital(),
+              PhotoCard(image: AppImages.hospitalPhoto1, name: 'Hospital Name'),
               const Gap(20),
 
               Text(

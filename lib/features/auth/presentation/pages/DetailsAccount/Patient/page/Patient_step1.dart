@@ -7,6 +7,7 @@ import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
+import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
@@ -142,28 +143,27 @@ class PatientStep1State extends State<PatientStep1> {
       child: Stack(
         children: [
           CircleAvatar(
-            radius: 81,
-            backgroundColor: AppColors.primaryGreenColor,
-            child: CircleAvatar(
-              radius: 80,
-              backgroundColor: AppColors.whiteColor,
-              child: SvgPicture.asset(
-                AppIcons.profileActiveSVG,
-                fit: BoxFit.cover,
-              ),
+            radius: 58,
+            backgroundColor: AppColors.whiteColor,
+            child: const CircleAvatar(
+              radius: 55,
+              backgroundImage: AssetImage(AppImages.profileWelcom),
             ),
           ),
           Positioned(
-            right: 5,
-            bottom: 5,
-            child: Container(
-              width: 35,
-              height: 35,
-              decoration: BoxDecoration(
-                color: AppColors.fillTextForm,
-                borderRadius: BorderRadius.circular(15),
+            bottom: 3,
+            right: 3,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 16,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.camera_alt,
+                  size: 16,
+                  color: AppColors.primaryGreenColor,
+                ),
+                onPressed: () {},
               ),
-              child: Icon(Icons.camera_alt, color: AppColors.primaryGreenColor),
             ),
           ),
         ],

@@ -43,6 +43,12 @@ class AppIcons {
       '${_path}notificationBell.svg';
   static const String emptyIMageBgSVG = '${_path}empty_image_bg.svg';
   static const String emptyIMageNoBgSVG = '${_path}empty_image_no_bg.svg';
+  static const String bloodTypeIMageNoBgSVG = '${_path}blood_type.svg';
+  static const String birthdayIMageNoBgSVG = '${_path}birthday.svg';
+  static const String genderIMageNoBgSVG = '${_path}man_woman.svg';
+
+
+
   //hospital Profile
   static const String editSVG = '${_path}edit.svg';
 
@@ -95,4 +101,9 @@ class AppIcons {
   static const String infoSVG = 'assets/icons/info.svg';
   static const String starSVG = 'assets/icons/star.svg';
   static const String logOutSVG = 'assets/icons/logout.svg';
+
+  static const String notificationFill2 = 'assets/icons/notificationFill2.svg';
+  static const String patientHistory = 'assets/icons/persons.svg';
+  static const String patient = 'assets/icons/patient.svg';
+  static const String patientFill = 'assets/icons/patientFill.svg';
 }

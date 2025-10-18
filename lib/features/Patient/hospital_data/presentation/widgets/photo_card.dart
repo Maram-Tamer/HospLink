@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
-class PhotoHospital extends StatelessWidget {
-  const PhotoHospital({
-    super.key,
+class PhotoCard extends StatelessWidget {
+  const PhotoCard({
+    super.key, required this.image, required this.name,
   });
-
+final String image;
+final String name;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -15,7 +15,7 @@ class PhotoHospital extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.asset(
-            AppImages.hospitalPhoto1,
+            image,
             height: 200,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -28,7 +28,7 @@ class PhotoHospital extends StatelessWidget {
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [
-                Colors.black.withOpacity(0.7), // غامق من تحت
+                Colors.black.withValues(alpha: 0.7), // غامق من تحت
                 Colors.transparent, // شفاف لأعلى
               ],
             ),
@@ -40,9 +40,9 @@ class PhotoHospital extends StatelessWidget {
     
         Positioned(
           left: 20,
-          bottom: 20,
+          bottom: 10,
           child: Text(
-            'Hospital name',
+            name,
             style: AppFontStyles.getSize24(
               fontWeight: FontWeight.w600,
               fontColor: Colors.white,

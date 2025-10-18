@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/utils/colors.dart';
-import 'package:medigo/features/Patient/setting/widget/settings_items.dart';
+import 'package:medigo/components/setting%20items/settings_items.dart';
 
 class SettingsGroup extends StatelessWidget {
   final List<SettingsItem> items;

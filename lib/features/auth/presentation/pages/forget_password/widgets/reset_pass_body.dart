@@ -3,12 +3,12 @@ import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/routes/navigation.dart';
-import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
 class ResetPassBody extends StatelessWidget {
-  const ResetPassBody({super.key});
+  const ResetPassBody({super.key,required this.route});
+  final String route;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ResetPassBody extends StatelessWidget {
               child: MainButton(
                 buttonText: "Update Password",
                 onPressed: () {
-                  pushWithReplacment(context: context, route: Routes.login_H);
+                  pushWithReplacment(context: context, route: route);
                 },
                 width: 295,
               ),

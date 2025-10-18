@@ -1,3 +1,4 @@
 class AppFonts {
-  static const String fontFamily = "Rubik";
+  static const String fontFamily = "PT Serif";
+  static const String font2 = "Rubik";
 }

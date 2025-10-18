@@ -4,7 +4,7 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ^3.9.0
+  sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -49,3 +49,14 @@ flutter:
           weight: 700
         - asset: assets/fonts/Rubik-ExtraBold.ttf
           weight: 800
+    - family: PT Serif 
+      fonts:
+        - asset: assets/fonts/PTSerif-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/PTSerif-BoldItalic.ttf
+          weight: 500
+        - asset: assets/fonts/PTSerif-Italic.ttf
+          weight: 600
+        - asset: assets/fonts/PTSerif-Bold.ttf
+          weight: 700
+

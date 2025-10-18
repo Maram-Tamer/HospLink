@@ -1,5 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
+import 'package:medigo/features/Hospital/presentation/notification/page/notification_screen.dart';
+import 'package:medigo/features/Hospital/presentation/patient_details/presentation/pages/patient_details_screen.dart';
+import 'package:medigo/features/Hospital/presentation/setting/page/password/change_password.dart';
+import 'package:medigo/features/Hospital/presentation/setting/page/pateint_history.dart';
+import 'package:medigo/features/Hospital/presentation/setting/page/profile/edit_profile_screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Patient/notification/page/notification_screen.dart';
@@ -21,9 +26,7 @@ import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
 import 'package:medigo/features/Patient/chat/chatScreen.dart';
 import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
-import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
-import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
-import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/onboarding/onBoarding.dart';
 import 'package:medigo/features/Patient/setting/page/change_password.dart';
 import 'package:medigo/features/Patient/setting/page/edit_profile_screen.dart';
 import 'package:medigo/features/Patient/search/search_screen.dart';
@@ -32,8 +35,6 @@ import 'package:medigo/features/splash/splash_screen.dart';
 class Routes {
   static const String splash = '/';
   static const String onBoarding_1 = '/OnBoarding1';
-  static const String onBoarding_2 = '/OnBoarding2';
-  static const String onBoarding_3 = '/OnBoarding3';
   static const String welcom = '/welcome';
   static const String login_P = '/login-p';
   static const String login_H = '/login-h';
@@ -64,11 +65,33 @@ class Routes {
 
   static const String EditProfile = '/EditProfile';
   static const String ChangePassword = '/ChangePassword';
+  static const String PatientHistory = '/patient-history';
+  static const String PatientDetails = '/patient-details';
+  static const String editPassword_H = '/editpasswordH';
+  static const String editProfile_H = '/editProfileH';
+  static const String NotificationH = '/notificationH';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
-      //GoRoute(path: Search, builder: (context, state) => SearchScreen()),
+
+      GoRoute(
+        path: editPassword_H,
+        builder: (context, state) => ChangePasswordScreenH(),
+      ),
+      GoRoute(
+        path: editProfile_H,
+        builder: (context, state) => EditProfileScreenH(),
+      ),
+      GoRoute(
+        path: PatientDetails,
+        builder: (context, state) =>
+            PatientDetailsScreen(isAccepted: state.extra as bool),
+      ),
+      GoRoute(
+        path: PatientHistory,
+        builder: (context, state) => PatientHistoryScrren(),
+      ),
       GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: Notification,
@@ -78,10 +101,8 @@ class Routes {
         path: MedicalHistory,
         builder: (context, state) => HospitalHistory(),
       ),
-
       GoRoute(
         path: HospitalDetails,
-
         builder: (context, state) =>
             HospitalDetailsScreen(isAccepted: state.extra as bool),
       ),
@@ -89,19 +110,7 @@ class Routes {
         path: UnifiledpatientData,
         builder: (context, state) => UnifiedPatientScreen(),
       ),
-
-      GoRoute(
-        path: onBoarding_1,
-        builder: (context, state) => FirstOnboardingScreen(),
-      ),
-      GoRoute(
-        path: onBoarding_2,
-        builder: (context, state) => SecondOnboardingScreen(),
-      ),
-      GoRoute(
-        path: onBoarding_3,
-        builder: (context, state) => ThirdOnboardingScreen(),
-      ),
+      GoRoute(path: onBoarding_1, builder: (context, state) => OnBoarding()),
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login_P,
@@ -111,6 +120,8 @@ class Routes {
           subTitle:
               'You can send a request to the hospital for emergency treatment as soon as possible.',
           route: Routes.register_P,
+          routeForgetPassword: Routes.login_P,
+          
           routeAfterLogin: Routes.Main_patient,
         ),
       ),
@@ -121,6 +132,8 @@ class Routes {
           title: 'As Hospital',
           subTitle: 'You can receive emergency request calls.',
           route: Routes.register_H,
+                    routeForgetPassword: Routes.login_H,
+
           routeAfterLogin: Routes.Main_hospital,
         ),
       ),
@@ -152,12 +165,14 @@ class Routes {
       ),
       GoRoute(
         path: forgetPassword,
-        builder: (context, state) => ForgetPasswordScreen(),
+        builder: (context, state) => ForgetPasswordScreen(route: state.extra as String,),
       ),
-      GoRoute(path: oTP, builder: (context, state) => OtpVerficationScreen()),
+      GoRoute(path: oTP, builder: (context, state) {
+        return OtpVerficationScreen(route: state.extra as String,);
+      }),
       GoRoute(
         path: resetPassword,
-        builder: (context, state) => ResetPasswordScreen(),
+        builder: (context, state) => ResetPasswordScreen(route: state.extra as String,),
       ),
       GoRoute(
         path: Patient_Step_1,
@@ -183,7 +198,6 @@ class Routes {
         path: Hospital_Step_3,
         builder: (context, state) => Hospital_Step3(),
       ),
-
       GoRoute(
         path: Main_hospital,
         builder: (context, state) => Main_Screen_H(),

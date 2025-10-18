@@ -8,7 +8,8 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
 class ForgetBody extends StatelessWidget {
-  const ForgetBody({super.key});
+  const ForgetBody({super.key,required this.route});
+  final String route;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class ForgetBody extends StatelessWidget {
               child: MainButton(
                 buttonText: "Continue",
                 onPressed: () {
-                  pushWithReplacment(context: context, route: Routes.oTP);
+                  pushWithReplacment(context: context, route: Routes.oTP, extra: route);
                 },
                 width: 295,
               ),

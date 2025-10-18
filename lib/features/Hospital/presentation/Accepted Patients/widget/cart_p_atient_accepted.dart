@@ -49,20 +49,20 @@ class cartPAtientAccepted extends StatelessWidget {
                       ),
                     ),
                     Gap(10),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 150,
-                          child: Text(
-                            'Ahmed Ali Mohamed  ',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: true,
-                            style: AppFontStyles.getSize18(
-                              fontWeight: FontWeight.w600,
-                              fontColor: AppColors.blackColor,
+                          child: Expanded(
+                            child: Text(
+                              'Ahmed Ali Mohamed  ',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: AppFontStyles.getSize18(
+                                fontWeight: FontWeight.w600,
+                                fontColor: AppColors.blackColor,
+                              ),
                             ),
                           ),
                         ),
@@ -77,39 +77,30 @@ class cartPAtientAccepted extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
-                    Container(
-                      width: 70,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: AppColors.red2,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'High',
-                          style: AppFontStyles.getSize14(
-                            fontWeight: FontWeight.w500,
-                            fontColor: AppColors.red,
-                          ),
-                        ),
-                      ),
-                    ),
                     Gap(20),
                   ],
                 ),
               ),
               itemPatientAccepted(
-                title: 'Egept Cairo street No. 12',
+                title: 'Egept Cairo street No. 12 - Apartment 6',
                 icon: AppIcons.locationLine_SVG,
               ),
               Row(
                 children: [
-                  itemPatientAccepted(
-                    title: '01104796306',
-                    icon: AppIcons.callSVG,
+                  itemPatientAccepted(title: 'O+', icon: AppIcons.booldSVG),
+                  Expanded(
+                    child: itemPatientAccepted(
+                      title: '50114585453',
+                      icon: AppIcons.ID_SVG,
+                    ),
+                  ),
+                  Expanded(
+                    child: itemPatientAccepted(
+                      title: '01104796306',
+                      icon: AppIcons.callSVG,
+                    ),
                   ),
                   Gap(20),
-                  itemPatientAccepted(title: 'O+', icon: AppIcons.booldSVG),
                 ],
               ),
               Gap(10),

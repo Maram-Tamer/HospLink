@@ -111,7 +111,7 @@ class SearchScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Text('Elnour mokatam clinic'),
+                      Text('Elnour mokatam '),
                       SizedBox(width: 5),
                       GestureDetector(
                         onTap: () {

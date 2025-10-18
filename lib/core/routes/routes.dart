@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
+import 'package:medigo/features/Hospital/presentation/notification/page/notification_screen.dart';
 import 'package:medigo/features/Hospital/presentation/patient_details/presentation/pages/patient_details_screen.dart';
 import 'package:medigo/features/Hospital/presentation/setting/page/password/change_password.dart';
 import 'package:medigo/features/Hospital/presentation/setting/page/pateint_history.dart';
@@ -68,10 +69,12 @@ class Routes {
   static const String PatientDetails = '/patient-details';
   static const String editPassword_H = '/editpasswordH';
   static const String editProfile_H = '/editProfileH';
+  static const String NotificationH = '/notificationH';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+
       GoRoute(
         path: editPassword_H,
         builder: (context, state) => ChangePasswordScreenH(),
@@ -80,18 +83,15 @@ class Routes {
         path: editProfile_H,
         builder: (context, state) => EditProfileScreenH(),
       ),
-
       GoRoute(
         path: PatientDetails,
         builder: (context, state) =>
             PatientDetailsScreen(isAccepted: state.extra as bool),
       ),
-
       GoRoute(
         path: PatientHistory,
         builder: (context, state) => PatientHistoryScrren(),
       ),
-
       GoRoute(path: Search, builder: (context, state) => SearchScreen()),
       GoRoute(
         path: Notification,
@@ -101,10 +101,8 @@ class Routes {
         path: MedicalHistory,
         builder: (context, state) => HospitalHistory(),
       ),
-
       GoRoute(
         path: HospitalDetails,
-
         builder: (context, state) =>
             HospitalDetailsScreen(isAccepted: state.extra as bool),
       ),
@@ -112,9 +110,7 @@ class Routes {
         path: UnifiledpatientData,
         builder: (context, state) => UnifiedPatientScreen(),
       ),
-
       GoRoute(path: onBoarding_1, builder: (context, state) => OnBoarding()),
-
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login_P,
@@ -124,6 +120,8 @@ class Routes {
           subTitle:
               'You can send a request to the hospital for emergency treatment as soon as possible.',
           route: Routes.register_P,
+          routeForgetPassword: Routes.login_P,
+          
           routeAfterLogin: Routes.Main_patient,
         ),
       ),
@@ -134,6 +132,8 @@ class Routes {
           title: 'As Hospital',
           subTitle: 'You can receive emergency request calls.',
           route: Routes.register_H,
+                    routeForgetPassword: Routes.login_H,
+
           routeAfterLogin: Routes.Main_hospital,
         ),
       ),
@@ -165,12 +165,14 @@ class Routes {
       ),
       GoRoute(
         path: forgetPassword,
-        builder: (context, state) => ForgetPasswordScreen(),
+        builder: (context, state) => ForgetPasswordScreen(route: state.extra as String,),
       ),
-      GoRoute(path: oTP, builder: (context, state) => OtpVerficationScreen()),
+      GoRoute(path: oTP, builder: (context, state) {
+        return OtpVerficationScreen(route: state.extra as String,);
+      }),
       GoRoute(
         path: resetPassword,
-        builder: (context, state) => ResetPasswordScreen(),
+        builder: (context, state) => ResetPasswordScreen(route: state.extra as String,),
       ),
       GoRoute(
         path: Patient_Step_1,
@@ -196,7 +198,6 @@ class Routes {
         path: Hospital_Step_3,
         builder: (context, state) => Hospital_Step3(),
       ),
-
       GoRoute(
         path: Main_hospital,
         builder: (context, state) => Main_Screen_H(),
@@ -204,7 +205,7 @@ class Routes {
       GoRoute(path: Main_patient, builder: (context, state) => Main_Screen_P()),
       GoRoute(
         path: EditProfile,
-        builder: (context, state) => EditProfileScreenH(),
+        builder: (context, state) => EditProfileScreen(),
       ),
       GoRoute(
         path: ChangePassword,

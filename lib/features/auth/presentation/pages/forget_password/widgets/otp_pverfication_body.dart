@@ -8,7 +8,8 @@ import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/widgets/otp_input_fields.dart';
 
 class OTPverficationBody extends StatelessWidget {
-  const OTPverficationBody({super.key});
+  const OTPverficationBody({super.key,required this.route});
+  final String route;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ class OTPverficationBody extends StatelessWidget {
                   pushWithReplacment(
                     context: context,
                     route: Routes.resetPassword,
+                    extra: route
                   );
                 },
                 width: 295,

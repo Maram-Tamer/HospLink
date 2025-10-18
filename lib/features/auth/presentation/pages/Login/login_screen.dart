@@ -19,18 +19,21 @@ class LoginScreen extends StatefulWidget {
     required this.title,
     required this.route,
     required this.routeAfterLogin,
+    required this.routeForgetPassword,
   });
+
   final String icon;
   final String title;
   final String subTitle;
   final String route;
   final String routeAfterLogin;
+  final String routeForgetPassword;
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final bool obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -44,108 +47,95 @@ class _LoginScreenState extends State<LoginScreen> {
         colorIconBack: AppColors.whiteColor,
       ),
       resizeToAvoidBottomInset: true,
-      body: Form(
-        key: _formKey,
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
             children: [
-              Column(
-                children: [
-                  ClipPath(
-                    clipper: DeepBottomCurve(),
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      height: 450,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryGreenColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Positioned(
-                top: 0,
-                right: MediaQuery.of(context).size.width / 2 - 100,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Image.asset(AppImages.logolPNG),
-                    ),
-                    Text(
-                      'Media Go!',
-                      style: AppFontStyles.getSize32(
-                        fontColor: AppColors.whiteColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height / 2 - 200,
-                right: 25,
-                left: 25,
+              ClipPath(
+                clipper: DeepBottomCurve(),
                 child: Container(
-                  height: 400,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                  width: double.infinity,
+                  height: 200,
+                  color: AppColors.primaryGreenColor,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(widget.icon),
-                      Gap(20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MainTextFormField(
-                          label: 'Email',
-                          ispassword: false,
-                          controller: _emailController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            final emailRegex = RegExp(
-                              r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-                            );
-                            if (!emailRegex.hasMatch(value)) {
-                              return 'Please enter a valid email';
-                            }
-                            return null;
-                          },
+                      Image.asset(
+                        AppImages.logolPNG,
+                        width: 120,
+                        height: 120,
+                      ),
+                      Text(
+                        'Media Go!',
+                        style: AppFontStyles.getSize32(
+                          fontColor: AppColors.whiteColor,
                         ),
                       ),
-
-                      Gap(20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MainTextFormField(
-                          label: 'Password',
-                          ispassword: true,
-                          controller: _passwordController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            if (value.length < 6) {
-                              return 'Password must be at least 6 characters';
-                            }
-                            return null;
-                          },
-                        ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 25),
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(widget.icon, width: 60, height: 60),
+                    Gap(20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: MainTextFormField(
+                        label: 'Email',
+                        ispassword: false,
+                        controller: _emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          final emailRegex =
+                              RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                          if (!emailRegex.hasMatch(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
                       ),
-                      Gap(10),
-                      Align(
-                        alignment: AlignmentGeometry.centerRight,
+                    ),
+                    Gap(20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: MainTextFormField(
+                        label: 'Password',
+                        ispassword: true,
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Gap(10),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
                         child: GestureDetector(
                           onTap: () {
-                            pushWithReplacment(
+                            pushTo(
                               context: context,
-                              route: Routes.forgetPassword,
+                              route: widget.routeForgetPassword,
                             );
                           },
                           child: Text(
@@ -157,22 +147,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      Gap(20),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MainButton(
-                          buttonText: 'Login',
-                          onPressed: () {
-                            pushAndRemoveUntil(
-                              context: context,
-                              route: widget.routeAfterLogin,
-                            );
-                          },
-                        ),
+                    ),
+                    Gap(20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: MainButton(
+                        buttonText: 'Login',
+                        onPressed: () {
+                          pushAndRemoveUntil(
+                            context: context,
+                            route: widget.routeAfterLogin,
+                          );
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -27,17 +27,17 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       scrolledUnderElevation: 0,
+      elevation: 0,
       automaticallyImplyLeading: false,
       backgroundColor: color,
       title: Text(title, style: AppFontStyles.getSize24()),
-
       centerTitle: true,
       leadingWidth: 75,
       leading: leading
           ? Padding(
               padding: const EdgeInsets.only(left: 12),
               child: //SvgPicture.asset(App_Assets.backArrowSVG)
-              IconButton(
+                  IconButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },

@@ -28,143 +28,157 @@ class EditProfileScreenH extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                  ),
+                  color: AppColors.primaryGreenColor,
                 ),
-                color: AppColors.primaryGreenColor,
+                width: double.infinity,
+                height: 120,
+                padding: const EdgeInsets.symmetric(vertical: 20),
               ),
-              width: double.infinity,
-              height: 120,
-              padding: const EdgeInsets.symmetric(vertical: 20),
-            ),
-
-            Positioned(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Gap(150),
-                    const Text("Name"),
-                    const SizedBox(height: 5),
-                    TextFormField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        hintText: "Enter your name",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-
-                    const Text("Phone Number"),
-                    const SizedBox(height: 5),
-                    TextFormField(
-                      controller: phoneController,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        hintText: "Enter your phone number",
-                        suffixIcon: const Icon(Icons.edit, color: Colors.grey),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-
-                    const Text("Location"),
-                    const SizedBox(height: 5),
-                    TextFormField(
-                      controller: locationController,
-                      decoration: InputDecoration(
-                        hintText: "Enter your location",
-                        suffixIcon: const Icon(Icons.edit, color: Colors.grey),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-
-                    const Text("National ID"),
-                    const SizedBox(height: 5),
-                    TextFormField(
-                      controller: nationalIdController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: "Enter your national ID",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryGreenColor,
-                          shape: RoundedRectangleBorder(
+              Positioned(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Gap(150),
+                      const Text("Name"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          hintText: "Enter your name",
+                          border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed: () {
-                          // TODO: Save logic
-                        },
-                        child: const Text(
-                          "Save Changes",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                      ),
+                      const SizedBox(height: 15),
+                      const Text("Phone Number"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: phoneController,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          hintText: "Enter your phone number",
+                          suffixIcon: const Icon(Icons.edit, color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
+                      ),
+                      const SizedBox(height: 15),
+                      const Text("Second Phone Number "),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: phoneController,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          hintText: "Enter your second phone number ",
+                          suffixIcon: const Icon(Icons.edit, color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      const Text("Office Email"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: locationController,
+                        decoration: InputDecoration(
+                          hintText: "Enter your Email",
+                          suffixIcon: const Icon(Icons.edit, color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      const Text("description"),
+                      const SizedBox(height: 5),
+                      TextFormField(
+                        controller: nationalIdController,
+                        keyboardType: TextInputType.number,
+                        maxLines: 4,
+                        decoration: InputDecoration(
+                          hintText: "Enter your Description",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 48,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryGreenColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: () {
+                              // TODO: Save logic
+                            },
+                            child: const Text(
+                              "Save Changes",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 70,
+                left: MediaQuery.of(context).size.width / 2 - 45,
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    CircleAvatar(
+                      radius: 48,
+                      backgroundColor: AppColors.whiteColor,
+                      child: const CircleAvatar(
+                        radius: 45,
+                        backgroundImage: AssetImage(AppImages.hospitalPhoto4),
+                      ),
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 16,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.camera_alt,
+                          size: 16,
+                          color: AppColors.primaryGreenColor,
+                        ),
+                        onPressed: () {},
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              top: 70,
-              left: MediaQuery.of(context).size.width / 2 - 45,
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  CircleAvatar(
-                    radius: 48,
-                    backgroundColor: AppColors.whiteColor,
-                    child: const CircleAvatar(
-                      radius: 45,
-                      backgroundImage: AssetImage(AppImages.profileWelcom),
-                    ),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 16,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.camera_alt,
-                        size: 16,
-                        color: AppColors.primaryGreenColor,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

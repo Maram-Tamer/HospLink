@@ -36,7 +36,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         leading: widget.isAccepted ? false : true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.only(left: 20, right: 20, ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

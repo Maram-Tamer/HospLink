@@ -7,6 +7,7 @@ import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
+import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
@@ -32,60 +33,60 @@ class HospitalStep1State extends State<HospitalStep1> {
       //backgroundColor: AppColors.whiteColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Steps_1(context),
-            Gap(30),
-
-            ImageProfile(),
-            Spacer(flex: 2),
-            Text(
-              'Hospital Name',
-              style: AppFontStyles.getSize14(
-                fontWeight: FontWeight.w600,
-                fontColor: AppColors.primaryGreenColor,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Steps_1(context),
+              Gap(30),
+              ImageProfile(),
+              Gap(30),
+              Text(
+                'Hospital Name',
+                style: AppFontStyles.getSize14(
+                  fontWeight: FontWeight.w600,
+                  fontColor: AppColors.primaryGreenColor,
+                ),
               ),
-            ),
-            Gap(10),
+              Gap(10),
+              MainTextFormField(
+                label: 'Name',
+                ispassword: false,
+                colorFill: AppColors.fillTextForm,
+              ),
+              Gap(30),
 
-            MainTextFormField(
-              label: 'Name',
-              ispassword: false,
-              colorFill: AppColors.fillTextForm,
-            ),
-            Spacer(),
+              SelectDate(context),
+              Gap(30),
 
-            SelectDate(context),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: SvgPicture.asset(
-                    AppIcons.hospitalLoginSVG,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.primaryGreenColor,
-                      BlendMode.srcIn,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: SvgPicture.asset(
+                      AppIcons.hospitalLoginSVG,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.primaryGreenColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
-                ),
-                Gap(5),
-                Text(
-                  'Hospital type',
-                  style: AppFontStyles.getSize14(
-                    fontWeight: FontWeight.w600,
-                    fontColor: AppColors.primaryGreenColor,
+                  Gap(5),
+                  Text(
+                    'Hospital type',
+                    style: AppFontStyles.getSize14(
+                      fontWeight: FontWeight.w600,
+                      fontColor: AppColors.primaryGreenColor,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Gap(15),
-            RadioButtomGroup(),
-            Spacer(flex: 5),
-          ],
+                ],
+              ),
+              Gap(15),
+              RadioButtomGroup(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(
@@ -143,7 +144,6 @@ class HospitalStep1State extends State<HospitalStep1> {
               });
             }
           },
-
           readOnly: true,
           controller: dateSelected,
           decoration: InputDecoration(
@@ -165,28 +165,27 @@ class HospitalStep1State extends State<HospitalStep1> {
       child: Stack(
         children: [
           CircleAvatar(
-            radius: 81,
-            backgroundColor: AppColors.primaryGreenColor,
-            child: CircleAvatar(
-              radius: 80,
-              backgroundColor: AppColors.whiteColor,
-              child: SvgPicture.asset(
-                AppIcons.hospitalHomeActiveSVG, // ملف الـ SVG
-                fit: BoxFit.cover,
-              ),
+            radius: 58,
+            backgroundColor: AppColors.whiteColor,
+            child: const CircleAvatar(
+              radius: 55,
+              backgroundImage: AssetImage(AppImages.hospitalPhoto4),
             ),
           ),
           Positioned(
-            right: 5,
-            bottom: 5,
-            child: Container(
-              width: 35,
-              height: 35,
-              decoration: BoxDecoration(
-                color: AppColors.fillTextForm,
-                borderRadius: BorderRadius.circular(15),
+            bottom: 3,
+            right: 3,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 16,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.camera_alt,
+                  size: 16,
+                  color: AppColors.primaryGreenColor,
+                ),
+                onPressed: () {},
               ),
-              child: Icon(Icons.camera_alt, color: AppColors.primaryGreenColor),
             ),
           ),
         ],
@@ -202,7 +201,6 @@ class HospitalStep1State extends State<HospitalStep1> {
           width: MediaQuery.of(context).size.width / 3.5,
           decoration: BoxDecoration(
             color: AppColors.primaryGreenColor,
-
             borderRadius: BorderRadius.circular(15),
           ),
         ),
@@ -212,7 +210,6 @@ class HospitalStep1State extends State<HospitalStep1> {
           width: MediaQuery.of(context).size.width / 3.37,
           decoration: BoxDecoration(
             color: AppColors.greyColor,
-
             borderRadius: BorderRadius.circular(15),
           ),
         ),
@@ -222,7 +219,6 @@ class HospitalStep1State extends State<HospitalStep1> {
           width: MediaQuery.of(context).size.width / 3.37,
           decoration: BoxDecoration(
             color: AppColors.greyColor,
-
             borderRadius: BorderRadius.circular(15),
           ),
         ),

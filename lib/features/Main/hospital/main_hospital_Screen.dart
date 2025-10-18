@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Hospital/presentation/Accepted%20Patients/page/accepted_Patients.dart';
+import 'package:medigo/features/Hospital/presentation/home/pages/hospital_home_screen.dart';
 import 'package:medigo/features/Hospital/presentation/setting/page/settings.dart';
 import 'package:medigo/features/Patient/favourite/presentation/page/favourite_patient.dart';
 import 'package:medigo/features/Patient/home/presentation/page/home_patient.dart';
@@ -32,7 +33,7 @@ class _Main_ScreenState extends State<Main_Screen_H> {
   }
 
   List<Widget> screens = [
-    HomePatient(),
+    HospitalHomeScreen(),
     FavouritePatient(),
     AcceptedPatientsScreen(),
     SettingsHospitalScreen(),

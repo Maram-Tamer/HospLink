@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
+import 'package:medigo/components/setting%20items/settings_group.dart';
+import 'package:medigo/components/setting%20items/settings_items.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/components/setting%20items/settings_group.dart';
-import 'package:medigo/components/setting%20items/settings_items.dart';
 
 class SettingsHospitalScreen extends StatelessWidget {
   const SettingsHospitalScreen({super.key});
@@ -37,8 +37,8 @@ class SettingsHospitalScreen extends StatelessWidget {
                   icon: Icons.person,
                   iconColor: Colors.green,
                   title: "Edit Profile",
-                  /*onPressed: () =>
-                      pushTo(context: context, route: Routes.EditProfile),*/
+                  onPressed: () =>
+                      pushTo(context: context, route: Routes.EditProfile),
                 ),
                 SettingsItem(
                   icon: Icons.history_rounded,
@@ -51,8 +51,8 @@ class SettingsHospitalScreen extends StatelessWidget {
                   icon: Icons.lock,
                   iconColor: Colors.blue,
                   title: "Change Password",
-                /*  onPressed: () =>
-                      pushTo(context: context, route: Routes.ChangePassword),*/
+                  onPressed: () =>
+                      pushTo(context: context, route: Routes.ChangePassword),
                 ),
               ],
             ),

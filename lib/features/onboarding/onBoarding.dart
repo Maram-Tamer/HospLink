@@ -41,13 +41,16 @@ class _OnBoardingState extends State<OnBoarding> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            onboardingList[index].title,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 35,
-                              fontWeight: FontWeight.w600,
+                          SizedBox(
+                            height: 50,
+                            child: Text(
+                              onboardingList[index].title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 35,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                           SizedBox(height: 20),

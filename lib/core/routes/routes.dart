@@ -23,9 +23,7 @@ import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
 import 'package:medigo/features/Patient/chat/chatScreen.dart';
 import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
-import 'package:medigo/features/onboarding/first_onboarding_screen.dart';
-import 'package:medigo/features/onboarding/second_onboarding_screen.dart';
-import 'package:medigo/features/onboarding/third_onboarding_screen.dart';
+import 'package:medigo/features/onboarding/onBoarding.dart';
 import 'package:medigo/features/Patient/setting/page/change_password.dart';
 import 'package:medigo/features/Patient/setting/page/edit_profile_screen.dart';
 import 'package:medigo/features/Patient/search/search_screen.dart';
@@ -74,7 +72,8 @@ class Routes {
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
       GoRoute(
         path: PatientDetails,
-        builder: (context, state) => PatientDetailsScreen(isAccepted: state.extra as bool,),
+        builder: (context, state) =>
+            PatientDetailsScreen(isAccepted: state.extra as bool),
       ),
 
       GoRoute(
@@ -103,18 +102,8 @@ class Routes {
         builder: (context, state) => UnifiedPatientScreen(),
       ),
 
-      GoRoute(
-        path: onBoarding_1,
-        builder: (context, state) => FirstOnboardingScreen(),
-      ),
-      GoRoute(
-        path: onBoarding_2,
-        builder: (context, state) => SecondOnboardingScreen(),
-      ),
-      GoRoute(
-        path: onBoarding_3,
-        builder: (context, state) => ThirdOnboardingScreen(),
-      ),
+      GoRoute(path: onBoarding_1, builder: (context, state) => OnBoarding()),
+
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login_P,

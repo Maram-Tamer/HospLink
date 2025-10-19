@@ -68,7 +68,6 @@ class _Patient_Step3State extends State<Patient_Step3> {
                   ),
                 ),
                 Gap(5),
-
                 Text(
                   'Determine your blood type.',
                   style: AppFontStyles.getSize16(
@@ -79,7 +78,6 @@ class _Patient_Step3State extends State<Patient_Step3> {
               ],
             ),
             Gap(15),
-
             GroupButton(
               isRadio: true, // ✅ يعني checkbox وليس radio
               buttons: Boold,
@@ -107,7 +105,6 @@ class _Patient_Step3State extends State<Patient_Step3> {
                   ),
                 ),
                 Gap(5),
-
                 Text(
                   'Do you have any chronic illnesses?',
                   style: AppFontStyles.getSize16(
@@ -158,7 +155,8 @@ class _Patient_Step3State extends State<Patient_Step3> {
                 child: MainButton(
                   buttonText: 'Done',
                   onPressed: () {
-                    pushWithReplacment(context: context, route: Routes.login_P);
+                    pushAndRemoveUntil(context: context, route: Routes.welcom);
+                    pushTo(context: context, route: Routes.login_P);
                   },
                   height: 45,
                 ),
@@ -178,7 +176,6 @@ class _Patient_Step3State extends State<Patient_Step3> {
           width: MediaQuery.of(context).size.width / 3.5,
           decoration: BoxDecoration(
             color: AppColors.primaryGreenColor,
-
             borderRadius: BorderRadius.circular(15),
           ),
         ),
@@ -188,7 +185,6 @@ class _Patient_Step3State extends State<Patient_Step3> {
           width: MediaQuery.of(context).size.width / 3.37,
           decoration: BoxDecoration(
             color: AppColors.primaryGreenColor,
-
             borderRadius: BorderRadius.circular(15),
           ),
         ),
@@ -198,7 +194,6 @@ class _Patient_Step3State extends State<Patient_Step3> {
           width: MediaQuery.of(context).size.width / 3.37,
           decoration: BoxDecoration(
             color: AppColors.primaryGreenColor,
-
             borderRadius: BorderRadius.circular(15),
           ),
         ),

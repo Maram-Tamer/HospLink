@@ -30,7 +30,6 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               steps_3(context),
-          
               Gap(30),
               Text(
                 'Website',
@@ -40,17 +39,14 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
                 ),
               ),
               Gap(20),
-          
               Directionality(
                 textDirection: TextDirection.ltr,
-          
                 child: TextFormField(
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: AppColors.fillTextForm,
                     labelText: "Website",
                     labelStyle: TextStyle(color: AppColors.darkGreyColor),
-          
                     hintStyle: AppFontStyles.getSize14(
                       fontColor: AppColors.greyColor,
                     ),
@@ -83,10 +79,8 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
                 ),
               ),
               Gap(20),
-          
               Directionality(
                 textDirection: TextDirection.ltr,
-          
                 child: MainTextFormField(
                   maxTextLines: 4,
                   label: 'Description',
@@ -97,7 +91,6 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
               Gap(20),
               Directionality(
                 textDirection: TextDirection.ltr,
-          
                 child: Text(
                   "Upload the official document from the hospital.",
                   style: AppFontStyles.getSize16(
@@ -121,7 +114,8 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
                       width: double.infinity,
                       height: 140,
                       child: Container(
-                        decoration: BoxDecoration(color: AppColors.fillTextForm),
+                        decoration:
+                            BoxDecoration(color: AppColors.fillTextForm),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -150,7 +144,6 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
                 ),
               ),
               Gap(20),
-          
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: DottedBorder(
@@ -165,7 +158,8 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
                       width: double.infinity,
                       height: 100,
                       child: Container(
-                        decoration: BoxDecoration(color: AppColors.fillTextForm),
+                        decoration:
+                            BoxDecoration(color: AppColors.fillTextForm),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -220,7 +214,9 @@ class _Hospital_Step3State extends State<Hospital_Step3> {
                 child: MainButton(
                   buttonText: 'Done',
                   onPressed: () {
-                    pushWithReplacment(context: context, route: Routes.login_H);
+                    pushAndRemoveUntil(context: context, route: Routes.welcom);
+
+                    pushTo(context: context, route: Routes.login_H);
                   },
                   height: 45,
                 ),
@@ -241,7 +237,6 @@ Row steps_3(BuildContext context) {
         width: MediaQuery.of(context).size.width / 3.5,
         decoration: BoxDecoration(
           color: AppColors.primaryGreenColor,
-
           borderRadius: BorderRadius.circular(15),
         ),
       ),
@@ -251,7 +246,6 @@ Row steps_3(BuildContext context) {
         width: MediaQuery.of(context).size.width / 3.37,
         decoration: BoxDecoration(
           color: AppColors.primaryGreenColor,
-
           borderRadius: BorderRadius.circular(15),
         ),
       ),
@@ -261,7 +255,6 @@ Row steps_3(BuildContext context) {
         width: MediaQuery.of(context).size.width / 3.37,
         decoration: BoxDecoration(
           color: AppColors.primaryGreenColor,
-
           borderRadius: BorderRadius.circular(15),
         ),
       ),

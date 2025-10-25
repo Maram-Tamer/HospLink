@@ -12,6 +12,8 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/bottom_navigation.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/steps_card.dart';
 
 enum Gender { male, female }
 
@@ -37,7 +39,7 @@ class HospitalStep1State extends State<HospitalStep1> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Steps_1(context),
+              StepsCard(context: context, step: 1,),
               Gap(30),
               ImageProfile(),
               Gap(30),
@@ -89,28 +91,7 @@ class HospitalStep1State extends State<HospitalStep1> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Gap(20),
-              MainButton(
-                buttonText: 'Next',
-                onPressed: () {
-                  pushWithReplacment(
-                    context: context,
-                    route: Routes.Hospital_Step_2,
-                  );
-                },
-                height: 45,
-                width: MediaQuery.of(context).size.width / 2 - 20,
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: bottomNavigation(route: Routes.Hospital_Step_2,step: 1,)
     );
   }
 
@@ -190,39 +171,6 @@ class HospitalStep1State extends State<HospitalStep1> {
           ),
         ],
       ),
-    );
-  }
-
-  Row Steps_1(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          height: 10,
-          width: MediaQuery.of(context).size.width / 3.5,
-          decoration: BoxDecoration(
-            color: AppColors.primaryGreenColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.greyColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.greyColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ],
     );
   }
 

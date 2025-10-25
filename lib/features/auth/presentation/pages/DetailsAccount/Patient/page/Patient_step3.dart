@@ -1,15 +1,14 @@
-import 'package:easy_radio/easy_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:group_button/group_button.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
-import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/bottom_navigation.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/steps_card.dart';
 
 class Patient_Step3 extends StatefulWidget {
   const Patient_Step3({super.key});
@@ -19,7 +18,6 @@ class Patient_Step3 extends StatefulWidget {
 }
 
 class _Patient_Step3State extends State<Patient_Step3> {
-  int? _groupValue = 1;
 
   final controller = GroupButtonController();
   final List<String> chronicDiseases = [
@@ -29,6 +27,7 @@ class _Patient_Step3State extends State<Patient_Step3> {
     "Heart Disease",
     "Liver Disease",
     "Kidney Disease",
+    "Other"
   ];
   final List<String> Boold = [
     "I Dont Know",
@@ -51,7 +50,10 @@ class _Patient_Step3State extends State<Patient_Step3> {
           crossAxisAlignment: CrossAxisAlignment.start,
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            steps_3(context),
+            StepsCard(
+              context: context,
+              step: 3,
+            ),
             Gap(50),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +81,7 @@ class _Patient_Step3State extends State<Patient_Step3> {
             ),
             Gap(15),
             GroupButton(
-              isRadio: true, // ✅ يعني checkbox وليس radio
+              isRadio: true, 
               buttons: Boold,
               options: const GroupButtonOptions(
                 spacing: 10,
@@ -116,7 +118,7 @@ class _Patient_Step3State extends State<Patient_Step3> {
             ),
             Gap(15),
             GroupButton(
-              isRadio: false, // ✅ يعني checkbox وليس radio
+              isRadio: false, 
               buttons: chronicDiseases,
               options: const GroupButtonOptions(
                 spacing: 10,
@@ -132,93 +134,12 @@ class _Patient_Step3State extends State<Patient_Step3> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Expanded(
-                child: MainButton(
-                  buttonText: 'Back',
-                  onPressed: () {
-                    pushWithReplacment(
-                      context: context,
-                      route: Routes.Patient_Step_2,
-                    );
-                  },
-                  height: 45,
-                ),
-              ),
-              Gap(20),
-              Expanded(
-                child: MainButton(
-                  buttonText: 'Done',
-                  onPressed: () {
-                    pushAndRemoveUntil(context: context, route: Routes.welcom);
-                    pushTo(context: context, route: Routes.login_P);
-                  },
-                  height: 45,
-                ),
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar: bottomNavigation(
+        step: 3,
+        route: Routes.login_P,
       ),
     );
   }
 
-  Row steps_3(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.5,
-          decoration: BoxDecoration(
-            color: AppColors.primaryGreenColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.primaryGreenColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 10,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.primaryGreenColor,
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row RaidoBloodItem(String title, int value) {
-    return Row(
-      children: [
-        EasyRadio<int>(
-          dotColor: AppColors.primaryGreenColor,
-          activeBorderColor: AppColors.primaryGreenColor,
-          inactiveBorderColor: AppColors.greyColor,
-          value: value,
-          groupValue: _groupValue,
-          onChanged: (value) {
-            setState(() {
-              _groupValue = value;
-            });
-          },
-        ),
-        Gap(10),
-        Text(title, style: AppFontStyles.getSize16()),
-      ],
-    );
-  }
+  
 }

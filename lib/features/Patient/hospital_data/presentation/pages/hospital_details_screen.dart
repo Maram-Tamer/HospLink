@@ -10,7 +10,7 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Patient/hospital_data/presentation/widgets/hospital_detail_tile.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/widgets/star_rating.dart';
+import 'package:medigo/features/Patient/hospital_data/presentation/widgets/star_rating.dart';
 import 'package:medigo/features/patient/hospital_data/presentation/widgets/photo_card.dart';
 
 class HospitalDetailsScreen extends StatefulWidget {
@@ -59,7 +59,6 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   ),
                 ),
                 const Gap(15),
-
                 GestureDetector(
                   onTap: () {
                     pushTo(context: context, route: Routes.chat);

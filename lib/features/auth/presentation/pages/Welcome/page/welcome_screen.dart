@@ -43,7 +43,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
                 'Our app helps you quickly access the nearest hospital. Submit your request, and if approved, we\'ll take immediate action to address your medical needs.',
-                style: AppFontStyles.getSize18(fontColor: AppColors.geyTextform),
+                style:
+                    AppFontStyles.getSize18(fontColor: AppColors.geyTextform),
                 textAlign: TextAlign.center,
               ),
             ),

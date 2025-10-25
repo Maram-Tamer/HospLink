@@ -4,8 +4,8 @@ import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
-import 'package:medigo/features/onboarding/onBoardingModel.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:medigo/features/Intro/onboarding/widget/pagw_view_design.dart';
+import 'package:medigo/features/Intro/onboarding/widget/smooth_page.dart';
 
 class OnBoarding extends StatefulWidget {
   OnBoarding({super.key});
@@ -31,44 +31,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 });
               },
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Spacer(),
-                    Image.asset(onboardingList[index].image, height: 300),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child: Text(
-                              onboardingList[index].title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 35,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Text(
-                            onboardingList[index].description,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          SizedBox(height: 40),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
+                return pagwViewDesign(index: index);
               },
               itemCount: 3,
             ),
@@ -77,24 +40,7 @@ class _OnBoardingState extends State<OnBoarding> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
             child: Column(
               children: [
-                SmoothPageIndicator(
-                  onDotClicked: (index) {
-                    pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                  },
-                  controller: pageController,
-                  count: 3,
-                  effect: ExpandingDotsEffect(
-                    dotColor: AppColors.greyColor,
-                    dotWidth: 10,
-                    spacing: 5,
-                    dotHeight: 10,
-                    activeDotColor: AppColors.primaryGreenColor,
-                  ),
-                ),
+                smoothPage(pageController: pageController),
                 Gap(10),
                 MainButton(
                   height: 60,

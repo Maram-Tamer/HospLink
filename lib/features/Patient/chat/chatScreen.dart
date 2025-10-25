@@ -12,125 +12,127 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.blueLight,
-      body: Column(
-        children: [
-          Container(
-            height: 70,
-            color: AppColors.blue2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_sharp,
-                        color: AppColors.BlueBouttmnavigation,
-                      ),
-                    ),
-                    CircleAvatar(
-                      radius: 20,
-                      child: SvgPicture.asset(AppIcons.profileSVG),
-                    ),
-                    Gap(10),
-                    Text(
-                      'Hospital Name',
-                      style: AppFontStyles.getSize18(
-                        fontColor: AppColors.whiteColor,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.list, color: AppColors.whiteColor),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.call, color: AppColors.whiteColor),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          Gap(30),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width / 1.5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.blue2,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(15),
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: 70,
+              color: AppColors.blue2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_sharp,
+                          color: AppColors.BlueBouttmnavigation,
                         ),
                       ),
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        'Helloooooooooooooooooooooooooooo!',
-                        style: AppFontStyles.getSize14(
+                      CircleAvatar(
+                        radius: 20,
+                        child: SvgPicture.asset(AppIcons.profileSVG),
+                      ),
+                      Gap(10),
+                      Text(
+                        'Hospital Name',
+                        style: AppFontStyles.getSize18(
                           fontColor: AppColors.whiteColor,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Gap(20),
-
-          Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width / 1.5,
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.list, color: AppColors.whiteColor),
                       ),
-
-                      decoration: BoxDecoration(
-                        color: AppColors.whiteColor,
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(15),
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.call, color: AppColors.whiteColor),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        
+            Gap(30),
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width / 1.5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.blue2,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15),
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                        ),
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          'Helloooooooooooooooooooooooooooo!',
+                          style: AppFontStyles.getSize14(
+                            fontColor: AppColors.whiteColor,
+                          ),
                         ),
                       ),
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        '*****************************************************************************************',
-                        style: AppFontStyles.getSize14(
-                          fontColor: AppColors.blackColor,
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Gap(20),
+        
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width / 1.5,
+                        ),
+        
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(15),
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                        ),
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          '*****************************************************************************************',
+                          style: AppFontStyles.getSize14(
+                            fontColor: AppColors.blackColor,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         height: 70,

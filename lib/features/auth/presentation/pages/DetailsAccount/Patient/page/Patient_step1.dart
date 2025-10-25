@@ -1,7 +1,6 @@
 import 'package:easy_radio/easy_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/buttons/main_button.dart';
@@ -12,6 +11,8 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/bottom_navigation.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/steps_card.dart';
 
 enum Gender { male, female }
 
@@ -38,9 +39,8 @@ class PatientStep1State extends State<PatientStep1> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-
               children: [
-                Steps_1(context),
+                StepsCard(context: context,step: 1,),
                 Gap(50),
                 ImageProfile(),
                 Gap(30),
@@ -52,7 +52,6 @@ class PatientStep1State extends State<PatientStep1> {
                   ),
                 ),
                 Gap(30),
-
                 MainTextFormField(
                   prefixIcon: AppIcons.userSVG,
                   label: 'Name',
@@ -60,7 +59,6 @@ class PatientStep1State extends State<PatientStep1> {
                   colorFill: AppColors.fillTextForm,
                 ),
                 Gap(30),
-
                 Text(
                   'Gender',
                   style: AppFontStyles.getSize14(
@@ -77,64 +75,10 @@ class PatientStep1State extends State<PatientStep1> {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Gap(20),
-              MainButton(
-                buttonText: 'Next',
-                onPressed: () {
-                  pushWithReplacment(
-                    context: context,
-                    route: Routes.Patient_Step_2,
-                  );
-                },
-                height: 45,
-                width: MediaQuery.of(context).size.width / 2 - 20,
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar: bottomNavigation(
+        step: 1,
+        route: Routes.Patient_Step_2,
       ),
-    );
-  }
-
-  Row Steps_1(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          height: 10,
-          width: MediaQuery.of(context).size.width / 3.5,
-          decoration: BoxDecoration(
-            color: AppColors.primaryGreenColor,
-
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.greyColor,
-
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.greyColor,
-
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ],
     );
   }
 
@@ -190,7 +134,6 @@ class PatientStep1State extends State<PatientStep1> {
           },
         ),
         Spacer(),
-
         Text('Female', style: AppFontStyles.getSize16()),
         Gap(10),
         EasyRadio<int>(
@@ -240,7 +183,6 @@ class PatientStep1State extends State<PatientStep1> {
               });
             }
           },
-
           readOnly: true,
           controller: dateSelected,
           decoration: InputDecoration(

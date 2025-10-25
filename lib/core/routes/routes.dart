@@ -17,7 +17,7 @@ import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step3.dart';
-import 'package:medigo/features/auth/presentation/pages/Login/login_screen.dart';
+import 'package:medigo/features/auth/presentation/pages/Login/page/login_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/Welcome/page/welcome_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/otp_verfication_screen.dart';
@@ -26,11 +26,11 @@ import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
 import 'package:medigo/features/Patient/chat/chatScreen.dart';
 import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
-import 'package:medigo/features/onboarding/onBoarding.dart';
+import 'package:medigo/features/Intro/onboarding/page/onBoarding.dart';
 import 'package:medigo/features/Patient/setting/page/change_password.dart';
 import 'package:medigo/features/Patient/setting/page/edit_profile_screen.dart';
 import 'package:medigo/features/Patient/search/search_screen.dart';
-import 'package:medigo/features/splash/splash_screen.dart';
+import 'package:medigo/features/Intro/splash/page/splash_screen.dart';
 
 class Routes {
   static const String splash = '/';

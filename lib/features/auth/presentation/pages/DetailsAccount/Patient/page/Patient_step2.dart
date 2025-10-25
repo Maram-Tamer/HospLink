@@ -8,6 +8,8 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/bottom_navigation.dart';
+import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/steps_card.dart';
 
 class Patient_Step2 extends StatelessWidget {
   const Patient_Step2({super.key});
@@ -22,7 +24,10 @@ class Patient_Step2 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Steps_2(context),
+              StepsCard(
+                context: context,
+                step: 2,
+              ),
               Gap(30),
               Text(
                 'National ID',
@@ -32,7 +37,6 @@ class Patient_Step2 extends StatelessWidget {
                 ),
               ),
               Gap(20),
-
               MainTextFormField(
                 prefixIcon: AppIcons.ID_SVG,
                 label: 'National ID',
@@ -48,17 +52,11 @@ class Patient_Step2 extends StatelessWidget {
                 ),
               ),
               Gap(20),
-
-              Directionality(
-                textDirection: TextDirection.ltr,
-
-                child: MainTextFormField(
-                  prefixIcon: AppIcons.callSVG,
-
-                  label: 'Phone',
-                  ispassword: false,
-                  colorFill: AppColors.fillTextForm,
-                ),
+              MainTextFormField(
+                prefixIcon: AppIcons.callSVG,
+                label: 'Phone',
+                ispassword: false,
+                colorFill: AppColors.fillTextForm,
               ),
               Gap(20),
               Text(
@@ -69,10 +67,8 @@ class Patient_Step2 extends StatelessWidget {
                 ),
               ),
               Gap(20),
-
               MainTextFormField(
                 prefixIcon: AppIcons.locationLine_SVG,
-
                 label: 'Address',
                 ispassword: false,
                 colorFill: AppColors.fillTextForm,
@@ -92,7 +88,6 @@ class Patient_Step2 extends StatelessWidget {
                 ),
               ),
               Gap(10),
-
               Text(
                 'Name of contact details',
                 style: AppFontStyles.getSize14(
@@ -101,16 +96,13 @@ class Patient_Step2 extends StatelessWidget {
                 ),
               ),
               Gap(20),
-
               MainTextFormField(
                 prefixIcon: AppIcons.profileSVG,
-
                 label: 'Name',
                 ispassword: false,
                 colorFill: AppColors.fillTextForm,
               ),
               Gap(20),
-
               Text(
                 'Phone of contact details',
                 style: AppFontStyles.getSize14(
@@ -119,10 +111,9 @@ class Patient_Step2 extends StatelessWidget {
                 ),
               ),
               Gap(20),
-
               MainTextFormField(
                 prefixIcon: AppIcons.callSVG,
-               // sufixIcon: AppIcons.connectSVG,
+                // sufixIcon: AppIcons.connectSVG,
 
                 label: 'Phone',
                 ispassword: false,
@@ -133,77 +124,10 @@ class Patient_Step2 extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Expanded(
-                child: MainButton(
-                  buttonText: 'Back',
-                  onPressed: () {
-                    pushWithReplacment(
-                      context: context,
-                      route: Routes.Patient_Step_1,
-                    );
-                  },
-                  height: 45,
-                ),
-              ),
-              Gap(20),
-              Expanded(
-                child: MainButton(
-                  buttonText: 'Next',
-                  onPressed: () {
-                    pushWithReplacment(
-                      context: context,
-                      route: Routes.Patient_Step_3,
-                    );
-                  },
-                  height: 45,
-                ),
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar: bottomNavigation(
+        step: 2,
+        route: Routes.Patient_Step_3,
       ),
-    );
-  }
-
-  Row Steps_2(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.5,
-          decoration: BoxDecoration(
-            color: AppColors.primaryGreenColor,
-
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 10,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.primaryGreenColor,
-
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Gap(3),
-        Container(
-          height: 5,
-          width: MediaQuery.of(context).size.width / 3.37,
-          decoration: BoxDecoration(
-            color: AppColors.greyColor,
-
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ],
     );
   }
 }

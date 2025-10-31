@@ -5,16 +5,24 @@ import 'package:medigo/features/Patient/data/model/patient-model.dart';
 class FirebaseServices {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  static final CollectionReference _colectionPatient =
+  static final CollectionReference _collectionPatient =
       _firestore.collection('patient');
-  static final CollectionReference _colectionHospital =
+  static final CollectionReference _collectionHospital =
       _firestore.collection('hospital');
 
   static createPatient(PatientModel patient) {
-    _colectionPatient.doc(patient.uid).set(patient.toJson());
+    _collectionPatient.doc(patient.uid).set(patient.toJson());
   }
 
   static createHospital(HospitalModel hospital) {
-    _colectionHospital.doc(hospital.uid).set(hospital.toJson());
+    _collectionHospital.doc(hospital.uid).set(hospital.toJson());
+  }
+
+  static updatePatient(PatientModel patient) {
+    _collectionPatient.doc(patient.uid).update(patient.toUpdateData());
+  }
+
+  static updateHospital(HospitalModel hospital) {
+    _collectionHospital.doc(hospital.uid).update(hospital.toUpdateData());
   }
 }

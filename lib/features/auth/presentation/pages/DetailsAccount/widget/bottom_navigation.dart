@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
@@ -53,6 +54,7 @@ class bottomNavigation extends StatelessWidget {
                       pushAndRemoveUntil(
                           context: context, route: Routes.welcom);
                     }
+                    FirebaseAuth.instance.currentUser!.updateDisplayName('Done');
                     pushTo(
                       context: context,
                       route: route,

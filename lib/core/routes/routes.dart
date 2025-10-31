@@ -1,6 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
-import 'package:medigo/features/Hospital/presentation/pages/notification/page/notification_screen.dart';
 import 'package:medigo/features/Hospital/presentation/pages/patient_details/presentation/pages/patient_details_screen.dart';
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/password/change_password.dart';
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/pateint_history.dart';
@@ -11,6 +11,7 @@ import 'package:medigo/features/Patient/presentation/pages/notification/page/not
 import 'package:medigo/features/Patient/presentation/pages/patient_data/page/unified_patient_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/setting/page/hospital_history.dart'
     show HospitalHistory;
+import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
@@ -19,9 +20,8 @@ import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/p
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step3.dart';
 import 'package:medigo/features/auth/presentation/pages/Login/page/login_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/Welcome/page/welcome_screen.dart';
+import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_mail_sent.dart';
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_screen.dart';
-import 'package:medigo/features/auth/presentation/pages/forget_password/pages/otp_verfication_screen.dart';
-import 'package:medigo/features/auth/presentation/pages/forget_password/pages/reset_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy_policy_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
 import 'package:medigo/features/Patient/presentation/pages/chat/chatScreen.dart';
@@ -44,6 +44,7 @@ class Routes {
   static const String forgetPassword = '/forget_password';
   static const String oTP = '/otp';
   static const String resetPassword = '/reset-password';
+  static const String forgetPasswordMailSent = '/forgetPasswordMailSent';
 
   static const String EnerData_P = '/details-p';
   static const String EnerData_H = '/details-h';
@@ -114,49 +115,61 @@ class Routes {
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),
       GoRoute(
         path: login_P,
-        builder: (context, state) => LoginScreen(
-          icon: AppImages.profileWelcom,
-          title: 'As Patient',
-          subTitle:
-              'You can send a request to the hospital for emergency treatment as soon as possible.',
-          route: Routes.register_P,
-          routeForgetPassword: Routes.login_P,
-          
-          routeAfterLogin: Routes.Main_patient,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: LoginScreen(
+            icon: AppImages.profileWelcom,
+            title: 'As Patient',
+            subTitle:
+                'You can send a request to the hospital for emergency treatment as soon as possible.',
+            route: Routes.register_P,
+            routeForgetPassword: Routes.login_P,
+            
+            routeAfterLogin: Routes.Main_patient,
+          ),
         ),
       ),
       GoRoute(
         path: login_H,
-        builder: (context, state) => LoginScreen(
-          icon: AppImages.hpspitalWelcom,
-          title: 'As Hospital',
-          subTitle: 'You can receive emergency request calls.',
-          route: Routes.register_H,
-                    routeForgetPassword: Routes.login_H,
-
-          routeAfterLogin: Routes.Main_hospital,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: LoginScreen(
+            icon: AppImages.hpspitalWelcom,
+            title: 'As Hospital',
+            subTitle: 'You can receive emergency request calls.',
+            route: Routes.register_H,
+                      routeForgetPassword: Routes.login_H,
+          
+            routeAfterLogin: Routes.Main_hospital,
+          ),
         ),
       ),
       GoRoute(
         path: register_P,
-        builder: (context, state) => RegesterScreen(
-          icon: AppImages.profileWelcom,
-          title: 'As Patient',
-          subTitle:
-              'You can send a request to the hospital for emergency treatment as soon as possible.',
-          routeLogin: Routes.login_P,
-          routeAfterRegister: Routes.Patient_Step_1,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: RegesterScreen(
+            icon: AppImages.profileWelcom,
+            title: 'As Patient',
+            subTitle:
+                'You can send a request to the hospital for emergency treatment as soon as possible.',
+            routeLogin: Routes.login_P,
+            routeAfterRegister: Routes.Patient_Step_1,
+          ),
         ),
       ),
       GoRoute(
         path: register_H,
-        builder: (context, state) => RegesterScreen(
-          icon: AppImages.hpspitalWelcom,
-          title: 'As Hospital',
-          subTitle:
-              'You can send a request to the hospital for emergency treatment as soon as possible.',
-          routeLogin: Routes.login_H,
-          routeAfterRegister: Routes.Hospital_Step_1,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: RegesterScreen(
+            icon: AppImages.hpspitalWelcom,
+            title: 'As Hospital',
+            subTitle:
+                'You can send a request to the hospital for emergency treatment as soon as possible.',
+            routeLogin: Routes.login_H,
+            routeAfterRegister: Routes.Hospital_Step_1,
+          ),
         ),
       ),
       GoRoute(
@@ -165,14 +178,15 @@ class Routes {
       ),
       GoRoute(
         path: forgetPassword,
-        builder: (context, state) => ForgetPasswordScreen(route: state.extra as String,),
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: ForgetPasswordScreen(route: state.extra as String,)),
       ),
-      GoRoute(path: oTP, builder: (context, state) {
-        return OtpVerficationScreen(route: state.extra as String,);
-      }),
       GoRoute(
-        path: resetPassword,
-        builder: (context, state) => ResetPasswordScreen(route: state.extra as String,),
+        path: forgetPasswordMailSent,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: ForgetPasswordMailSent(email: state.extra as String,)),
       ),
       GoRoute(
         path: Patient_Step_1,

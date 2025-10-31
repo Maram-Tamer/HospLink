@@ -1,15 +1,15 @@
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
-import 'package:medigo/features/Hospital/presentation/notification/page/notification_screen.dart';
-import 'package:medigo/features/Hospital/presentation/patient_details/presentation/pages/patient_details_screen.dart';
-import 'package:medigo/features/Hospital/presentation/setting/page/password/change_password.dart';
-import 'package:medigo/features/Hospital/presentation/setting/page/pateint_history.dart';
-import 'package:medigo/features/Hospital/presentation/setting/page/profile/edit_profile_screen.dart';
+import 'package:medigo/features/Hospital/presentation/pages/notification/page/notification_screen.dart';
+import 'package:medigo/features/Hospital/presentation/pages/patient_details/presentation/pages/patient_details_screen.dart';
+import 'package:medigo/features/Hospital/presentation/pages/setting/page/password/change_password.dart';
+import 'package:medigo/features/Hospital/presentation/pages/setting/page/pateint_history.dart';
+import 'package:medigo/features/Hospital/presentation/pages/setting/page/profile/edit_profile_screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
-import 'package:medigo/features/Patient/notification/page/notification_screen.dart';
-import 'package:medigo/features/Patient/patient_data/page/unified_patient_screen.dart';
-import 'package:medigo/features/Patient/setting/page/hospital_history.dart'
+import 'package:medigo/features/Patient/presentation/pages/notification/page/notification_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/patient_data/page/unified_patient_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/setting/page/hospital_history.dart'
     show HospitalHistory;
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
@@ -24,12 +24,12 @@ import 'package:medigo/features/auth/presentation/pages/forget_password/pages/ot
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/reset_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy_policy_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
-import 'package:medigo/features/Patient/chat/chatScreen.dart';
-import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/chat/chatScreen.dart';
+import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/pages/hospital_details_screen.dart';
 import 'package:medigo/features/Intro/onboarding/page/onBoarding.dart';
-import 'package:medigo/features/Patient/setting/page/change_password.dart';
-import 'package:medigo/features/Patient/setting/page/edit_profile_screen.dart';
-import 'package:medigo/features/Patient/search/search_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/setting/page/change_password.dart';
+import 'package:medigo/features/Patient/presentation/pages/setting/page/edit_profile_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/search/search_screen.dart';
 import 'package:medigo/features/Intro/splash/page/splash_screen.dart';
 
 class Routes {

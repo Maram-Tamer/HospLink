@@ -7,12 +7,13 @@ environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
+  bloc: ^9.1.0
+  cloud_firestore: ^6.0.3
   device_preview: ^1.2.0
   dotted_border: ^2.1.0
   easy_radio: ^0.0.3
-  firebase_core: ^4.2.0
-  cloud_firestore: ^6.0.3
   firebase_auth: ^6.1.1
+  firebase_core: ^4.2.0
   flutter:
     sdk: flutter
   flutter_gap: ^1.2.0

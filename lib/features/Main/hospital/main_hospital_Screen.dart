@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';
-import 'package:medigo/features/Hospital/presentation/Accepted%20Patients/page/accepted_Patients.dart';
-import 'package:medigo/features/Hospital/presentation/home/pages/hospital_home_screen.dart';
-import 'package:medigo/features/Hospital/presentation/notification/page/notification_screen.dart';
-import 'package:medigo/features/Hospital/presentation/setting/page/settings.dart';
-import 'package:medigo/features/Patient/favourite/presentation/page/favourite_patient.dart';
-import 'package:medigo/features/Patient/home/presentation/page/home_patient.dart';
-import 'package:medigo/features/Patient/hospital_data/presentation/pages/hospital_details_screen.dart';
-import 'package:medigo/features/Patient/setting/page/settings.dart';
+import 'package:medigo/features/Hospital/presentation/pages/Accepted%20Patients/page/accepted_Patients.dart';
+import 'package:medigo/features/Hospital/presentation/pages/home/pages/hospital_home_screen.dart';
+import 'package:medigo/features/Hospital/presentation/pages/notification/page/notification_screen.dart';
+import 'package:medigo/features/Hospital/presentation/pages/setting/page/settings.dart';
+import 'package:medigo/features/Patient/presentation/pages/favourite/presentation/page/favourite_patient.dart';
+import 'package:medigo/features/Patient/presentation/pages/home/presentation/page/home_patient.dart';
+import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/pages/hospital_details_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/setting/page/settings.dart';
 
 class Main_Screen_H extends StatefulWidget {
   const Main_Screen_H({super.key, this.initialIndex});

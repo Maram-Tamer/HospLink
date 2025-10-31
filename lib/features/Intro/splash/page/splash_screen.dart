@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gap/flutter_gap.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Intro/splash/widget/splash.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

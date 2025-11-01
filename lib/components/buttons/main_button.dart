@@ -33,11 +33,7 @@ class MainButton extends StatelessWidget {
   final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    if (icon != null) {
-      log('--icon--');
-    } else {
-      log('--no icon--');
-    }
+    
     return SizedBox(
       width: width ?? double.infinity,
       height: height ?? 55,

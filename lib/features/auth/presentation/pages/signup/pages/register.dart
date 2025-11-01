@@ -98,7 +98,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       child: MainButton(
                         buttonText: 'Sign Up',
                         onPressed: () {
-                          pushAndRemoveUntil(
+                          pushTo(
                             context: context,
                             route: widget.routeAfterRegister,
                           );

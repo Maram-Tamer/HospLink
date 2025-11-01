@@ -10,13 +10,10 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/auth/data/models/user.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
 import 'package:medigo/features/auth/presentation/pages/Login/widget/curve_card.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/widget/rich_text.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/widget/text_form_signup.dart';
 import 'package:medigo/features/auth/presentation/widget/card_login__register_with.dart';
-
-import '../../DetailsAccount/Hospital/page/Hospital_step1.dart';
 
 class RegesterScreen extends StatefulWidget {
   const RegesterScreen({
@@ -126,6 +123,9 @@ class _RegesterScreenState extends State<RegesterScreen> {
                                   ? UserType.hospital
                                   : UserType.patient;
                               cubit.signup();
+                            } else if (!isChecked) {
+                              showMyDialog(context,
+                                  'please agrees to the privacy and policy.');
                             }
                           },
                         ),

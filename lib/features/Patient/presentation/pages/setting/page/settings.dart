@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/components/setting%20items/settings_group.dart';
@@ -37,19 +38,22 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.person,
                   iconColor: Colors.green,
                   title: "Edit Profile",
-                  onPressed: () => pushTo(context: context, route: Routes.EditProfile),
+                  onPressed: () =>
+                      pushTo(context: context, route: Routes.EditProfile),
                 ),
                 SettingsItem(
                   icon: Icons.medical_information,
                   iconColor: Colors.red,
                   title: "Medical History",
-                  onPressed: () => pushTo(context: context, route: Routes.MedicalHistory),
+                  onPressed: () =>
+                      pushTo(context: context, route: Routes.MedicalHistory),
                 ),
                 SettingsItem(
                   icon: Icons.lock,
                   iconColor: Colors.blue,
                   title: "Change Password",
-                  onPressed: () => pushTo(context: context, route: Routes.ChangePassword),
+                  onPressed: () =>
+                      pushTo(context: context, route: Routes.ChangePassword),
                 ),
               ],
             ),
@@ -108,7 +112,11 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.logout,
                   iconColor: AppColors.red,
                   title: "Logout",
-                  onPressed: () => pushAndRemoveUntil(context: context, route: Routes.welcom),
+                  onPressed: () {
+                    pushAndRemoveUntil(context: context, route: Routes.welcom);
+                    LocalHelper.remove(LocalHelper.kUserId);
+                    LocalHelper.remove(LocalHelper.kUserType);
+                  },
                 ),
               ],
             ),

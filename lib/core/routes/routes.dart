@@ -13,13 +13,7 @@ import 'package:medigo/features/Patient/presentation/pages/patient_data/page/uni
 import 'package:medigo/features/Patient/presentation/pages/setting/page/hospital_history.dart'
     show HospitalHistory;
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step1.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step2.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/Hospital_step3.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/page/pageViewHospital.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step1.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step2.dart';
-import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/Patient_step3.dart';
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/page/pageViewPatient.dart';
 import 'package:medigo/features/auth/presentation/pages/Login/page/login_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/Welcome/page/welcome_screen.dart';
@@ -34,7 +28,6 @@ import 'package:medigo/features/Patient/presentation/pages/setting/page/change_p
 import 'package:medigo/features/Patient/presentation/pages/setting/page/edit_profile_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/search/search_screen.dart';
 import 'package:medigo/features/Intro/splash/page/splash_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Routes {
   static const String splash = '/';
@@ -77,6 +70,14 @@ class Routes {
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(
+          path: forgetPasswordMailSent,
+          builder: (context, state) => BlocProvider(
+                create: (context) => AuthCubit(),
+                child: ForgetPasswordMailSent(
+                  email: state.extra as String,
+                ),
+              )),
       GoRoute(
           path: pageviewPatient,
           builder: (context, state) => BlocProvider(
@@ -189,23 +190,13 @@ class Routes {
       ),
       GoRoute(
         path: forgetPassword,
-        builder: (context, state) => ForgetPasswordScreen(
-          route: state.extra as String,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: ForgetPasswordScreen(
+            route: state.extra as String,
+          ),
         ),
       ),
-      // GoRoute(
-      //     path: oTP,
-      //     builder: (context, state) {
-      //       return OtpVerficationScreen(
-      //         route: state.extra as String,
-      //       );
-      //     }),
-      // GoRoute(
-      //   path: resetPassword,
-      //   builder: (context, state) => ResetPasswordScreen(
-      //     route: state.extra as String,
-      //   ),
-      // ),
       GoRoute(
         path: Main_hospital,
         builder: (context, state) => Main_Screen_H(),

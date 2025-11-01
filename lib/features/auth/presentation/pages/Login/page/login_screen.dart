@@ -5,6 +5,7 @@ import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/auth/data/models/user.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
@@ -44,9 +45,15 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is AuthSuccessState) {
           pop(context);
           if (FirebaseAuth.instance.currentUser!.displayName != null) {
-            state.userType == UserType.hospital
-                ? pushTo(context: context, route: Routes.Main_hospital)
-                : pushTo(context: context, route: Routes.Main_patient);
+            if (state.userType == UserType.hospital) {
+              pushAndRemoveUntil(context: context, route: Routes.Main_hospital);
+              LocalHelper.setUserType('hospital');
+            } else {
+              pushAndRemoveUntil(context: context, route: Routes.Main_patient);
+              LocalHelper.setUserType('patient');
+            }
+
+            LocalHelper.setUserId(FirebaseAuth.instance.currentUser!.uid);
           } else {
             state.userType == UserType.hospital
                 ? pushTo(context: context, route: Routes.pageviewHospital)

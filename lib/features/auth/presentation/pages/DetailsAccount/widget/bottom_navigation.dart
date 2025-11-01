@@ -5,6 +5,7 @@ import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 
 class BottomNavigation extends StatelessWidget {
@@ -30,19 +31,20 @@ class BottomNavigation extends StatelessWidget {
               : MainAxisAlignment.spaceBetween,
           children: [
             // زر Back (يظهر من الصفحة الثانية فصاعدًا)
-            // if (step > 0)
-            //   Expanded(
-            //     child: MainButton(
-            //       buttonText: 'Back',
-            //       onPressed: () {
-            //         pageController.previousPage(
-            //           duration: const Duration(milliseconds: 300),
-            //           curve: Curves.ease,
-            //         pop(context);
-            //       },
-            //       height: 45,
-            //     ),
-            //   ),
+            if (step > 0)
+              Expanded(
+                child: MainButton(
+                  buttonText: 'Back',
+                  onPressed: () {
+                    pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                    //  pop(context);
+                  },
+                  height: 45,
+                ),
+              ),
             // ],
             // Gap(20),
             // if (step == 1) ...[
@@ -58,7 +60,7 @@ class BottomNavigation extends StatelessWidget {
             //     height: 45,
             //   ),
             // ],
-            // if (step != 1) ...[
+            // if (step != 0) ...[
             //   Expanded(
             //     child: MainButton(
             //       buttonText: (step == 3) ? 'Done' : 'Next',
@@ -77,7 +79,8 @@ class BottomNavigation extends StatelessWidget {
             //       height: 45,
             //     ),
             //   ),
-            //   if (step > 0) const Gap(20),
+            // ],
+            if (step > 0) const Gap(20),
 //**************************************************************************************** */
             // زر Next أو Done
             if (step == 0)
@@ -121,6 +124,8 @@ class BottomNavigation extends StatelessWidget {
                         //Patient
                         if (cubit.booldController.selectedIndex != null) {
                           cubit.createpatient(context);
+                          FirebaseAuth.instance.currentUser!
+                              .updateDisplayName('Done');
                           pushAndRemoveUntil(
                               context: context, route: Routes.welcom);
                           pushTo(
@@ -136,6 +141,9 @@ class BottomNavigation extends StatelessWidget {
                           if (cubit.positionLati != null &&
                               cubit.fileDoc != null) {
                             cubit.createHosptial(context);
+                            FirebaseAuth.instance.currentUser!
+                                .updateDisplayName('Done');
+
                             pushAndRemoveUntil(
                                 context: context, route: Routes.welcom);
                             pushTo(

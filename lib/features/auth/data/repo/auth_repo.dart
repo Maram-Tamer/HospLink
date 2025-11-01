@@ -8,7 +8,7 @@ import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/auth/data/models/user.dart';
 
 class AuthRepo {
-   static createPatient(PatientModel patient) {
+  static createPatient(PatientModel patient) {
     try {
       FirebaseServices.createPatient(patient);
     } on Exception catch (e) {
@@ -23,13 +23,36 @@ class AuthRepo {
       log(e.toString());
     }
   }
-  static Future<Either<String,UserType>> login(String email, String password,) async {
+
+  static updateHospital(HospitalModel hospital) {
+    try {
+      FirebaseServices.updateHospital(hospital);
+    } on Exception catch (e) {
+      log(e.toString());
+    }
+  }
+
+  static updatePatient(PatientModel patient) {
+    try {
+      FirebaseServices.updatePatient(patient);
+    } on Exception catch (e) {
+      log(e.toString());
+    }
+  }
+
+  static Future<Either<String, UserType>> login(
+    String email,
+    String password,
+  ) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return right(FirebaseAuth.instance.currentUser?.photoURL == UserType.hospital.name?UserType.hospital:UserType.patient);
+      return right(
+          FirebaseAuth.instance.currentUser?.photoURL == UserType.hospital.name
+              ? UserType.hospital
+              : UserType.patient);
     } on FirebaseAuthException catch (e) {
       log(e.code);
       if (e.code == 'user-not-found') {
@@ -42,18 +65,19 @@ class AuthRepo {
     } catch (e) {
       return Left('something went wrong');
     }
-    }
-  static Future<Either<String, bool>> signup(String email, String password,UserType userType) async {
+  }
+
+  static Future<Either<String, bool>> signup(
+      String email, String password, UserType userType) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-     FirebaseAuth.instance.currentUser!.updatePhotoURL(userType.name);
+      FirebaseAuth.instance.currentUser!.updatePhotoURL(userType.name);
       return right(true);
     } on FirebaseAuthException catch (e) {
-      
-       if (e.code == 'weak-password') {
+      if (e.code == 'weak-password') {
         return Left('password is too weak');
       } else if (e.code == 'email-already-in-use') {
         return Left('email already in use');
@@ -64,6 +88,7 @@ class AuthRepo {
       return Left('something went wrong');
     }
   }
+
   static Future<Either<String, bool>> resetPassword(String email) async {
     try {
       log(email);

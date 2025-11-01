@@ -7,6 +7,7 @@ import 'package:medigo/components/setting%20items/settings_group.dart';
 import 'package:medigo/components/setting%20items/settings_items.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
@@ -111,10 +112,14 @@ class SettingsHospitalScreen extends StatelessWidget {
                   icon: Icons.logout,
                   iconColor: AppColors.red,
                   title: "Logout",
-                  onPressed: () => pushAndRemoveUntil(
-                    context: context,
-                    route: Routes.welcom,
-                  ),
+                  onPressed: () {
+                    pushAndRemoveUntil(
+                      context: context,
+                      route: Routes.welcom,
+                    );
+                    LocalHelper.remove(LocalHelper.kUserId);
+                    LocalHelper.remove(LocalHelper.kUserType);
+                  },
                 ),
               ],
             ),

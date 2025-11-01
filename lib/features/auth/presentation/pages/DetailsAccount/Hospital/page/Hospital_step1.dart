@@ -135,7 +135,7 @@ class HospitalStep1State extends State<HospitalStep1> {
               context: context,
               firstDate: DateTime.utc(1900),
               initialDate: DateTime.now(),
-              lastDate: DateTime.now().add(Duration(days: 365 * 3)),
+              lastDate: DateTime.now(),
             );
             if (selectDate != null) {
               setState(() {

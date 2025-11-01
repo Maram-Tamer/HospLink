@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+  await LocalHelper.init();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

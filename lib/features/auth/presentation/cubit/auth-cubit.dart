@@ -8,6 +8,7 @@ import 'package:group_button/group_button.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart' show showMyDialog;
 import 'package:medigo/core/extentions/uploadCloudinary.dart';
+import 'package:medigo/core/services/local/local-helper.dart' show LocalHelper;
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,6 +43,12 @@ class AuthCubit extends Cubit<AuthState> {
   File? fileDoc;
   String? positionLong;
   String? positionLati;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late UserType userType;
+  UserCredential? userCredential;
 
   createHosptial(BuildContext context) async {
     try {
@@ -69,7 +76,6 @@ class AuthCubit extends Cubit<AuthState> {
         address: addressController.text,
         date: dateController.text,
         description: descriptionController.text,
-        email: 'eeeee@gmail.com',
         fileUri: filePath,
         hospitalType: radiGroub,
         imageUri: imageUri,
@@ -79,10 +85,11 @@ class AuthCubit extends Cubit<AuthState> {
         officelEmail: officialEmailController.text,
         phone: phoneController.text,
         secondPhone: secondphoneFriendController.text,
-        uid: '17',
+        uid: FirebaseAuth.instance.currentUser!.uid,
         website: websiteController.text);
 
-    AuthRepo.createHospital(hospital);
+    AuthRepo.updateHospital(hospital);
+    LocalHelper.setUserDataHospital(hospital);
   }
 
   createpatient(BuildContext context) async {
@@ -109,14 +116,14 @@ class AuthCubit extends Cubit<AuthState> {
         imageUri: imageUri,
         name: nameController.text,
         nationalID: nationalIDController.text,
-        uid: '6',
+        uid: FirebaseAuth.instance.currentUser!.uid,
         phone: phoneController.text,
-        email: 'ee7456482@gmail.com',
         nameFriend: nameFriendController.text,
         phoneFriend: phoneFriendController.text,
         gender: radiGroub,
         illnesses: illnesses);
-    AuthRepo.createPatient(patient);
+    AuthRepo.updatePatient(patient);
+    LocalHelper.setUserDataPatient(patient);
   }
 
   updateLocation(Position position) {
@@ -132,19 +139,11 @@ class AuthCubit extends Cubit<AuthState> {
       File file = File(result.files.single.path!);
       filePath = file.path;
       fileDoc = file;
-      // log('${file}')
     } else {
       showMyDialog(context, 'Please select file');
     }
     emit(AuthSuccessState());
   }
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late UserType userType;
-  UserCredential? userCredential;
 
   login() {
     log('load');
@@ -167,6 +166,15 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthErrorState(error: l));
       }, (r) {
         emit(AuthSuccessState());
+        if (userType == UserType.hospital) {
+          AuthRepo.createHospital(HospitalModel(
+              email: emailController.text,
+              uid: FirebaseAuth.instance.currentUser!.uid));
+        } else {
+          AuthRepo.createPatient(PatientModel(
+              email: emailController.text,
+              uid: FirebaseAuth.instance.currentUser!.uid));
+        }
       });
     });
   }

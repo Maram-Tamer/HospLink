@@ -1,26 +1,27 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
 // ignore: must_be_immutable
 class MainTextFormField extends StatefulWidget {
-  MainTextFormField({
-    super.key,
-    this.controller,
-    this.textFormFieldText,
-    this.maxTextLines = 1,
-    this.validator,
-    required this.ispassword,
-    this.colorFill,
-    this.label,
-    this.prefixIcon,
-    this.sufixIcon,
-    this.textColor,
-    this.keyboardType
-  });
+  MainTextFormField(
+      {super.key,
+      this.controller,
+      this.textFormFieldText,
+      this.maxTextLines = 1,
+      this.validator,
+      required this.ispassword,
+      this.colorFill,
+      this.label,
+      this.prefixIcon,
+      this.sufixIcon,
+      this.textColor,
+      this.keyboardType,
+      this.inputFormat});
   bool ispassword = false;
   String? Function(String?)? validator;
   int maxTextLines;
@@ -31,8 +32,8 @@ class MainTextFormField extends StatefulWidget {
   final String? prefixIcon;
   final String? sufixIcon;
   final Color? textColor;
-    final TextInputType? keyboardType;
-
+  final TextInputType? keyboardType;
+  List<TextInputFormatter>? inputFormat;
 
   @override
   State<MainTextFormField> createState() => _MainTextFormFieldState();
@@ -44,15 +45,14 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
       obscureText: widget.ispassword && isObsecure,
       validator: widget.validator,
       controller: widget.controller,
       maxLines: widget.maxTextLines,
       style: AppFontStyles.getSize18(),
-
+      keyboardType: widget.keyboardType,
+      inputFormatters: widget.inputFormat,
       decoration: InputDecoration(
-        
         label: Text(
           widget.label ?? "",
           style: AppFontStyles.getSize14(
@@ -90,9 +90,6 @@ class _MainTextFormFieldState extends State<MainTextFormField> {
                 ),
               )
             : null,
-
-        
-
         hint: Text(
           widget.textFormFieldText ?? "",
           style: AppFontStyles.getSize18(fontColor: AppColors.greyColor),

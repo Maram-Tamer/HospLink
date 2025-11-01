@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Intro/onboarding/widget/pagw_view_design.dart';
 import 'package:medigo/features/Intro/onboarding/widget/smooth_page.dart';
@@ -51,6 +52,7 @@ class _OnBoardingState extends State<OnBoarding> {
                         context: context,
                         route: Routes.welcom,
                       );
+                      LocalHelper.isOnBoardingShown(true);
                     }
                     if (currentIndex < 2) {
                       setState(() {
@@ -74,6 +76,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   buttomColor: AppColors.blueLight,
                   buttonText: 'Skip',
                   onPressed: () {
+                    LocalHelper.isOnBoardingShown(true);
                     pushAndRemoveUntil(context: context, route: Routes.welcom);
                   },
                   borderRadius: 14,

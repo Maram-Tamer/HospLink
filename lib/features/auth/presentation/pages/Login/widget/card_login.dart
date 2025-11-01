@@ -15,12 +15,14 @@ class CardLogin extends StatelessWidget {
     required this.widget,
     required TextEditingController emailController,
     required TextEditingController passwordController,
+    required this.onPressed,
   })  : _emailController = emailController,
         _passwordController = passwordController;
   String routeForgetPassword;
   final LoginScreen widget;
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,9 @@ class CardLogin extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 pushTo(
-                    context: context, route: Routes.forgetPassword, extra: routeForgetPassword);
+                    context: context,
+                    route: Routes.forgetPassword,
+                    extra: routeForgetPassword);
               },
               child: Text(
                 'Forget Password ?',
@@ -90,12 +94,7 @@ class CardLogin extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: MainButton(
             buttonText: 'Login',
-            onPressed: () {
-              pushAndRemoveUntil(
-                context: context,
-                route: widget.routeAfterLogin,
-              );
-            },
+            onPressed: onPressed
           ),
         ),
       ],

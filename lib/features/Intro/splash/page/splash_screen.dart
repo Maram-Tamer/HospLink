@@ -3,7 +3,6 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Intro/splash/widget/splash.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

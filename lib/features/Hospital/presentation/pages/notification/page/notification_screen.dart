@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/constatnts/images.dart';
-import 'package:medigo/core/utils/colors.dart';
-import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Hospital/presentation/pages/notification/widget/cart_notification.dart';
 import 'package:medigo/features/Hospital/presentation/pages/notification/widget/notification_card.dart';
 
 class NotificationItem {

@@ -9,6 +9,7 @@ environment:
 dependencies:
   bloc: ^9.1.0
   cloud_firestore: ^6.0.3
+  dartz: ^0.10.1
   device_preview: ^1.2.0
   dotted_border: ^2.1.0
   easy_radio: ^0.0.3

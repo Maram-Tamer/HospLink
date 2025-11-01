@@ -4,11 +4,8 @@ import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
-import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
-import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/auth/presentation/pages/Login/page/login_screen.dart';
 
 class CardLogin extends StatelessWidget {
@@ -18,12 +15,14 @@ class CardLogin extends StatelessWidget {
     required this.widget,
     required TextEditingController emailController,
     required TextEditingController passwordController,
+    required this.onPressed,
   })  : _emailController = emailController,
         _passwordController = passwordController;
   String routeForgetPassword;
   final LoginScreen widget;
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -95,43 +94,7 @@ class CardLogin extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: MainButton(
             buttonText: 'Login',
-            onPressed: () {
-              FirebaseServices.createPatient(PatientModel(
-                  name: 'eslam emad ibrahim',
-                  address: 'shubra elkhema elqaliobia',
-                  blood: 'O+',
-                  date: '2005-1-1',
-                  email: 'ee7456482@gmial.com',
-                  gender: 'male',
-                  illnesses: [],
-                  imageUri: 'https://',
-                  nameFriend: 'ahmed adel',
-                  nationalID: '330501011412436',
-                  phone: '01104796306',
-                  phoneFriend: '01558060246',
-                  uid: '1'));
-              FirebaseServices.createHospital(HospitalModel(
-                  name: 'Elhayaa',
-                  IDnumber: '123456789',
-                  address: 'cairo',
-                  date: '3030-30-3',
-                  description: 'description ',
-                  email: '@gmal.com',
-                  fileUri: 'https::',
-                  hospitalType: 'hospital',
-                  imageUri: 'https:\\',
-                  locationLati: '30.22',
-                  locationLong: '31.22',
-                  officelEmail: 'ee@gmail.com',
-                  phone: '0123456789',
-                  secondPhone: '0155741960',
-                  uid: '1',
-                  website: 'www.hospital.com'));
-              pushAndRemoveUntil(
-                context: context,
-                route: widget.routeAfterLogin,
-              );
-            },
+            onPressed: onPressed
           ),
         ),
       ],

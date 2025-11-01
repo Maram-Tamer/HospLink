@@ -1,0 +1,2 @@
+enum UserType {  hospital,patient }
+

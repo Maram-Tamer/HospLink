@@ -6,7 +6,7 @@ import 'package:flutter_gap/flutter_gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:medigo/components/App_Bar/app__bar.dart';
-import 'package:medigo/components/buttons/main_button.dart';
+import 'package:medigo/components/buttons/main_button.dart' show MainButton;
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/constatnts/images.dart';

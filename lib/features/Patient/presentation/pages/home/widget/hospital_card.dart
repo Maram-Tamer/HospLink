@@ -6,23 +6,25 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 
 class HospitalCard extends StatefulWidget {
-  const HospitalCard({super.key, this.submitRequest = false});
+  const HospitalCard({super.key, this.submitRequest = false, required this.hospital});
   final bool submitRequest;
-
+final HospitalModel hospital;
   @override
   State<HospitalCard> createState() => _HospitalCardState();
 }
 
 class _HospitalCardState extends State<HospitalCard> {
   bool isFavorite = false;
+  
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pushTo(context: context, route: Routes.HospitalDetails,extra: false);
+        pushTo(context: context, route: Routes.HospitalDetails,extra: {'hospital':widget.hospital,'isAccepted':false});
       },
       child: Container(
         decoration: BoxDecoration(
@@ -57,7 +59,7 @@ class _HospitalCardState extends State<HospitalCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'City Hospital',
+                        widget.hospital.name??'',
                         style: AppFontStyles.getSize16(
                           fontColor: AppColors.blackColor,
                           fontWeight: FontWeight.bold,
@@ -73,7 +75,7 @@ class _HospitalCardState extends State<HospitalCard> {
                           ),
                           Gap(5),
                           Text(
-                            '123 Main St, City',
+                            widget.hospital.address??'',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: AppFontStyles.getSize12(

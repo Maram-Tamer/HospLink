@@ -14,7 +14,7 @@ final String name;
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
+          child: Image.network(
             image,
             height: 200,
             width: double.infinity,

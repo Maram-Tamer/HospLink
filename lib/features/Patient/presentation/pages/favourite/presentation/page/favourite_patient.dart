@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/ScrrenBackgroung/background.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
 
 class FavouritePatient extends StatefulWidget {
@@ -33,7 +34,7 @@ class _FavouritePatientState extends State<FavouritePatient> {
       child: ListView.separated(
         itemCount: 5,
         itemBuilder: (context, index) {
-          return HospitalCard(submitRequest: true);
+          return HospitalCard(submitRequest: true,hospital: HospitalModel(),);
         },
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),

@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
 
 class HomePatient extends StatefulWidget {
@@ -19,6 +22,7 @@ class _HomePatientState extends State<HomePatient> {
   bool isNearest = true;
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: App_Bar(
         title: 'Hospitals',
@@ -92,7 +96,7 @@ class _HomePatientState extends State<HomePatient> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: (){
                         setState(() {
                           isNearest = true;
                         });
@@ -143,17 +147,27 @@ class _HomePatientState extends State<HomePatient> {
   Padding hospitalsListShow() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: ListView.separated(
-        itemCount: 8,
-        itemBuilder: (context, index) {
-          return HospitalCard();
+      child:FutureBuilder(
+        future: FirebaseServices.getHospitals(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          HospitalModel hospitals;
+          if (snapshot.hasData&&snapshot.data!.docs.isNotEmpty) {
+            return ListView.separated(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              hospitals=HospitalModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>);
+              return HospitalCard(hospital: hospitals,);
+            },
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            separatorBuilder: (BuildContext context, int index) {
+              return Gap(15);
+            },
+          );
+          }
+          return const Center(child: CircularProgressIndicator());
         },
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        separatorBuilder: (BuildContext context, int index) {
-          return Gap(15);
-        },
-      ),
+      )
     );
   }
-}
+  }

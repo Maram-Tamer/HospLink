@@ -1,8 +1,5 @@
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gap/flutter_gap.dart';
@@ -11,8 +8,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/extentions/show_dialoges.dart';
-import 'package:medigo/core/extentions/uploadCloudinary.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';

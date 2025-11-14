@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
-import 'package:medigo/features/Patient/presentation/pages/home/presentation/widget/get_hospitals.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
 
 class getHospitals extends StatelessWidget {

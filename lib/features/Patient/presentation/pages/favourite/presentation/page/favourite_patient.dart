@@ -19,7 +19,7 @@ class _FavouritePatientState extends State<FavouritePatient> {
     return AppBackground(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Favourite', style: AppFontStyles.getSize24()),
+          title: Text('Favourites', style: AppFontStyles.getSize24(fontWeight: FontWeight.w600)),
         ),
         body: SingleChildScrollView(
           child: Column(children: [Gap(15), hospitalsListShow(), Gap(15)]),
@@ -30,7 +30,7 @@ class _FavouritePatientState extends State<FavouritePatient> {
 
   Padding hospitalsListShow() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: ListView.separated(
         itemCount: 5,
         itemBuilder: (context, index) {

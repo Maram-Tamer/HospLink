@@ -3,6 +3,7 @@ import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Hospital/presentation/pages/Accepted%20Patients/widget/cart_p_atient_accepted.dart';
 
+// ignore: must_be_immutable
 class AcceptedPatientsScreen extends StatelessWidget {
    AcceptedPatientsScreen({super.key});
 

@@ -15,6 +15,7 @@ class HospitalModel {
   String? fileUri;
   String? locationLong;
   String? locationLati;
+  int? rate;
 
   HospitalModel({
     this.uid,
@@ -33,6 +34,7 @@ class HospitalModel {
     this.fileUri,
     this.locationLong,
     this.locationLati,
+    this.rate,
   });
 
   HospitalModel.fromJson(Map<String, dynamic> json) {

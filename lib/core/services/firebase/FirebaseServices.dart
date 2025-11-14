@@ -26,7 +26,7 @@ class FirebaseServices {
     _collectionHospital.doc(hospital.uid).update(hospital.toUpdateData());
   }
 
-  static getHospitals(){
+  static getHospitals() {
     return _collectionHospital.get();
   }
 }

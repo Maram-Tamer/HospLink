@@ -34,7 +34,10 @@ class _FavouritePatientState extends State<FavouritePatient> {
       child: ListView.separated(
         itemCount: 5,
         itemBuilder: (context, index) {
-          return HospitalCard(submitRequest: true,hospital: HospitalModel(),);
+          return HospitalCard(
+            submitRequest: true,
+            hospital: HospitalModel(),
+          );
         },
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),

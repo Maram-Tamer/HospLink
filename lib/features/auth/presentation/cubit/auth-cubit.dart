@@ -72,21 +72,23 @@ class AuthCubit extends Cubit<AuthState> {
       return showMyDialog(context, 'حدث خطا اثناء رفع الصورة او الملف ');
     }
     var hospital = HospitalModel(
-        IDnumber: IDNumberController.text,
-        address: addressController.text,
-        date: dateController.text,
-        description: descriptionController.text,
-        fileUri: filePath,
-        hospitalType: radiGroub,
-        imageUri: imageUri,
-        locationLati: positionLong,
-        locationLong: positionLati,
-        name: nameController.text,
-        officelEmail: officialEmailController.text,
-        phone: phoneController.text,
-        secondPhone: secondphoneFriendController.text,
-        uid: FirebaseAuth.instance.currentUser!.uid,
-        website: websiteController.text);
+      IDnumber: IDNumberController.text,
+      address: addressController.text,
+      date: dateController.text,
+      description: descriptionController.text,
+      fileUri: filePath,
+      hospitalType: radiGroub,
+      imageUri: imageUri,
+      locationLati: positionLong,
+      locationLong: positionLati,
+      name: nameController.text,
+      officelEmail: officialEmailController.text,
+      phone: phoneController.text,
+      secondPhone: secondphoneFriendController.text,
+      uid: FirebaseAuth.instance.currentUser!.uid,
+      website: websiteController.text,
+      rate: 3,
+    );
 
     AuthRepo.updateHospital(hospital);
     LocalHelper.setUserDataHospital(hospital);

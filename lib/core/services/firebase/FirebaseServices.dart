@@ -29,4 +29,32 @@ class FirebaseServices {
   static getHospitals() {
     return _collectionHospital.get();
   }
+
+
+//search hospitals
+ static Future<QuerySnapshot> searchHospitals(String text) async {
+  return _collectionHospital
+      .orderBy('name')
+      .startAt([text])
+      .endAt(['$text\uf8ff'])
+      .get();
 }
+
+//get top rated hospitals
+static Future<QuerySnapshot> getTopRatedHospitals({int limit = 5}) async {
+  return _collectionHospital
+      .orderBy('rating', descending: true) 
+      .limit(limit)
+      .get();
+}
+
+//get nearest hospitals
+static Future<QuerySnapshot> getNearestHospitals() async {
+  return _collectionHospital
+      .orderBy('distance') // store distance in Firestore or calculate on client
+      .limit(10)
+      .get();
+}
+}
+
+

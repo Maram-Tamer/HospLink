@@ -1,9 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gap/flutter_gap.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/routes/navigation.dart';
+import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
+import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/patient/presentation/pages/home/widget/hospital_card.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  String searchText = "";
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,144 +28,127 @@ class SearchScreen extends StatelessWidget {
         centerTitle: false,
         automaticallyImplyLeading: false,
         title: GestureDetector(
-          onTap: () {
-            pop(context);
-          },
-          child: Icon(Icons.arrow_back_ios),
+          onTap: () => pop(context),
+          child: const Icon(Icons.arrow_back_ios),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             TextField(
-              textAlign: TextAlign.left,
+              controller: searchController,
+              onChanged: (value) {
+                setState(() {
+                  searchText = value.trim();
+                });
+              },
               decoration: InputDecoration(
-                hintText: 'search doctor or hospital',
-                hintStyle: TextStyle(color: Colors.grey[600]),
+                hintText: 'Search for a Hospital',
                 filled: true,
                 fillColor: const Color(0xFFF5F5F5),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 15,
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    print('Filter clicked');
-                  },
-                ),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.tune),
-                  onPressed: () {
-                    print('Search clicked');
-                  },
-                ),
+                prefixIcon: const Icon(Icons.search),
               ),
             ),
-            SizedBox(height: 20),
+            const Gap(20),
             Row(
               children: [
-                Text(
-                  textAlign: TextAlign.right,
+                const Text(
                   'Recent Searches',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
+                const Spacer(),
                 TextButton(
-                  onPressed: () {
-                    print('Clear clicked');
-                  },
-                  child: Text('Clear', style: TextStyle(color: AppColors.whiteColor)),
-                ),
+                    onPressed: () {},
+                    child: Text('Clear',
+                        style: AppFontStyles.getSize14(
+                          fontColor: AppColors.whiteColor,
+                          fontWeight: FontWeight.w600,
+                        )))
               ],
             ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 12.0,
-                  ),
-                  margin: EdgeInsets.only(right: 8.0),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Text('Cardiology'),
-                      SizedBox(width: 5),
-                      GestureDetector(
-                        onTap: () {
-                          print('Remove Cardiology');
-                        },
-                        child: Icon(Icons.close, size: 16),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 12.0,
-                  ),
-                  margin: EdgeInsets.only(right: 8.0),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Text('Elnour mokatam '),
-                      SizedBox(width: 5),
-                      GestureDetector(
-                        onTap: () {
-                          print('Remove Cardiology');
-                        },
-                        child: Icon(Icons.close, size: 16),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 12.0,
-                  ),
-                  margin: EdgeInsets.only(right: 8.0),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Text('Elhabib hospital'),
-                      SizedBox(width: 5),
-                      GestureDetector(
-                        onTap: () {
-                          print('Remove Cardiology');
-                        },
-                        child: Icon(Icons.close, size: 16),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            const Gap(20),
+            Expanded(
+              child: searchText.isEmpty
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.searchSVG,
+                          height: 100,
+                          colorFilter: ColorFilter.mode(
+                              AppColors.primaryGreenColor, BlendMode.srcIn),
+                        ),
+                        Gap(10),
+                        Text(
+                          textAlign: TextAlign.center,
+                          "Please enter Hospital name \nto search",
+                          style: AppFontStyles.getSize18(
+                              fontWeight: FontWeight.w600,
+                              fontColor: AppColors.primaryGreenColor),
+                        ),
+                      ],
+                    )
+                  : FutureBuilder<QuerySnapshot>(
+                      future: FirebaseServices.searchHospitals(searchText),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+
+                        if (snapshot.data!.docs.isEmpty) {
+                          return const EmptySearch();
+                        }
+
+                        return ListView.separated(
+                          separatorBuilder: (context, index) => const Gap(10),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            HospitalModel hospital = HospitalModel.fromJson(
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>,
+                            );
+
+                            return HospitalCard(hospital: hospital);
+                          },
+                        );
+                      },
+                    ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class EmptySearch extends StatelessWidget {
+  const EmptySearch({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(
+          AppIcons.hospitalMain,
+          height: 100,
+          colorFilter:
+              ColorFilter.mode(AppColors.primaryGreenColor, BlendMode.srcIn),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'No hospitals found',
+          style: AppFontStyles.getSize18(
+              fontColor: AppColors.primaryGreenColor,
+              fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
 }

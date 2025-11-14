@@ -4,10 +4,11 @@ import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Patient/presentation/pages/home/presentation/widget/get_hospitals.dart';
 
+// ignore: must_be_immutable
 class HomePatient extends StatefulWidget {
   const HomePatient({super.key});
 
@@ -38,7 +39,7 @@ class _HomePatientState extends State<HomePatient> {
 
   Container searchAndFilters() {
     return Container(
-      color: AppColors.blueLight.withOpacity(0.8),
+      color: AppColors.blueLight.withValues(alpha: 0.8),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -74,7 +75,7 @@ class _HomePatientState extends State<HomePatient> {
             Container(
               height: 50,
               decoration: BoxDecoration(
-                color: AppColors.greyColor.withOpacity(0.7),
+                color: AppColors.greyColor.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Row(
@@ -132,10 +133,68 @@ class _HomePatientState extends State<HomePatient> {
                 ],
               ),
             ),
-            Gap(15),
           ],
         ),
       ),
+    );
+  }
+
+  Widget getHospitals() {
+    return FutureBuilder(
+      future: isNearest
+          ? FirebaseServices.getNearestHospitals()
+          : FirebaseServices.getTopRatedHospitals(limit: 10),
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+
+        if (!snapshot.hasData || snapshot.data.docs.isEmpty) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'No hospitals found',
+                style: AppFontStyles.getSize18(
+                    fontColor: AppColors.primaryGreenColor,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          );
+        }
+
+        var hospitals = snapshot.data.docs;
+
+        return ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: hospitals.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 10),
+          itemBuilder: (context, index) {
+            var hospital = hospitals[index].data();
+            var id = hospitals[index].id;
+
+            double rating = (hospital["rating"] ?? 0).toDouble(); // FIXED
+
+            return ListTile(
+              leading: const Icon(Icons.local_hospital, color: Colors.green),
+              title: Text(hospital['name'] ?? 'Unknown'),
+              subtitle: Text("Rating: ${rating.toStringAsFixed(1)}"),
+              onTap: () {
+                pushTo(
+                  context: context,
+                  route: Routes.HospitalDetails,
+                  extra: id,
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

@@ -120,7 +120,9 @@ class Routes {
         path: HospitalDetails,
         builder: (context, state) {
           Map<String, dynamic> data = state.extra as Map<String, dynamic>;
-          return HospitalDetailsScreen(data: data,);
+          return HospitalDetailsScreen(
+            data: data,
+          );
         },
       ),
       GoRoute(

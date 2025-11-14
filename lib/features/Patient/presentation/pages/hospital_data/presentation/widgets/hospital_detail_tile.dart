@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
+// ignore: must_be_immutable
 class HospitalDetailsTile extends StatelessWidget {
   HospitalDetailsTile(
       {super.key,

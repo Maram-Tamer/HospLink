@@ -33,6 +33,8 @@ dependencies:
   simple_flutter_stepper: ^0.1.4
   smooth_page_indicator: ^1.2.1
   syncfusion_flutter_datepicker: ^31.1.21
+  url_launcher: ^6.3.2
+
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

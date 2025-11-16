@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
@@ -63,12 +65,15 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 const Spacer(),
                 TextButton(
-                    onPressed: () {},
-                    child: Text('Clear',
-                        style: AppFontStyles.getSize14(
-                          fontColor: AppColors.whiteColor,
-                          fontWeight: FontWeight.w600,
-                        )))
+                  onPressed: () {},
+                  child: Text(
+                    'Clear',
+                    style: AppFontStyles.getSize14(
+                      fontColor: AppColors.whiteColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                )
               ],
             ),
             const Gap(20),
@@ -104,14 +109,25 @@ class _SearchScreenState extends State<SearchScreen> {
                         if (snapshot.data!.docs.isEmpty) {
                           return const EmptySearch();
                         }
+                        final query = searchText.toLowerCase();
 
+                        final filteredDocs = snapshot.data!.docs.where((doc) {
+                          final data = doc.data() as Map<String, dynamic>;
+                          final rawName = (data['name'] ?? '').toString();
+                          final nameNormalized = rawName.toLowerCase();
+                          return nameNormalized.contains(query);
+                        }).toList();
+
+                        if (filteredDocs.isEmpty) {
+                          return const EmptySearch();
+                        }
                         return ListView.separated(
                           separatorBuilder: (context, index) => const Gap(10),
-                          itemCount: snapshot.data!.docs.length,
+                          itemCount: filteredDocs.length,
                           itemBuilder: (context, index) {
+                            final doc = filteredDocs[index];
                             HospitalModel hospital = HospitalModel.fromJson(
-                              snapshot.data!.docs[index].data()
-                                  as Map<String, dynamic>,
+                              doc.data() as Map<String, dynamic>,
                             );
 
                             return HospitalCard(hospital: hospital);

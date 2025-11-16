@@ -87,7 +87,7 @@ class AuthCubit extends Cubit<AuthState> {
       secondPhone: secondphoneFriendController.text,
       uid: FirebaseAuth.instance.currentUser!.uid,
       website: websiteController.text,
-      rate: 3,
+      rate: '3',
     );
 
     AuthRepo.updateHospital(hospital);

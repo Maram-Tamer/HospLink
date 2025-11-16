@@ -55,6 +55,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                         pushTo(
                           context: context,
                           route: Routes.UnifiledpatientData,
+                          extra: hospital?.uid
                         );
                       }
                     },
@@ -192,7 +193,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
               GestureDetector(
                 onTap: () {
                   launchUrl(Uri.parse(
-                      'geo:${hospital?.locationLong},${hospital?.locationLati}'));
+                      'geo:${hospital?.locationLati},${hospital?.locationLong}&zoom=18'));
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),

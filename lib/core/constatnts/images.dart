@@ -33,4 +33,5 @@ class AppImages {
   static const String map = 'assets/images/map.jpg';
 
   static const String patientPNG = 'assets/images/patient.png';
+  static const String LodingJson = 'assets/icons/loading.json';
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
@@ -7,6 +9,8 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
 
 // ignore: must_be_immutable
 class HomePatient extends StatefulWidget {
@@ -98,7 +102,7 @@ class _HomePatientState extends State<HomePatient> {
                         });
                       },
                       child: Text(
-                        'Nearest',
+                        'Top Rated',
                         style: AppFontStyles.getSize16(
                           fontColor: AppColors.whiteColor,
                         ),
@@ -122,7 +126,7 @@ class _HomePatientState extends State<HomePatient> {
                         });
                       },
                       child: Text(
-                        'Top Rated',
+                        'Nearest',
                         style: AppFontStyles.getSize16(
                           fontColor: AppColors.whiteColor,
                         ),
@@ -142,8 +146,8 @@ class _HomePatientState extends State<HomePatient> {
   Widget getHospitals() {
     return FutureBuilder(
       future: isNearest
-          ? FirebaseServices.getNearestHospitals()
-          : FirebaseServices.getTopRatedHospitals(limit: 10),
+          ? FirebaseServices.getTopRatedHospitals(limit: 15)
+          : FirebaseServices.getNearestHospitals(),
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -168,31 +172,22 @@ class _HomePatientState extends State<HomePatient> {
         }
 
         var hospitals = snapshot.data.docs;
+        // log('${hospitals[1].data() as Map<String, dynamic>}       ${hospitals}');
 
-        return ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: hospitals.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 10),
-          itemBuilder: (context, index) {
-            var hospital = hospitals[index].data();
-            var id = hospitals[index].id;
-
-            double rating = (hospital["rating"] ?? 0).toDouble(); // FIXED
-
-            return ListTile(
-              leading: const Icon(Icons.local_hospital, color: Colors.green),
-              title: Text(hospital['name'] ?? 'Unknown'),
-              subtitle: Text("Rating: ${rating.toStringAsFixed(1)}"),
-              onTap: () {
-                pushTo(
-                  context: context,
-                  route: Routes.HospitalDetails,
-                  extra: id,
-                );
-              },
-            );
-          },
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: hospitals.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 10),
+            itemBuilder: (context, index) {
+              HospitalModel hospital = HospitalModel.fromJson(
+                hospitals[index].data() as Map<String, dynamic>,
+              );
+              return HospitalCard(hospital: hospital);
+            },
+          ),
         );
       },
     );

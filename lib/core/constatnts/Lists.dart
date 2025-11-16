@@ -18,3 +18,9 @@ final List<String> Boold = [
   "AB+",
   "AB-",
 ];
+final List<String> StateRequest = [
+  "Pending",
+  "Accepted",
+  "Rejected"
+];
+enum PatientType { iAmPatient, anotherPatient }

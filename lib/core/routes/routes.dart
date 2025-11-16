@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
@@ -7,6 +9,7 @@ import 'package:medigo/features/Hospital/presentation/pages/setting/page/pateint
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/profile/edit_profile_screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
+import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
 import 'package:medigo/features/Patient/presentation/pages/notification/page/notification_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/patient_data/page/unified_patient_screen.dart';
 
@@ -127,7 +130,13 @@ class Routes {
       ),
       GoRoute(
         path: UnifiledpatientData,
-        builder: (context, state) => UnifiedPatientScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) {
+            log('${state.extra as String}');
+            return PatientCubit();
+          },
+          child: UnifiedPatientScreen(HospitalId: state.extra as String),
+        ),
       ),
       GoRoute(path: onBoarding_1, builder: (context, state) => OnBoarding()),
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),

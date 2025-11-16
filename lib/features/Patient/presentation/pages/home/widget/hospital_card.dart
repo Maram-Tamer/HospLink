@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
@@ -48,27 +50,29 @@ class _HospitalCardState extends State<HospitalCard> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8, right: 5, left: 10),
+          padding: const EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
           child: Column(
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// IMAGE FIX — prevents crash when URL is empty
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      widget.hospital.imageUri?.isNotEmpty == true
-                          ? widget.hospital.imageUri!
-                          : "https://via.placeholder.com/70", // fallback image
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                      errorBuilder: (c, e, s) => Image.asset(
-                        "assets/images/default_hospital.png",
+                  Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        widget.hospital.imageUri?.isNotEmpty == true
+                            ? widget.hospital.imageUri!
+                            : "https://via.placeholder.com/70", // fallback image
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,
+                        errorBuilder: (c, e, s) => Image.asset(
+                          "assets/images/default_hospital.png",
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -121,7 +125,13 @@ class _HospitalCardState extends State<HospitalCard> {
                             Icon(Icons.star, color: Colors.amber, size: 16),
                             Gap(5),
                             Text(
-                              '${widget.hospital.rate ?? "4.5"} | 200 reviews',
+                              '${widget.hospital.rate ?? "0.0"} ',
+                              style: AppFontStyles.getSize14(
+                                fontColor: AppColors.slateGrayColor,
+                              ),
+                            ),
+                            Text(
+                              '| 200 reviews',
                               style: AppFontStyles.getSize14(
                                 fontColor: AppColors.slateGrayColor,
                               ),
@@ -141,8 +151,7 @@ class _HospitalCardState extends State<HospitalCard> {
                     },
                     icon: Icon(
                       isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color:
-                          isFavorite ? Colors.red : AppColors.darkColor,
+                      color: isFavorite ? Colors.red : AppColors.darkColor,
                       size: 24,
                     ),
                   ),

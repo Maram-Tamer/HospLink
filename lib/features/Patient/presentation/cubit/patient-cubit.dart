@@ -17,6 +17,7 @@ import 'package:medigo/features/auth/data/repo/auth_repo.dart';
 
 class PatientCubit extends Cubit<PatientState> {
   PatientCubit() : super(PatientInatialState());
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   // Controllers  send request
   final TextEditingController nationalIdController = TextEditingController();
@@ -43,6 +44,7 @@ class PatientCubit extends Cubit<PatientState> {
 
   void sendRequest(BuildContext context, String hospitalId) async {
     log('--- 1 ---');
+    emit(PatientLoadingState());
     try {
       log('--- 2 ---');
 
@@ -57,6 +59,7 @@ class PatientCubit extends Cubit<PatientState> {
       log('--- 3 ---');
     } on Exception catch (e) {
       log('--- 4 ---');
+      emit(PatientErrorState());
 
       return showMyDialog(context, 'لم يتم رفع الصور');
     }
@@ -108,5 +111,6 @@ class PatientCubit extends Cubit<PatientState> {
 
     PatientRepo.sendRequest(request);
     log('--- 10 ---');
+    emit(PatientSuccessState());
   }
 }

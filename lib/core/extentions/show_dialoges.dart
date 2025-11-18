@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/utils/colors.dart';
 
 enum DialogType { error, success, warning }
@@ -19,6 +21,19 @@ showMyDialog(
               ? Colors.orange
               : AppColors.primaryGreenColor,
       content: Text(message),
+    ),
+  );
+}
+
+showLoadingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Lottie.asset(AppImages.LodingJson, width: 250)],
+      ),
     ),
   );
 }

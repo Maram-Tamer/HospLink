@@ -53,10 +53,9 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                         _showReviewBottomSheet(context);
                       } else {
                         pushTo(
-                          context: context,
-                          route: Routes.UnifiledpatientData,
-                          extra: hospital?.uid
-                        );
+                            context: context,
+                            route: Routes.UnifiledpatientData,
+                            extra: hospital?.uid);
                       }
                     },
                     icon: AppIcons.send2SVG,

@@ -4,11 +4,15 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gap/flutter_gap.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
 import 'package:medigo/core/constatnts/images.dart';
+import 'package:medigo/core/extentions/show_dialoges.dart';
+import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
@@ -22,8 +26,6 @@ class UnifiedPatientScreen extends StatefulWidget {
 }
 
 class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   // State variables
   bool isLoading = false;
   Uint8List? selectedImageBytes;
@@ -185,7 +187,16 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PatientCubit, PatientState>(
+    return BlocConsumer<PatientCubit, PatientState>(
+      listener: (context, state) {
+        if (state is PatientLoadingState) {
+          showLoadingDialog(context);
+        } else if (state is PatientSuccessState) {
+          pop(context);
+          pop(context);
+        } else
+          pop(context);
+      },
       builder: (context, state) {
         var cubit = context.read<PatientCubit>();
         return Scaffold(
@@ -211,7 +222,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Form(
-              key: _formKey,
+              key: cubit.formKey,
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -315,11 +326,53 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                     ],
 
                     // Address (always shown)
-                    _buildTextField(
-                      label: "Address",
-                      controller: cubit.addressController,
-                      hintText: "Enter detailed address",
-                      validator: (value) => _validateRequired(value, "Address"),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Address',
+                                style: AppFontStyles.getSize16(
+                                  fontSize: 16,
+                                  fontColor: AppColors.darkColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              MainTextFormField(
+                                label: 'Enter detailed address',
+                                ispassword: false,
+                                controller: cubit.addressController,
+                                maxTextLines: 1,
+                                validator: (value) =>
+                                    _validateRequired(value, "Address"),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Gap(5),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30.0),
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.geyTextform,
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    size: 30,
+                                    Icons.location_on,
+                                    color: AppColors.red,
+                                  )),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     const SizedBox(height: 16),
 
@@ -348,11 +401,20 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
+                          if (cubit.formKey.currentState!.validate()) {
+                            if (cubit.imagFeile != null) {
+                              cubit.sendRequest(
+                                  context, widget.HospitalId ?? '');
+                            } else {
+                              showMyDialog(context, 'Please uplad image ');
+                            }
+                          } else {
+                            showMyDialog(context, 'Please enter all data');
+                          }
                           Lottie.asset(AppImages.LodingJson);
-                          cubit.sendRequest(context, widget.HospitalId ?? '');
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:  AppColors.primaryGreenColor,
+                          backgroundColor: AppColors.primaryGreenColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

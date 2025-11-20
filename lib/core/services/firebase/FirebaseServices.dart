@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
 class FirebaseServices {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -28,5 +30,16 @@ class FirebaseServices {
 
   static getHospitals() {
     return _collectionHospital.get();
+  }
+
+  static Future<String> uploadPatientImage(String uid, File imageFile) async {
+    final storageRef = FirebaseStorage.instance.ref().child(
+        "patients/$uid/profile_${DateTime.now().millisecondsSinceEpoch}.jpg");
+
+    // Upload file
+    await storageRef.putFile(imageFile);
+
+    // Return download URL
+    return await storageRef.getDownloadURL();
   }
 }

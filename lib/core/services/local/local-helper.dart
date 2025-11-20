@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
-import 'package:medigo/features/auth/data/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalHelper {
@@ -15,6 +13,8 @@ class LocalHelper {
   static String kUserDataPatient = 'kUserDataP';
   static String kUserDataHospital = 'kUserDataH';
   static String kHospitalFavorit = 'kFavorit';
+  static String kDarkTheme = 'darkTheme';
+  static String kNotifications = 'notifications';
 
   static init() async {
     pref = await SharedPreferences.getInstance();

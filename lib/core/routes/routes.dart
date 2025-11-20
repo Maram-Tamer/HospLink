@@ -28,6 +28,7 @@ import 'package:medigo/features/Patient/presentation/pages/setting/page/change_p
 import 'package:medigo/features/Patient/presentation/pages/setting/page/edit_profile_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/search/search_screen.dart';
 import 'package:medigo/features/Intro/splash/page/splash_screen.dart';
+import 'package:medigo/features/patient/presentation/pages/setting/page/about_us_screen.dart';
 
 class Routes {
   static const String splash = '/';
@@ -66,10 +67,12 @@ class Routes {
   static const String editPassword_H = '/editpasswordH';
   static const String editProfile_H = '/editProfileH';
   static const String NotificationH = '/notificationH';
+  static const String aboutUs = '/aboutUs';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(path: aboutUs, builder: (context, state) => AboutUsScreen()),
       GoRoute(
           path: forgetPasswordMailSent,
           builder: (context, state) => BlocProvider(

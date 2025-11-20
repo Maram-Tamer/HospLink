@@ -22,6 +22,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_gap: ^1.2.0
   flutter_svg: ^2.2.0
+  fluttertoast: ^9.0.0
   gap: ^3.0.1
   geocoding: ^4.0.0
   geolocator: ^14.0.2

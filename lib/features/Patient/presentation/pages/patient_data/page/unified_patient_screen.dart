@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:geocoding/geocoding.dart';
@@ -248,6 +249,10 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                       // National ID
                       _buildTextField(
                         label: "National ID",
+                        inputFormat: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(14),
+                        ],
                         controller: cubit.nationalIdController,
                         hintText: "Enter 14-digit National ID",
                         keyboardType: TextInputType.number,
@@ -267,6 +272,10 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                       // Phone
                       _buildTextField(
                         label: "Phone",
+                        inputFormat: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(11),
+                        ],
                         controller: cubit.phoneController,
                         hintText: "Enter phone number",
                         keyboardType: TextInputType.number,
@@ -510,6 +519,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     String? Function(String?)? validator,
     TextInputType? keyboardType,
     int maxLines = 1,
+    List<TextInputFormatter>? inputFormat,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -524,6 +534,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
         ),
         const SizedBox(height: 8),
         MainTextFormField(
+          inputFormat: inputFormat ?? [],
           label: hintText,
           ispassword: false,
           controller: controller,

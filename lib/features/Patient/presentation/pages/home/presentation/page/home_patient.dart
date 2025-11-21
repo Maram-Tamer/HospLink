@@ -22,7 +22,7 @@ class HomePatient extends StatefulWidget {
 }
 
 class _HomePatientState extends State<HomePatient> {
-  bool isNearest = true;
+  bool isNearest = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +99,7 @@ class _HomePatientState extends State<HomePatient> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isNearest = true;
+                          isNearest = false;
                         });
                       },
                       child: Text(
@@ -123,7 +123,7 @@ class _HomePatientState extends State<HomePatient> {
                       ),
                       onPressed: () {
                         setState(() {
-                          isNearest = false;
+                          isNearest = true;
                         });
                       },
                       child: Text(

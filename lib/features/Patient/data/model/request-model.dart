@@ -10,6 +10,7 @@ class RequestModel {
   String? state;
   String? hospitalID;
   String? patientID;
+  String? requestID;
   String? imageProfilePath;
   String? imageDamagePath;
 
@@ -24,6 +25,7 @@ class RequestModel {
     this.nationalID,
     this.state,
     this.hospitalID,
+    this.requestID,
     this.patientID,
     this.imageProfilePath,
     this.imageDamagePath,
@@ -41,6 +43,7 @@ class RequestModel {
     nationalID = json['nationalId'];
     state = json['state'];
     hospitalID = json['hospitalID'];
+    requestID = json['requestID'];
     patientID = json['patientID'];
     imageProfilePath = json['imageProfilePath'];
     imageDamagePath = json['imageDamagePath'];
@@ -60,6 +63,7 @@ class RequestModel {
     data['state'] = state;
     data['hospitalID'] = hospitalID;
     data['patientID'] = patientID;
+    data['requestID'] = requestID;
     data['imageProfilePath'] = imageProfilePath;
     data['imageDamagePath'] = imageDamagePath;
     return data;
@@ -78,6 +82,7 @@ class RequestModel {
     if (nationalID != null) data['nationalId'] = nationalID;
     if (state != null) data['state'] = state;
     if (hospitalID != null) data['hospitalID'] = hospitalID;
+    if (requestID != null) data['requestID'] = requestID;
     if (patientID != null) data['patientID'] = patientID;
     if (imageProfilePath != null) data['imageProfilePath'] = imageProfilePath;
     if (imageDamagePath != null) data['imageDamagePath'] = imageDamagePath;

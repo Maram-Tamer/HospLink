@@ -34,7 +34,7 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
       ),
       appBar: App_Bar(
         title: "Patient Details",
-        leading: widget.data["isAccepted"] ? false : true,
+        leading: true,
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, ),

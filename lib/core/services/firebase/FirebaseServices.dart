@@ -69,4 +69,7 @@ class FirebaseServices {
     String hospitalID = LocalHelper.getUserId()!;
     return _collectionRequest.where('hospitalID', isEqualTo: hospitalID).get();
   }
+   static updateRequest(String requestId,RequestModel request) {
+    _collectionRequest.doc(requestId).update(request.toUpdateData());
+  }
 }

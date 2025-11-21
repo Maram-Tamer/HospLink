@@ -19,7 +19,7 @@ class PatientDetailsTrailing extends StatelessWidget {
       children: [
         Row(
           children: [
-            if (widget.isAccepted) ...[
+            if (widget.data["isAccepted"]) ...[
               Expanded(
                 child: MainButton(
                   buttonText: "Accepted Case",
@@ -35,9 +35,8 @@ class PatientDetailsTrailing extends StatelessWidget {
                 child: MainButton(
                   buttonText: "Accept Case",
                   buttomColor: AppColors.green,
-
                   onPressed: () {
-                    widget.isAccepted = true;
+                    widget.data["isAccepted"] = true;
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,
@@ -47,7 +46,7 @@ class PatientDetailsTrailing extends StatelessWidget {
           ],
         ),
         Gap(10),
-        widget.isAccepted
+        widget.data["isAccepted"]
             ? SizedBox(height: 0)
             : Row(
                 children: [
@@ -56,7 +55,6 @@ class PatientDetailsTrailing extends StatelessWidget {
                       buttomColor: AppColors.red,
                       buttonText: "Reject Case",
                       width: 300,
-
                       onPressed: () {
                         pop(context);
                       },

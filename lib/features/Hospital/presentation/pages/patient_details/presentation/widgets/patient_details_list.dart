@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Patient/data/model/request-model.dart';
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/hospital_detail_tile.dart';
 
 class PatientDetailsList extends StatelessWidget {
-  const PatientDetailsList({super.key});
+  const PatientDetailsList({super.key, required this.request});
+  final RequestModel request ;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          "How do you describe a patient person?The Benefits of Being a Patient Person - MindfulHaving patience means being able to wait calmly in the face of frustration or adversity, so anywhere there is frustration or adversity—i.e., nearly everywhere—we have the opportunity to practice it. A patient person is able to wait calmly in the face of frustration or adversity",
+          "${request.description}",
           style: AppFontStyles.getSize16(fontColor: AppColors.darkGreyColor),
           maxLines: 6,
           overflow: TextOverflow.ellipsis,
@@ -24,30 +25,30 @@ class PatientDetailsList extends StatelessWidget {
         Gap(10),
         // Contact Info
         HospitalDetailsTile(
-          text: " DOB: 15/10/2004",
+          text: " Age: ${request.age}",
           icon: AppIcons.birthdayIMageNoBgSVG,
         ),
         const Gap(10),
         HospitalDetailsTile(
-          text: "Blood Type: O+",
+          text: "Blood Type: ${request.blood}",
           icon: AppIcons.booldSVG,
           color: AppColors.red,
         ),
         const Gap(15),
         HospitalDetailsTile(
-          text: "+20 105645454",
+          text: "${request.phone}",
           icon: AppIcons.callFillSVG,
           color: AppColors.green,
         ),
         const Gap(15),
         HospitalDetailsTile(
-          text: "San Francisco, CA, USA",
+          text: "${request.address}",
           icon: AppIcons.locationLine_SVG,
           color: AppColors.red,
         ),
         const Gap(15),
         HospitalDetailsTile(
-          text: "Female",
+          text: "${request.gender}",
           icon: AppIcons.genderIMageNoBgSVG,
           color: AppColors.primaryGreenColor,
         ),
@@ -64,8 +65,8 @@ class PatientDetailsList extends StatelessWidget {
         Gap(10),
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            AppImages.patientPNG,
+          child: Image.network(
+            request.imageDamagePath??'',
             height: 180,
             width: double.infinity,
             fit: BoxFit.cover,

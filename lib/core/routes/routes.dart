@@ -103,8 +103,10 @@ class Routes {
       ),
       GoRoute(
         path: PatientDetails,
-        builder: (context, state) =>
-            PatientDetailsScreen(isAccepted: state.extra as bool),
+        builder: (context, state) {
+          Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+          return PatientDetailsScreen(data:data);
+        },
       ),
       GoRoute(
         path: PatientHistory,

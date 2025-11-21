@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
@@ -62,7 +63,11 @@ class FirebaseServices {
   static Future<QuerySnapshot> getNearestHospitals() async {
     return _collectionHospital.limit(15).get();
   }
-  static  getHospitalsById(String id) async {
-    return _collectionHospital.doc(id).get();
+
+  static getHospitalsById(String id) async {}
+
+  static Future<QuerySnapshot> getRequests() {
+    String hospitalID = LocalHelper.getUserId()!;
+    return _collectionRequest.where('hospitalID', isEqualTo: hospitalID).get();
   }
 }

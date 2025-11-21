@@ -68,7 +68,6 @@ class RequestModel {
   // To Update Only Non-null Fields
   Map<String, dynamic> toUpdateData() {
     final Map<String, dynamic> data = <String, dynamic>{};
-
     if (name != null) data['name'] = name;
     if (age != null) data['age'] = age;
     if (gender != null) data['gender'] = gender;

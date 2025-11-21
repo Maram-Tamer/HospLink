@@ -4,17 +4,18 @@ import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Patient/data/model/request-model.dart';
 
 class PatientCardForHospitalHome extends StatelessWidget {
   const PatientCardForHospitalHome({
-    super.key,
+    super.key, required this.request,
   });
-
+  final RequestModel request;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pushTo(context: context, route: Routes.PatientDetails, extra: false);
+        pushTo(context: context, route: Routes.PatientDetails, extra:{'request':request,'isAccepted':false});
       },
       child: Container(
         decoration: BoxDecoration(
@@ -35,26 +36,26 @@ class PatientCardForHospitalHome extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage(AppImages.PatientPhoto1),
+                backgroundImage: NetworkImage(request.imageProfilePath??AppImages.PatientPhoto1),
               ),
               Gap(10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Patient Name',
+                  Text(request.name??'',
                       style: AppFontStyles.getSize16(
                           fontWeight: FontWeight.w600,
                           fontColor: Colors.black)),
                   Gap(5),
-                  Text('123 Main St, City',
+                  Text(request.address??'',
                       style:
                           AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
                   Gap(5),
-                  Text('Phone: 123-456-7890',
+                  Text('Phone: ${request.phone??''}',
                       style:
                           AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
                   Gap(5),
-                  Text('Age: 30',
+                  Text('Age: ${request.age??''}',
                       style:
                           AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
                 ],

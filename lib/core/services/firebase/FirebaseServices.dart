@@ -62,4 +62,7 @@ class FirebaseServices {
   static Future<QuerySnapshot> getNearestHospitals() async {
     return _collectionHospital.limit(15).get();
   }
+  static  getHospitalsById(String id) async {
+    return _collectionHospital.doc(id).get();
+  }
 }

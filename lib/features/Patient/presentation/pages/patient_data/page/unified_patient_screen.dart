@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dotted_border/dotted_border.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gap/flutter_gap.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
@@ -184,7 +186,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
 
   //   Navigator.pop(context);
   // }
-
+  String? _currentAddress;
+  Position? _currentPosition;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PatientCubit, PatientState>(
@@ -345,7 +348,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                                 label: 'Enter detailed address',
                                 ispassword: false,
                                 controller: cubit.addressController,
-                                maxTextLines: 1,
+                                maxTextLines: 2,
                                 validator: (value) =>
                                     _validateRequired(value, "Address"),
                               ),
@@ -363,7 +366,15 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                                   color: AppColors.geyTextform,
                                   borderRadius: BorderRadius.circular(15)),
                               child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    await _getCurrentPosition();
+                                    await _getAddressFromLatLng(
+                                        _currentPosition);
+                                    setState(() {
+                                      cubit.addressController.text =
+                                          _currentAddress.toString();
+                                    });
+                                  },
                                   icon: Icon(
                                     size: 30,
                                     Icons.location_on,
@@ -732,5 +743,82 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
         );
       },
     );
+  }
+
+  Future<void> _getCurrentPosition() async {
+    final hasPermission = await _handleLocationPermission();
+    if (!hasPermission) return;
+    await Geolocator.getCurrentPosition(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 50,
+      ),
+    ).then((Position position) {
+      setState(() async {
+        _currentPosition = position;
+      });
+    }).catchError((e) {
+      log(e.toString());
+    });
+  }
+
+  Future<void> _getAddressFromLatLng(Position? position) async {
+    await placemarkFromCoordinates(
+      _currentPosition!.latitude,
+      _currentPosition!.longitude,
+    ).then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      setState(() {
+        String cleanStreet = place.street?.replaceAll(RegExp(r'\d+'), '') ?? '';
+
+        _currentAddress =
+            '${cleanStreet.trim()}${place.thoroughfare ?? ''}\n\n\n\n'
+            'المنطقة: ${place.subAdministrativeArea ?? ''}\n'
+            'المدينة: ${place.locality ?? ''}\n'
+            'المحافظة: ${place.administrativeArea ?? ''}\n'
+            'الدولة: ${place.country ?? ''}';
+        log('${_currentAddress}');
+      });
+    }).catchError((e) {
+      log(e.toString());
+    });
+  }
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Location services are disabled. Please enable the services',
+          ),
+        ),
+      );
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Location permissions are denied')),
+        );
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Location permissions are permanently denied, we cannot request permissions.',
+          ),
+        ),
+      );
+      return false;
+    }
+    return true;
   }
 }

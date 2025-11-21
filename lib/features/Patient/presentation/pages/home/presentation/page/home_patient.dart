@@ -10,6 +10,7 @@ import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Patient/presentation/pages/home/presentation/widget/calc.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
 
 // ignore: must_be_immutable
@@ -172,8 +173,36 @@ class _HomePatientState extends State<HomePatient> {
         }
 
         var hospitals = snapshot.data.docs;
-        // log('${hospitals[1].data() as Map<String, dynamic>}       ${hospitals}');
+        log('${HospitalModel.fromJson(hospitals[1].data() as Map<String, dynamic>).email}    ;   ${hospitals}');
 
+        if (isNearest) {
+          List<Map<String, dynamic>> hospitalNearest = [];
+          for (int i = 0; i < hospitals.length; i++) {
+            var lati = HospitalModel.fromJson(
+                    hospitals[i].data() as Map<String, dynamic>)
+                .locationLati;
+            var long = HospitalModel.fromJson(
+                    hospitals[i].data() as Map<String, dynamic>)
+                .locationLong;
+            double Km = calculateDistance(
+                lat1: 30.118587119723703,
+                lat2: double.parse(lati ?? ''),
+                lon1: 31.274240270901586,
+                lon2: double.parse(long ?? ''));
+            hospitalNearest.add({
+              'id': HospitalModel.fromJson(
+                      hospitals[i].data() as Map<String, dynamic>)
+                  .uid,
+              'km': Km
+            });
+          }
+          hospitalNearest.sort((a, b) => a['km'].compareTo(b['km']));
+          // log('*/******************${hospital}');
+          var x;
+          for (int i = 0; i < hospitals.length; i++) {
+            FirebaseServices.getHospitalsById(hospitalNearest[i]['id']);
+          }
+        }
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: ListView.separated(

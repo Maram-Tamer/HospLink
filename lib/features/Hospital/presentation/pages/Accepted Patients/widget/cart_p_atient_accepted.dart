@@ -7,9 +7,11 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Hospital/presentation/pages/Accepted%20Patients/widget/item_patient_accepted.dart';
+import 'package:medigo/features/Patient/data/model/request-model.dart';
 
 class cartPAtientAccepted extends StatelessWidget {
-  const cartPAtientAccepted({super.key});
+  const cartPAtientAccepted({super.key, required this.request});
+  final RequestModel request ;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class cartPAtientAccepted extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
         onTap: () {
-          pushTo(context: context, route: Routes.PatientDetails, extra: true);
+          pushTo(context: context, route: Routes.PatientDetails, extra:{'request':request,'isAccepted':true});
         },
         child: Container(
           width: double.infinity,
@@ -42,20 +44,16 @@ class cartPAtientAccepted extends StatelessWidget {
                     CircleAvatar(
                       radius: 43,
                       backgroundColor: AppColors.blueLight,
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: AppColors.blue2,
-                        child: Image.asset(AppImages.PatientPhoto3),
+                      backgroundImage:NetworkImage(request.imageProfilePath?? AppImages.PatientPhoto3),
                       ),
-                    ),
                     Gap(10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          child: Expanded(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
                             child: Text(
-                              'Ahmed Ali Mohamed  ',
+                              request.name ?? '',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
@@ -65,16 +63,16 @@ class cartPAtientAccepted extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ),
-                        Gap(10),
-                        Text(
-                          '25 years old ',
-                          style: AppFontStyles.getSize14(
-                            fontWeight: FontWeight.w400,
-                            fontColor: AppColors.greyColor,
+                          Gap(10),
+                          Text(
+                            '${request.age} years old ',
+                            style: AppFontStyles.getSize14(
+                              fontWeight: FontWeight.w400,
+                              fontColor: AppColors.greyColor,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Spacer(),
                     Gap(20),
@@ -82,21 +80,21 @@ class cartPAtientAccepted extends StatelessWidget {
                 ),
               ),
               itemPatientAccepted(
-                title: 'Egept Cairo street No. 12 - Apartment 6',
+                title: request.address ?? '',
                 icon: AppIcons.locationLine_SVG,
               ),
               Row(
                 children: [
-                  itemPatientAccepted(title: 'O+', icon: AppIcons.booldSVG),
+                  Expanded(child: itemPatientAccepted(title: request.blood??'', icon: AppIcons.booldSVG)),
                   Expanded(
                     child: itemPatientAccepted(
-                      title: '50114585453',
+                      title: request.nationalID??'',
                       icon: AppIcons.ID_SVG,
                     ),
                   ),
                   Expanded(
                     child: itemPatientAccepted(
-                      title: '01104796306',
+                      title: request.phone??'',
                       icon: AppIcons.callSVG,
                     ),
                   ),
@@ -114,7 +112,7 @@ class cartPAtientAccepted extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Description : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                  request.description ?? '',
                   maxLines: 3,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,

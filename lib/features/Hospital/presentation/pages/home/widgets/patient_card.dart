@@ -39,26 +39,28 @@ class PatientCardForHospitalHome extends StatelessWidget {
                 backgroundImage: NetworkImage(request.imageProfilePath??AppImages.PatientPhoto1),
               ),
               Gap(10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(request.name??'',
-                      style: AppFontStyles.getSize16(
-                          fontWeight: FontWeight.w600,
-                          fontColor: Colors.black)),
-                  Gap(5),
-                  Text(request.address??'',
-                      style:
-                          AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
-                  Gap(5),
-                  Text('Phone: ${request.phone??''}',
-                      style:
-                          AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
-                  Gap(5),
-                  Text('Age: ${request.age??''}',
-                      style:
-                          AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(request.name??'',
+                        style: AppFontStyles.getSize16(
+                            fontWeight: FontWeight.w600,
+                            fontColor: Colors.black)),
+                    Gap(5),
+                    Text(request.address??'',
+                        style:
+                            AppFontStyles.getSize14(fontWeight: FontWeight.w500),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                    Gap(5),
+                    Text('Phone: ${request.phone??''}',
+                        style:
+                            AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
+                    Gap(5),
+                    Text('Age: ${request.age??''}',
+                        style:
+                            AppFontStyles.getSize14(fontWeight: FontWeight.w500)),
+                  ],
+                ),
               ),
             ],
           ),

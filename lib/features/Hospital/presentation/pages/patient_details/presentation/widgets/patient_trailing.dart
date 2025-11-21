@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -5,8 +8,10 @@ import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Hospital/presentation/pages/patient_details/presentation/pages/patient_details_screen.dart';
+import 'package:medigo/features/Patient/data/model/request-model.dart';
 
 class PatientDetailsTrailing extends StatelessWidget {
   const PatientDetailsTrailing({super.key, required this.widget});
@@ -15,6 +20,7 @@ class PatientDetailsTrailing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RequestModel request=widget.data["request"];
     return Column(
       children: [
         Row(
@@ -25,6 +31,9 @@ class PatientDetailsTrailing extends StatelessWidget {
                   buttonText: "Accepted Case",
                   buttomColor: AppColors.green,
                   onPressed: () {
+                    request.state = "Accepted";
+                    log(request.requestID??'');
+                    FirebaseServices.updateRequest(request.requestID??'',request);
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,
@@ -37,6 +46,9 @@ class PatientDetailsTrailing extends StatelessWidget {
                   buttomColor: AppColors.green,
                   onPressed: () {
                     widget.data["isAccepted"] = true;
+                    request.state = "Accepted";
+                    log(request.requestID??'');
+                    FirebaseServices.updateRequest(request.requestID??'',request);
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,
@@ -56,6 +68,8 @@ class PatientDetailsTrailing extends StatelessWidget {
                       buttonText: "Reject Case",
                       width: 300,
                       onPressed: () {
+                        request.state = "Rejected";
+                    FirebaseServices.updateRequest(request.requestID??'',request);
                         pop(context);
                       },
                       icon: AppIcons.deleteSVG,

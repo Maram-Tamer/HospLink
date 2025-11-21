@@ -13,7 +13,6 @@ class RequestModel {
   String? requestID;
   String? imageProfilePath;
   String? imageDamagePath;
-
   RequestModel({
     this.name,
     this.age,

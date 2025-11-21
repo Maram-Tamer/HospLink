@@ -192,7 +192,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
               GestureDetector(
                 onTap: () {
                   launchUrl(Uri.parse(
-                      'geo:${hospital?.locationLati},${hospital?.locationLong}&zoom=18'));
+                      'geo:${hospital?.locationLati},${hospital?.locationLong}?q=${hospital?.locationLati},${hospital?.locationLong}(${hospital?.name})&zoom=18,'));
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),

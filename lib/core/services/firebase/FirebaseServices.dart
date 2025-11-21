@@ -25,7 +25,7 @@ class FirebaseServices {
   }
 
   static sendRequest(RequestModel request) {
-    _collectionRequest.doc().set(request.toJson());
+    _collectionRequest.doc(request.requestID).set(request.toJson());
   }
 
   static updatePatient(PatientModel patient) {
@@ -41,7 +41,6 @@ class FirebaseServices {
   }
 
   static Future<QuerySnapshot> getPatient(String uid) {
-    log('--- 111 ---');
 
     return _collectionPatient.where('uid', isEqualTo: uid).get();
   }

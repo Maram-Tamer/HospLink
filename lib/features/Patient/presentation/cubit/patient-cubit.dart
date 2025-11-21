@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medigo/components/calcAge/calcAge.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
@@ -14,6 +15,7 @@ import 'package:medigo/features/Patient/data/model/request-model.dart';
 import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-state.dart';
 import 'package:medigo/features/auth/data/repo/auth_repo.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PatientCubit extends Cubit<PatientState> {
   PatientCubit() : super(PatientInatialState());
@@ -43,11 +45,8 @@ class PatientCubit extends Cubit<PatientState> {
   }
 
   void sendRequest(BuildContext context, String hospitalId) async {
-    log('--- 1 ---');
     emit(PatientLoadingState());
     try {
-      log('--- 2 ---');
-
       imageUri = await uploadFileToCloudinary(
             //uplad image for patient or hospital
             imagFeile!,
@@ -56,27 +55,19 @@ class PatientCubit extends Cubit<PatientState> {
             context,
           ) ??
           '';
-      log('--- 3 ---');
     } on Exception catch (e) {
-      log('--- 4 ---');
       emit(PatientErrorState());
 
       return showMyDialog(context, 'لم يتم رفع الصور');
     }
-    log('--- 5 ---');
 
     PatientModel patient = await PatientRepo.getPatientDetails();
     if (selectedBloodType == Boold[0]) {
-      log('--- 6 ---');
-
       selectedBloodType = patient.blood ?? 'I Dont Know';
     }
     if (selectedPatientType == PatientType.iAmPatient) {
-      log('--- 7 ---');
-
       ageController.text = calculateAgeFromString(patient.date ?? '');
     }
-    log('--- 8 ---');
 
     var request = (selectedPatientType == PatientType.iAmPatient)
         ? RequestModel(
@@ -92,6 +83,8 @@ class PatientCubit extends Cubit<PatientState> {
             nationalID: patient.nationalID,
             patientID: patient.uid,
             phone: patient.phone,
+            requestID:
+                FirebaseFirestore.instance.collection('requests').doc().id,
             state: StateRequest[0])
         : RequestModel(
             address: addressController.text,
@@ -105,12 +98,12 @@ class PatientCubit extends Cubit<PatientState> {
             name: nameController.text,
             nationalID: nameController.text,
             patientID: patient.uid,
+            requestID:
+                FirebaseFirestore.instance.collection('requests').doc().id,
             phone: phoneController.text,
             state: StateRequest[0]);
-    log('--- 9 ---');
 
     PatientRepo.sendRequest(request);
-    log('--- 10 ---');
     emit(PatientSuccessState());
   }
 }

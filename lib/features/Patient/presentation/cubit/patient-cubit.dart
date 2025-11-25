@@ -1,20 +1,18 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medigo/components/calcAge/calcAge.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/extentions/uploadCloudinary.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
 import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-state.dart';
-import 'package:medigo/features/auth/data/repo/auth_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PatientCubit extends Cubit<PatientState> {
@@ -35,15 +33,34 @@ class PatientCubit extends Cubit<PatientState> {
   String? imageUri;
   File? imagFeile;
   List<HospitalModel> hospitals = [];
+  List<HospitalModel> favoriteHospitals = [];
 
-  void getHospitals() {
-    emit(PatientInatialState());
-    FirebaseServices.getHospitals()
-        .then((value) => hospitals = value.docs.map((e) {
-              return HospitalModel.fromJson(e as Map<String, dynamic>);
-            }).toList());
+  // void getHospitals() {
+  //   emit(PatientInatialState());
+  //   FirebaseServices.getHospitals()
+  //       .then((value) => hospitals = value.docs.map((e) {
+  //             return HospitalModel.fromJson(e as Map<String, dynamic>);
+  //           }).toList());
+  // }
+Future<void> getFavoriteHospitals() async {
+    emit(PatientLoadingState());
+    try {
+  PatientModel patient=LocalHelper.getUserDataPatient()!;
+  var data =await FirebaseServices.getHospitals();
+  hospitals = data.docs.map((e) {
+    return HospitalModel.fromJson(e.data() as Map<String, dynamic>);
+  }).toList();
+  print(hospitals);
+  hospitals.forEach((element) {
+    if (patient.favoriteHospitals!.contains(element.uid)) {
+      favoriteHospitals.add(element);
+    }
+  });
+  emit(PatientSuccessState());
+} on Exception catch (e) {
+  emit(PatientErrorState());
+}
   }
-
   void sendRequest(BuildContext context, String hospitalId) async {
     emit(PatientLoadingState());
     try {
@@ -58,7 +75,7 @@ class PatientCubit extends Cubit<PatientState> {
     } on Exception catch (e) {
       emit(PatientErrorState());
 
-      return showMyDialog(context, 'لم يتم رفع الصور');
+       showMyDialog(context, 'لم يتم رفع الصور');
     }
 
     PatientModel patient = await PatientRepo.getPatientDetails();

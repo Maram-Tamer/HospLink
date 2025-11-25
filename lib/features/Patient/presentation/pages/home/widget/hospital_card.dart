@@ -1,13 +1,16 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/firebase/FirebaseServices.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Patient/data/model/patient-model.dart';
+import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 
 class HospitalCard extends StatefulWidget {
   const HospitalCard({
@@ -22,10 +25,19 @@ class HospitalCard extends StatefulWidget {
   @override
   State<HospitalCard> createState() => _HospitalCardState();
 }
-
 class _HospitalCardState extends State<HospitalCard> {
-  bool isFavorite = false;
-
+  PatientModel patient=LocalHelper.getUserDataPatient()!;
+  late bool isFavorite=patient.favoriteHospitals?.contains(widget.hospital.uid)??false;
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   checkFavorite();
+  // }
+  // Future<void> checkFavorite() async {
+  //   PatientModel patient =await PatientRepo.getPatientDetails();
+  //   setState(() {isFavorite = patient.favoriteHospitals?.contains(widget.hospital.uid)??false;});
+  //   log(isFavorite.toString());
+  // }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -141,10 +153,17 @@ class _HospitalCardState extends State<HospitalCard> {
                       ],
                     ),
                   ),
-
                   /// Favorite Icon
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      PatientModel patient =await PatientRepo.getPatientDetails();
+                      if(isFavorite){
+                        patient.favoriteHospitals!.remove(widget.hospital.uid!);
+                      }else{
+                      patient.favoriteHospitals!.add(widget.hospital.uid!);
+                      }
+                      FirebaseServices.updatePatient(patient);
+                      LocalHelper.setUserDataPatient(patient);
                       setState(() {
                         isFavorite = !isFavorite;
                       });

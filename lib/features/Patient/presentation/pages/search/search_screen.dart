@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
@@ -130,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               doc.data() as Map<String, dynamic>,
                             );
 
-                            return HospitalCard(hospital: hospital);
+                            return HospitalCard(hospital: hospital,);
                           },
                         );
                       },

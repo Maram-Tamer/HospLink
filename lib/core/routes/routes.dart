@@ -57,6 +57,7 @@ class Routes {
   static const String Main_hospital = '/main-h';
   static const String chat = '/chat';
   static const String Search = '/Search';
+  static const String favorite = '/favorite';
   static const String HospitalDetails = '/hospital-details';
   static const String UnifiledpatientData = '/unfiled-patient-data';
   static const String Notification = '/notification';

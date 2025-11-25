@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';

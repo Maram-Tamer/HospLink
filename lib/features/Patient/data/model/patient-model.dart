@@ -12,6 +12,7 @@ class PatientModel {
   String? blood;
   String? imageUri;
   List<String>? illnesses;
+  List<String>? favoriteHospitals;
 
   PatientModel({
     this.uid,
@@ -27,6 +28,7 @@ class PatientModel {
     this.blood,
     this.imageUri,
     this.illnesses,
+    this.favoriteHospitals,
   });
 
   PatientModel.fromJson(Map<String, dynamic> json) {
@@ -45,6 +47,9 @@ class PatientModel {
     illnesses = json['illnesses'] != null
         ? List<String>.from(json['illnesses'])
         : [];
+    favoriteHospitals = json['favoriteHospitals'] != null
+        ? List<String>.from(json['favoriteHospitals'])
+        : [];
   }
 
   Map<String, dynamic> toJson() {
@@ -62,6 +67,7 @@ class PatientModel {
     data['blood'] = blood;
     data['imageUri'] = imageUri;
     data['illnesses'] = illnesses;
+    data['favoriteHospitals'] = favoriteHospitals;
     return data;
   }
 
@@ -80,6 +86,7 @@ class PatientModel {
     if (blood != null) data['blood'] = blood;
     if (imageUri != null) data['imageUri'] = imageUri;
     if (illnesses != null) data['illnesses'] = illnesses;
+    if (favoriteHospitals != null) data['favoriteHospitals'] = favoriteHospitals;
     return data;
   }
 }

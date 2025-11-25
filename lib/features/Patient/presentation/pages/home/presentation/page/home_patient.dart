@@ -25,6 +25,7 @@ class _HomePatientState extends State<HomePatient> {
   bool isNearest = false;
   @override
   Widget build(BuildContext context) {
+    print(isNearest);
     return Scaffold(
       appBar: App_Bar(
         title: 'Hospitals',
@@ -91,15 +92,15 @@ class _HomePatientState extends State<HomePatient> {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: isNearest
-                            ? AppColors.primaryGreenColor
-                            : Colors.transparent,
+                            ?  Colors.transparent
+                            :AppColors.primaryGreenColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
                       onPressed: () {
                         setState(() {
-                          isNearest = false;
+                          isNearest =! isNearest;
                         });
                       },
                       child: Text(
@@ -115,15 +116,15 @@ class _HomePatientState extends State<HomePatient> {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: isNearest
-                            ? Colors.transparent
-                            : AppColors.primaryGreenColor,
+                            ?AppColors.primaryGreenColor
+                            :  Colors.transparent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
                       onPressed: () {
                         setState(() {
-                          isNearest = true;
+                          isNearest =! isNearest;
                         });
                       },
                       child: Text(
@@ -147,8 +148,8 @@ class _HomePatientState extends State<HomePatient> {
   Widget getHospitals() {
     return FutureBuilder(
       future: isNearest
-          ? FirebaseServices.getTopRatedHospitals(limit: 15)
-          : FirebaseServices.getNearestHospitals(),
+          ? FirebaseServices.getNearestHospitals()
+          : FirebaseServices.getTopRatedHospitals(limit: 15),
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -198,7 +199,7 @@ class _HomePatientState extends State<HomePatient> {
           }
           hospitalNearest.sort((a, b) => a['km'].compareTo(b['km']));
           // log('*/******************${hospital}');
-          var x;
+          
           for (int i = 0; i < hospitals.length; i++) {
             FirebaseServices.getHospitalsById(hospitalNearest[i]['id']);
           }

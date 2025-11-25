@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
@@ -36,7 +34,7 @@ class FirebaseServices {
     _collectionHospital.doc(hospital.uid).update(hospital.toUpdateData());
   }
 
-  static getHospitals() {
+  static Future<QuerySnapshot<Object?>> getHospitals() {
     return _collectionHospital.get();
   }
 

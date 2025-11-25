@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,8 +8,11 @@ import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
+import 'package:medigo/features/Patient/data/model/patient-model.dart';
+import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 import 'package:medigo/features/auth/data/models/user.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
@@ -41,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<AuthCubit>(context);
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthSuccessState) {
           pop(context);
           if (FirebaseAuth.instance.currentUser!.displayName != null) {
@@ -49,11 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
               pushAndRemoveUntil(context: context, route: Routes.Main_hospital);
               LocalHelper.setUserType('hospital');
             } else {
+              PatientModel? patient= await PatientRepo.getPatientDetails();
+            LocalHelper.setUserDataPatient(patient);
+            LocalHelper.setUserId(FirebaseAuth.instance.currentUser!.uid);
               pushAndRemoveUntil(context: context, route: Routes.Main_patient);
               LocalHelper.setUserType('patient');
             }
-
-            LocalHelper.setUserId(FirebaseAuth.instance.currentUser!.uid);
           } else {
             state.userType == UserType.hospital
                 ? pushTo(context: context, route: Routes.pageviewHospital)

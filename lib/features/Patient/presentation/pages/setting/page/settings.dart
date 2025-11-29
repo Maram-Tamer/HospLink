@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
@@ -10,9 +9,35 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/components/setting%20items/settings_group.dart';
 import 'package:medigo/components/setting%20items/settings_items.dart';
+import 'package:medigo/main.dart'; // To access the theme toggle function
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  bool isDarkThemeOn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load saved dark theme preference
+    isDarkThemeOn = LocalHelper.getData(LocalHelper.kDarkTheme) ?? false;
+  }
+
+  void _toggleDarkTheme(bool value) {
+    setState(() {
+      isDarkThemeOn = value;
+    });
+    LocalHelper.setData(LocalHelper.kDarkTheme, value);
+    log("Dark Theme: $value");
+
+    // Update theme in the app
+    MainApp.of(context)?.toggleTheme(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            Gap(20),
+            const Gap(20),
             Text(
               "Account",
               style: AppFontStyles.getSize18(
@@ -70,19 +95,20 @@ class SettingsScreen extends StatelessWidget {
             SettingsGroup(
               items: [
                 SettingsItem(
+                  icon: Icons.dark_mode,
+                  iconColor: Colors.deepPurple,
+                  title: "Dark Theme",
+                  hasSwitch: true,
+                  initialValue: isDarkThemeOn,
+                  onSwitchChanged: _toggleDarkTheme,
+                ),
+                SettingsItem(
                   icon: Icons.notifications,
                   iconColor: Colors.amber,
                   title: "Notifications",
                   hasSwitch: true,
                   initialValue: true,
                   onSwitchChanged: (v) => log("Notifications: $v"),
-                ),
-                SettingsItem(
-                  icon: Icons.dark_mode,
-                  iconColor: Colors.deepPurple,
-                  title: "Dark Theme",
-                  hasSwitch: true,
-                  onSwitchChanged: (v) => log("Dark Theme: $v"),
                 ),
                 SettingsItem(
                   icon: Icons.share,
@@ -99,14 +125,16 @@ class SettingsScreen extends StatelessWidget {
                 SettingsItem(
                   icon: Icons.feedback_outlined,
                   iconColor: Colors.deepPurple,
-                  title: "Sent FeadBack",
+                  title: "Send Feedback",
                   onPressed: () => log("Send Feedback tapped"),
                 ),
                 SettingsItem(
                   icon: Icons.info_outline,
                   iconColor: Colors.lightBlueAccent,
                   title: "About Us",
-                  onPressed: () => log("Send Feedback tapped"),
+                  onPressed: () {
+                    pushTo(context: context, route: Routes.aboutUs);
+                  },
                 ),
                 SettingsItem(
                   icon: Icons.logout,

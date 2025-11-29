@@ -25,7 +25,6 @@ class _HomePatientState extends State<HomePatient> {
   bool isNearest = false;
   @override
   Widget build(BuildContext context) {
-    print(isNearest);
     return Scaffold(
       appBar: App_Bar(
         title: 'Hospitals',

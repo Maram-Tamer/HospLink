@@ -205,7 +205,7 @@ class _HomePatientState extends State<HomePatient> {
             itemBuilder: (context, index) {
               return HospitalCard(
                 hospital: gethospital[index],
-                km: hospitalNearest[index]['km'],
+                 km: hospitalNearest[index]['km'],
               );
             },
           ),

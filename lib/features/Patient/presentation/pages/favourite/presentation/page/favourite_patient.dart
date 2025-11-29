@@ -20,48 +20,54 @@ class _FavouritePatientState extends State<FavouritePatient> {
   Widget build(BuildContext context) {
     return AppBackground(
       child: BlocProvider(
-        create: (BuildContext context) { 
+        create: (BuildContext context) {
           return PatientCubit()..getFavoriteHospitals();
-         },
+        },
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Favourites', style: AppFontStyles.getSize24(fontWeight: FontWeight.w600)),
+            title: Text('Favourites',
+                style: AppFontStyles.getSize24(fontWeight: FontWeight.w600)),
           ),
-          body: BlocBuilder<PatientCubit,PatientState>(
+          body: BlocBuilder<PatientCubit, PatientState>(
             builder: (context, state) {
-              var cubit=context.read<PatientCubit>();
+              var cubit = context.read<PatientCubit>();
               return SingleChildScrollView(
-              child: Column(children: [Gap(15), hospitalsListShow(cubit), Gap(15)]),
-            );
-            }, 
+                child: Column(
+                    children: [Gap(15), hospitalsListShow(cubit), Gap(15)]),
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-Widget hospitalsListShow(PatientCubit cubit) {
-  print(cubit.favoriteHospitals);
+  Widget hospitalsListShow(PatientCubit cubit) {
+    print(cubit.favoriteHospitals);
     if (cubit.favoriteHospitals.isEmpty) {
-       return Center(child: Text('No Favourite Hospitals',style: AppFontStyles.getSize14(fontWeight: FontWeight.w600),));
-    }else{
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0),
-      child: ListView.separated(
-        itemCount: cubit.favoriteHospitals.length,
-        itemBuilder: (context, index) {
-          return HospitalCard(
-            submitRequest: true,
-            hospital: cubit.favoriteHospitals[index],
-          );
-        },
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        separatorBuilder: (BuildContext context, int index) {
-          return Gap(15);
-        },
-      ),
-    );
+      return Center(
+          child: Text(
+        'No Favourite Hospitals',
+        style: AppFontStyles.getSize14(fontWeight: FontWeight.w600),
+      ));
+    } else {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: ListView.separated(
+          itemCount: cubit.favoriteHospitals.length,
+          itemBuilder: (context, index) {
+            return HospitalCard(
+              submitRequest: true,
+              hospital: cubit.favoriteHospitals[index],
+            );
+          },
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          separatorBuilder: (BuildContext context, int index) {
+            return Gap(15);
+          },
+        ),
+      );
     }
   }
 }

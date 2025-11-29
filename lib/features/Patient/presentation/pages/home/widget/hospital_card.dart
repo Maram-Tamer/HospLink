@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
@@ -13,21 +12,20 @@ import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 
 class HospitalCard extends StatefulWidget {
-  const HospitalCard({
-    super.key,
-    this.submitRequest = false,
-    required this.hospital,
-  });
-
+  const HospitalCard(
+      {super.key, this.submitRequest = false, required this.hospital, this.km});
+  final double? km;
   final bool submitRequest;
   final HospitalModel hospital;
-
   @override
   State<HospitalCard> createState() => _HospitalCardState();
 }
+
 class _HospitalCardState extends State<HospitalCard> {
-  PatientModel patient=LocalHelper.getUserDataPatient()!;
-  late bool isFavorite=patient.favoriteHospitals?.contains(widget.hospital.uid)??false;
+  PatientModel patient = LocalHelper.getUserDataPatient()!;
+
+  late bool isFavorite =
+      patient.favoriteHospitals?.contains(widget.hospital.uid) ?? false;
   // @override
   // void initState(){
   //   super.initState();
@@ -45,7 +43,11 @@ class _HospitalCardState extends State<HospitalCard> {
         pushTo(
           context: context,
           route: Routes.HospitalDetails,
-          extra: {'hospital': widget.hospital, 'isAccepted': false},
+          extra: {
+            'hospital': widget.hospital,
+            'isAccepted': false,
+            'km': widget.km,
+          },
         );
       },
       child: Container(
@@ -111,12 +113,17 @@ class _HospitalCardState extends State<HospitalCard> {
                         /// Address
                         Row(
                           children: [
-                            Icon(
-                              Icons.location_on,
-                              color: AppColors.primaryGreenColor,
-                              size: 16,
-                            ),
                             Gap(5),
+                            if (widget.km != null) ...[
+                              Icon(Icons.location_on_sharp,
+                                  color: Colors.red, size: 16),
+                              Text(
+                                '| ${widget.km!.toStringAsFixed(2)} Km ',
+                                style: AppFontStyles.getSize14(
+                                  fontColor: AppColors.slateGrayColor,
+                                ),
+                              ),
+                            ],
                             Expanded(
                               child: Text(
                                 widget.hospital.address ?? 'No address',
@@ -153,14 +160,16 @@ class _HospitalCardState extends State<HospitalCard> {
                       ],
                     ),
                   ),
+
                   /// Favorite Icon
                   IconButton(
                     onPressed: () async {
-                      PatientModel patient =await PatientRepo.getPatientDetails();
-                      if(isFavorite){
+                      PatientModel patient =
+                          await PatientRepo.getPatientDetails();
+                      if (isFavorite) {
                         patient.favoriteHospitals!.remove(widget.hospital.uid!);
-                      }else{
-                      patient.favoriteHospitals!.add(widget.hospital.uid!);
+                      } else {
+                        patient.favoriteHospitals!.add(widget.hospital.uid!);
                       }
                       FirebaseServices.updatePatient(patient);
                       LocalHelper.setUserDataPatient(patient);

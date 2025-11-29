@@ -153,6 +153,16 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                 color: AppColors.red,
               ),
               const Gap(10),
+
+              if (widget.data!['km'] != null) ...[
+                HospitalDetailsTile(
+                  text: '${widget.data!['km'].toStringAsFixed(2)} Km',
+                  icon: AppIcons.locationLine_SVG,
+                  color: AppColors.primaryGreenColor,
+                ),
+                const Gap(10),
+              ],
+              const Gap(10),
               HospitalDetailsTile(
                 text: '24 Hour',
                 style: TextStyle(

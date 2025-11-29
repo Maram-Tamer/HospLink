@@ -114,16 +114,6 @@ class _HospitalCardState extends State<HospitalCard> {
                         Row(
                           children: [
                             Gap(5),
-                            if (widget.km != null) ...[
-                              Icon(Icons.location_on_sharp,
-                                  color: Colors.red, size: 16),
-                              Text(
-                                '| ${widget.km!.toStringAsFixed(2)} Km ',
-                                style: AppFontStyles.getSize14(
-                                  fontColor: AppColors.slateGrayColor,
-                                ),
-                              ),
-                            ],
                             Expanded(
                               child: Text(
                                 widget.hospital.address ?? 'No address',
@@ -149,12 +139,25 @@ class _HospitalCardState extends State<HospitalCard> {
                                 fontColor: AppColors.slateGrayColor,
                               ),
                             ),
-                            Text(
-                              '| 200 reviews',
-                              style: AppFontStyles.getSize14(
-                                fontColor: AppColors.slateGrayColor,
+                            Gap(10),
+                            if (widget.km != null) ...[
+                              Icon(Icons.location_on_sharp,
+                                  color: Colors.red, size: 16),
+                              Text(
+                                '| ${widget.km!.toStringAsFixed(2)} Km ',
+                                style: AppFontStyles.getSize14(
+                                  fontColor: AppColors.slateGrayColor,
+                                ),
                               ),
-                            ),
+                            ],
+                            if (widget.km == null) ...[
+                              Text(
+                                '| 200 reviews',
+                                style: AppFontStyles.getSize14(
+                                  fontColor: AppColors.slateGrayColor,
+                                ),
+                              ),
+                            ],
                           ],
                         ),
                       ],
@@ -190,7 +193,7 @@ class _HospitalCardState extends State<HospitalCard> {
               if (widget.submitRequest) ...[
                 Gap(15),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MainButton(
                       buttonText: 'Submit Request',

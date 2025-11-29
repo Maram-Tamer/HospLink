@@ -12,6 +12,8 @@ class LocalHelper {
   static String kUserDataPatient = 'kUserDataP';
   static String kUserDataHospital = 'kUserDataH';
   static String kHospitalFavorit = 'kFavorit';
+  static String kDarkTheme = 'darkTheme';
+  static String kNotifications = 'notifications';
 
   static init() async {
     pref = await SharedPreferences.getInstance();

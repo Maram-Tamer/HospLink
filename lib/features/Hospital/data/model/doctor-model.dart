@@ -15,6 +15,7 @@ class HospitalModel {
   String? fileUri;
   String? locationLong;
   String? locationLati;
+  String? rate;
 
   HospitalModel({
     this.uid,
@@ -33,6 +34,7 @@ class HospitalModel {
     this.fileUri,
     this.locationLong,
     this.locationLati,
+    this.rate,
   });
 
   HospitalModel.fromJson(Map<String, dynamic> json) {
@@ -52,6 +54,7 @@ class HospitalModel {
     fileUri = json['fileUri'];
     locationLong = json['locationLong'];
     locationLati = json['locationLati'];
+    rate = json['rate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,6 +75,7 @@ class HospitalModel {
     data['fileUri'] = fileUri;
     data['locationLong'] = locationLong;
     data['locationLati'] = locationLati;
+    data['rate'] = rate;
     return data;
   }
 
@@ -93,6 +97,8 @@ class HospitalModel {
     if (fileUri != null) data['fileUri'] = fileUri;
     if (locationLong != null) data['locationLong'] = locationLong;
     if (locationLati != null) data['locationLati'] = locationLati;
+    if (rate != null) data['rate'] = rate;
+
     return data;
   }
 }

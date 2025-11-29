@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
+import 'package:medigo/features/Patient/data/model/request-model.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
 class FirebaseServices {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -9,6 +13,8 @@ class FirebaseServices {
       _firestore.collection('patient');
   static final CollectionReference _collectionHospital =
       _firestore.collection('hospital');
+  static final CollectionReference _collectionRequest =
+      _firestore.collection('requests');
 
   static createPatient(PatientModel patient) {
     _collectionPatient.doc(patient.uid).set(patient.toJson());
@@ -18,11 +24,75 @@ class FirebaseServices {
     _collectionHospital.doc(hospital.uid).set(hospital.toJson());
   }
 
+  static sendRequest(RequestModel request) {
+    _collectionRequest.doc(request.requestID).set(request.toJson());
+  }
+
   static updatePatient(PatientModel patient) {
     _collectionPatient.doc(patient.uid).update(patient.toUpdateData());
   }
 
   static updateHospital(HospitalModel hospital) {
     _collectionHospital.doc(hospital.uid).update(hospital.toUpdateData());
+  }
+
+  static Future<QuerySnapshot<Object?>> getHospitals() {
+    return _collectionHospital.get();
+  }
+
+  static Future<QuerySnapshot> getPatient(String uid) {
+    return _collectionPatient.where('uid', isEqualTo: uid).get();
+  }
+
+//search hospitals
+  static Future<QuerySnapshot> searchHospitals(String text) async {
+    return _collectionHospital.orderBy('name').get();
+  }
+
+//get top rated hospitals
+  static Future<QuerySnapshot> getTopRatedHospitals({int limit = 10}) async {
+    return _collectionHospital
+        .orderBy('rate', descending: true)
+        .limit(limit)
+        .get();
+  }
+
+//get nearest hospitals
+  static Future<QuerySnapshot> getNearestHospitals() async {
+    return _collectionHospital.limit(15).get();
+  }
+
+  static Future<HospitalModel> getHospitalById(String hospitalId) async {
+    try {
+      DocumentSnapshot doc = await _collectionHospital.doc(hospitalId).get();
+
+      if (doc.exists) {
+        return HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
+      } else {
+        throw Exception('Hospital not found');
+      }
+    } catch (e) {
+      throw Exception('Error fetching hospital: $e');
+    }
+  }
+
+  static Future<QuerySnapshot> getRequests() {
+    String hospitalID = LocalHelper.getUserId()!;
+    return _collectionRequest.where('hospitalID', isEqualTo: hospitalID).get();
+  }
+
+  static updateRequest(String requestId, RequestModel request) {
+    _collectionRequest.doc(requestId).update(request.toUpdateData());
+  }
+
+  static Future<String> uploadPatientImage(String uid, File imageFile) async {
+    final storageRef = FirebaseStorage.instance.ref().child(
+        "patients/$uid/profile_${DateTime.now().millisecondsSinceEpoch}.jpg");
+
+    // Upload file
+    await storageRef.putFile(imageFile);
+
+    // Return download URL
+    return await storageRef.getDownloadURL();
   }
 }

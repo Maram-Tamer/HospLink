@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medigo/core/constatnts/images.dart';
@@ -7,6 +9,7 @@ import 'package:medigo/features/Hospital/presentation/pages/setting/page/pateint
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/profile/edit_profile_screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
+import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
 import 'package:medigo/features/Patient/presentation/pages/notification/page/notification_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/patient_data/page/unified_patient_screen.dart';
 
@@ -28,6 +31,7 @@ import 'package:medigo/features/Patient/presentation/pages/setting/page/change_p
 import 'package:medigo/features/Patient/presentation/pages/setting/page/edit_profile_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/search/search_screen.dart';
 import 'package:medigo/features/Intro/splash/page/splash_screen.dart';
+import 'package:medigo/features/patient/presentation/pages/setting/page/about_us_screen.dart';
 
 class Routes {
   static const String splash = '/';
@@ -54,6 +58,7 @@ class Routes {
   static const String Main_hospital = '/main-h';
   static const String chat = '/chat';
   static const String Search = '/Search';
+  static const String favorite = '/favorite';
   static const String HospitalDetails = '/hospital-details';
   static const String UnifiledpatientData = '/unfiled-patient-data';
   static const String Notification = '/notification';
@@ -66,10 +71,12 @@ class Routes {
   static const String editPassword_H = '/editpasswordH';
   static const String editProfile_H = '/editProfileH';
   static const String NotificationH = '/notificationH';
+  static const String aboutUs = '/aboutUs';
 
   static final routes = GoRouter(
     routes: [
       GoRoute(path: splash, builder: (context, state) => SplashScreen()),
+      GoRoute(path: aboutUs, builder: (context, state) => AboutUsScreen()),
       GoRoute(
           path: forgetPasswordMailSent,
           builder: (context, state) => BlocProvider(
@@ -100,8 +107,10 @@ class Routes {
       ),
       GoRoute(
         path: PatientDetails,
-        builder: (context, state) =>
-            PatientDetailsScreen(isAccepted: state.extra as bool),
+        builder: (context, state) {
+          Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+          return PatientDetailsScreen(data:data);
+        },
       ),
       GoRoute(
         path: PatientHistory,
@@ -118,12 +127,22 @@ class Routes {
       ),
       GoRoute(
         path: HospitalDetails,
-        builder: (context, state) =>
-            HospitalDetailsScreen(isAccepted: state.extra as bool),
+        builder: (context, state) {
+          Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+          return HospitalDetailsScreen(
+            data: data,
+          );
+        },
       ),
       GoRoute(
         path: UnifiledpatientData,
-        builder: (context, state) => UnifiedPatientScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) {
+            log('${state.extra as String}');
+            return PatientCubit();
+          },
+          child: UnifiedPatientScreen(HospitalId: state.extra as String),
+        ),
       ),
       GoRoute(path: onBoarding_1, builder: (context, state) => OnBoarding()),
       GoRoute(path: welcom, builder: (context, state) => WelcomeScreen()),

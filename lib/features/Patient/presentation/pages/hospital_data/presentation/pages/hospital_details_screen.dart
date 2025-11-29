@@ -9,13 +9,15 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/hospital_detail_tile.dart';
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/photo_card.dart';
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/star_rating.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HospitalDetailsScreen extends StatefulWidget {
-  HospitalDetailsScreen({super.key, required this.isAccepted});
-  final bool isAccepted;
+  HospitalDetailsScreen({super.key, this.data});
+  final Map<String, dynamic>? data;
 
   @override
   State<HospitalDetailsScreen> createState() => _HospitalDetailsScreenState();
@@ -24,7 +26,8 @@ class HospitalDetailsScreen extends StatefulWidget {
 class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
   final List<int> ratings = List.filled(3, 0);
   int currentRating = 0;
-
+  late bool isAccepted = widget.data!['isAccepted'] as bool;
+  late HospitalModel? hospital = widget.data?['hospital'] as HospitalModel?;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +36,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
           child: Row(
             children: [
-              if (widget.isAccepted) ...[
+              if (isAccepted) ...[
                 Expanded(
                   child: MainButton(
                     buttonText: "Complete",
@@ -46,13 +49,13 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   child: MainButton(
                     buttonText: "Send Request",
                     onPressed: () {
-                      if (widget.isAccepted) {
+                      if (isAccepted) {
                         _showReviewBottomSheet(context);
                       } else {
                         pushTo(
-                          context: context,
-                          route: Routes.UnifiledpatientData,
-                        );
+                            context: context,
+                            route: Routes.UnifiledpatientData,
+                            extra: hospital?.uid);
                       }
                     },
                     icon: AppIcons.send2SVG,
@@ -86,7 +89,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
       ),
       appBar: App_Bar(
         title: "Hospital Details",
-        leading: widget.isAccepted ? false : true,
+        leading: isAccepted ? false : true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -95,11 +98,12 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Hospital Header Image
-              PhotoCard(image: AppImages.hospitalPhoto1, name: 'Hospital Name'),
+              PhotoCard(
+                  image: hospital?.imageUri ?? '', name: hospital?.name ?? ''),
               const Gap(20),
 
               Text(
-                "Saudi German Hospital- Cairo, part of the Middle East's leading healthcare group, is a landmark tertiary care hospital in Africa. Offering world-class services across specialties, it sets the gold standard for patient-centered care in Egypt and beyond. Established in 2016 as the first African outpost of the renowned Saudi German Hospitals Group, SGH-Cairo has quickly become a major tertiary care hospital in Egypt. By embracing state-of-the-art technology and a patient-centric approach, it has earned the trust of both local and international patients, setting a new standard for healthcare in the region.",
+                hospital?.description ?? '',
                 style: AppFontStyles.getSize16(
                   fontColor: AppColors.darkGreyColor,
                 ),
@@ -144,35 +148,70 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
 
               // Contact Info
               HospitalDetailsTile(
-                text: "20 El Marghani St, Cairo",
+                text: hospital?.address ?? '',
                 icon: AppIcons.locationSVG,
                 color: AppColors.red,
               ),
               const Gap(10),
+
+              if (widget.data!['km'] != null) ...[
+                HospitalDetailsTile(
+                  text: '${widget.data!['km'].toStringAsFixed(2)} Km',
+                  icon: AppIcons.locationLine_SVG,
+                  color: AppColors.primaryGreenColor,
+                ),
+                const Gap(10),
+              ],
+              const Gap(10),
               HospitalDetailsTile(
-                text: "Opens 24 Hours",
+                text: '24 Hour',
+                style: TextStyle(
+                  color: AppColors.green,
+                  fontWeight: FontWeight.w600,
+                ),
                 icon: AppIcons.clockSVG,
               ),
               const Gap(10),
               HospitalDetailsTile(
-                text: "www.saudigerman.com",
+                onTap: () {
+                  launchUrl(Uri.parse(hospital?.website ?? ''));
+                },
+                text: 'Click here to go the website',
                 icon: AppIcons.webSVG,
+                style: TextStyle(
+                  color: Colors.blue,
+                  decoration: TextDecoration.underline,
+                ),
               ),
               const Gap(10),
               HospitalDetailsTile(
-                text: "+20 105645454",
+                text: hospital?.phone ?? '',
                 icon: AppIcons.callFillSVG,
                 color: AppColors.green,
               ),
               const Gap(20),
+              Text(
+                'click here to go google maps ↧',
+                style: AppFontStyles.getSize14(
+                  fontColor: AppColors.darkColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Gap(5),
 
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  AppImages.map,
-                  height: 180,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+              GestureDetector(
+                onTap: () {
+                  launchUrl(Uri.parse(
+                      'geo:${hospital?.locationLati},${hospital?.locationLong}?q=${hospital?.locationLati},${hospital?.locationLong}(${hospital?.name})&zoom=18,'));
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    AppImages.map,
+                    height: 180,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Gap(20),

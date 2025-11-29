@@ -1,28 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
-import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/services/firebase/FirebaseServices.dart';
+import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Patient/data/model/patient-model.dart';
+import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 
 class HospitalCard extends StatefulWidget {
-  const HospitalCard({super.key, this.submitRequest = false});
+  const HospitalCard(
+      {super.key, this.submitRequest = false, required this.hospital, this.km});
+  final double? km;
   final bool submitRequest;
-
+  final HospitalModel hospital;
   @override
   State<HospitalCard> createState() => _HospitalCardState();
 }
 
 class _HospitalCardState extends State<HospitalCard> {
-  bool isFavorite = false;
+  PatientModel patient = LocalHelper.getUserDataPatient()!;
 
+  late bool isFavorite =
+      patient.favoriteHospitals?.contains(widget.hospital.uid) ?? false;
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   checkFavorite();
+  // }
+  // Future<void> checkFavorite() async {
+  //   PatientModel patient =await PatientRepo.getPatientDetails();
+  //   setState(() {isFavorite = patient.favoriteHospitals?.contains(widget.hospital.uid)??false;});
+  //   log(isFavorite.toString());
+  // }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pushTo(context: context, route: Routes.HospitalDetails,extra: false);
+        pushTo(
+          context: context,
+          route: Routes.HospitalDetails,
+          extra: {
+            'hospital': widget.hospital,
+            'isAccepted': false,
+            'km': widget.km,
+          },
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -30,7 +56,7 @@ class _HospitalCardState extends State<HospitalCard> {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withValues(alpha: 30),
               spreadRadius: 2,
               blurRadius: 5,
               offset: Offset(0, 3),
@@ -38,68 +64,118 @@ class _HospitalCardState extends State<HospitalCard> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          padding: const EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
           child: Column(
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      AppImages.hospitalPhoto2,
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Gap(15),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'City Hospital',
-                        style: AppFontStyles.getSize16(
-                          fontColor: AppColors.blackColor,
-                          fontWeight: FontWeight.bold,
+                  /// IMAGE FIX — prevents crash when URL is empty
+                  Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        widget.hospital.imageUri?.isNotEmpty == true
+                            ? widget.hospital.imageUri!
+                            : "https://via.placeholder.com/70", // fallback image
+                        width: 70,
+                        height: 70,
+                        fit: BoxFit.cover,
+                        errorBuilder: (c, e, s) => Image.asset(
+                          "assets/images/default_hospital.png",
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      Gap(5),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            color: AppColors.primaryGreenColor,
-                            size: 16,
-                          ),
-                          Gap(5),
-                          Text(
-                            '123 Main St, City',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: AppFontStyles.getSize12(
-                              fontColor: AppColors.slateGrayColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Gap(5),
-                      Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.amber, size: 16),
-                          Gap(5),
-                          Text(
-                            '4.5 | 200 reviews',
-                            style: AppFontStyles.getSize14(
-                              fontColor: AppColors.slateGrayColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
-                  Spacer(),
+
+                  Gap(15),
+
+                  /// TEXT AREA (Expanded fixes overflow)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /// Hospital Name
+                        Text(
+                          widget.hospital.name ?? 'Unknown Hospital',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppFontStyles.getSize16(
+                            fontColor: AppColors.blackColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Gap(5),
+
+                        /// Address
+                        Row(
+                          children: [
+                            Gap(5),
+                            Expanded(
+                              child: Text(
+                                widget.hospital.address ?? 'No address',
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: AppFontStyles.getSize12(
+                                  fontColor: AppColors.slateGrayColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Gap(5),
+
+                        /// Rating
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.amber, size: 16),
+                            Gap(5),
+                            Text(
+                              '${widget.hospital.rate ?? "0.0"} ',
+                              style: AppFontStyles.getSize14(
+                                fontColor: AppColors.slateGrayColor,
+                              ),
+                            ),
+                            Gap(10),
+                            if (widget.km != null) ...[
+                              Icon(Icons.location_on_sharp,
+                                  color: Colors.red, size: 16),
+                              Text(
+                                '| ${widget.km!.toStringAsFixed(2)} Km ',
+                                style: AppFontStyles.getSize14(
+                                  fontColor: AppColors.slateGrayColor,
+                                ),
+                              ),
+                            ],
+                            if (widget.km == null) ...[
+                              Text(
+                                '| 200 reviews',
+                                style: AppFontStyles.getSize14(
+                                  fontColor: AppColors.slateGrayColor,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// Favorite Icon
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      PatientModel patient =
+                          await PatientRepo.getPatientDetails();
+                      if (isFavorite) {
+                        patient.favoriteHospitals!.remove(widget.hospital.uid!);
+                      } else {
+                        patient.favoriteHospitals!.add(widget.hospital.uid!);
+                      }
+                      FirebaseServices.updatePatient(patient);
+                      LocalHelper.setUserDataPatient(patient);
                       setState(() {
                         isFavorite = !isFavorite;
                       });
@@ -112,10 +188,12 @@ class _HospitalCardState extends State<HospitalCard> {
                   ),
                 ],
               ),
+
+              /// Submit Request Button (if needed)
               if (widget.submitRequest) ...[
                 Gap(15),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MainButton(
                       buttonText: 'Submit Request',
@@ -127,7 +205,6 @@ class _HospitalCardState extends State<HospitalCard> {
                       },
                       borderColor: AppColors.primaryGreenColor,
                       borderRadius: 30,
-
                       height: 40,
                       textColor: AppColors.primaryGreenColor,
                       width: 200,

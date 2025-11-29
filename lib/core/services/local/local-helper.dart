@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
-import 'package:medigo/features/auth/data/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalHelper {
@@ -14,6 +11,9 @@ class LocalHelper {
   static String kUserType = 'kUserType';
   static String kUserDataPatient = 'kUserDataP';
   static String kUserDataHospital = 'kUserDataH';
+  static String kHospitalFavorit = 'kFavorit';
+  static String kDarkTheme = 'darkTheme';
+  static String kNotifications = 'notifications';
 
   static init() async {
     pref = await SharedPreferences.getInstance();
@@ -39,7 +39,6 @@ class LocalHelper {
 
 //user type
   static setUserType(String? user) async {
-
     await setData(kUserType, user);
   }
 
@@ -98,6 +97,21 @@ class LocalHelper {
       pref.setStringList(key, value);
     }
   }
+
+  // static setHospitalFavorit(List<HospitalModel>? hospital) async {
+  //   if (hospital == null) return;
+  //   var listOfString = hospital.map((e) => jsonEncode(e.toJson())).toList();
+
+  //   await pref.setStringList(kHospitalFavorit, listOfString);
+  // }
+
+  // static List<HospitalModel>? getHospitalFavorit() {
+  //   var data = pref.getStringList(kHospitalFavorit); //list os string
+  //   if (data == null) return null;
+  //   var hospital =
+  //       data.map((e) => HospitalModel.fromJson(jsonDecode(e))).toList();
+  //   return hospital;
+  // }
 
   static dynamic getData(String key) {
     return pref.get(key);

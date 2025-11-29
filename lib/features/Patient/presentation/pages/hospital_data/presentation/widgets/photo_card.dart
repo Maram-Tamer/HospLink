@@ -3,10 +3,12 @@ import 'package:medigo/core/utils/fonts.dart';
 
 class PhotoCard extends StatelessWidget {
   const PhotoCard({
-    super.key, required this.image, required this.name,
+    super.key,
+    required this.image,
+    required this.name,
   });
-final String image;
-final String name;
+  final String image;
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -14,7 +16,7 @@ final String name;
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
+          child: Image.network(
             image,
             height: 200,
             width: double.infinity,
@@ -33,16 +35,18 @@ final String name;
               ],
             ),
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(15),
+              bottom: Radius.circular(10),
             ),
           ),
         ),
-    
         Positioned(
           left: 20,
           bottom: 10,
+          right: 0,
           child: Text(
             name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: AppFontStyles.getSize24(
               fontWeight: FontWeight.w600,
               fontColor: Colors.white,

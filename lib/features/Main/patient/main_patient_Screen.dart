@@ -32,7 +32,7 @@ class _Main_ScreenState extends State<Main_Screen_P> {
   List<Widget> screens = [
     HomePatient(),
     FavouritePatient(),
-    HospitalDetailsScreen(isAccepted: true,),
+    HospitalDetailsScreen(data:{'isAccepted':false}),
     SettingsScreen(),
   ];
   @override

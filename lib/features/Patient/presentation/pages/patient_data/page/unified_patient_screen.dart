@@ -11,6 +11,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
 import 'package:medigo/core/constatnts/images.dart';
@@ -431,6 +432,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                           } else {
                             showMyDialog(context, 'Please enter all data');
                           }
+                        
                           Lottie.asset(AppImages.LodingJson);
                         },
                         style: ElevatedButton.styleFrom(

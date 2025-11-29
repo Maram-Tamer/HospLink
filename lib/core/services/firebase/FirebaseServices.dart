@@ -41,7 +41,6 @@ class FirebaseServices {
   }
 
   static Future<QuerySnapshot> getPatient(String uid) {
-
     return _collectionPatient.where('uid', isEqualTo: uid).get();
   }
 
@@ -63,15 +62,29 @@ class FirebaseServices {
     return _collectionHospital.limit(15).get();
   }
 
-  static getHospitalsById(String id) async {}
+  static Future<HospitalModel> getHospitalById(String hospitalId) async {
+    try {
+      DocumentSnapshot doc = await _collectionHospital.doc(hospitalId).get();
+
+      if (doc.exists) {
+        return HospitalModel.fromJson(doc.data() as Map<String, dynamic>);
+      } else {
+        throw Exception('Hospital not found');
+      }
+    } catch (e) {
+      throw Exception('Error fetching hospital: $e');
+    }
+  }
 
   static Future<QuerySnapshot> getRequests() {
     String hospitalID = LocalHelper.getUserId()!;
     return _collectionRequest.where('hospitalID', isEqualTo: hospitalID).get();
   }
-   static updateRequest(String requestId,RequestModel request) {
+
+  static updateRequest(String requestId, RequestModel request) {
     _collectionRequest.doc(requestId).update(request.toUpdateData());
-   }
+  }
+
   static Future<String> uploadPatientImage(String uid, File imageFile) async {
     final storageRef = FirebaseStorage.instance.ref().child(
         "patients/$uid/profile_${DateTime.now().millisecondsSinceEpoch}.jpg");

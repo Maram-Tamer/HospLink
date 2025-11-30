@@ -19,7 +19,7 @@ class PatientDetailsTrailing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RequestModel request=widget.data["request"];
+    final RequestModel request = widget.data["request"];
     return Column(
       children: [
         Row(
@@ -31,8 +31,9 @@ class PatientDetailsTrailing extends StatelessWidget {
                   buttomColor: AppColors.green,
                   onPressed: () {
                     request.state = "Accepted";
-                    log(request.requestID??'');
-                    FirebaseServices.updateRequest(request.requestID??'',request);
+                    log(request.requestID ?? '');
+                    FirebaseServices.updateRequest(
+                        request.requestID ?? '', request);
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,
@@ -46,8 +47,9 @@ class PatientDetailsTrailing extends StatelessWidget {
                   onPressed: () {
                     widget.data["isAccepted"] = true;
                     request.state = "Accepted";
-                    log(request.requestID??'');
-                    FirebaseServices.updateRequest(request.requestID??'',request);
+                    log(request.requestID ?? '');
+                    FirebaseServices.updateRequest(
+                        request.requestID ?? '', request);
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,
@@ -68,8 +70,9 @@ class PatientDetailsTrailing extends StatelessWidget {
                       width: 300,
                       onPressed: () {
                         request.state = "Rejected";
-                    FirebaseServices.updateRequest(request.requestID??'',request);
                         pop(context);
+                        FirebaseServices.updateRequest(
+                            request.requestID ?? '', request);
                       },
                       icon: AppIcons.deleteSVG,
                     ),
@@ -79,7 +82,6 @@ class PatientDetailsTrailing extends StatelessWidget {
                     onTap: () {
                       pushTo(context: context, route: Routes.chat);
                     },
-
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(

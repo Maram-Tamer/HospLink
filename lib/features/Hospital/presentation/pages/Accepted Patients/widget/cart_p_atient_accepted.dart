@@ -11,7 +11,7 @@ import 'package:medigo/features/Patient/data/model/request-model.dart';
 
 class cartPAtientAccepted extends StatelessWidget {
   const cartPAtientAccepted({super.key, required this.request});
-  final RequestModel request ;
+  final RequestModel request;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,10 @@ class cartPAtientAccepted extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
         onTap: () {
-          pushTo(context: context, route: Routes.PatientDetails, extra:{'request':request,'isAccepted':true});
+          pushTo(
+              context: context,
+              route: Routes.PatientDetails,
+              extra: {'request': request, 'isAccepted': true});
         },
         child: Container(
           width: double.infinity,
@@ -36,6 +39,7 @@ class cartPAtientAccepted extends StatelessWidget {
             ],
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 10),
@@ -44,8 +48,9 @@ class cartPAtientAccepted extends StatelessWidget {
                     CircleAvatar(
                       radius: 43,
                       backgroundColor: AppColors.blueLight,
-                      backgroundImage:NetworkImage(request.imageProfilePath?? AppImages.PatientPhoto3),
-                      ),
+                      backgroundImage: NetworkImage(
+                          request.imageProfilePath ?? AppImages.PatientPhoto3),
+                    ),
                     Gap(10),
                     Expanded(
                       child: Column(
@@ -80,25 +85,24 @@ class cartPAtientAccepted extends StatelessWidget {
                 ),
               ),
               itemPatientAccepted(
+                maxLine: 2,
                 title: request.address ?? '',
                 icon: AppIcons.locationLine_SVG,
               ),
-              Row(
+              Wrap(
+                spacing: 10,
+                runSpacing: 5,
                 children: [
-                  Expanded(child: itemPatientAccepted(title: request.blood??'', icon: AppIcons.booldSVG)),
-                  Expanded(
-                    child: itemPatientAccepted(
-                      title: request.nationalID??'',
-                      icon: AppIcons.ID_SVG,
-                    ),
+                  itemPatientAccepted(
+                      title: request.blood ?? '', icon: AppIcons.booldSVG),
+                  itemPatientAccepted(
+                    title: request.nationalID ?? '',
+                    icon: AppIcons.ID_SVG,
                   ),
-                  Expanded(
-                    child: itemPatientAccepted(
-                      title: request.phone??'',
-                      icon: AppIcons.callSVG,
-                    ),
+                  itemPatientAccepted(
+                    title: request.phone ?? '',
+                    icon: AppIcons.callSVG,
                   ),
-                  Gap(20),
                 ],
               ),
               Gap(10),

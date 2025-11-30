@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,11 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
           if (FirebaseAuth.instance.currentUser!.displayName != null) {
             if (state.userType == UserType.hospital) {
               pushAndRemoveUntil(context: context, route: Routes.Main_hospital);
+              LocalHelper.setUserId(FirebaseAuth.instance.currentUser!.uid);
               LocalHelper.setUserType('hospital');
             } else {
-              PatientModel? patient= await PatientRepo.getPatientDetails();
-            LocalHelper.setUserDataPatient(patient);
-            LocalHelper.setUserId(FirebaseAuth.instance.currentUser!.uid);
+              PatientModel? patient = await PatientRepo.getPatientDetails();
+              LocalHelper.setUserDataPatient(patient);
+              LocalHelper.setUserId(FirebaseAuth.instance.currentUser!.uid);
               pushAndRemoveUntil(context: context, route: Routes.Main_patient);
               LocalHelper.setUserType('patient');
             }

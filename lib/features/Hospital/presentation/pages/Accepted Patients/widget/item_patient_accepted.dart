@@ -5,19 +5,21 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
 class itemPatientAccepted extends StatelessWidget {
-  const itemPatientAccepted({
-    super.key,
-    required this.icon,
-    required this.title,
-  });
+  const itemPatientAccepted(
+      {super.key, required this.icon, required this.title, this.maxLine});
   final String icon;
   final String title;
-
+  final int? maxLine;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 10,),
+      padding: const EdgeInsets.only(
+        left: 20,
+        top: 10,
+      ),
       child: Row(
+        mainAxisSize: MainAxisSize.min, // مهم جداً علشان الودجت يبقى صغير
+
         children: [
           SvgPicture.asset(
             icon,
@@ -26,11 +28,13 @@ class itemPatientAccepted extends StatelessWidget {
             colorFilter: ColorFilter.mode(AppColors.greyColor, BlendMode.srcIn),
           ),
           Gap(5),
-          Text(
-            title,
-            style: AppFontStyles.getSize12(fontColor: AppColors.greyColor),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          Flexible(
+            child: Text(
+              title,
+              style: AppFontStyles.getSize12(fontColor: AppColors.darkColor),
+              maxLines: maxLine ?? 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

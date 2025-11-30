@@ -133,10 +133,13 @@ class _HospitalCardState extends State<HospitalCard> {
                           children: [
                             Icon(Icons.star, color: Colors.amber, size: 16),
                             Gap(5),
-                            Text(
-                              '${widget.hospital.rate ?? "0.0"} ',
-                              style: AppFontStyles.getSize14(
-                                fontColor: AppColors.slateGrayColor,
+                            SizedBox(
+                              width: 25,
+                              child: Text(
+                                '${widget.hospital.rate ?? "0.0"} ',
+                                style: AppFontStyles.getSize14(
+                                  fontColor: AppColors.slateGrayColor,
+                                ),
                               ),
                             ),
                             Gap(10),

@@ -3,8 +3,7 @@ import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
-
-///import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 
 class FirebaseServices {
@@ -90,14 +89,14 @@ class FirebaseServices {
     _collectionRequest.doc(requestId).update(request.toUpdateData());
   }
 
-  // static Future<String> uploadPatientImage(String uid, File imageFile) async {
-  // final storageRef = FirebaseStorage.instance.ref().child(
-  //  "patients/$uid/profile_${DateTime.now().millisecondsSinceEpoch}.jpg");
+  static Future<String> uploadPatientImage(String uid, File imageFile) async {
+    final storageRef = FirebaseStorage.instance.ref().child(
+        "patients/$uid/profile_${DateTime.now().millisecondsSinceEpoch}.jpg");
 
-  // Upload file
-  //  await storageRef.putFile(imageFile);
+    // Upload file
+    await storageRef.putFile(imageFile);
 
-  // Return download URL
-  // return await storageRef.getDownloadURL();
-  // }
+    // Return download URL
+    return await storageRef.getDownloadURL();
+  }
 }

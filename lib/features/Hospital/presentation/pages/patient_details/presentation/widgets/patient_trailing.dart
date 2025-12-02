@@ -13,13 +13,16 @@ import 'package:medigo/features/Hospital/presentation/pages/patient_details/pres
 import 'package:medigo/features/Patient/data/model/request-model.dart';
 
 class PatientDetailsTrailing extends StatelessWidget {
-  const PatientDetailsTrailing({super.key, required this.widget});
+  const PatientDetailsTrailing(
+      {super.key, required this.widget, required this.request});
 
   final PatientDetailsScreen widget;
+  final RequestModel request;
 
   @override
   Widget build(BuildContext context) {
-    final RequestModel request = widget.data["request"];
+    // final RequestModel request = widget.data["request"];
+    log('*************${request.patientID}');
     return Column(
       children: [
         Row(
@@ -34,6 +37,8 @@ class PatientDetailsTrailing extends StatelessWidget {
                     log(request.requestID ?? '');
                     FirebaseServices.updateRequest(
                         request.requestID ?? '', request);
+                    FirebaseServices.deleteRequestsForPatient(
+                        request.patientID ?? '', request.requestID ?? '');
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,
@@ -50,6 +55,9 @@ class PatientDetailsTrailing extends StatelessWidget {
                     log(request.requestID ?? '');
                     FirebaseServices.updateRequest(
                         request.requestID ?? '', request);
+                    FirebaseServices.deleteRequestsForPatient(
+                        request.patientID ?? '', request.requestID ?? '');
+
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,

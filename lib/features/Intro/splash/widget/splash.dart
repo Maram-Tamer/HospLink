@@ -26,10 +26,10 @@ class Splash extends StatelessWidget {
           ),
           Gap(20),
           Text(
-            'Doctor Hunt ',
+            'Hosp Link',
             style: TextStyle(
               color: AppColors.primaryGreenColor,
-              fontSize: 24,
+              fontSize: 26,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
-import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
+import 'package:medigo/features/Patient/data/model/getRequestModel.dart';
+import 'package:medigo/features/Patient/data/model/history_model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -15,6 +19,8 @@ class FirebaseServices {
       _firestore.collection('hospital');
   static final CollectionReference _collectionRequest =
       _firestore.collection('requests');
+  static final CollectionReference _collectionHistory =
+      _firestore.collection('history');
 
   static createPatient(PatientModel patient) {
     _collectionPatient.doc(patient.uid).set(patient.toJson());
@@ -22,6 +28,10 @@ class FirebaseServices {
 
   static createHospital(HospitalModel hospital) {
     _collectionHospital.doc(hospital.uid).set(hospital.toJson());
+  }
+
+  static createHistory(HistoryModel history) {
+    _collectionHistory.doc(history.historyId).set(history.toJson());
   }
 
   static sendRequest(RequestModel request) {
@@ -94,5 +104,60 @@ class FirebaseServices {
 
     // Return download URL
     return await storageRef.getDownloadURL();
+  }
+
+  static deleteRequest(String requestId) {
+    _collectionRequest.doc(requestId).delete();
+  }
+
+  static Future<void> deleteRequestsForPatient(
+      String patientId, String requesrId) async {
+    final querySnapshot =
+        await _collectionRequest.where('patientID', isEqualTo: patientId).get();
+
+    for (var doc in querySnapshot.docs) {
+      if (doc.id != requesrId) await doc.reference.delete();
+    }
+  }
+
+  static Stream<List<RequestWithHospital>> getRequestsPatient() {
+    String patientID = LocalHelper.getUserId()!;
+
+    return _collectionRequest
+        .where('patientID', isEqualTo: patientID)
+        .snapshots()
+        .asyncMap((snapshot) async {
+      List<RequestWithHospital> results = [];
+
+      for (var doc in snapshot.docs) {
+        final requestData = doc.data() as Map<String, dynamic>;
+        final hospitalId = requestData['hospitalID'];
+
+        // Fetch hospital data
+        final hospitalDoc = await FirebaseFirestore.instance
+            .collection('hospital')
+            .doc(hospitalId)
+            .get();
+
+        final hospitalData = hospitalDoc.data() ?? {};
+
+        results.add(
+          RequestWithHospital(
+            request: requestData,
+            hospital: hospitalData,
+          ),
+        );
+      }
+      //log('${results}');
+
+      return results;
+    });
+  }
+
+  static updateHospitalRate(String hospitalId, double rate, num totalPatient) {
+    _collectionHospital.doc(hospitalId).update({
+      'rate': rate.toString(),
+      'totalPatient': totalPatient.toString(),
+    });
   }
 }

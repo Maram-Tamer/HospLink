@@ -5,6 +5,7 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Patient/presentation/pages/favourite/presentation/page/favourite_patient.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/presentation/page/home_patient.dart';
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/pages/hospital_details_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/requests/page/requests_patient.dart';
 import 'package:medigo/features/Patient/presentation/pages/setting/page/settings.dart';
 
 class Main_Screen_P extends StatefulWidget {
@@ -32,7 +33,8 @@ class _Main_ScreenState extends State<Main_Screen_P> {
   List<Widget> screens = [
     HomePatient(),
     FavouritePatient(),
-    HospitalDetailsScreen(data:{'isAccepted':false}),
+    // HospitalDetailsScreen(data:{'isAccepted':false}),
+    RequestsPatient(),
     SettingsScreen(),
   ];
   @override
@@ -43,7 +45,6 @@ class _Main_ScreenState extends State<Main_Screen_P> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -57,7 +58,6 @@ class _Main_ScreenState extends State<Main_Screen_P> {
   BottomNavigationBar _BottomNavigation() {
     return BottomNavigationBar(
       elevation: 0,
-
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
       items: [
@@ -97,7 +97,6 @@ class _Main_ScreenState extends State<Main_Screen_P> {
               ),
             ),
           ),
-
           label: 'Favourite',
         ),
         BottomNavigationBarItem(
@@ -117,7 +116,7 @@ class _Main_ScreenState extends State<Main_Screen_P> {
               ),
             ),
           ),
-          label: 'Hospital',
+          label: 'Requests',
         ),
         BottomNavigationBarItem(
           icon: SizedBox(

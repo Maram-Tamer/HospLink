@@ -9,10 +9,9 @@ import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/hospital_detail_tile.dart';
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/photo_card.dart';
-import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HospitalDetailsScreen extends StatefulWidget {
@@ -25,9 +24,10 @@ class HospitalDetailsScreen extends StatefulWidget {
 
 class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
   final List<int> ratings = List.filled(3, 0);
-  int currentRating = 0;
   late bool isAccepted = widget.data!['isAccepted'] as bool;
   late HospitalModel? hospital = widget.data?['hospital'] as HospitalModel?;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                 Expanded(
                   child: MainButton(
                     buttonText: "Complete",
-                    onPressed: () => _showReviewBottomSheet(context),
+                    onPressed: () {},
                     icon: AppIcons.completeSVG,
                   ),
                 ),
@@ -50,7 +50,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                     buttonText: "Send Request",
                     onPressed: () {
                       if (isAccepted) {
-                        _showReviewBottomSheet(context);
+                        
                       } else {
                         pushTo(
                             context: context,
@@ -215,6 +215,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                 ),
               ),
               Gap(20),
+              
             ],
           ),
         ),
@@ -222,108 +223,5 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
     );
   }
 
-  void _showReviewBottomSheet(BuildContext context) {
-    final TextEditingController commentController = TextEditingController();
 
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) => Directionality(
-            textDirection:
-                TextDirection.ltr, // or rtl if you want Arabic layout
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-                left: 20,
-                right: 20,
-                top: 20,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header
-                  Row(
-                    children: [
-                      Text(
-                        'Add Review',
-                        style: AppFontStyles.getSize24(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        icon: const Icon(Icons.close_rounded),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                    ],
-                  ),
-                  const Gap(10),
-
-                  Text(
-                    "Share your experience",
-                    style: AppFontStyles.getSize16(
-                      fontColor: AppColors.darkGreyColor,
-                    ),
-                  ),
-                  const Gap(10),
-
-                  // Comment field
-                  TextFormField(
-                    controller: commentController,
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      hintText: "Write your review here...",
-                      hintStyle: AppFontStyles.getSize14(
-                        fontColor: Colors.grey,
-                      ),
-                      filled: true,
-                      fillColor: const Color(0xfff5f5f5),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  const Gap(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      StarRating(
-                        rating: currentRating,
-                        onRatingChanged: (newRating) {
-                          setState(() {
-                            currentRating = newRating;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  const Gap(20),
-
-                  // Submit button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: MainButton(
-                      buttonText: 'Submit Review',
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: AppIcons.send2SVG,
-                    ),
-                  ),
-                  Gap(20),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 }

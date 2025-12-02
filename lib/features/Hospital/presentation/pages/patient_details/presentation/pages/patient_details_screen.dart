@@ -9,7 +9,7 @@ import 'package:medigo/features/Patient/presentation/pages/hospital_data/present
 
 // ignore: must_be_immutable
 class PatientDetailsScreen extends StatefulWidget {
-  PatientDetailsScreen({super.key,required this.data});
+  PatientDetailsScreen({super.key, required this.data});
   final Map<String, dynamic> data;
 
   @override
@@ -21,14 +21,17 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   int currentRating = 0;
   @override
   Widget build(BuildContext context) {
-     final RequestModel request=widget.data["request"];
+    final RequestModel request = widget.data["request"];
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
           child: SizedBox(
             height: widget.data["isAccepted"] ? 70 : 130,
-            child: PatientDetailsTrailing(widget: widget),
+            child: PatientDetailsTrailing(
+              widget: widget,
+              request: request,
+            ),
           ),
         ),
       ),
@@ -37,15 +40,22 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
         leading: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, ),
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Hospital Header Image
-              PhotoCard(image: request.imageProfilePath??AppImages.PatientPhoto1, name:request.name??''),
+              PhotoCard(
+                  image: request.imageProfilePath ?? AppImages.PatientPhoto1,
+                  name: request.name ?? ''),
               const Gap(20),
-              PatientDetailsList(request: request,),
+              PatientDetailsList(
+                request: request,
+              ),
               Gap(20),
             ],
           ),

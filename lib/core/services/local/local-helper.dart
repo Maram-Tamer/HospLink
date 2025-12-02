@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

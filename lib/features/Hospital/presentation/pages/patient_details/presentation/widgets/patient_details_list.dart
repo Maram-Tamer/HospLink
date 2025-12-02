@@ -8,15 +8,17 @@ import 'package:medigo/features/Patient/presentation/pages/hospital_data/present
 
 class PatientDetailsList extends StatelessWidget {
   const PatientDetailsList({super.key, required this.request});
-  final RequestModel request ;
+  final RequestModel request;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "${request.description}",
-          style: AppFontStyles.getSize16(fontColor: AppColors.darkGreyColor),
+          textAlign: TextAlign.left,
+          "Description: ${request.description}",
+          style: AppFontStyles.getSize16(fontColor: AppColors.darkColor),
           maxLines: 6,
           overflow: TextOverflow.ellipsis,
         ),
@@ -66,7 +68,7 @@ class PatientDetailsList extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.network(
-            request.imageDamagePath??'',
+            request.imageDamagePath ?? '',
             height: 180,
             width: double.infinity,
             fit: BoxFit.cover,

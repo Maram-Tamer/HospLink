@@ -12,6 +12,7 @@ import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
 import 'package:medigo/features/Patient/presentation/pages/notification/page/notification_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/patient_data/page/unified_patient_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/requests/page/requestScreen.dart';
 
 import 'package:medigo/features/Patient/presentation/pages/setting/page/hospital_history.dart'
     show HospitalHistory;
@@ -48,6 +49,7 @@ class Routes {
 
   static const String pageviewPatient = '/PageviewPatient';
   static const String pageviewHospital = '/pageviewHospital';
+  static const String Request_screen = '/Request_screen';
 
   static const String forgetPasswordMailSent = '/forgetPasswordMailSent';
 
@@ -109,7 +111,7 @@ class Routes {
         path: PatientDetails,
         builder: (context, state) {
           Map<String, dynamic> data = state.extra as Map<String, dynamic>;
-          return PatientDetailsScreen(data:data);
+          return PatientDetailsScreen(data: data);
         },
       ),
       GoRoute(
@@ -131,6 +133,18 @@ class Routes {
           Map<String, dynamic> data = state.extra as Map<String, dynamic>;
           return HospitalDetailsScreen(
             data: data,
+          );
+        },
+      ),
+      GoRoute(
+        path: Request_screen,
+        builder: (context, state) {
+          Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+          return BlocProvider(
+            create: (context) => PatientCubit(),
+            child: Requestscreen(
+              data: data,
+            ),
           );
         },
       ),

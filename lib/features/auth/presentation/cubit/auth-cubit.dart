@@ -9,7 +9,7 @@ import 'package:medigo/core/constatnts/Lists.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart' show showMyDialog;
 import 'package:medigo/core/extentions/uploadCloudinary.dart';
 import 'package:medigo/core/services/local/local-helper.dart' show LocalHelper;
-import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

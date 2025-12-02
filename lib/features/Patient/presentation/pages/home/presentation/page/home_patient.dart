@@ -11,7 +11,7 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/features/Hospital/data/model/doctor-model.dart';
+import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/presentation/widget/calc.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
 

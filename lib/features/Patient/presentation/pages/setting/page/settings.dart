@@ -44,10 +44,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: App_Bar(title: "Settings"),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: ListView(
           children: [
-            const Gap(20),
             Text(
               "Account",
               style: AppFontStyles.getSize18(

@@ -1,14 +1,13 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
 import 'package:medigo/features/Patient/data/model/getRequestModel.dart';
 import 'package:medigo/features/Patient/data/model/history_model.dart';
 import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
 
 class FirebaseServices {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -159,5 +158,9 @@ class FirebaseServices {
       'rate': rate.toString(),
       'totalPatient': totalPatient.toString(),
     });
+  }
+  static Future<QuerySnapshot> getHistory() {
+    String patientID = LocalHelper.getUserId()!;
+    return _collectionHistory.where('patientID', isEqualTo: patientID).get();
   }
 }

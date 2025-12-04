@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/buttons/main_button.dart';
@@ -48,7 +46,7 @@ class _HospitalCardState extends State<HospitalCard> {
   }
 
   Color _getStatusTextColor(String state, ColorScheme colorScheme) {
-    return Colors.white; 
+    return Colors.white;
   }
 
   @override
@@ -58,8 +56,7 @@ class _HospitalCardState extends State<HospitalCard> {
 
     /// Updated Text Colors (responsive)
     final primaryTextColor = isDark ? Colors.white : Colors.black87;
-    final secondaryTextColor =
-        isDark ? Colors.white70 : Colors.black54;
+    final secondaryTextColor = isDark ? Colors.white70 : Colors.black54;
 
     final favoriteIconColor = AppColors.red;
     final starIconColor = Colors.yellow;
@@ -135,7 +132,8 @@ class _HospitalCardState extends State<HospitalCard> {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
+            padding:
+                const EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
             child: Column(
               children: [
                 const Gap(5),
@@ -216,7 +214,6 @@ class _HospitalCardState extends State<HospitalCard> {
                                 ),
                               ),
                               const Gap(10),
-
                               if (widget.km != null) ...[
                                 Icon(Icons.location_on_sharp,
                                     color: colorScheme.error, size: 16),
@@ -319,12 +316,9 @@ class _HospitalCardState extends State<HospitalCard> {
                         /// ⬇️ COLOR FIX
                         /// Dark mode → Blue background + white text
                         /// Light mode → Default existing colors
-                        buttomColor: isDark
-                            ? colorScheme.primary
-                            : colorScheme.surface,
-                        textColor: isDark
-                            ? Colors.white
-                            : colorScheme.primary,
+                        buttomColor:
+                            isDark ? colorScheme.primary : colorScheme.surface,
+                        textColor: isDark ? Colors.white : colorScheme.primary,
 
                         borderColor: colorScheme.primary,
                         borderRadius: 30,

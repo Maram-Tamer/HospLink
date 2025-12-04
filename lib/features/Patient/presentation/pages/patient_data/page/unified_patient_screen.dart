@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +10,8 @@ import 'package:flutter_gap/flutter_gap.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lottie/lottie.dart';
-
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
-import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/utils/colors.dart';

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medigo/components/calcAge/calcAge.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
@@ -13,7 +14,6 @@ import 'package:medigo/features/Patient/data/model/patient-model.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
 import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-state.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PatientCubit extends Cubit<PatientState> {
   PatientCubit() : super(PatientInatialState());
@@ -53,11 +53,11 @@ class PatientCubit extends Cubit<PatientState> {
         return HospitalModel.fromJson(e.data() as Map<String, dynamic>);
       }).toList();
       print(hospitals);
-      hospitals.forEach((element) {
+      for (var element in hospitals) {
         if (patient.favoriteHospitals!.contains(element.uid)) {
           favoriteHospitals.add(element);
         }
-      });
+      }
       emit(PatientSuccessState());
     } on Exception catch (e) {
       emit(PatientErrorState());

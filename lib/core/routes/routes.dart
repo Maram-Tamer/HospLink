@@ -7,13 +7,19 @@ import 'package:medigo/features/Hospital/presentation/pages/patient_details/pres
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/password/change_password.dart';
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/pateint_history.dart';
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/profile/edit_profile_screen.dart';
+import 'package:medigo/features/Intro/onboarding/page/onBoarding.dart';
+import 'package:medigo/features/Intro/splash/page/splash_screen.dart';
 import 'package:medigo/features/Main/hospital/main_hospital_Screen.dart';
 import 'package:medigo/features/Main/patient/main_patient_Screen.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
+import 'package:medigo/features/Patient/presentation/pages/chat/chatScreen.dart';
+import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/pages/hospital_details_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/notification/page/notification_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/patient_data/page/unified_patient_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/requests/page/requestScreen.dart';
-
+import 'package:medigo/features/Patient/presentation/pages/search/search_screen.dart';
+import 'package:medigo/features/Patient/presentation/pages/setting/page/change_password.dart';
+import 'package:medigo/features/Patient/presentation/pages/setting/page/edit_profile_screen.dart';
 import 'package:medigo/features/Patient/presentation/pages/setting/page/hospital_history.dart'
     show HospitalHistory;
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
@@ -25,13 +31,6 @@ import 'package:medigo/features/auth/presentation/pages/forget_password/pages/fo
 import 'package:medigo/features/auth/presentation/pages/forget_password/pages/forget_password_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/privacy%20policy/privacy_policy_screen.dart';
 import 'package:medigo/features/auth/presentation/pages/signup/pages/register.dart';
-import 'package:medigo/features/Patient/presentation/pages/chat/chatScreen.dart';
-import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/pages/hospital_details_screen.dart';
-import 'package:medigo/features/Intro/onboarding/page/onBoarding.dart';
-import 'package:medigo/features/Patient/presentation/pages/setting/page/change_password.dart';
-import 'package:medigo/features/Patient/presentation/pages/setting/page/edit_profile_screen.dart';
-import 'package:medigo/features/Patient/presentation/pages/search/search_screen.dart';
-import 'package:medigo/features/Intro/splash/page/splash_screen.dart';
 import 'package:medigo/features/patient/presentation/pages/setting/page/about_us_screen.dart';
 
 class Routes {
@@ -152,7 +151,7 @@ class Routes {
         path: UnifiledpatientData,
         builder: (context, state) => BlocProvider(
           create: (context) {
-            log('${state.extra as String}');
+            log(state.extra as String);
             return PatientCubit();
           },
           child: UnifiedPatientScreen(HospitalId: state.extra as String),
@@ -234,7 +233,8 @@ class Routes {
         path: Main_hospital,
         builder: (context, state) => MainScreenHospital(),
       ),
-      GoRoute(path: Main_patient, builder: (context, state) => MainScreenPatient()),
+      GoRoute(
+          path: Main_patient, builder: (context, state) => MainScreenPatient()),
       GoRoute(
         path: EditProfile,
         builder: (context, state) => EditProfileScreen(),

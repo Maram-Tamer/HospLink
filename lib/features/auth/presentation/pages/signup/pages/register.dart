@@ -126,8 +126,7 @@ class _RegesterScreenState extends State<RegesterScreen> {
                       ),
                       Gap(20 * scale),
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 15 * scale),
+                        padding: EdgeInsets.symmetric(horizontal: 15 * scale),
                         child: MainButton(
                           buttonText: 'Sign Up',
                           onPressed: () {
@@ -135,11 +134,10 @@ class _RegesterScreenState extends State<RegesterScreen> {
                                 isChecked &&
                                 cubit.passwordController.text ==
                                     cubit.confirmPasswordController.text) {
-                              cubit.userType =
-                                  (widget.routeAfterRegister ==
-                                          Routes.pageviewHospital)
-                                      ? UserType.hospital
-                                      : UserType.patient;
+                              cubit.userType = (widget.routeAfterRegister ==
+                                      Routes.pageviewHospital)
+                                  ? UserType.hospital
+                                  : UserType.patient;
                               cubit.signup();
                             } else if (!isChecked) {
                               showMyDialog(context,

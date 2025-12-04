@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
-class itemPatientAccepted extends StatelessWidget {
-  const itemPatientAccepted(
-      {super.key, required this.icon, required this.title, this.maxLine});
+class ItemPatientAccepted extends StatelessWidget {
+  const ItemPatientAccepted({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.maxLine,
+  });
+
   final String icon;
   final String title;
   final int? maxLine;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 20,
-        top: 10,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min, // مهم جداً علشان الودجت يبقى صغير
+    final theme = Theme.of(context);
+    final iconColor = theme.textTheme.bodySmall?.color ?? Colors.grey;
+    final textColor = theme.textTheme.bodyLarge?.color ?? Colors.black;
 
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, top: 10),
+      child: Row(
+        mainAxisSize: MainAxisSize.min, // keeps the row compact
         children: [
           SvgPicture.asset(
             icon,
             width: 20,
             height: 20,
-            colorFilter: ColorFilter.mode(AppColors.greyColor, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
-          Gap(5),
+          const Gap(5),
           Flexible(
             child: Text(
               title,
-              style: AppFontStyles.getSize12(fontColor: AppColors.darkColor),
+              style: AppFontStyles.getSize12(fontColor: textColor),
               maxLines: maxLine ?? 1,
               overflow: TextOverflow.ellipsis,
             ),

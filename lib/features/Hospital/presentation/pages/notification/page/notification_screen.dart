@@ -36,7 +36,7 @@ class _HospitalNotificationScreenState
       name: "Sarah Johnson",
       messagePreview: "Needs medical review — symptoms worsening.",
       timeAgo: "2m ago",
-      avatarPath: AppImages.PatientPhoto1,
+      avatarPath: AppImages.PatientPhoto4,
       isUnread: true,
     ),
     NotificationItem(
@@ -68,8 +68,15 @@ class _HospitalNotificationScreenState
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // ✅ Get theme
+
     return Scaffold(
-      appBar: MainAppBar(title: 'Notifications', leading: false, action: false),
+      appBar: MainAppBar(
+        title: 'Notifications',
+        leading: false,
+        action: false,
+        color: theme.colorScheme.primary, // ✅ Dynamic AppBar color
+      ),
       body: Column(
         children: [
           const SizedBox(height: 12),

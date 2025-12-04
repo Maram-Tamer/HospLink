@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_ignore, use_build_context_synchronously, unused_catch_clause
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
@@ -65,11 +67,14 @@ class AuthCubit extends Cubit<AuthState> {
             imagFeile!,
             "dislsl3sa",
             "se77ty",
+            // ignore: duplicate_ignore
+            // ignore: use_build_context_synchronously
             context,
           ) ??
           '';
     } on Exception catch (e) {
-      return showMyDialog(context, 'حدث خطا اثناء رفع الصورة او الملف ');
+      // ignore: use_build_context_synchronously
+      return showMyDialog(context, "error occured during upload");
     }
     var hospital = HospitalModel(
       IDnumber: IDNumberController.text,
@@ -109,7 +114,7 @@ class AuthCubit extends Cubit<AuthState> {
           ) ??
           '';
     } on Exception catch (e) {
-      return showMyDialog(context, 'لم يتم رفع الصور');
+      return showMyDialog(context, " error occured during upload");
     }
     var patient = PatientModel(
         address: addressController.text,

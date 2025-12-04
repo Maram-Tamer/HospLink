@@ -47,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Text(
                 'Our app helps you quickly access the nearest hospital. Submit your request, and if approved, we\'ll take immediate action to address your medical needs.',
                 style: AppFontStyles.getSize18(
-                  fontColor: theme.colorScheme.onBackground.withOpacity(0.7),
+                  fontColor: theme.colorScheme.onBackground,
                 ),
                 textAlign: TextAlign.center,
               ),

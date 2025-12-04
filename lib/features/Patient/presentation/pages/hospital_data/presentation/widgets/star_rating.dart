@@ -23,7 +23,7 @@ class StarRating extends StatelessWidget {
             return GestureDetector(
               onTap: () => onRatingChanged(index + 1),
               child: Icon(
-                Icons.star,
+                Icons.star_rate_rounded,
                 color: index < rating ? Colors.amber : Colors.grey.shade400,
                 size: 30,
               ),

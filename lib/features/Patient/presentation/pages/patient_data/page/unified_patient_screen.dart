@@ -22,6 +22,7 @@ import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-state.dart';
 
+// ignore: must_be_immutable
 class UnifiedPatientScreen extends StatefulWidget {
   UnifiedPatientScreen({super.key, this.HospitalId});
   String? HospitalId;
@@ -30,58 +31,40 @@ class UnifiedPatientScreen extends StatefulWidget {
 }
 
 class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
-  // State variables
   bool isLoading = false;
   Uint8List? selectedImageBytes;
   final ImagePicker _picker = ImagePicker();
 
+  String? _currentAddress;
+  Position? _currentPosition;
+
   String? _validateRequired(String? value, String fieldName) {
-    if (value == null || value.trim().isEmpty) {
-      return '$fieldName is required';
-    }
+    if (value == null || value.trim().isEmpty) return '$fieldName is required';
     return null;
   }
 
   String? _validateNationalId(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'National ID is required';
-    }
+    if (value == null || value.trim().isEmpty) return 'National ID is required';
     final trimmedValue = value.trim();
-    if (trimmedValue.length != 14) {
-      return 'National ID must be exactly 14 digits';
-    }
-    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) {
-      return 'National ID must contain only numbers';
-    }
+    if (trimmedValue.length != 14) return 'National ID must be exactly 14 digits';
+    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) return 'National ID must contain only numbers';
     return null;
   }
 
   String? _validatePhone(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Phone number is required';
-    }
+    if (value == null || value.trim().isEmpty) return 'Phone number is required';
     final trimmedValue = value.trim();
-    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) {
-      return 'Phone number must contain only numbers';
-    }
-    if (trimmedValue.length < 10) {
-      return 'Phone number must be at least 10 digits';
-    }
+    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) return 'Phone number must contain only numbers';
+    if (trimmedValue.length < 10) return 'Phone number must be at least 10 digits';
     return null;
   }
 
   String? _validateAge(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Age is required';
-    }
+    if (value == null || value.trim().isEmpty) return 'Age is required';
     final trimmedValue = value.trim();
-    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) {
-      return 'Please enter a valid age';
-    }
+    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) return 'Please enter a valid age';
     final age = int.tryParse(trimmedValue);
-    if (age == null) {
-      return 'Please enter a valid age';
-    }
+    if (age == null) return 'Please enter a valid age';
     return null;
   }
 
@@ -106,12 +89,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error picking image: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error picking image: $e'), backgroundColor: Colors.red));
     }
   }
 
@@ -136,62 +115,23 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error taking picture: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error taking picture: $e'), backgroundColor: Colors.red));
     }
   }
 
-  // Future<void> _submitForm(PatientCubit cubit) async {
-  //   if (!_formKey.currentState!.validate()) {
-  //     return;
-  //   }
-
-  //   if (cubit.selectedBloodType.isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(
-  //           _selectedPatientType == PatientType.iAmPatient
-  //               ? 'Please select your blood type'
-  //               : 'Please select blood type',
-  //         ),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //     return;
-  //   }
-
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-
-  //   if (!mounted) return;
-
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text(
-  //         _selectedPatientType == PatientType.iAmPatient
-  //             ? 'Your application has been submitted successfully!'
-  //             : 'Patient data has been submitted successfully!',
-  //       ),
-  //       backgroundColor: Colors.green,
-  //       behavior: SnackBarBehavior.floating,
-  //     ),
-  //   );
-
-  //   Navigator.pop(context);
-  // }
-  String? _currentAddress;
-  Position? _currentPosition;
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    final textColor = isDark ? Colors.white : AppColors.darkColor;
+    final secondaryTextColor = isDark ? Colors.white70 : AppColors.greyColor;
+    final fieldBackground = isDark ? AppColors.darkModeBackground : Colors.white;
+    final scaffoldBackground = isDark ? AppColors.darkModeBackground : AppColors.blueLight2;
+    final borderColor = isDark ? Colors.white12 : AppColors.greyColor.withValues(alpha: 0.3);
+    final iconColor = isDark ? Colors.white70 : AppColors.greyColor;
+
     return BlocConsumer<PatientCubit, PatientState>(
       listener: (context, state) {
         if (state is PatientLoadingState) {
@@ -205,263 +145,214 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
       builder: (context, state) {
         var cubit = context.read<PatientCubit>();
         return Scaffold(
+          backgroundColor: scaffoldBackground,
           appBar: AppBar(
-            backgroundColor: AppColors.blueLight,
+            backgroundColor: scaffoldBackground,
             elevation: 0,
             leading: IconButton(
-              icon:
-                  const Icon(Icons.arrow_back_ios, color: AppColors.darkColor),
+              icon: Icon(Icons.arrow_back_ios, color: textColor),
               onPressed: () => Navigator.pop(context),
-            ),
-            title: Text(
-              "Patient Data",
-              style: AppFontStyles.getSize18(
-                fontSize: 18,
-                fontColor: AppColors.darkColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            ),  
+            title: Text("Patient Data",
+                style: AppFontStyles.getSize24(
+                    fontColor: textColor, fontWeight: FontWeight.w600)),
             centerTitle: true,
-            bottom: choosPatient(cubit),
           ),
+
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Form(
               key: cubit.formKey,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  /// ===========================
+                  ///  CHOOSE PATIENT DROPDOWN
+                  /// ===========================
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: fieldBackground,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: borderColor),
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Show additional fields only for "Another patient"
-                    if (cubit.selectedPatientType ==
-                        PatientType.anotherPatient) ...[
-                      // National ID
-                      _buildTextField(
-                        label: "National ID",
-                        inputFormat: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(14),
-                        ],
-                        controller: cubit.nationalIdController,
-                        hintText: "Enter 14-digit National ID",
-                        keyboardType: TextInputType.number,
-                        validator: _validateNationalId,
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Name
-                      _buildTextField(
-                        label: "Name",
-                        controller: cubit.nameController,
-                        hintText: "Enter full name",
-                        validator: (value) => _validateRequired(value, "Name"),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Phone
-                      _buildTextField(
-                        label: "Phone",
-                        inputFormat: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(11),
-                        ],
-                        controller: cubit.phoneController,
-                        hintText: "Enter phone number",
-                        keyboardType: TextInputType.number,
-                        validator: _validatePhone,
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Gender Selection
-                      Text(
-                        "Gender",
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<PatientType>(
+                        value: cubit.selectedPatientType,
+                        isExpanded: true,
+                        icon: Icon(Icons.keyboard_arrow_down, color: iconColor),
                         style: AppFontStyles.getSize16(
-                          fontSize: 16,
-                          fontColor: AppColors.darkColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: RadioListTile<String>(
-                              title: const Text("Male"),
-                              value: "Male",
-                              groupValue: cubit.selectedGender,
-                              onChanged: (value) {
-                                setState(() {
-                                  cubit.selectedGender = value!;
-                                });
-                              },
-                              activeColor: AppColors.primaryGreenColor,
-                              contentPadding: EdgeInsets.zero,
-                            ),
-                          ),
-                          Expanded(
-                            child: RadioListTile<String>(
-                              title: const Text("Female"),
-                              value: "Female",
-                              groupValue: cubit.selectedGender,
-                              onChanged: (value) {
-                                setState(() {
-                                  cubit.selectedGender = value!;
-                                });
-                              },
-                              activeColor: AppColors.primaryGreenColor,
-                              contentPadding: EdgeInsets.zero,
-                            ),
-                          ),
+                            fontColor: textColor, fontWeight: FontWeight.w500),
+                        items: const [
+                          DropdownMenuItem(
+                              value: PatientType.iAmPatient,
+                              child: Text("I am the patient")),
+                          DropdownMenuItem(
+                              value: PatientType.anotherPatient,
+                              child: Text("patient is another person")),
                         ],
+                        onChanged: (newValue) {
+                          if (newValue != null) {
+                            setState(() => cubit.selectedPatientType = newValue);
+                          }
+                        },
                       ),
+                    ),
+                  ),
 
-                      // Age
-                      _buildTextField(
-                        label: "Age",
-                        controller: cubit.ageController,
-                        hintText: "Enter age",
+                  const Gap(20),
+
+                  /// ===========================
+                  ///     PERSONAL DATA FIELDS
+                  /// ===========================
+                  if (cubit.selectedPatientType == PatientType.anotherPatient) ...[
+                    _buildTextField("National ID", cubit.nationalIdController,
+                        "Enter 14-digit National ID", textColor,
+                        validator: _validateNationalId),
+                    const SizedBox(height: 16),
+                    _buildTextField("Name", cubit.nameController,
+                        "Enter full name", textColor,
+                        validator: (v) => _validateRequired(v, "Name")),
+                    const SizedBox(height: 16),
+                    _buildTextField("Phone", cubit.phoneController,
+                        "Enter phone number", textColor,
                         keyboardType: TextInputType.number,
-                        validator: _validateAge,
-                      ),
-                      const SizedBox(height: 16),
-                    ],
+                        validator: _validatePhone),
+                    const SizedBox(height: 16),
 
-                    // Address (always shown)
+                    Text("Gender",
+                        style: AppFontStyles.getSize16(
+                            fontColor: textColor, fontWeight: FontWeight.w500)),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Address',
-                                style: AppFontStyles.getSize16(
-                                  fontSize: 16,
-                                  fontColor: AppColors.darkColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              MainTextFormField(
-                                label: 'Enter detailed address',
-                                ispassword: false,
-                                controller: cubit.addressController,
-                                maxTextLines: 2,
-                                validator: (value) =>
-                                    _validateRequired(value, "Address"),
-                              ),
-                            ],
+                          child: RadioListTile<String>(
+                            title: const Text("Male"),
+                            value: "Male",
+                            groupValue: cubit.selectedGender,
+                            onChanged: (value) =>
+                                setState(() => cubit.selectedGender = value!),
+                            activeColor: AppColors.primaryBlueColor,
+                            contentPadding: EdgeInsets.zero,
                           ),
                         ),
-                        Gap(5),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: AppColors.geyTextform,
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: IconButton(
-                                  onPressed: () async {
-                                    await _getCurrentPosition();
-                                    await _getAddressFromLatLng(
-                                        _currentPosition);
-                                    setState(() {
-                                      cubit.addressController.text =
-                                          _currentAddress.toString();
-                                    });
-                                  },
-                                  icon: Icon(
-                                    size: 30,
-                                    Icons.location_on,
-                                    color: AppColors.red,
-                                  )),
-                            ),
+                        Expanded(
+                          child: RadioListTile<String>(
+                            title: const Text("Female"),
+                            value: "Female",
+                            groupValue: cubit.selectedGender,
+                            onChanged: (value) =>
+                                setState(() => cubit.selectedGender = value!),
+                            activeColor: AppColors.primaryBlueColor,
+                            contentPadding: EdgeInsets.zero,
                           ),
-                        )
+                        ),
                       ],
                     ),
+                    _buildTextField("Age", cubit.ageController, "Enter age",
+                        textColor,
+                        keyboardType: TextInputType.number,
+                        validator: _validateAge),
                     const SizedBox(height: 16),
+                  ],
 
-                    // Blood Type (always shown)
-                    _buildBloodTypeField(cubit),
+                  /// ===========================
+                  ///        ADDRESS FIELD
+                  /// ===========================
+                  Text("Address",
+                      style: AppFontStyles.getSize16(
+                          fontColor: textColor, fontWeight: FontWeight.w500)),
+                  const SizedBox(height: 8),
 
-                    // Case Description (always shown)
-                    _buildTextField(
-                      label: "Case Description",
-                      controller: cubit.descriptionController,
-                      hintText: "Write a detailed description of the case",
-                      maxLines: 4,
-                      validator: (value) =>
-                          _validateRequired(value, "Case Description"),
-                    ),
-                    const SizedBox(height: 16),
+                  MainTextFormField(
+                    label: 'Enter detailed address',
+                    controller: cubit.addressController,
+                    maxTextLines: 2,
+                    validator: (v) => _validateRequired(v, "Address"),
+                    ispassword: false,
+                  ),
+                  const SizedBox(height: 10),
 
-                    // Upload Image (always shown)
-                    _buildImageUpload(cubit),
-
-                    const SizedBox(height: 24),
-
-                    // Submit Button
-                    SizedBox(
-                      width: double.infinity,
+                  /// 🔥 ADDED BUTTON UNDER ADDRESS
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox(
                       height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (cubit.formKey.currentState!.validate()) {
-                            if (cubit.imagFeile != null) {
-                              cubit.sendRequest(
-                                  context, widget.HospitalId ?? '');
-                            } else {
-                              showMyDialog(context, 'Please uplad image ');
-                            }
-                          } else {
-                            showMyDialog(context, 'Please enter all data');
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          await _getCurrentPosition();
+                          await _getAddressFromLatLng(_currentPosition);
+                          if (_currentAddress != null) {
+                            cubit.addressController.text = _currentAddress!;
                           }
-                        
-                          Lottie.asset(AppImages.LodingJson);
                         },
+                        icon: const Icon(Icons.my_location),
+                        label:  Text("Use My current Location"),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryGreenColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          
+                          backgroundColor: AppColors.primaryBlueColor,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 10),
                         ),
-                        child: isLoading
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : Text(
-                                "Submit",
-                                style: AppFontStyles.getSize16(
-                                  fontSize: 16,
-                                  fontColor: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  _buildBloodTypeField(
+                      cubit, textColor, fieldBackground, borderColor),
+                  _buildTextField(
+                      "Case Description",
+                      cubit.descriptionController,
+                      "Write a detailed description of the case",
+                      textColor,
+                      maxLines: 4,
+                      validator: (v) =>
+                          _validateRequired(v, "Case Description")),
+                  const SizedBox(height: 16),
+
+                  _buildImageUpload(
+                      cubit, fieldBackground, textColor, secondaryTextColor),
+                  const SizedBox(height: 24),
+
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (cubit.formKey.currentState!.validate()) {
+                          if (cubit.imagFeile != null) {
+                            cubit.sendRequest(context, widget.HospitalId ?? '');
+                          } else {
+                            showMyDialog(context, 'Please upload image');
+                          }
+                        } else {
+                          showMyDialog(context, 'Please enter all data');
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryBlueColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                      ),
+                      child: isLoading
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                  color: Colors.white, strokeWidth: 2))
+                          : Text("Submit",
+                              style: AppFontStyles.getSize16(
+                                  fontColor: Colors.white,
+                                  fontWeight: FontWeight.w600)),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -470,96 +361,58 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     );
   }
 
-  PreferredSize choosPatient(PatientCubit cubit) {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(60),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: AppColors.fillTextForm,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.greyColor.withOpacity(0.3)),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<PatientType>(
-            value: cubit.selectedPatientType,
-            isExpanded: true,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            icon: Icon(Icons.keyboard_arrow_down, color: AppColors.greyColor),
-            style: AppFontStyles.getSize16(
-              fontSize: 16,
-              fontColor: AppColors.darkColor,
-              fontWeight: FontWeight.w500,
-            ),
-            items: [
-              DropdownMenuItem(
-                value: PatientType.iAmPatient,
-                child: Text("I am the patient"),
-              ),
-              DropdownMenuItem(
-                value: PatientType.anotherPatient,
-                child: Text("Another patient"),
-              ),
-            ],
-            onChanged: (PatientType? newValue) {
-              if (newValue != null) {
-                setState(() {
-                  cubit.selectedPatientType = newValue;
-                });
-              }
-            },
-          ),
-        ),
-      ),
+  PreferredSize choosPatient(
+      PatientCubit cubit,
+      Color textColor,
+      Color borderColor,
+      Color fieldBackground,
+      Color iconColor) {
+    return const PreferredSize(
+        preferredSize: Size.fromHeight(0),
+        child: SizedBox()
     );
   }
 
-  Widget _buildTextField({
-    required String label,
-    required TextEditingController controller,
-    required String hintText,
-    String? Function(String?)? validator,
-    TextInputType? keyboardType,
-    int maxLines = 1,
-    List<TextInputFormatter>? inputFormat,
-  }) {
+  Widget _buildTextField(
+      String label,
+      TextEditingController controller,
+      String hintText,
+      Color textColor,
+      {
+        String? Function(String?)? validator,
+        TextInputType? keyboardType,
+        int maxLines = 1,
+      }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: AppFontStyles.getSize16(
-            fontSize: 16,
-            fontColor: AppColors.darkColor,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text(label,
+            style: AppFontStyles.getSize16(
+                fontColor: textColor, fontWeight: FontWeight.w500)),
         const SizedBox(height: 8),
         MainTextFormField(
-          inputFormat: inputFormat ?? [],
           label: hintText,
-          ispassword: false,
           controller: controller,
           maxTextLines: maxLines,
           validator: validator,
           keyboardType: keyboardType,
+          ispassword: false,
         ),
       ],
     );
   }
 
-  Widget _buildBloodTypeField(PatientCubit cubit) {
+  Widget _buildBloodTypeField(
+      PatientCubit cubit,
+      Color textColor,
+      Color fieldBackground,
+      Color borderColor) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Blood Type",
-          style: AppFontStyles.getSize16(
-            fontSize: 16,
-            fontColor: AppColors.darkColor,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text("Blood Type",
+            style: AppFontStyles.getSize16(
+                fontColor: textColor, fontWeight: FontWeight.w500)),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           initialValue:
@@ -567,35 +420,24 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
           decoration: InputDecoration(
             hintText: "Select blood type",
             hintStyle: AppFontStyles.getSize14(
-              fontSize: 14,
-              fontColor: AppColors.greyColor,
-              fontWeight: FontWeight.w400,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.fillTextForm),
-            ),
+                fontColor: AppColors.greyColor, fontWeight: FontWeight.w400),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.fillTextForm),
-            ),
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: borderColor)),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: AppColors.primaryGreenColor),
-            ),
+                borderRadius: BorderRadius.circular(8),
+                borderSide:
+                    const BorderSide(color: AppColors.primaryBlueColor)),
             filled: true,
-            fillColor: AppColors.fillTextForm,
+            fillColor: fieldBackground,
           ),
-          items: Boold.map((String bloodType) {
-            return DropdownMenuItem<String>(
-              value: bloodType,
-              child: Text(bloodType),
-            );
-          }).toList(),
+          items: Boold.map((String bloodType) =>
+              DropdownMenuItem<String>(
+                  value: bloodType, child: Text(bloodType))).toList(),
           onChanged: (String? newValue) {
-            setState(() {
-              cubit.selectedBloodType = newValue ?? '';
-            });
+            setState(() => cubit.selectedBloodType = newValue ?? '');
           },
         ),
         const SizedBox(height: 16),
@@ -603,127 +445,65 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     );
   }
 
-  Widget _buildImageUpload(PatientCubit cubit) {
+  Widget _buildImageUpload(
+      PatientCubit cubit,
+      Color fieldBackground,
+      Color textColor,
+      Color secondaryTextColor) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Upload Image",
-          style: AppFontStyles.getSize16(
-            fontSize: 16,
-            fontColor: AppColors.darkColor,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        Text("Upload Image",
+            style: AppFontStyles.getSize16(
+                fontColor: textColor, fontWeight: FontWeight.w500)),
         const SizedBox(height: 8),
         GestureDetector(
-          onTap: () {
-            _showImageSourceDialog(cubit);
-          },
+          onTap: () => _showImageSourceDialog(cubit),
           child: DottedBorder(
-            color: AppColors.greyColor,
+            color: secondaryTextColor,
             strokeWidth: 1,
-            dashPattern: [5, 3],
+            dashPattern: const [5, 3],
             borderType: BorderType.RRect,
-            radius: Radius.circular(8),
+            radius: const Radius.circular(8),
             child: Container(
               width: double.infinity,
               height: 120,
-              decoration: BoxDecoration(color: AppColors.fillTextForm),
+              decoration: BoxDecoration(color: fieldBackground),
               child: (cubit.imagFeile != null || selectedImageBytes != null)
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: kIsWeb
-                          ? Image.memory(
-                              selectedImageBytes!,
+                          ? Image.memory(selectedImageBytes!,
                               width: double.infinity,
                               height: 120,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.file(
-                              cubit.imagFeile!,
+                              fit: BoxFit.cover)
+                          : Image.file(cubit.imagFeile!,
                               width: double.infinity,
                               height: 120,
-                              fit: BoxFit.cover,
-                            ),
+                              fit: BoxFit.cover),
                     )
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.cloud_upload_outlined,
-                          size: 32,
-                          color: AppColors.greyColor.withOpacity(0.6),
-                        ),
+                        Icon(Icons.cloud_upload_outlined,
+                            size: 32,
+                            color: secondaryTextColor.withOpacity(0.6)),
                         const SizedBox(height: 8),
-                        Text(
-                          "Tap to upload image",
-                          style: AppFontStyles.getSize14(
-                            fontSize: 14,
-                            fontColor: AppColors.greyColor,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
+                        Text("Tap to upload image",
+                            style: AppFontStyles.getSize14(
+                                fontColor: secondaryTextColor,
+                                fontWeight: FontWeight.w400)),
                         const SizedBox(height: 4),
-                        Text(
-                          "PNG, JPG, GIF up to 10MB",
-                          style: AppFontStyles.getSize14(
-                            fontSize: 12,
-                            fontColor: AppColors.greyColor.withOpacity(0.7),
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
+                        Text("PNG, JPG, GIF up to 10MB",
+                            style: AppFontStyles.getSize14(
+                                fontColor:
+                                    secondaryTextColor.withOpacity(0.7),
+                                fontWeight: FontWeight.w400)),
                       ],
                     ),
             ),
           ),
         ),
-        if (cubit.imagFeile != null || selectedImageBytes != null) ...[
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    _showImageSourceDialog(cubit);
-                  },
-                  icon: const Icon(Icons.edit, size: 16),
-                  label: const Text("Change Image"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryGreenColor,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    cubit.imagFeile = null;
-                    selectedImageBytes = null;
-                  });
-                },
-                icon: const Icon(Icons.delete, size: 16),
-                label: const Text("Remove"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 12,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
       ],
     );
   }
@@ -731,7 +511,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
   void _showImageSourceDialog(PatientCubit cubit) {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return SafeArea(
           child: Wrap(
             children: [
@@ -758,80 +538,71 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     );
   }
 
+  // ================================
+  // Location functions
+  // ================================
   Future<void> _getCurrentPosition() async {
     final hasPermission = await _handleLocationPermission();
     if (!hasPermission) return;
+
     await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(
+      locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
         distanceFilter: 50,
       ),
-    ).then((Position position) {
-      setState(() async {
-        _currentPosition = position;
-      });
-    }).catchError((e) {
-      log(e.toString());
-    });
+    ).then((position) {
+      setState(() => _currentPosition = position);
+    // ignore: invalid_return_type_for_catch_error
+    }).catchError((e) => log(e.toString()));
   }
 
   Future<void> _getAddressFromLatLng(Position? position) async {
-    await placemarkFromCoordinates(
-      _currentPosition!.latitude,
-      _currentPosition!.longitude,
-    ).then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
+    if (position == null) return;
+
+    await placemarkFromCoordinates(position.latitude, position.longitude)
+        .then((placemarks) {
+      final place = placemarks[0];
+
       setState(() {
-        String cleanStreet = place.street?.replaceAll(RegExp(r'\d+'), '') ?? '';
+        String cleanStreet =
+            place.street?.replaceAll(RegExp(r'\d+'), '') ?? '';
 
         _currentAddress =
-            '${cleanStreet.trim()}${place.thoroughfare ?? ''}\n\n\n\n'
-            'المنطقة: ${place.subAdministrativeArea ?? ''}\n'
-            'المدينة: ${place.locality ?? ''}\n'
-            'المحافظة: ${place.administrativeArea ?? ''}\n'
-            'الدولة: ${place.country ?? ''}';
-        log('${_currentAddress}');
+            '${cleanStreet.trim()} ${place.thoroughfare ?? ''}\n'
+            'Area: ${place.subAdministrativeArea ?? ''}\n'
+            'City: ${place.locality ?? ''}\n'
+            'Governorate: ${place.administrativeArea ?? ''}\n'
+            'Country: ${place.country ?? ''}';
       });
-    }).catchError((e) {
-      log(e.toString());
-    });
+    // ignore: invalid_return_type_for_catch_error
+    }).catchError((e) => log(e.toString()));
   }
 
   Future<bool> _handleLocationPermission() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            'Location services are disabled. Please enable the services',
-          ),
-        ),
+            content: Text('Location services are disabled. Please enable')),
       );
       return false;
     }
-    permission = await Geolocator.checkPermission();
+
+    LocationPermission permission = await Geolocator.checkPermission();
+
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Location permissions are denied')),
-        );
-        return false;
-      }
     }
-    if (permission == LocationPermission.deniedForever) {
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Location permissions are permanently denied, we cannot request permissions.',
-          ),
-        ),
+        const SnackBar(content: Text('Location permission denied')),
       );
       return false;
     }
+
     return true;
   }
 }

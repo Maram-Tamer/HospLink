@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medigo/core/routes/routes.dart';
@@ -10,7 +8,7 @@ import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Patient/p
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/bottom_navigation.dart';
 
 class PageviewPatient extends StatefulWidget {
-  PageviewPatient({super.key});
+  const PageviewPatient({super.key});
 
   @override
   State<PageviewPatient> createState() => _PageviewPatientState();
@@ -21,6 +19,7 @@ class _PageviewPatientState extends State<PageviewPatient> {
 
   List<Widget> pages = [PatientStep1(), PatientStep2(), PatientStep3()];
   int currentindex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

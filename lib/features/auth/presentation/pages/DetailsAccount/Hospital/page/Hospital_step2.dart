@@ -5,8 +5,6 @@ import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/routes/routes.dart' show Routes;
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
@@ -17,8 +15,11 @@ class HospitalStep2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
+    final surface = Theme.of(context).colorScheme.surface;
+
     return Scaffold(
-      appBar: App_Bar(title: 'Step 2 of 3'),
+      appBar: MainAppBar(title: 'Step 2 of 3'),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           var cubit = context.read<AuthCubit>();
@@ -31,24 +32,31 @@ class HospitalStep2 extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     StepsCard(
                       context: context,
                       step: 2,
                     ),
+
                     Gap(30),
+
                     Text(
                       'Phone 1',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: primary,
                       ),
                     ),
+
                     Gap(20),
+
                     MainTextFormField(
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'please enter Phone';
+                        } else {
+                          return null;
                         }
                       },
                       inputFormat: [
@@ -60,17 +68,21 @@ class HospitalStep2 extends StatelessWidget {
                       prefixIcon: AppIcons.callSVG,
                       label: 'Phone 1',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: surface,
                     ),
+
                     Gap(20),
+
                     Text(
                       'Phone 2',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: primary,
                       ),
                     ),
+
                     Gap(20),
+
                     MainTextFormField(
                       keyboardType: TextInputType.number,
                       inputFormat: [
@@ -82,60 +94,76 @@ class HospitalStep2 extends StatelessWidget {
                       prefixIcon: AppIcons.callSVG,
                       label: 'Phone 2',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: surface,
                     ),
+
                     Gap(20),
+
                     Text(
                       'Address',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: primary,
                       ),
                     ),
+
                     Gap(20),
+
                     MainTextFormField(
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'please enter Address';
+                        } else {
+                          return null;
                         }
                       },
                       controller: cubit.addressController,
                       prefixIcon: AppIcons.locationLine_SVG,
                       label: 'Address',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: surface,
                     ),
+
                     Gap(20),
+
                     Text(
                       'Official Email',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: primary,
                       ),
                     ),
+
                     Gap(20),
+
                     MainTextFormField(
                       keyboardType: TextInputType.emailAddress,
                       controller: cubit.officialEmailController,
                       prefixIcon: AppIcons.emailSVG,
                       label: 'Official Email',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: surface,
                     ),
+
                     Gap(20),
+
                     Text(
                       'ID number',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: primary,
                       ),
                     ),
+
                     Gap(20),
+
                     MainTextFormField(
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'please enter  ID Number';
+                          return 'please enter ID Number';
+                        } else {
+                          return null;
                         }
                       },
                       inputFormat: [
@@ -147,8 +175,9 @@ class HospitalStep2 extends StatelessWidget {
                       prefixIcon: AppIcons.ID_SVG,
                       label: 'ID number',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: surface,
                     ),
+
                     Gap(20),
                   ],
                 ),

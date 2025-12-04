@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Hospital/presentation/pages/notification/page/notification_screen.dart';
 import 'package:medigo/features/Hospital/presentation/pages/notification/widget/details_cart_notification.dart';
 
@@ -10,15 +9,17 @@ class CartNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: theme.colorScheme.surface, // adapt to light/dark theme
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: theme.shadowColor.withOpacity(0.05), // theme-aware shadow
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -31,7 +32,7 @@ class CartNotification extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: AppColors.primaryGreenColor.withValues(alpha: 0.1),
+              color: theme.colorScheme.primary.withOpacity(0.1), // subtle background
               borderRadius: BorderRadius.circular(8),
             ),
             child: ClipRRect(
@@ -52,8 +53,8 @@ class CartNotification extends StatelessWidget {
             Container(
               width: 8,
               height: 8,
-              decoration: const BoxDecoration(
-                color: AppColors.primaryGreenColor,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary, // theme-aware indicator
                 shape: BoxShape.circle,
               ),
             ),

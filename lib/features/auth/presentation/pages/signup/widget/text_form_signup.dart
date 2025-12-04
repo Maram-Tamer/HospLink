@@ -34,7 +34,7 @@ class TextFormSignup extends StatelessWidget {
                 return 'Please enter a valid email';
               }
               return null;
-            },
+            }, 
           ),
         ),
         const Gap(20),
@@ -53,7 +53,7 @@ class TextFormSignup extends StatelessWidget {
                 return 'Password must be at least 6 characters';
               }
               return null;
-            },
+            }, 
           ),
         ),
         const Gap(20),

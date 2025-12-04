@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/routes.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/pages/Welcome/widget/cart_welcom.dart';
 
@@ -18,84 +17,84 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final scale = (size.width / 430).clamp(0.85, 1.2);
+
     return Scaffold(
-      backgroundColor: AppColors.primaryGreenColor,
+      backgroundColor: theme.colorScheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Gap(50),
+            Gap(50 * scale),
             Text(
-              'Lets Go!',
+              'Let\'s Go!',
               style: AppFontStyles.getSize32(
                 fontWeight: FontWeight.bold,
-                fontColor: AppColors.whiteColor,
+                fontColor: theme.colorScheme.onPrimary,
               ),
               textAlign: TextAlign.center,
             ),
             SizedBox(
-              width: 250,
-              height: 250,
+              width: 250 * scale,
+              height: 250 * scale,
               child: Image.asset(AppImages.logolPNG),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(horizontal: 10 * scale),
               child: Text(
                 'Our app helps you quickly access the nearest hospital. Submit your request, and if approved, we\'ll take immediate action to address your medical needs.',
-                style:
-                    AppFontStyles.getSize18(fontColor: AppColors.geyTextform),
+                style: AppFontStyles.getSize18(
+                  fontColor: theme.colorScheme.onBackground.withOpacity(0.7),
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
-            Gap(20),
+            Gap(20 * scale),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                  borderRadius: BorderRadiusDirectional.only(
-                    topEnd: Radius.circular(30),
-                    topStart: Radius.circular(30),
+                  color: theme.colorScheme.surface,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(30 * scale),
                   ),
                 ),
                 child: Column(
                   children: [
-                    Gap(20),
+                    Gap(20 * scale),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 250,
-                          height: 40,
+                          width: 250 * scale,
+                          height: 40 * scale,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: AppColors.grey2Color,
+                            borderRadius: BorderRadius.circular(30 * scale),
+                            color: theme.colorScheme.onSurface.withOpacity(0.1),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isSelected = false;
-                                  });
-                                },
+                                onTap: () => setState(() => isSelected = false),
                                 child: Container(
-                                  width: 120,
-                                  height: 30,
+                                  width: 120 * scale,
+                                  height: 30 * scale,
                                   decoration: BoxDecoration(
                                     color: isSelected
-                                        ? AppColors.grey2Color
-                                        : AppColors.primaryGreenColor,
-                                    borderRadius: BorderRadius.circular(15),
+                                        ? theme.colorScheme.onSurface.withOpacity(0.1)
+                                        : theme.colorScheme.primary,
+                                    borderRadius: BorderRadius.circular(15 * scale),
                                   ),
                                   child: Center(
                                     child: Text(
                                       'As Patient',
                                       style: AppFontStyles.getSize14(
                                         fontColor: isSelected
-                                            ? AppColors.primaryGreenColor
-                                            : AppColors.whiteColor,
+                                            ? theme.colorScheme.primary
+                                            : theme.colorScheme.onPrimary,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
@@ -103,27 +102,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isSelected = true;
-                                  });
-                                },
+                                onTap: () => setState(() => isSelected = true),
                                 child: Container(
-                                  width: 120,
-                                  height: 30,
+                                  width: 120 * scale,
+                                  height: 30 * scale,
                                   decoration: BoxDecoration(
                                     color: isSelected
-                                        ? AppColors.primaryGreenColor
-                                        : AppColors.grey2Color,
-                                    borderRadius: BorderRadius.circular(15),
+                                        ? theme.colorScheme.primary
+                                        : theme.colorScheme.onSurface.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(15 * scale),
                                   ),
                                   child: Center(
                                     child: Text(
                                       'As Hospital',
                                       style: AppFontStyles.getSize14(
                                         fontColor: isSelected
-                                            ? AppColors.whiteColor
-                                            : AppColors.primaryGreenColor,
+                                            ? theme.colorScheme.onPrimary
+                                            : theme.colorScheme.primary,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
@@ -135,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ],
                     ),
-                    Gap(30),
+                    Gap(30 * scale),
                     isSelected
                         ? CartWelcom(
                             image: AppImages.hpspitalWelcom,

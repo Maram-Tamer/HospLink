@@ -28,11 +28,13 @@ class PatientStep1 extends StatefulWidget {
 
 class PatientStep1State extends State<PatientStep1> {
   final Gender radioSelected = Gender.male;
+
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
+
     return Scaffold(
-      appBar: App_Bar(title: 'Step 1 of 3'),
-      //backgroundColor: AppColors.whiteColor,
+      appBar: MainAppBar(title: 'Step 1 of 3'),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           var cubit = context.read<AuthCubit>();
@@ -44,20 +46,19 @@ class PatientStep1State extends State<PatientStep1> {
                   key: cubit.formKey1,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       StepsCard(
                         context: context,
                         step: 1,
                       ),
                       Gap(50),
-                      imageProfile(cubit),
+                      imageProfile(cubit, primary),
                       Gap(30),
                       Text(
                         'Patient’s Name',
                         style: AppFontStyles.getSize14(
                           fontWeight: FontWeight.w600,
-                          fontColor: AppColors.primaryGreenColor,
+                          fontColor: primary,
                         ),
                       ),
                       Gap(30),
@@ -66,6 +67,7 @@ class PatientStep1State extends State<PatientStep1> {
                           if (value == null || value.trim().isEmpty) {
                             return 'please enter Name';
                           }
+                          return null;
                         },
                         controller: cubit.nameController,
                         prefixIcon: AppIcons.userSVG,
@@ -78,13 +80,13 @@ class PatientStep1State extends State<PatientStep1> {
                         'Gender',
                         style: AppFontStyles.getSize14(
                           fontWeight: FontWeight.w600,
-                          fontColor: AppColors.primaryGreenColor,
+                          fontColor: primary,
                         ),
                       ),
                       Gap(20),
-                      radioButtomGroup(cubit),
+                      radioButtomGroup(cubit, primary),
                       Gap(30),
-                      selectDate(context, cubit),
+                      selectDate(context, cubit, primary),
                     ],
                   ),
                 ),
@@ -96,7 +98,7 @@ class PatientStep1State extends State<PatientStep1> {
     );
   }
 
-  Center imageProfile(AuthCubit cubit) {
+  Center imageProfile(AuthCubit cubit, Color primary) {
     return Center(
       child: Stack(
         children: [
@@ -157,10 +159,10 @@ class PatientStep1State extends State<PatientStep1> {
               backgroundColor: Colors.white,
               radius: 16,
               child: IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.camera_alt,
                   size: 16,
-                  color: AppColors.primaryGreenColor,
+                  color: primary,
                 ),
                 onPressed: () {},
               ),
@@ -171,13 +173,13 @@ class PatientStep1State extends State<PatientStep1> {
     );
   }
 
-  Row radioButtomGroup(AuthCubit cubit) {
+  Row radioButtomGroup(AuthCubit cubit, Color primary) {
     return Row(
       children: [
         Spacer(),
         EasyRadio<String>(
-          dotColor: AppColors.primaryGreenColor,
-          activeBorderColor: AppColors.primaryGreenColor,
+          dotColor: primary,
+          activeBorderColor: primary,
           inactiveBorderColor: AppColors.greyColor,
           value: 'Male',
           groupValue: cubit.radiGroub,
@@ -191,8 +193,8 @@ class PatientStep1State extends State<PatientStep1> {
         Text('Male', style: AppFontStyles.getSize16()),
         Spacer(),
         EasyRadio<String>(
-          dotColor: AppColors.primaryGreenColor,
-          activeBorderColor: AppColors.primaryGreenColor,
+          dotColor: primary,
+          activeBorderColor: primary,
           inactiveBorderColor: AppColors.greyColor,
           value: 'Femail',
           groupValue: cubit.radiGroub,
@@ -209,7 +211,7 @@ class PatientStep1State extends State<PatientStep1> {
     );
   }
 
-  Column selectDate(BuildContext context, AuthCubit cubit) {
+  Column selectDate(BuildContext context, AuthCubit cubit, Color primary) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -219,7 +221,7 @@ class PatientStep1State extends State<PatientStep1> {
             'Birth Day',
             style: AppFontStyles.getSize14(
               fontWeight: FontWeight.w600,
-              fontColor: AppColors.primaryGreenColor,
+              fontColor: primary,
             ),
           ),
         ),
@@ -228,6 +230,7 @@ class PatientStep1State extends State<PatientStep1> {
             if (value == null || value.trim().isEmpty) {
               return 'please select your Birth Day';
             }
+            return null;
           },
           onTap: () async {
             var selectDate = await showDatePicker(
@@ -253,12 +256,11 @@ class PatientStep1State extends State<PatientStep1> {
                 fontColor: AppColors.darkGreyColor,
               ),
             ),
-
-            filled: true, // ← تفعيل تعبئة اللون
-            fillColor: AppColors.fillTextForm, // ←
+            filled: true,
+            fillColor: AppColors.fillTextForm,
             suffixIcon: Icon(
               Icons.calendar_month_sharp,
-              color: AppColors.primaryGreenColor,
+              color: primary,
             ),
           ),
         ),

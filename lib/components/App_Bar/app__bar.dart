@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
-class App_Bar extends StatelessWidget implements PreferredSizeWidget {
-  App_Bar({
+// ignore: must_be_immutable
+class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
+  MainAppBar({
     super.key,
     this.title = '',
     this.leading = false,
     this.action = false,
     this.icon,
     this.onPressAction,
-    this.color = AppColors.blueLight,
-    this.colorIconBack = AppColors.darkColor,
+    // Note: The colors below will be overridden by theme colors inside build()
+    this.color, 
+    this.colorIconBack,
   });
+  
   final String title;
-  final Color color;
-  final Color colorIconBack;
+  // Make colors nullable so we can use theme defaults if not provided
+  final Color? color;
+  final Color? colorIconBack;
 
   final bool leading;
   final bool action;
@@ -25,27 +28,58 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    // --- Theme-Responsive Color Assignment ---
+    
+    // 1. AppBar Background Color
+    // Default to the provided color or the theme's background color
+    final appBarColor = color ?? colorScheme.background;
+
+    // 2. Back Icon Color
+    // Default to the provided color or the theme's primary text color (onBackground)
+    final backIconColor = colorIconBack ?? colorScheme.onBackground;
+
+    // 3. Title Text Style (Use theme's headline style and primary text color)
+    final titleStyle = textTheme.headlineSmall?.copyWith(
+      color: colorScheme.onBackground, // Use primary text color
+      fontWeight: FontWeight.bold,
+    ) ?? AppFontStyles.getSize24().copyWith(color: colorScheme.onBackground);
+    
+    // 4. Action Icon Color
+    // Default to the theme's primary accent color
+    final actionIconColor = colorScheme.primary;
+
+
     return AppBar(
       scrolledUnderElevation: 0,
-      surfaceTintColor: Colors.transparent,
+      // Use colorScheme.background for transparent surfaces to ensure theme consistency
+      surfaceTintColor: colorScheme.background, 
       elevation: 0,
       automaticallyImplyLeading: false,
-      backgroundColor: color,
-      title: Text(title, style: AppFontStyles.getSize24()),
+      backgroundColor: appBarColor, // Theme-responsive background
+      
+      // Title Style
+      title: Text(title, style: titleStyle.copyWith(fontSize: 24)),
       centerTitle: true,
       leadingWidth: 75,
+      
+      // Leading (Back Button)
       leading: leading
           ? Padding(
               padding: const EdgeInsets.only(left: 12),
-              child: //SvgPicture.asset(App_Assets.backArrowSVG)
-                  IconButton(
+              child: IconButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back_ios, color: colorIconBack),
+                // Use theme-responsive color
+                icon: Icon(Icons.arrow_back_ios, color: backIconColor), 
               ),
             )
           : null,
+          
+      // Actions
       actions: [
         action
             ? IconButton(
@@ -54,8 +88,9 @@ class App_Bar extends StatelessWidget implements PreferredSizeWidget {
                   icon!,
                   height: 24,
                   width: 24,
+                  // Use theme-responsive color for the action icon
                   colorFilter: ColorFilter.mode(
-                    AppColors.primaryGreenColor,
+                    actionIconColor,
                     BlendMode.srcIn,
                   ),
                 ),

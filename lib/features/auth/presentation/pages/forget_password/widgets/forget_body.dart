@@ -33,7 +33,7 @@ class ForgetBody extends StatelessWidget {
                 barrierDismissible: false,
                 builder: (context) => const Center(
                   child: CircularProgressIndicator(
-                    color: AppColors.primaryGreenColor,
+                    color: AppColors.primaryBlueColor,
                   ),
                 ),
               );

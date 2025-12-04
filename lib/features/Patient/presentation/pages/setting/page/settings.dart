@@ -2,13 +2,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
+import 'package:medigo/components/setting_items/settings_group.dart';
+import 'package:medigo/components/setting_items/settings_items.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
-import 'package:medigo/components/setting%20items/settings_group.dart';
-import 'package:medigo/components/setting%20items/settings_items.dart';
 import 'package:medigo/main.dart'; // To access the theme toggle function
 
 class SettingsScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(title: "Settings"),
+      appBar: MainAppBar(title: "Settings"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         child: ListView(
@@ -50,7 +50,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Text(
               "Account",
               style: AppFontStyles.getSize18(
-                fontColor: AppColors.blackColor,
+                fontColor: Theme.of(context).textTheme.titleMedium?.color ??
+                    AppColors.blackColor,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
@@ -85,7 +86,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Text(
               "General",
               style: AppFontStyles.getSize18(
-                fontColor: AppColors.darkGreyColor,
+                 fontColor: Theme.of(context).textTheme.titleMedium?.color ??
+                    AppColors.blackColor,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),

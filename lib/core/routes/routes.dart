@@ -232,9 +232,9 @@ class Routes {
       ),
       GoRoute(
         path: Main_hospital,
-        builder: (context, state) => Main_Screen_H(),
+        builder: (context, state) => MainScreenHospital(),
       ),
-      GoRoute(path: Main_patient, builder: (context, state) => Main_Screen_P()),
+      GoRoute(path: Main_patient, builder: (context, state) => MainScreenPatient()),
       GoRoute(
         path: EditProfile,
         builder: (context, state) => EditProfileScreen(),

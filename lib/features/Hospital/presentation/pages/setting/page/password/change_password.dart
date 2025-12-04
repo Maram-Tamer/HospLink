@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medigo/core/utils/colors.dart';
 
 class ChangePasswordScreenH extends StatefulWidget {
   const ChangePasswordScreenH({super.key});
@@ -19,18 +18,23 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.background,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryGreenColor,
+        backgroundColor: theme.colorScheme.primary,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           "Change Password",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: theme.colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -39,53 +43,55 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25),
                 ),
-                color: AppColors.primaryGreenColor,
+                color: theme.colorScheme.primary,
               ),
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 25),
               child: Column(
-                children: const [
+                children: [
                   Text(
                     "Set Your Password",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: theme.colorScheme.onPrimary,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     "Update your password regularly to keep\n"
                     "your account secure.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white70, fontSize: 13),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onPrimary.withOpacity(0.7),
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
             ),
-
             const SizedBox(height: 25),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Current Password"),
+                  Text("Current Password", style: theme.textTheme.bodyMedium),
                   const SizedBox(height: 5),
                   TextFormField(
                     controller: currentPasswordController,
                     obscureText: !showCurrent,
                     decoration: InputDecoration(
                       hintText: "Enter current password",
-                      prefixIcon: const Icon(Icons.lock_outline),
+                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onBackground),
                       suffixIcon: IconButton(
                         icon: Icon(
                           showCurrent ? Icons.visibility : Icons.visibility_off,
+                          color: theme.colorScheme.onBackground,
                         ),
                         onPressed: () =>
                             setState(() => showCurrent = !showCurrent),
@@ -95,20 +101,19 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 15),
-
-                  const Text("New Password"),
+                  Text("New Password", style: theme.textTheme.bodyMedium),
                   const SizedBox(height: 5),
                   TextFormField(
                     controller: newPasswordController,
                     obscureText: !showNew,
                     decoration: InputDecoration(
                       hintText: "Enter new password",
-                      prefixIcon: const Icon(Icons.lock_outline),
+                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onBackground),
                       suffixIcon: IconButton(
                         icon: Icon(
                           showNew ? Icons.visibility : Icons.visibility_off,
+                          color: theme.colorScheme.onBackground,
                         ),
                         onPressed: () => setState(() => showNew = !showNew),
                       ),
@@ -117,20 +122,19 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 15),
-
-                  const Text("Confirm New Password"),
+                  Text("Confirm New Password", style: theme.textTheme.bodyMedium),
                   const SizedBox(height: 5),
                   TextFormField(
                     controller: confirmPasswordController,
                     obscureText: !showConfirm,
                     decoration: InputDecoration(
                       hintText: "Re-enter new password",
-                      prefixIcon: const Icon(Icons.lock_outline),
+                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onBackground),
                       suffixIcon: IconButton(
                         icon: Icon(
                           showConfirm ? Icons.visibility : Icons.visibility_off,
+                          color: theme.colorScheme.onBackground,
                         ),
                         onPressed: () =>
                             setState(() => showConfirm = !showConfirm),
@@ -140,15 +144,13 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 30),
-
                   SizedBox(
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryGreenColor,
+                        backgroundColor: theme.colorScheme.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -156,12 +158,12 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
                       onPressed: () {
                         // TODO: Add save password logic
                       },
-                      child: const Text(
+                      child: Text(
                         "Save Changes",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: theme.colorScheme.onPrimary,
                         ),
                       ),
                     ),

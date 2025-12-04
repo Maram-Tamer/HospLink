@@ -13,7 +13,6 @@ import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/routes/navigation.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
@@ -32,8 +31,7 @@ class HospitalStep1State extends State<HospitalStep1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(title: 'Step 1 of 3'),
-      //backgroundColor: AppColors.whiteColor,
+      appBar: MainAppBar(title: 'Step 1 of 3'),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           var cubit = context.read<AuthCubit>();
@@ -56,7 +54,7 @@ class HospitalStep1State extends State<HospitalStep1> {
                       'Hospital Name',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     Gap(10),
@@ -64,12 +62,14 @@ class HospitalStep1State extends State<HospitalStep1> {
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'please enter Name';
+                        } else {
+                          return null;
                         }
                       },
                       controller: cubit.nameController,
                       label: 'Name',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: Theme.of(context).colorScheme.surfaceVariant,
                     ),
                     Gap(30),
                     SelectDate(context, cubit),
@@ -83,7 +83,7 @@ class HospitalStep1State extends State<HospitalStep1> {
                           child: SvgPicture.asset(
                             AppIcons.hospitalLoginSVG,
                             colorFilter: ColorFilter.mode(
-                              AppColors.primaryGreenColor,
+                              Theme.of(context).colorScheme.primary,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -93,7 +93,7 @@ class HospitalStep1State extends State<HospitalStep1> {
                           'Hospital type',
                           style: AppFontStyles.getSize14(
                             fontWeight: FontWeight.w600,
-                            fontColor: AppColors.primaryGreenColor,
+                            fontColor: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ],
@@ -120,7 +120,7 @@ class HospitalStep1State extends State<HospitalStep1> {
             'Date of Establishment',
             style: AppFontStyles.getSize14(
               fontWeight: FontWeight.w600,
-              fontColor: AppColors.primaryGreenColor,
+              fontColor: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
@@ -128,6 +128,8 @@ class HospitalStep1State extends State<HospitalStep1> {
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
               return 'please enter Date of Establishment';
+            } else {
+              return null;
             }
           },
           onTap: () async {
@@ -150,10 +152,10 @@ class HospitalStep1State extends State<HospitalStep1> {
           decoration: InputDecoration(
             hint: Text(' Click To Select Date'),
             filled: true,
-            fillColor: AppColors.fillTextForm, // ←
+            fillColor: Theme.of(context).colorScheme.surfaceVariant,
             suffixIcon: Icon(
               Icons.calendar_month_sharp,
-              color: AppColors.primaryGreenColor,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
@@ -206,7 +208,7 @@ class HospitalStep1State extends State<HospitalStep1> {
             },
             child: CircleAvatar(
               radius: 58,
-              backgroundColor: AppColors.whiteColor,
+              backgroundColor: Theme.of(context).colorScheme.background,
               child: CircleAvatar(
                 radius: 55,
                 backgroundImage: (cubit.imagFeile != null)
@@ -219,13 +221,13 @@ class HospitalStep1State extends State<HospitalStep1> {
             bottom: 3,
             right: 3,
             child: CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.background,
               radius: 16,
               child: IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.camera_alt,
                   size: 16,
-                  color: AppColors.primaryGreenColor,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 onPressed: () {},
               ),
@@ -239,16 +241,12 @@ class HospitalStep1State extends State<HospitalStep1> {
   Column RadioButtomGroup(AuthCubit cubit) {
     return Column(
       children: [
-        //Spacer(),
         RadioItem('Public Hospital', cubit),
         Gap(15),
         RadioItem('Private Hospital', cubit),
         Gap(15),
-
         RadioItem('University Hospital', cubit),
         Gap(15),
-
-        //Spacer(),
       ],
     );
   }
@@ -264,9 +262,9 @@ class HospitalStep1State extends State<HospitalStep1> {
         children: [
           Gap(15),
           EasyRadio<String>(
-            dotColor: AppColors.primaryGreenColor,
-            activeBorderColor: AppColors.primaryGreenColor,
-            inactiveBorderColor: AppColors.greyColor,
+            dotColor: Theme.of(context).colorScheme.primary,
+            activeBorderColor: Theme.of(context).colorScheme.primary,
+            inactiveBorderColor: Theme.of(context).colorScheme.outline,
             value: title,
             radius: 9,
             groupValue: cubit.radiGroub,
@@ -279,7 +277,10 @@ class HospitalStep1State extends State<HospitalStep1> {
           Gap(15),
           Text(
             title,
-            style: AppFontStyles.getSize16(fontWeight: FontWeight.w600),
+            style: AppFontStyles.getSize16(
+              fontWeight: FontWeight.w600,
+              fontColor: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
         ],
       ),

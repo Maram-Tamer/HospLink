@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medigo/core/routes/routes.dart';
@@ -9,7 +8,7 @@ import 'package:medigo/features/auth/presentation/pages/DetailsAccount/Hospital/
 import 'package:medigo/features/auth/presentation/pages/DetailsAccount/widget/bottom_navigation.dart';
 
 class PageviewHospital extends StatefulWidget {
-  PageviewHospital({super.key});
+  const PageviewHospital({super.key});
 
   @override
   State<PageviewHospital> createState() => _PageviewHospitalState();

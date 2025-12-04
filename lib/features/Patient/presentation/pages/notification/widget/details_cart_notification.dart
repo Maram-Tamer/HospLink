@@ -20,7 +20,7 @@ class DetailsCartNotification extends StatelessWidget {
               fontSize: 16,
               fontColor: notification.isUnread
                   ? AppColors.red
-                  : AppColors.primaryGreenColor,
+                  : AppColors.primaryBlueColor,
               fontWeight: FontWeight.w600,
             ),
           ),

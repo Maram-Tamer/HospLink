@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 
@@ -9,145 +8,229 @@ class AboutUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: App_Bar(leading: true, title: "About Us"),
+      appBar: MainAppBar(
+        leading: true,
+        title: "About Us",
+      ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Project Title
+
+            // ----------------------- PAGE TITLE -----------------------
             Text(
               "Digital Egypt Pioneers Initiative (DEPI) – Round 3",
               style: AppFontStyles.getSize24(
-                fontColor: AppColors.primaryGreenColor,
                 fontWeight: FontWeight.bold,
+                fontColor: theme.colorScheme.onSurface,       // theme responsive
               ),
             ),
             const Gap(10),
+
+            // ----------------------- PROJECT TITLE -----------------------
             Text(
               "Project Title: Hosp Link",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.w600),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.w600,
+                fontColor: theme.colorScheme.primary,          // theme responsive
+              ),
             ),
+
             const Gap(10),
+
+            // ----------------------- INSTRUCTOR -----------------------
             Text(
               "Instructor: Eng. Sayed Abdelaziz",
-              style: AppFontStyles.getSize16(),
+              style: AppFontStyles.getSize16(
+                fontColor: theme.colorScheme.onSurface,        // theme responsive
+              ),
             ),
+
             const Gap(10),
+
+            // ----------------------- TEAM MEMBERS -----------------------
             Text(
               "Team Members:",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.w600),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.w600,
+                fontColor: theme.colorScheme.primary,          // theme responsive
+              ),
             ),
             const Gap(5),
-            Text("1) Eslam Emad Ibrahim (Team Leader) 21060166"),
-            Text("2) Maram Tamer Ahmed 21068498"),
-            Text("3) Noor El Deen Ramadan Mohamed 21004493"),
-            Text("4) Ahmed Gamal Ahmed Ibrahim 21072092"),
-            Text("5) John Mikheal Foad 21056790"),
-            Text("6) Marina Adel Younan 21015235"),
+
+            // normal text auto-adapts in theme
+            Text(
+              "1) Eslam Emad Ibrahim (Team Leader) 21060166",
+              style: TextStyle(color: theme.colorScheme.onSurface),
+            ),
+            Text(
+              "2) Maram Tamer Ahmed 21068498",
+              style: TextStyle(color: theme.colorScheme.onSurface),
+            ),
+            Text(
+              "3) Noor El Deen Ramadan Mohamed 21004493",
+              style: TextStyle(color: theme.colorScheme.onSurface),
+            ),
+            Text(
+              "4) Ahmed Gamal Ahmed Ibrahim 21072092",
+              style: TextStyle(color: theme.colorScheme.onSurface),
+            ),
+            Text(
+              "5) John Mikheal Foad 21056790",
+              style: TextStyle(color: theme.colorScheme.onSurface),
+            ),
+            Text(
+              "6) Marina Adel Younan 21015235",
+              style: TextStyle(color: theme.colorScheme.onSurface),
+            ),
+
             const Gap(10),
+
             Text(
               "Track: Mobile Application Development (Flutter)",
-              style: AppFontStyles.getSize16(fontWeight: FontWeight.w500),
+              style: AppFontStyles.getSize16(
+                fontWeight: FontWeight.w500,
+                fontColor: theme.colorScheme.onSurface,
+              ),
             ),
             Text(
               "Date: November 2025",
-              style: AppFontStyles.getSize16(),
+              style: AppFontStyles.getSize16(
+                fontColor: theme.colorScheme.onSurface,
+              ),
             ),
+
             const Gap(20),
 
-            // Project Idea
+            // ----------------------- PROJECT IDEA -----------------------
             Text(
               "Project Idea",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.bold),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.bold,
+                fontColor: theme.colorScheme.primary,
+              ),
             ),
             const Gap(5),
+
             Text(
-              "This is a mobile application that helps patients find hospitals with available emergency beds quickly. "
-              "The patient can send an emergency request through the app, attach a photo of the case, and write details about the incident. "
-              "Hospitals can accept or reject the request after reviewing the photos and details. "
-              "The goal is to save time and help patients reach the right hospital faster without moving between many hospitals.",
+              "This is a mobile application that helps patients find hospitals "
+              "with available emergency beds quickly. The patient can send "
+              "an emergency request, attach a photo, and write case details. "
+              "Hospitals can accept or reject the request after reviewing it.",
+              style: TextStyle(color: theme.colorScheme.onSurface),
             ),
+
             const Gap(20),
 
-            // Project Goal
+            // ----------------------- PROJECT GOAL -----------------------
             Text(
               "Project Goal",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.bold),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.bold,
+                fontColor: theme.colorScheme.primary,
+              ),
             ),
             const Gap(5),
+
             Text(
-              "Many patients and their families waste time moving from one hospital to another to find an available emergency bed. "
-              "This delay can be dangerous and sometimes life-threatening. "
-              "Our app solves this problem by allowing patients to:\n"
-              "• Send an emergency request directly.\n"
-              "• Attach a photo of the patient/incident and write short details.\n"
-              "• See which hospitals have available beds.\n"
-              "• Receive quick responses from hospitals.",
+              "Many patients waste time moving between hospitals trying to "
+              "find available emergency beds. Our app solves this problem by:\n"
+              "• Sending an emergency request directly\n"
+              "• Attaching a photo & case details\n"
+              "• Showing hospitals with available beds\n"
+              "• Receiving quick hospital responses",
+              style: TextStyle(color: theme.colorScheme.onSurface),
             ),
+
             const Gap(20),
 
-            // Target Users
+            // ----------------------- TARGET USERS -----------------------
             Text(
               "Target Users",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.bold),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.bold,
+                fontColor: theme.colorScheme.primary,
+              ),
             ),
             const Gap(5),
+
             Text(
-              "• Patients: to send emergency requests with photos and case details.\n"
-              "• Hospital management: to receive, review (photo + details), and respond to patient requests.",
+              "• Patients\n"
+              "• Hospital management",
+              style: TextStyle(color: theme.colorScheme.onSurface),
             ),
+
             const Gap(20),
 
-            // Tools & Technologies
+            // ----------------------- TOOLS & TECH -----------------------
             Text(
               "Tools & Technologies",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.bold),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.bold,
+                fontColor: theme.colorScheme.primary,
+              ),
             ),
             const Gap(5),
+
             Text(
-              "• Frontend: Flutter\n"
-              "• Backend / Database: Firebase (Firestore or Realtime Database)\n"
-              "• Authentication: Firebase Auth\n"
-              "• Local Storage: shared preferences (for small local settings like login state or last used hospital)\n"
-              "• File / Image Storage: Cloudinary (store photos and files)\n"
-              "• Design Tool: Figma\n"
-              "• Git & GitHub: Used for version control and team collaboration\n"
-              "• Trello: Used for project management and task tracking\n"
-              "\nHow images & files work:\n"
-              "When a patient attaches a photo, the app uploads the image to Cloudinary and stores the returned URL in Firebase. "
-              "Hospitals open the request, view the image (via Cloudinary URL) and the details, then accept or reject the request.",
+              "• Flutter\n"
+              "• Firebase\n"
+              "• Firebase Auth\n"
+              "• Shared Preferences\n"
+              "• Cloudinary\n"
+              "• Figma\n"
+              "• GitHub\n"
+              "• Trello",
+              style: TextStyle(color: theme.colorScheme.onSurface),
             ),
+
             const Gap(20),
 
-            // Timeline
+            // ----------------------- TIMELINE -----------------------
             Text(
               "Timeline (Project Plan)",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.bold),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.bold,
+                fontColor: theme.colorScheme.primary,
+              ),
             ),
             const Gap(5),
+
             Text(
-              "Week 1-2: Analysis & Design - Collect requirements and design basic UI\n"
-              "Week 3-5: Frontend Development - Build the app interface using Flutter (upload image flow included)\n"
-              "Week 6-7: Backend Integration - Connect the app with Firebase and Cloudinary\n"
-              "Week 8: Testing & Final Delivery - Test all functions and prepare final version",
+              "Week 1–2: Analysis & Design\n"
+              "Week 3–5: Frontend Development\n"
+              "Week 6–7: Backend Integration\n"
+              "Week 8: Testing & Final Delivery",
+              style: TextStyle(color: theme.colorScheme.onSurface),
             ),
+
             const Gap(20),
 
-            // Stakeholder Analysis
+            // ----------------------- STAKEHOLDER -----------------------
             Text(
               "Stakeholder Analysis",
-              style: AppFontStyles.getSize18(fontWeight: FontWeight.bold),
+              style: AppFontStyles.getSize18(
+                fontWeight: FontWeight.bold,
+                fontColor: theme.colorScheme.primary,
+              ),
             ),
             const Gap(5),
+
             Text(
-              "• User: The patient who uses the app to send emergency requests with photos and details\n"
-              "• Hospital Management: The team that receives, reviews (photo + details), and manages the requests\n"
-              "• Development Team: The group who developed the application\n"
-              "• Academic Supervisor: The instructor or mentor who reviews the project",
+              "• Patient\n"
+              "• Hospital management\n"
+              "• Development team\n"
+              "• Academic supervisor",
+              style: TextStyle(color: theme.colorScheme.onSurface),
             ),
-            const Gap(50),
+
+            const Gap(40),
           ],
         ),
       ),

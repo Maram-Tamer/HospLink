@@ -69,7 +69,7 @@ class _HospitalNotificationScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(title: 'Notifications', leading: false, action: false),
+      appBar: MainAppBar(title: 'Notifications', leading: false, action: false),
       body: Column(
         children: [
           const SizedBox(height: 12),

@@ -5,9 +5,9 @@ import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
-import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 
+// ignore: must_be_immutable
 class BottomNavigation extends StatelessWidget {
   final int step;
   final String route;
@@ -45,43 +45,8 @@ class BottomNavigation extends StatelessWidget {
                   height: 45,
                 ),
               ),
-            // ],
-            // Gap(20),
-            // if (step == 1) ...[
-            //   MainButton(
-            //     width: 180,
-            //     buttonText: (step == 3) ? 'Done' : 'Next',
-            //     onPressed: () {
-            //       pushTo(
-            //         context: context,
-            //         route: route,
-            //       );
-            //     },
-            //     height: 45,
-            //   ),
-            // ],
-            // if (step != 0) ...[
-            //   Expanded(
-            //     child: MainButton(
-            //       buttonText: (step == 3) ? 'Done' : 'Next',
-            //       onPressed: () {
-            //         if (route == Routes.login_H || route == Routes.login_P) {
-            //           pushAndRemoveUntil(
-            //               context: context, route: Routes.welcom);
-            //         }
-            //         FirebaseAuth.instance.currentUser!
-            //             .updateDisplayName('Done');
-            //         pushTo(
-            //           context: context,
-            //           route: route,
-            //         );
-            //       },
-            //       height: 45,
-            //     ),
-            //   ),
-            // ],
+            
             if (step > 0) const Gap(20),
-//**************************************************************************************** */
             // زر Next أو Done
             if (step == 0)
               MainButton(

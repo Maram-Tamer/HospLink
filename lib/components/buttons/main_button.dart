@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -12,16 +11,17 @@ class MainButton extends StatelessWidget {
     this.width,
     this.height,
     required this.onPressed,
-    this.buttomColor = AppColors.primaryGreenColor,
-    this.textColor = AppColors.whiteColor,
+    this.buttomColor,
+    this.textColor,
     this.borderColor,
     this.borderRadius,
     this.borderWidth,
     this.icon,
   });
-  final Color buttomColor;
+
+  final Color? buttomColor;
   final double? borderRadius;
-  final Color textColor;
+  final Color? textColor;
   final Color? borderColor;
   final String buttonText;
   final double? width;
@@ -30,16 +30,27 @@ class MainButton extends StatelessWidget {
   final String? icon;
 
   final void Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
-    
+    final size = MediaQuery.of(context).size;
+
+    double w(double value) => value * size.width / 390; 
+    double h(double value) => value * size.height / 844;
+
+    // ✔ Default color is now primaryDarkColor instead of darkColor
+    final effectiveButtonColor = buttomColor ?? AppColors.primaryBlueColor;
+
+    // ✔ Keep default text color white
+    final effectiveTextColor = textColor ?? AppColors.whiteColor;
+
     return SizedBox(
-      width: width ?? double.infinity,
-      height: height ?? 55,
+      width: width != null ? w(width!) : double.infinity,
+      height: height != null ? h(height!) : h(55),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: buttomColor,
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+          backgroundColor: effectiveButtonColor,
+          padding: EdgeInsets.symmetric(horizontal: w(5), vertical: h(0)),
           shape: RoundedRectangleBorder(
             side: BorderSide(
               color: borderColor ?? Colors.transparent,
@@ -55,20 +66,20 @@ class MainButton extends StatelessWidget {
             if (icon != null) ...[
               SvgPicture.asset(
                 icon!,
-                height: 30,
+                height: h(26),
                 colorFilter: ColorFilter.mode(
-                  AppColors.whiteColor,
+                  effectiveTextColor,
                   BlendMode.srcIn,
                 ),
               ),
+              Gap(w(10)),
             ],
-            Gap(10),
             Text(
               buttonText,
               style: AppFontStyles.getSize16(
-                fontColor: textColor,
+                fontColor: effectiveTextColor,
                 fontWeight: FontWeight.w500,
-              ),
+              ).copyWith(fontSize: w(16)),
             ),
           ],
         ),

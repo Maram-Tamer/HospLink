@@ -15,7 +15,7 @@ import 'package:medigo/features/Patient/presentation/pages/hospital_data/present
 import 'package:url_launcher/url_launcher.dart';
 
 class HospitalDetailsScreen extends StatefulWidget {
-  HospitalDetailsScreen({super.key, this.data});
+  const HospitalDetailsScreen({super.key, this.data});
   final Map<String, dynamic>? data;
 
   @override
@@ -27,9 +27,14 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
   late bool isAccepted = widget.data!['isAccepted'] as bool;
   late HospitalModel? hospital = widget.data?['hospital'] as HospitalModel?;
 
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : AppColors.darkColor;
+    final secondaryTextColor = isDark ? Colors.white70 : AppColors.darkGreyColor;
+    final dividerColor = isDark ? Colors.white24 : Colors.grey.shade300;
+
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Padding(
@@ -49,9 +54,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   child: MainButton(
                     buttonText: "Send Request",
                     onPressed: () {
-                      if (isAccepted) {
-                        
-                      } else {
+                      if (!isAccepted) {
                         pushTo(
                             context: context,
                             route: Routes.UnifiledpatientData,
@@ -69,7 +72,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryGreenColor,
+                      color: AppColors.primaryBlueColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: SvgPicture.asset(
@@ -87,7 +90,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
           ),
         ),
       ),
-      appBar: App_Bar(
+      appBar: MainAppBar(
         title: "Hospital Details",
         leading: isAccepted ? false : true,
       ),
@@ -102,10 +105,11 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   image: hospital?.imageUri ?? '', name: hospital?.name ?? ''),
               const Gap(20),
 
+              // Hospital Description
               Text(
                 hospital?.description ?? '',
                 style: AppFontStyles.getSize16(
-                  fontColor: AppColors.darkGreyColor,
+                  fontColor: secondaryTextColor,
                 ),
                 maxLines: 6,
                 overflow: TextOverflow.ellipsis,
@@ -119,38 +123,41 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   Text(
                     "4.8",
                     style: AppFontStyles.getSize16(
-                      fontColor: AppColors.darkColor,
+                      fontColor: textColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Gap(20),
+                  const Gap(20),
                   SvgPicture.asset(
                     AppIcons.patientLoginSVG,
                     height: 25,
                     width: 25,
                     colorFilter: ColorFilter.mode(
-                      AppColors.primaryGreenColor,
+                      AppColors.primaryBlueColor,
                       BlendMode.srcIn,
                     ),
                   ),
                   Text(
                     "+1200 cases",
                     style: AppFontStyles.getSize16(
-                      fontColor: AppColors.darkColor,
+                      fontColor: textColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
               ),
-
               const Gap(10),
-              const Divider(thickness: 1),
+              Divider(thickness: 1, color: dividerColor),
 
               // Contact Info
               HospitalDetailsTile(
                 text: hospital?.address ?? '',
                 icon: AppIcons.locationSVG,
                 color: AppColors.red,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const Gap(10),
 
@@ -158,10 +165,15 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                 HospitalDetailsTile(
                   text: '${widget.data!['km'].toStringAsFixed(2)} Km',
                   icon: AppIcons.locationLine_SVG,
-                  color: AppColors.primaryGreenColor,
+                  color: AppColors.primaryBlueColor,
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const Gap(10),
               ],
+
               const Gap(10),
               HospitalDetailsTile(
                 text: '24 Hour',
@@ -176,7 +188,7 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                 onTap: () {
                   launchUrl(Uri.parse(hospital?.website ?? ''));
                 },
-                text: 'Click here to go the website',
+                text: 'Click here to go to the website',
                 icon: AppIcons.webSVG,
                 style: TextStyle(
                   color: Colors.blue,
@@ -191,13 +203,13 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
               ),
               const Gap(20),
               Text(
-                'click here to go google maps ↧',
+                'Click here to go to Google Maps ↧',
                 style: AppFontStyles.getSize14(
-                  fontColor: AppColors.darkColor,
+                  fontColor: textColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Gap(5),
+              const Gap(5),
 
               GestureDetector(
                 onTap: () {
@@ -214,14 +226,11 @@ class _HospitalDetailsScreenState extends State<HospitalDetailsScreen> {
                   ),
                 ),
               ),
-              Gap(20),
-              
+              const Gap(20),
             ],
           ),
         ),
       ),
     );
   }
-
-
 }

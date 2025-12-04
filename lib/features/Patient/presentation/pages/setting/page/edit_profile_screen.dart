@@ -51,7 +51,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Container(
             height: 150,
             decoration: BoxDecoration(
-              color: AppColors.whiteColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -59,11 +59,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             child: Column(
               children: [
-                Gap(20),
+                const Gap(20),
                 ListTile(
                   leading: const Icon(
                     Icons.camera_alt_rounded,
-                    color: AppColors.primaryGreenColor,
+                    color: AppColors.primaryBlueColor,
                   ),
                   title: const Text("Take Photo"),
                   onTap: () {
@@ -73,7 +73,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.photo,
-                      color: AppColors.primaryGreenColor),
+                      color: AppColors.primaryBlueColor),
                   title: const Text("Choose from Gallery"),
                   onTap: () {
                     Navigator.pop(context);
@@ -104,7 +104,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       pickedImage!,
     );
 
-    // Update model
     currentUser!.imageUri = url;
 
     // Save locally
@@ -127,7 +126,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> saveProfile() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-
     if (currentUser == null) return;
 
     setState(() => isSaving = true);
@@ -154,10 +152,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : AppColors.darkColor;
+    final hintColor = isDark ? Colors.white54 : Colors.grey;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryGreenColor,
+        backgroundColor: AppColors.primaryBlueColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -170,7 +173,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         centerTitle: true,
       ),
       body: currentUser == null
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(color: AppColors.primaryBlueColor))
           : SingleChildScrollView(
               padding: const EdgeInsets.only(bottom: 40),
               child: Stack(
@@ -178,9 +182,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Container(
                     height: 120,
                     width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryGreenColor,
-                      borderRadius: BorderRadius.vertical(
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryBlueColor,
+                      borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(25),
                       ),
                     ),
@@ -218,7 +222,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   icon: const Icon(
                                     Icons.camera_alt,
                                     size: 16,
-                                    color: AppColors.primaryGreenColor,
+                                    color: AppColors.primaryBlueColor,
                                   ),
                                   onPressed: showImageSourceDialog,
                                 ),
@@ -234,6 +238,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             phoneController: phoneController,
                             locationController: locationController,
                             nationalIdController: nationalIdController,
+                            textColor: textColor,
+                            hintColor: hintColor,
                           ),
                         ),
                         const Gap(30),
@@ -242,7 +248,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           height: 50,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryGreenColor,
+                              backgroundColor: AppColors.primaryBlueColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -288,72 +294,77 @@ class PatientData extends StatelessWidget {
     required this.phoneController,
     required this.locationController,
     required this.nationalIdController,
+    required this.textColor,
+    required this.hintColor,
   });
 
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController locationController;
   final TextEditingController nationalIdController;
+  final Color textColor;
+  final Color hintColor;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Name"),
+        Text("Name", style: TextStyle(color: textColor)),
         const Gap(5),
         TextFormField(
           controller: nameController,
           validator: (val) => val!.isEmpty ? "Name is required" : null,
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: "Enter your name",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            hintStyle: TextStyle(color: hintColor),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
         const Gap(15),
-        const Text("Phone Number"),
+        Text("Phone Number", style: TextStyle(color: textColor)),
         const Gap(5),
         TextFormField(
           controller: phoneController,
           keyboardType: TextInputType.phone,
-          validator: (val) => val!.length < 10 ? "Invalid phone number" : null,
+          validator: (val) =>
+              val!.length < 10 ? "Invalid phone number" : null,
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: "Enter your phone number",
-            suffixIcon: const Icon(Icons.edit, color: Colors.grey),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            hintStyle: TextStyle(color: hintColor),
+            suffixIcon: Icon(Icons.edit, color: hintColor),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
         const Gap(15),
-        const Text("Address"),
+        Text("Address", style: TextStyle(color: textColor)),
         const Gap(5),
         TextFormField(
           controller: locationController,
           validator: (val) => val!.isEmpty ? "Address is required" : null,
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: "Enter your address",
-            suffixIcon: const Icon(Icons.edit, color: Colors.grey),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            hintStyle: TextStyle(color: hintColor),
+            suffixIcon: Icon(Icons.edit, color: hintColor),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
         const Gap(15),
-        const Text("National ID"),
+        Text("National ID", style: TextStyle(color: textColor)),
         const Gap(5),
         TextFormField(
           controller: nationalIdController,
           keyboardType: TextInputType.number,
           validator: (val) =>
               val!.length != 14 ? "National ID must be 14 digits" : null,
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: "Enter your national ID",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            hintStyle: TextStyle(color: hintColor),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
       ],

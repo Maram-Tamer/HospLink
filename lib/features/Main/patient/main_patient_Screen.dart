@@ -2,150 +2,109 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/utils/colors.dart';
-import 'package:medigo/features/Patient/presentation/pages/favourite/presentation/page/favourite_patient.dart';
+
+// Aliased imports to avoid conflicts
+import 'package:medigo/features/Patient/presentation/pages/favourite/presentation/page/favourite_patient.dart' as fav;
+import 'package:medigo/features/Patient/presentation/pages/requests/page/requests_patient.dart' as req;
 import 'package:medigo/features/Patient/presentation/pages/home/presentation/page/home_patient.dart';
-import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/pages/hospital_details_screen.dart';
-import 'package:medigo/features/Patient/presentation/pages/requests/page/requests_patient.dart';
 import 'package:medigo/features/Patient/presentation/pages/setting/page/settings.dart';
 
-class Main_Screen_P extends StatefulWidget {
-  const Main_Screen_P({super.key, this.initialIndex});
+class MainScreenPatient extends StatefulWidget {
+  const MainScreenPatient({super.key, this.initialIndex});
   final int? initialIndex;
+
   @override
-  State<Main_Screen_P> createState() => _Main_ScreenState();
+  State<MainScreenPatient> createState() => _MainScreenState();
 }
 
-class _Main_ScreenState extends State<Main_Screen_P> {
-  int currentIndex = 0;
+class _MainScreenState extends State<MainScreenPatient> {
+  late int currentIndex;
 
   @override
   void initState() {
     super.initState();
-    currentIndex = widget.initialIndex ?? currentIndex;
+    currentIndex = widget.initialIndex ?? 0;
   }
 
   @override
-  void didUpdateWidget(covariant Main_Screen_P oldWidget) {
+  void didUpdateWidget(covariant MainScreenPatient oldWidget) {
     super.didUpdateWidget(oldWidget);
     currentIndex = widget.initialIndex ?? currentIndex;
   }
 
-  List<Widget> screens = [
+  late final List<Widget> screens = [
     HomePatient(),
-    FavouritePatient(),
-    // HospitalDetailsScreen(data:{'isAccepted':false}),
-    RequestsPatient(),
+    fav.FavouritePatient(),  // Using alias fav
+    req.RequestsPatient(),   // Using alias req
     SettingsScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.blueLight,
+      backgroundColor: colorScheme.background,
       body: screens[currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
+          color: colorScheme.surface,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
         ),
-        child: _BottomNavigation(),
+        child: _bottomNavigation(colorScheme, isDark),
       ),
     );
   }
 
-  BottomNavigationBar _BottomNavigation() {
+  BottomNavigationBar _bottomNavigation(ColorScheme colorScheme, bool isDark) {
+    Color activeColor = AppColors.primaryBlueColor;
+    Color inactiveColor = isDark ? Colors.white70 : Colors.black54;
+
     return BottomNavigationBar(
       elevation: 0,
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
-      items: [
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.homeMain),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.homeActivMain,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.favoritMain),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.favoritActivMain,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          label: 'Favourite',
-        ),
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.hospitalMain),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.hospitalActivMain,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          label: 'Requests',
-        ),
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.settingMain),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.settingAcivMain,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          label: 'Setting',
-        ),
-      ],
+      selectedItemColor: activeColor,
+      unselectedItemColor: inactiveColor,
       currentIndex: currentIndex,
-      onTap: (index) {
-        setState(() {
-          currentIndex = index;
-        });
-      },
+      onTap: (index) => setState(() => currentIndex = index),
       showSelectedLabels: true,
       showUnselectedLabels: true,
+      items: [
+        BottomNavigationBarItem(
+          label: 'Home',
+          icon: _icon(AppIcons.homeMain, inactiveColor),
+          activeIcon: _icon(AppIcons.homeActivMain, activeColor),
+        ),
+        BottomNavigationBarItem(
+          label: 'Favourite',
+          icon: _icon(AppIcons.favoritMain, inactiveColor),
+          activeIcon: _icon(AppIcons.favoritActivMain, activeColor),
+        ),
+        BottomNavigationBarItem(
+          label: 'Requests',
+          icon: _icon(AppIcons.hospitalMain, inactiveColor),
+          activeIcon: _icon(AppIcons.hospitalActivMain, activeColor),
+        ),
+        BottomNavigationBarItem(
+          label: 'Setting',
+          icon: _icon(AppIcons.settingMain, inactiveColor),
+          activeIcon: _icon(AppIcons.settingAcivMain, activeColor),
+        ),
+      ],
     );
   }
+
+  Widget _icon(String asset, Color color) => SizedBox(
+        width: 25,
+        height: 25,
+        child: SvgPicture.asset(
+          asset,
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+        ),
+      );
 }

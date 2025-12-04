@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
-import 'package:medigo/components/setting%20items/settings_group.dart';
-import 'package:medigo/components/setting%20items/settings_items.dart';
+import 'package:medigo/components/setting_items/settings_group.dart';
+import 'package:medigo/components/setting_items/settings_items.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
@@ -16,8 +16,14 @@ class SettingsHospitalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
+
+    final size = MediaQuery.of(context).size;
+    double responsiveFont(double value) => value * size.width / 390;
+
     return Scaffold(
-      appBar: App_Bar(title: "Settings"),
+      appBar: MainAppBar(title: "Settings"),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(
@@ -26,10 +32,9 @@ class SettingsHospitalScreen extends StatelessWidget {
             Text(
               "Account",
               style: AppFontStyles.getSize18(
-                fontColor: AppColors.blackColor,
-                fontSize: 20,
+                fontSize: responsiveFont(20),
                 fontWeight: FontWeight.w500,
-              ),
+              ).copyWith(color: textColor),
             ),
             const Gap(10),
             SettingsGroup(
@@ -61,10 +66,9 @@ class SettingsHospitalScreen extends StatelessWidget {
             Text(
               "General",
               style: AppFontStyles.getSize18(
-                fontColor: AppColors.darkGreyColor,
-                fontSize: 20,
+                fontSize: responsiveFont(20),
                 fontWeight: FontWeight.w500,
-              ),
+              ).copyWith(color: textColor),
             ),
             const Gap(10),
             SettingsGroup(
@@ -99,14 +103,14 @@ class SettingsHospitalScreen extends StatelessWidget {
                 SettingsItem(
                   icon: Icons.feedback_outlined,
                   iconColor: Colors.deepPurple,
-                  title: "Sent FeadBack",
+                  title: "Send Feedback",
                   onPressed: () => log("Send Feedback tapped"),
                 ),
                 SettingsItem(
                   icon: Icons.info_outline,
                   iconColor: Colors.lightBlueAccent,
                   title: "About Us",
-                  onPressed: () => log("Send Feedback tapped"),
+                  onPressed: () => log("About Us tapped"),
                 ),
                 SettingsItem(
                   icon: Icons.logout,

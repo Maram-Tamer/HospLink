@@ -19,9 +19,11 @@ class PatientDetailsScreen extends StatefulWidget {
 class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
   final List<int> ratings = List.filled(3, 0);
   int currentRating = 0;
+
   @override
   Widget build(BuildContext context) {
     final RequestModel request = widget.data["request"];
+
     return Scaffold(
       bottomNavigationBar: SafeArea(
         child: Padding(
@@ -31,11 +33,12 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
             child: PatientDetailsTrailing(
               widget: widget,
               request: request,
+              // pass theme if needed in child widget
             ),
           ),
         ),
       ),
-      appBar: App_Bar(
+      appBar: MainAppBar(
         title: "Patient Details",
         leading: true,
       ),
@@ -51,12 +54,15 @@ class _PatientDetailsScreenState extends State<PatientDetailsScreen> {
               // Hospital Header Image
               PhotoCard(
                   image: request.imageProfilePath ?? AppImages.PatientPhoto1,
-                  name: request.name ?? ''),
+                  name: request.name ?? '',
+                  // can pass theme if PhotoCard uses colors
+              ),
               const Gap(20),
               PatientDetailsList(
                 request: request,
+                // can pass theme if PatientDetailsList uses colors
               ),
-              Gap(20),
+              const Gap(20),
             ],
           ),
         ),

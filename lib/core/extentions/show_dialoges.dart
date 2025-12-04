@@ -10,29 +10,41 @@ showMyDialog(
   String message, {
   DialogType type = DialogType.error,
 }) {
+  final size = MediaQuery.of(context).size;
+  double w(double value) => value * size.width / 390;
+  double h(double value) => value * size.height / 844;
+
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.all(20),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      margin: EdgeInsets.all(w(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(w(12)),
+      ),
       backgroundColor: type == DialogType.error
           ? AppColors.red
           : type == DialogType.warning
               ? Colors.orange
-              : AppColors.primaryGreenColor,
-      content: Text(message),
+              : AppColors.primaryBlueColor,
+      content: Text(
+        message,
+        style: TextStyle(fontSize: w(16)),
+      ),
     ),
   );
 }
 
 showLoadingDialog(BuildContext context) {
+  final size = MediaQuery.of(context).size;
+  double w(double value) => value * size.width / 390;
+
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) => Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Lottie.asset(AppImages.LodingJson, width: 250)],
+      child: Lottie.asset(
+        AppImages.LodingJson,
+        width: w(250), // responsive loader width
       ),
     ),
   );

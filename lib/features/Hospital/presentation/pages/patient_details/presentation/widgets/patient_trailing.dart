@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -8,7 +7,6 @@ import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Hospital/presentation/pages/patient_details/presentation/pages/patient_details_screen.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
 
@@ -21,7 +19,8 @@ class PatientDetailsTrailing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final RequestModel request = widget.data["request"];
+    final theme = Theme.of(context);
+
     log('*************${request.patientID}');
     return Column(
       children: [
@@ -31,7 +30,7 @@ class PatientDetailsTrailing extends StatelessWidget {
               Expanded(
                 child: MainButton(
                   buttonText: "Accepted Case",
-                  buttomColor: AppColors.green,
+                  buttomColor: theme.colorScheme.secondary, // previously AppColors.green
                   onPressed: () {
                     request.state = "Accepted";
                     log(request.requestID ?? '');
@@ -48,7 +47,7 @@ class PatientDetailsTrailing extends StatelessWidget {
               Expanded(
                 child: MainButton(
                   buttonText: "Accept Case",
-                  buttomColor: AppColors.green,
+                  buttomColor: theme.colorScheme.secondary, // previously AppColors.green
                   onPressed: () {
                     widget.data["isAccepted"] = true;
                     request.state = "Accepted";
@@ -57,7 +56,6 @@ class PatientDetailsTrailing extends StatelessWidget {
                         request.requestID ?? '', request);
                     FirebaseServices.deleteRequestsForPatient(
                         request.patientID ?? '', request.requestID ?? '');
-
                     pop(context);
                   },
                   icon: AppIcons.completeSVG,
@@ -73,7 +71,7 @@ class PatientDetailsTrailing extends StatelessWidget {
                 children: [
                   Expanded(
                     child: MainButton(
-                      buttomColor: AppColors.red,
+                      buttomColor: theme.colorScheme.error, // previously AppColors.red
                       buttonText: "Reject Case",
                       width: 300,
                       onPressed: () {
@@ -93,16 +91,16 @@ class PatientDetailsTrailing extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: AppColors.primaryGreenColor,
+                        color: theme.colorScheme.primary, // previously AppColors.primaryGreenColor
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: SvgPicture.asset(
-                        colorFilter: ColorFilter.mode(
-                          AppColors.cardColor,
-                          BlendMode.srcIn,
-                        ),
                         AppIcons.chat2SVG,
                         height: 35,
+                        colorFilter: ColorFilter.mode(
+                          theme.colorScheme.onPrimary, // previously AppColors.cardColor
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),

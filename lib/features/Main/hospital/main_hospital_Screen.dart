@@ -7,146 +7,117 @@ import 'package:medigo/features/Hospital/presentation/pages/home/pages/hospital_
 import 'package:medigo/features/Hospital/presentation/pages/notification/page/notification_screen.dart';
 import 'package:medigo/features/Hospital/presentation/pages/setting/page/settings.dart';
 
-class Main_Screen_H extends StatefulWidget {
-  const Main_Screen_H({super.key, this.initialIndex});
+class MainScreenHospital extends StatefulWidget {
+  const MainScreenHospital({super.key, this.initialIndex});
   final int? initialIndex;
+
   @override
-  State<Main_Screen_H> createState() => _Main_ScreenState();
+  State<MainScreenHospital> createState() => _MainScreenHospitalState();
 }
 
-class _Main_ScreenState extends State<Main_Screen_H> {
+class _MainScreenHospitalState extends State<MainScreenHospital> {
   int currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    currentIndex = widget.initialIndex ?? currentIndex;
+    currentIndex = widget.initialIndex ?? 0;
   }
 
   @override
-  void didUpdateWidget(covariant Main_Screen_H oldWidget) {
+  void didUpdateWidget(covariant MainScreenHospital oldWidget) {
     super.didUpdateWidget(oldWidget);
     currentIndex = widget.initialIndex ?? currentIndex;
   }
 
-  List<Widget> screens = [
-    HospitalHomeScreen(),
-    HospitalNotificationScreen(),
+  final List<Widget> screens = [
+    const HospitalHomeScreen(),
+    const HospitalNotificationScreen(),
     AcceptedPatientsScreen(),
-    SettingsHospitalScreen(),
+    const SettingsHospitalScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       backgroundColor: AppColors.blueLight,
       body: screens[currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-
-          borderRadius: BorderRadius.only(
+          color: colorScheme.surface, // theme-responsive
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
         ),
-        child: _BottomNavigation(),
+        child: _BottomNavigation(colorScheme, isDark),
       ),
     );
   }
 
-  BottomNavigationBar _BottomNavigation() {
+  // ignore: non_constant_identifier_names
+  BottomNavigationBar _BottomNavigation(ColorScheme colorScheme, bool isDark) {
     return BottomNavigationBar(
       elevation: 0,
-
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.transparent,
-      items: [
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.homeMain),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.homeActivMain,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.NotificationSVG),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.notificationFill2,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-
-          label: 'Notifications',
-        ),
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.patient),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.patientFill,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          label: 'Accepted ',
-        ),
-        BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(AppIcons.settingMain),
-          ),
-          activeIcon: SizedBox(
-            width: 25,
-            height: 25,
-            child: SvgPicture.asset(
-              AppIcons.settingAcivMain,
-              colorFilter: ColorFilter.mode(
-                AppColors.primaryGreenColor,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          label: 'Setting',
-        ),
-      ],
       currentIndex: currentIndex,
-      onTap: (index) {
-        setState(() {
-          currentIndex = index;
-        });
-      },
       showSelectedLabels: true,
       showUnselectedLabels: true,
+      selectedItemColor: AppColors.primaryBlueColor,
+      unselectedItemColor: isDark ? Colors.white : Colors.black,
+      onTap: (index) {
+        setState(() => currentIndex = index);
+      },
+      items: [
+        BottomNavigationBarItem(
+          label: 'Home',
+          icon: _icon(AppIcons.homeMain, isDark),
+          activeIcon: _activeIcon(AppIcons.homeActivMain),
+        ),
+        BottomNavigationBarItem(
+          label: 'Notifications',
+          icon: _icon(AppIcons.NotificationSVG, isDark),
+          activeIcon: _activeIcon(AppIcons.notificationFill2),
+        ),
+        BottomNavigationBarItem(
+          label: 'Accepted',
+          icon: _icon(AppIcons.patient, isDark),
+          activeIcon: _activeIcon(AppIcons.patientFill),
+        ),
+        BottomNavigationBarItem(
+          label: 'Setting',
+          icon: _icon(AppIcons.settingMain, isDark),
+          activeIcon: _activeIcon(AppIcons.settingAcivMain),
+        ),
+      ],
     );
   }
+
+  Widget _icon(String asset, bool isDark) => SizedBox(
+        width: 25,
+        height: 25,
+        child: SvgPicture.asset(
+          asset,
+          colorFilter: ColorFilter.mode(
+            isDark ? Colors.white : Colors.black,
+            BlendMode.srcIn,
+          ),
+        ),
+      );
+
+  Widget _activeIcon(String asset) => SizedBox(
+        width: 25,
+        height: 25,
+        child: SvgPicture.asset(
+          asset,
+          colorFilter: const ColorFilter.mode(
+            AppColors.primaryBlueColor,
+            BlendMode.srcIn,
+          ),
+        ),
+      );
 }

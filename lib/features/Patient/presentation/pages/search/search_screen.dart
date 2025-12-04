@@ -8,7 +8,7 @@ import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
-import 'package:medigo/features/patient/presentation/pages/home/widget/hospital_card.dart';
+import 'package:medigo/features/patient/presentation/pages/home/presentation/widget/hospital_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -23,19 +23,44 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    final size = MediaQuery.of(context).size;
+    double w(double v) => v * size.width / 390;
+    double h(double v) => v * size.height / 844;
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: theme.scaffoldBackgroundColor,
         centerTitle: false,
         automaticallyImplyLeading: false,
-        title: GestureDetector(
-          onTap: () => pop(context),
-          child: const Icon(Icons.arrow_back_ios),
+        title: Row(
+          children: [
+            GestureDetector(
+              onTap: () => pop(context),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+            Spacer(),
+            Text(
+              'Search Hospital',
+              style: AppFontStyles.getSize24(
+                fontWeight: FontWeight.w600,
+                fontColor: theme.colorScheme.onSurface,
+              ),
+            ),
+            Spacer()
+          ],
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
+            // SEARCH BAR
             TextField(
               controller: searchController,
               onChanged: (value) {
@@ -43,31 +68,63 @@ class _SearchScreenState extends State<SearchScreen> {
                   searchText = value.trim();
                 });
               },
+              style: TextStyle(
+                fontSize: w(16),
+                color: isDark ? Colors.white : AppColors.darkColor,
+              ),
               decoration: InputDecoration(
                 hintText: 'Search for a Hospital',
+                hintStyle: TextStyle(
+                  fontSize: w(14),
+                  color: isDark
+                      ? Colors.white54
+                      : AppColors.darkColor,
+                ),
                 filled: true,
-                fillColor: const Color(0xFFF5F5F5),
+                fillColor:
+                    isDark ? AppColors.darkCardSurface : const Color(0xFFF5F5F5),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: w(16),
+                  vertical: h(12),
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide.none,
                 ),
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.grey, // white icon
+                  size: w(22),
+                ),
               ),
             ),
+
             const Gap(20),
+
             Row(
               children: [
-                const Text(
-                  'Recent Searches',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Text(
+                  ' Search Results ',
+                  style: TextStyle(
+                    fontSize: w(18),
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.onSurface,
+                  ),
                 ),
                 const Spacer(),
+
+                // 🔥 CLEAR BUTTON FUNCTIONAL
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    searchController.clear();
+                    setState(() {
+                      searchText = "";
+                    });
+                  },
                   child: Text(
                     'Clear',
                     style: AppFontStyles.getSize14(
-                      fontColor: AppColors.whiteColor,
+                      fontColor: AppColors.primaryBlueColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -75,6 +132,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
             const Gap(20),
+
             Expanded(
               child: searchText.isEmpty
                   ? Column(
@@ -82,17 +140,18 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         SvgPicture.asset(
                           AppIcons.searchSVG,
-                          height: 100,
+                          height: h(100),
                           colorFilter: ColorFilter.mode(
-                              AppColors.primaryGreenColor, BlendMode.srcIn),
+                              AppColors.primaryBlueColor, BlendMode.srcIn),
                         ),
                         Gap(10),
                         Text(
                           textAlign: TextAlign.center,
                           "Please enter Hospital name \nto search",
                           style: AppFontStyles.getSize18(
-                              fontWeight: FontWeight.w600,
-                              fontColor: AppColors.primaryGreenColor),
+                            fontWeight: FontWeight.w600,
+                            fontColor: AppColors.primaryBlueColor,
+                          ).copyWith(fontSize: w(18)),
                         ),
                       ],
                     )
@@ -107,8 +166,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         if (snapshot.data!.docs.isEmpty) {
                           return const EmptySearch();
                         }
-                        final query = searchText.toLowerCase();
 
+                        final query = searchText.toLowerCase();
                         final filteredDocs = snapshot.data!.docs.where((doc) {
                           final data = doc.data() as Map<String, dynamic>;
                           final rawName = (data['name'] ?? '').toString();
@@ -119,6 +178,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         if (filteredDocs.isEmpty) {
                           return const EmptySearch();
                         }
+
                         return ListView.separated(
                           separatorBuilder: (context, index) => const Gap(10),
                           itemCount: filteredDocs.length,
@@ -128,7 +188,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               doc.data() as Map<String, dynamic>,
                             );
 
-                            return HospitalCard(hospital: hospital,);
+                            return HospitalCard(hospital: hospital);
                           },
                         );
                       },
@@ -153,14 +213,15 @@ class EmptySearch extends StatelessWidget {
           AppIcons.hospitalMain,
           height: 100,
           colorFilter:
-              ColorFilter.mode(AppColors.primaryGreenColor, BlendMode.srcIn),
+              ColorFilter.mode(AppColors.primaryBlueColor, BlendMode.srcIn),
         ),
         const SizedBox(height: 10),
         Text(
           'No hospitals found',
           style: AppFontStyles.getSize18(
-              fontColor: AppColors.primaryGreenColor,
-              fontWeight: FontWeight.w600),
+            fontColor: AppColors.primaryBlueColor,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     );

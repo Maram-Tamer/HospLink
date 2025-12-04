@@ -33,10 +33,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : Colors.black87;
+    final hintColor = isDark ? Colors.white54 : Colors.grey;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryGreenColor,
+        backgroundColor: AppColors.primaryBlueColor,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -57,7 +62,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25),
                 ),
-                color: AppColors.primaryGreenColor,
+                color: AppColors.primaryBlueColor,
               ),
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 25),
@@ -98,6 +103,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       validator: (value) => (value == null || value.isEmpty)
                           ? "Current password cannot be empty"
                           : null,
+                      textColor: textColor,
+                      hintColor: hintColor,
                     ),
                     const SizedBox(height: 15),
                     _buildPasswordField(
@@ -106,12 +113,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       showPassword: showNew,
                       toggleShow: () => setState(() => showNew = !showNew),
                       validator: (value) {
-                        if (value == null || value.isEmpty)
-                         { return "New password cannot be empty";}
-                        if (value.length < 6)
-                          {return "Password must be at least 6 characters";}
+                        if (value == null || value.isEmpty) {
+                          return "New password cannot be empty";
+                        }
+                        if (value.length < 6) {
+                          return "Password must be at least 6 characters";
+                        }
                         return null;
                       },
+                      textColor: textColor,
+                      hintColor: hintColor,
                     ),
                     const SizedBox(height: 15),
                     _buildPasswordField(
@@ -121,12 +132,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       toggleShow: () =>
                           setState(() => showConfirm = !showConfirm),
                       validator: (value) {
-                        if (value == null || value.isEmpty)
-                         { return "Please confirm your new password";}
-                        if (value != newPasswordController.text)
-                          {return "Passwords do not match";}
+                        if (value == null || value.isEmpty) {
+                          return "Please confirm your new password";
+                        }
+                        if (value != newPasswordController.text) {
+                          return "Passwords do not match";
+                        }
                         return null;
                       },
+                      textColor: textColor,
+                      hintColor: hintColor,
                     ),
                     const SizedBox(height: 10),
                     if (generalError != null)
@@ -143,7 +158,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       height: 48,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryGreenColor,
+                          backgroundColor: AppColors.primaryBlueColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -178,22 +193,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     required bool showPassword,
     required VoidCallback toggleShow,
     required String? Function(String?) validator,
+    required Color textColor,
+    required Color hintColor,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label),
+        Text(label, style: TextStyle(color: textColor)),
         const SizedBox(height: 5),
         TextFormField(
           controller: controller,
           obscureText: !showPassword,
           validator: validator,
+          style: TextStyle(color: textColor),
           decoration: InputDecoration(
             hintText: "Enter $label".toLowerCase(),
-            prefixIcon: const Icon(Icons.lock_outline),
+            hintStyle: TextStyle(color: hintColor),
+            prefixIcon: Icon(Icons.lock_outline, color: hintColor),
             suffixIcon: IconButton(
               icon:
-                  Icon(showPassword ? Icons.visibility : Icons.visibility_off),
+                  Icon(showPassword ? Icons.visibility : Icons.visibility_off,
+                      color: hintColor),
               onPressed: toggleShow,
             ),
             border: OutlineInputBorder(

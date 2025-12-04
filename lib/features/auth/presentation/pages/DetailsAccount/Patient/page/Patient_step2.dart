@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,6 @@ import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
@@ -17,8 +17,10 @@ class PatientStep2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: App_Bar(title: 'Step 2 of 3'),
+      appBar: MainAppBar(title: 'Step 2 of 3'),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           var cubit = context.read<AuthCubit>();
@@ -36,19 +38,24 @@ class PatientStep2 extends StatelessWidget {
                       step: 2,
                     ),
                     Gap(30),
+
+                    // -------- Label ----------
                     Text(
                       'National ID',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: theme.colorScheme.primary,
                       ),
                     ),
                     Gap(20),
+
                     MainTextFormField(
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'please enter National ID';
+                        } else {
+                          return null;
                         }
                       },
                       inputFormat: [
@@ -60,22 +67,26 @@ class PatientStep2 extends StatelessWidget {
                       prefixIcon: AppIcons.ID_SVG,
                       label: 'National ID',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: theme.colorScheme.surface,
                     ),
+
                     Gap(20),
                     Text(
                       'Phone',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: theme.colorScheme.primary,
                       ),
                     ),
                     Gap(20),
+
                     MainTextFormField(
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'please enter Phone';
+                        } else {
+                          return null;
                         }
                       },
                       inputFormat: [
@@ -87,68 +98,80 @@ class PatientStep2 extends StatelessWidget {
                       prefixIcon: AppIcons.callSVG,
                       label: 'Phone',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: theme.colorScheme.surface,
                     ),
+
                     Gap(20),
                     Text(
                       'Address',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: theme.colorScheme.primary,
                       ),
                     ),
                     Gap(20),
+
                     MainTextFormField(
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'please enter Address';
+                        } else {
+                          return null;
                         }
                       },
                       controller: cubit.addressController,
                       prefixIcon: AppIcons.locationLine_SVG,
                       label: 'Address',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: theme.colorScheme.surface,
                     ),
+
                     Gap(20),
                     Divider(
-                      thickness: .5,
-                      color: AppColors.darkGreyColor,
+                      thickness: 0.5,
+                      color: theme.colorScheme.outline,
                       indent: 20,
                       endIndent: 20,
                     ),
+
                     Center(
                       child: Text(
                         'Please enter contact details to send a message to in case of emergency.',
-                        style: AppFontStyles.getSize14(),
+                        style: AppFontStyles.getSize14(
+                          fontColor: theme.colorScheme.onSurface,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
+
                     Gap(10),
                     Text(
                       'Name of contact details',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: theme.colorScheme.primary,
                       ),
                     ),
                     Gap(20),
+
                     MainTextFormField(
                       controller: cubit.nameFriendController,
                       prefixIcon: AppIcons.profileSVG,
                       label: 'Name',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: theme.colorScheme.surface,
                     ),
+
                     Gap(20),
                     Text(
                       'Phone of contact details',
                       style: AppFontStyles.getSize14(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: theme.colorScheme.primary,
                       ),
                     ),
                     Gap(20),
+
                     MainTextFormField(
                       keyboardType: TextInputType.number,
                       inputFormat: [
@@ -156,14 +179,13 @@ class PatientStep2 extends StatelessWidget {
                         LengthLimitingTextInputFormatter(11),
                         FilteringTextInputFormatter.digitsOnly,
                       ],
-
                       controller: cubit.phoneFriendController,
                       prefixIcon: AppIcons.callSVG,
-                      // sufixIcon: AppIcons.connectSVG,
                       label: 'Phone',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: theme.colorScheme.surface,
                     ),
+
                     Gap(20),
                   ],
                 ),

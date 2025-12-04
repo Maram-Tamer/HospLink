@@ -42,7 +42,7 @@ class _RequestscreenState extends State<Requestscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: !widget.accepted
-          ? App_Bar(
+          ? MainAppBar(
               title: " Details    ",
               leading: true,
             )
@@ -79,7 +79,7 @@ class _RequestscreenState extends State<Requestscreen> {
                           children: [
                             Icon(Icons.star, color: AppColors.yellow),
                             Text(
-                              "4.8",
+                              hospital?.rate ?? '',
                               style: AppFontStyles.getSize16(
                                 fontColor: AppColors.darkColor,
                                 fontWeight: FontWeight.w600,
@@ -91,12 +91,12 @@ class _RequestscreenState extends State<Requestscreen> {
                               height: 25,
                               width: 25,
                               colorFilter: ColorFilter.mode(
-                                AppColors.primaryGreenColor,
+                                AppColors.primaryBlueColor,
                                 BlendMode.srcIn,
                               ),
                             ),
                             Text(
-                              "+1200 cases",
+                              hospital?.totalPatient ?? '',
                               style: AppFontStyles.getSize16(
                                 fontColor: AppColors.darkColor,
                                 fontWeight: FontWeight.w600,
@@ -146,7 +146,7 @@ class _RequestscreenState extends State<Requestscreen> {
                           'click here to go google maps ↧',
                           style: AppFontStyles.getSize14(
                             fontColor: AppColors.darkColor,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         Gap(5),
@@ -174,13 +174,14 @@ class _RequestscreenState extends State<Requestscreen> {
                 Text(
                   'Request Details',
                   style: AppFontStyles.getSize24(
-                      fontColor: AppColors.primaryGreenColor),
+                      fontWeight: FontWeight.w600,
+                      fontColor: AppColors.primaryBlueColor),
                 ),
                 Gap(10),
                 Divider(
                   height: 1,
                   thickness: 1,
-                  color: AppColors.primaryGreenColor,
+                  color: AppColors.primaryBlueColor,
                 ),
                 Gap(10),
                 Padding(
@@ -203,13 +204,13 @@ class _RequestscreenState extends State<Requestscreen> {
               if (request!.state == 'Pending') ...[
                 Expanded(
                   child: MainButton(
-                    buttonText: "Cansel",
+                    buttonText: "Cancel",
                     buttomColor: AppColors.red,
                     onPressed: () {
                       FirebaseServices.deleteRequest(request!.requestID ?? '');
                       pop(context);
                     },
-                    icon: AppIcons.completeSVG,
+                    icon: AppIcons.deleteSVG,
                   ),
                 ),
               ],
@@ -232,7 +233,7 @@ class _RequestscreenState extends State<Requestscreen> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppColors.primaryGreenColor,
+                      color: AppColors.primaryBlueColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: SvgPicture.asset(

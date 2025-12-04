@@ -16,7 +16,7 @@ class CurveCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 200,
-        color: AppColors.primaryGreenColor,
+        color: AppColors.primaryBlueColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

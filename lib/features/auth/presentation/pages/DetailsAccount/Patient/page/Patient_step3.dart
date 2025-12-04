@@ -6,7 +6,6 @@ import 'package:group_button/group_button.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/constatnts/Lists.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
@@ -24,8 +23,12 @@ class _PatientStep3State extends State<PatientStep3> {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+    final surface = Theme.of(context).colorScheme.surface;
+
     return Scaffold(
-      appBar: App_Bar(title: 'Step 3 of 3'),
+      appBar: MainAppBar(title: 'Step 3 of 3'),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           var cubit = context.read<AuthCubit>();
@@ -34,25 +37,19 @@ class _PatientStep3State extends State<PatientStep3> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              //mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                StepsCard(
-                  context: context,
-                  step: 3,
-                ),
+                StepsCard(context: context, step: 3),
                 Gap(50),
+
+                // ===== Blood Type =====
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
                       width: 20,
                       height: 20,
                       child: SvgPicture.asset(
                         AppIcons.booldSVG,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.primaryGreenColor,
-                          BlendMode.srcIn,
-                        ),
+                        colorFilter: ColorFilter.mode(primary, BlendMode.srcIn),
                       ),
                     ),
                     Gap(5),
@@ -60,65 +57,66 @@ class _PatientStep3State extends State<PatientStep3> {
                       'Determine your blood type.',
                       style: AppFontStyles.getSize16(
                         fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: primary,
                       ),
                     ),
                   ],
                 ),
                 Gap(15),
+
                 GroupButton(
                   controller: cubit.booldController,
                   isRadio: true,
                   buttons: Boold,
-                  options: const GroupButtonOptions(
+                  options: GroupButtonOptions(
                     spacing: 10,
                     runSpacing: 10,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    selectedColor:
-                        AppColors.primaryGreenColor, // لون عند التحديد
-                    unselectedColor: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    selectedColor: primary,
+                    unselectedColor: surface,
                     selectedTextStyle: TextStyle(color: Colors.white),
-                    unselectedTextStyle: TextStyle(color: Colors.black),
+                    unselectedTextStyle: TextStyle(color: onSurface),
                   ),
                   onSelected: (value, index, isSelected) {},
                 ),
+
                 Gap(30),
+
+                // ===== Chronic Illness =====
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
                       width: 20,
                       height: 20,
                       child: Image.asset(
                         AppIcons.sick,
-                        color: AppColors.primaryGreenColor,
+                        color: primary,
                       ),
                     ),
                     Gap(5),
                     Text(
                       'Do you have any chronic illnesses?',
                       style: AppFontStyles.getSize16(
-                        fontColor: AppColors.primaryGreenColor,
+                        fontColor: primary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
                 Gap(15),
+
                 GroupButton(
-                  
                   controller: cubit.illnessesController,
                   isRadio: false,
                   buttons: chronicDiseases,
-                  options: const GroupButtonOptions(
+                  options: GroupButtonOptions(
                     spacing: 10,
                     runSpacing: 10,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    selectedColor:
-                        AppColors.primaryGreenColor, // لون عند التحديد
-                    unselectedColor: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    selectedColor: primary,
+                    unselectedColor: surface,
                     selectedTextStyle: TextStyle(color: Colors.white),
-                    unselectedTextStyle: TextStyle(color: Colors.black),
+                    unselectedTextStyle: TextStyle(color: onSurface),
                   ),
                   onSelected: (value, index, isSelected) {},
                 ),
@@ -127,7 +125,6 @@ class _PatientStep3State extends State<PatientStep3> {
           );
         },
       ),
-      
     );
   }
 }

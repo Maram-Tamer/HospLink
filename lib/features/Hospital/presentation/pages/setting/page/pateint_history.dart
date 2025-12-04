@@ -16,7 +16,7 @@ class _PatientHistoryScrrenState extends State<PatientHistoryScrren> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(title: 'Hospital History', leading: true),
+      appBar: MainAppBar(title: 'Hospital History', leading: true),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView.separated(

@@ -29,7 +29,7 @@ class ChatScreen extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.arrow_back_sharp,
-                          color: AppColors.BlueBouttmnavigation,
+                          color: AppColors.blueBouttomnavigation,
                         ),
                       ),
                       CircleAvatar(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
 class Getlocation extends StatefulWidget {
   const Getlocation({super.key});

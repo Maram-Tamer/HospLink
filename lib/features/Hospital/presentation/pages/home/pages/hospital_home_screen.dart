@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Hospital/presentation/pages/home/widgets/patient_card.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
@@ -13,10 +12,17 @@ class HospitalHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Get theme
     log(LocalHelper.getUserId() ?? '');
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('Requests'),
+        title: Text(
+          'Requests',
+          style: theme.textTheme.titleMedium
+              ?.copyWith(color: theme.colorScheme.onPrimary), // theme-aware
+        ),
+        backgroundColor: theme.colorScheme.primary, // theme-aware
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
@@ -37,12 +43,14 @@ class HospitalHomeScreen extends StatelessWidget {
                   Text(
                     'No hospitals found',
                     style: AppFontStyles.getSize18(
-                        fontColor: AppColors.primaryGreenColor,
-                        fontWeight: FontWeight.w600),
+                      fontColor: theme.colorScheme.primary, // theme-aware
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               );
             }
+
             var requests = snapshot.data.docs;
             List<RequestModel> requestsList = [];
             for (var request in requests) {
@@ -51,6 +59,7 @@ class HospitalHomeScreen extends StatelessWidget {
                     request.data() as Map<String, dynamic>));
               }
             }
+
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: ListView.separated(

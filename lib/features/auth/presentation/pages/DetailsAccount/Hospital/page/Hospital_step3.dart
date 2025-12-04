@@ -1,4 +1,3 @@
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/components/inputs/main_text_form_field.dart';
 import 'package:medigo/core/constatnts/icons.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
@@ -23,8 +21,10 @@ class HospitalStep3 extends StatefulWidget {
 class _HospitalStep3State extends State<HospitalStep3> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: App_Bar(title: 'Step 3 of 3'),
+      appBar: MainAppBar(title: 'Step 3 of 3'),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           var cubit = context.read<AuthCubit>();
@@ -35,18 +35,25 @@ class _HospitalStep3State extends State<HospitalStep3> {
               child: Form(
                 key: cubit.formKey3,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     StepsCard(
                       context: context,
                       step: 3,
                     ),
                     Gap(30),
-                    Text(
-                      'Website',
-                      style: AppFontStyles.getSize18(
-                        fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+
+                    // WEBSITE
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Website',
+                        style: AppFontStyles.getSize18(
+                          fontWeight: FontWeight.w600,
+                          fontColor: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : theme.primaryColor,
+                        ),
                       ),
                     ),
                     Gap(20),
@@ -54,25 +61,41 @@ class _HospitalStep3State extends State<HospitalStep3> {
                       controller: cubit.websiteController,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: AppColors.fillTextForm,
-                        labelStyle: TextStyle(color: AppColors.darkGreyColor),
+                        fillColor: theme.inputDecorationTheme.fillColor,
+                        labelStyle: TextStyle(
+                          color: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : theme.colorScheme.onSurface,
+                        ),
                         hintStyle: AppFontStyles.getSize14(
-                          fontColor: AppColors.greyColor,
+                          fontColor: theme.hintColor,
                         ),
                         hintText: "https://example.com",
                         prefixIcon: Icon(
                           Icons.language,
-                          color: AppColors.primaryGreenColor,
+                          color: theme.primaryColor,
                         ),
+                      ),
+                      style: TextStyle(
+                        color: theme.brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black87,
                       ),
                       keyboardType: TextInputType.url,
                     ),
                     Gap(20),
-                    Text(
-                      'Description',
-                      style: AppFontStyles.getSize18(
-                        fontWeight: FontWeight.w600,
-                        fontColor: AppColors.primaryGreenColor,
+
+                    // DESCRIPTION
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Description',
+                        style: AppFontStyles.getSize18(
+                          fontWeight: FontWeight.w600,
+                          fontColor: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : theme.primaryColor,
+                        ),
                       ),
                     ),
                     Gap(20),
@@ -80,41 +103,54 @@ class _HospitalStep3State extends State<HospitalStep3> {
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'please enter Description';
+                        } else {
+                          return null;
                         }
                       },
                       controller: cubit.descriptionController,
                       maxTextLines: 4,
                       label: 'Description',
                       ispassword: false,
-                      colorFill: AppColors.fillTextForm,
+                      colorFill: theme.inputDecorationTheme.fillColor,
+                      textColor: theme.brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black87,
                     ),
                     Gap(20),
-                    Text(
-                      "Upload the official document from the hospital.",
-                      style: AppFontStyles.getSize16(
-                        fontColor: AppColors.primaryGreenColor,
-                        fontWeight: FontWeight.w600,
+
+                    // UPLOAD DOCUMENT
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Upload the official document from the hospital.",
+                        style: AppFontStyles.getSize16(
+                          fontColor: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : theme.primaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                     Gap(10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DottedBorder(
-                        color: AppColors.greyColor,
+                        color: theme.dividerColor,
                         strokeWidth: 1,
                         dashPattern: [5, 3],
                         borderType: BorderType.RRect,
                         radius: Radius.circular(8),
                         child: GestureDetector(
                           onTap: () async {
-                            cubit.upladFile(context);                           
+                            cubit.upladFile(context);
                           },
                           child: SizedBox(
                             width: double.infinity,
                             height: 140,
                             child: Container(
-                              decoration:
-                                  BoxDecoration(color: AppColors.fillTextForm),
+                              decoration: BoxDecoration(
+                                color: theme.inputDecorationTheme.fillColor,
+                              ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -124,8 +160,8 @@ class _HospitalStep3State extends State<HospitalStep3> {
                                         : cubit.filePath!.split('/').last,
                                     style: AppFontStyles.getSize16(
                                       fontColor: (cubit.filePath == null)
-                                          ? AppColors.darkGreyColor
-                                          : AppColors.red,
+                                          ? theme.disabledColor
+                                          : theme.colorScheme.error,
                                     ),
                                   ),
                                   const SizedBox(height: 10),
@@ -133,11 +169,10 @@ class _HospitalStep3State extends State<HospitalStep3> {
                                     AppIcons.fileSVG,
                                     width: 50,
                                     height: 50,
-                                    fit: BoxFit.contain,
                                     colorFilter: ColorFilter.mode(
                                       (cubit.filePath == null)
-                                          ? AppColors.darkGreyColor
-                                          : AppColors.red,
+                                          ? theme.disabledColor
+                                          : theme.colorScheme.error,
                                       BlendMode.srcIn,
                                     ),
                                   ),
@@ -149,10 +184,25 @@ class _HospitalStep3State extends State<HospitalStep3> {
                       ),
                     ),
                     Gap(20),
+
+                    // LOCATION PICKER
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Set Hospital Location",
+                        style: AppFontStyles.getSize16(
+                          fontColor: theme.brightness == Brightness.dark
+                              ? Colors.white
+                              : theme.primaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Gap(10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DottedBorder(
-                        color: AppColors.greyColor,
+                        color: theme.dividerColor,
                         strokeWidth: 1,
                         dashPattern: [5, 3],
                         borderType: BorderType.RRect,
@@ -165,40 +215,41 @@ class _HospitalStep3State extends State<HospitalStep3> {
                             width: double.infinity,
                             height: 130,
                             child: Container(
-                                decoration: BoxDecoration(
-                                    color: AppColors.fillTextForm),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
+                              decoration: BoxDecoration(
+                                color: theme.inputDecorationTheme.fillColor,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    (cubit.positionLati == null)
+                                        ? "click to set Location"
+                                        : 'Location: ${cubit.positionLong} , ${cubit.positionLati}',
+                                    style: AppFontStyles.getSize16(
+                                      fontColor: (cubit.positionLati == null)
+                                          ? theme.disabledColor
+                                          : theme.colorScheme.secondary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  SvgPicture.asset(
+                                    AppIcons.locationLine_SVG,
+                                    width: 50,
+                                    height: 50,
+                                    colorFilter: ColorFilter.mode(
                                       (cubit.positionLati == null)
-                                          ? "click to set Location"
-                                          : 'Location is ${cubit.positionLong} , ${cubit.positionLati}',
-                                      style: AppFontStyles.getSize16(
-                                        fontColor: (cubit.positionLati == null)
-                                            ? AppColors.darkGreyColor
-                                            : AppColors.green,
-                                      ),
+                                          ? theme.disabledColor
+                                          : theme.colorScheme.secondary,
+                                      BlendMode.srcIn,
                                     ),
-                                    const SizedBox(height: 10),
-                                    SvgPicture.asset(
-                                      AppIcons.locationLine_SVG,
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.contain,
-                                      colorFilter: ColorFilter.mode(
-                                        (cubit.positionLati == null)
-                                            ? AppColors.darkGreyColor
-                                            : AppColors.green,
-                                        BlendMode.srcIn,
-                                      ),
-                                    ),
-                                  ],
-                                )),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -232,9 +283,8 @@ class _HospitalStep3State extends State<HospitalStep3> {
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            'Location services are disabled. Please enable the services',
-          ),
+          content:
+              Text('Location services are disabled. Please enable the services'),
         ),
       );
       return false;
@@ -264,13 +314,14 @@ class _HospitalStep3State extends State<HospitalStep3> {
 }
 
 Row steps_3(BuildContext context) {
+  final theme = Theme.of(context);
   return Row(
     children: [
       Container(
         height: 5,
         width: MediaQuery.of(context).size.width / 3.5,
         decoration: BoxDecoration(
-          color: AppColors.primaryGreenColor,
+          color: theme.primaryColor,
           borderRadius: BorderRadius.circular(15),
         ),
       ),
@@ -279,7 +330,7 @@ Row steps_3(BuildContext context) {
         height: 5,
         width: MediaQuery.of(context).size.width / 3.37,
         decoration: BoxDecoration(
-          color: AppColors.primaryGreenColor,
+          color: theme.primaryColor,
           borderRadius: BorderRadius.circular(15),
         ),
       ),
@@ -288,7 +339,7 @@ Row steps_3(BuildContext context) {
         height: 10,
         width: MediaQuery.of(context).size.width / 3.37,
         decoration: BoxDecoration(
-          color: AppColors.primaryGreenColor,
+          color: theme.primaryColor,
           borderRadius: BorderRadius.circular(15),
         ),
       ),

@@ -52,7 +52,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(title: 'Notifications', leading: true, action: false),
+      appBar: MainAppBar(title: 'Notifications', leading: true, action: false),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: notifications.length,

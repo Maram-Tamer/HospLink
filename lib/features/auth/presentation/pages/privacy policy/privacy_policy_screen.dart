@@ -7,10 +7,37 @@ import 'package:medigo/core/utils/fonts.dart';
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
+  // Reusable bullet point row
+  Widget _bulletPoint(String text) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(
+            color: AppColors.primaryBlueColor,
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          child: Text(
+            text,
+            style: AppFontStyles.getSize14(fontWeight: FontWeight.w500),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(leading: true, title: 'Privacy'),
+      appBar: MainAppBar(
+        leading: true,
+        title: 'Privacy',
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -24,107 +51,31 @@ class PrivacyPolicyScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Gap(15),
+              const Gap(15),
               Text(
-                'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words believable. It is a long established fact that reader will distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a moreIt is a long established fact that reader will distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more ',
+                'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words believable. It is a long established fact that reader will be distracted by the readable content of a page when looking at its layout.',
                 style: AppFontStyles.getSize14(fontWeight: FontWeight.w500),
               ),
-              Gap(15),
+              const Gap(15),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryGreenColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          width: 8,
-                          height: 8,
-                        ),
-                        Gap(15),
-                        Expanded(
-                          child: Text(
-                            'The standard chunk of lorem Ipsum used since  1500s is reproduced below for those interested. ',
-                            style: AppFontStyles.getSize14(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Gap(10),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryGreenColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          width: 8,
-                          height: 8,
-                        ),
-                        Gap(15),
-                        Expanded(
-                          child: Text(
-                            'Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum. The point of using.',
-                            style: AppFontStyles.getSize14(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Gap(10),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryGreenColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          width: 8,
-                          height: 8,
-                        ),
-                        Gap(15),
-                        Expanded(
-                          child: Text(
-                            ' Lorem Ipsum is that it has a moreIt is a long established fact that reader will distracted.',
-                            style: AppFontStyles.getSize14(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Gap(10),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryGreenColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          width: 8,
-                          height: 8,
-                        ),
-                        Gap(15),
-                        Expanded(
-                          child: Text(
-                            'The point of using Lorem Ipsum is that it has a moreIt is a long established fact that reader will distracted.',
-                            style: AppFontStyles.getSize14(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    _bulletPoint(
+                        'The standard chunk of Lorem Ipsum used since 1500s is reproduced below for those interested.'),
+                    const Gap(10),
+                    _bulletPoint(
+                        'Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum. The point of using.'),
+                    const Gap(10),
+                    _bulletPoint(
+                        'Lorem Ipsum is that it has a moreIt is a long established fact that reader will be distracted.'),
+                    const Gap(10),
+                    _bulletPoint(
+                        'The point of using Lorem Ipsum is that it has a moreIt is a long established fact that reader will be distracted.'),
                   ],
                 ),
               ),
-              Gap(15),
+              const Gap(15),
               Text(
                 'It is a long established fact that reader distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a moreIt is a long established.',
                 style: AppFontStyles.getSize14(fontWeight: FontWeight.w500),

@@ -31,7 +31,7 @@ class CartNotification extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: AppColors.primaryGreenColor.withOpacity(0.1),
+              color: AppColors.primaryBlueColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: ClipRRect(
@@ -53,7 +53,7 @@ class CartNotification extends StatelessWidget {
               width: 8,
               height: 8,
               decoration: const BoxDecoration(
-                color: AppColors.primaryGreenColor,
+                color: AppColors.primaryBlueColor,
                 shape: BoxShape.circle,
               ),
             ),

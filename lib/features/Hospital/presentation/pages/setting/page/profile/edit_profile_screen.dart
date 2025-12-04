@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/core/constatnts/images.dart';
-import 'package:medigo/core/utils/colors.dart';
 
 class EditProfileScreenH extends StatelessWidget {
   const EditProfileScreenH({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final nameController = TextEditingController();
     final phoneController = TextEditingController();
     final locationController = TextEditingController();
     final nationalIdController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.background,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryGreenColor,
+        backgroundColor: theme.colorScheme.primary,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           "Edit Profile",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: theme.colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -38,7 +42,7 @@ class EditProfileScreenH extends StatelessWidget {
                     bottomLeft: Radius.circular(25),
                     bottomRight: Radius.circular(25),
                   ),
-                  color: AppColors.primaryGreenColor,
+                  color: theme.colorScheme.primary,
                 ),
                 width: double.infinity,
                 height: 120,
@@ -51,7 +55,7 @@ class EditProfileScreenH extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Gap(150),
-                      const Text("Name"),
+                      Text("Name", style: theme.textTheme.bodyMedium),
                       const SizedBox(height: 5),
                       TextFormField(
                         controller: nameController,
@@ -63,48 +67,48 @@ class EditProfileScreenH extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Text("Phone Number"),
+                      Text("Phone Number", style: theme.textTheme.bodyMedium),
                       const SizedBox(height: 5),
                       TextFormField(
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           hintText: "Enter your phone number",
-                          suffixIcon: const Icon(Icons.edit, color: Colors.grey),
+                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onBackground.withOpacity(0.5)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Text("Second Phone Number "),
+                      Text("Second Phone Number", style: theme.textTheme.bodyMedium),
                       const SizedBox(height: 5),
                       TextFormField(
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                          hintText: "Enter your second phone number ",
-                          suffixIcon: const Icon(Icons.edit, color: Colors.grey),
+                          hintText: "Enter your second phone number",
+                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onBackground.withOpacity(0.5)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Text("Office Email"),
+                      Text("Office Email", style: theme.textTheme.bodyMedium),
                       const SizedBox(height: 5),
                       TextFormField(
                         controller: locationController,
                         decoration: InputDecoration(
                           hintText: "Enter your Email",
-                          suffixIcon: const Icon(Icons.edit, color: Colors.grey),
+                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onBackground.withOpacity(0.5)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Text("description"),
+                      Text("Description", style: theme.textTheme.bodyMedium),
                       const SizedBox(height: 5),
                       TextFormField(
                         controller: nationalIdController,
@@ -125,7 +129,7 @@ class EditProfileScreenH extends StatelessWidget {
                           height: 48,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryGreenColor,
+                              backgroundColor: theme.colorScheme.primary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -133,12 +137,12 @@ class EditProfileScreenH extends StatelessWidget {
                             onPressed: () {
                               // TODO: Save logic
                             },
-                            child: const Text(
+                            child: Text(
                               "Save Changes",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: theme.colorScheme.onPrimary,
                               ),
                             ),
                           ),
@@ -156,20 +160,20 @@ class EditProfileScreenH extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 48,
-                      backgroundColor: AppColors.whiteColor,
+                      backgroundColor: theme.colorScheme.background,
                       child: const CircleAvatar(
                         radius: 45,
                         backgroundImage: AssetImage(AppImages.hospitalPhoto4),
                       ),
                     ),
                     CircleAvatar(
-                      backgroundColor: Colors.white,
+                      backgroundColor: theme.colorScheme.background,
                       radius: 16,
                       child: IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.camera_alt,
                           size: 16,
-                          color: AppColors.primaryGreenColor,
+                          color: theme.colorScheme.primary,
                         ),
                         onPressed: () {},
                       ),

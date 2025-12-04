@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/features/Intro/onboarding/widget/onBoardingModel.dart';
 
-class pagwViewDesign extends StatelessWidget {
-  pagwViewDesign({super.key, required this.index});
-  int index;
+// ignore: must_be_immutable
+class PageViewDesign extends StatelessWidget {
+  PageViewDesign({super.key, required this.index});
+  
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Spacer(),
-        Image.asset(onboardingList[index].image, height: 300),
-        Spacer(),
+        const Spacer(),
+        Image.asset(
+          onboardingList[index].image,
+          height: 300,
+        ),
+        const Spacer(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
@@ -22,24 +27,24 @@ class pagwViewDesign extends StatelessWidget {
                 child: Text(
                   onboardingList[index].title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 35,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 onboardingList[index].description,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
             ],
           ),
         ),

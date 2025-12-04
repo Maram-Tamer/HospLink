@@ -4,85 +4,134 @@ import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
 
 class AppTheme {
+  // ---------------- LIGHT THEME ---------------- //
   static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    fontFamily: AppFonts.fontFamily,
+
+    colorScheme: ColorScheme(
+      brightness: Brightness.light,
+      primary: AppColors.primaryBlueColor,
+      onPrimary: AppColors.whiteColor,
+      secondary: AppColors.slateGrayColor,
+      onSecondary: AppColors.darkColor,
+      error: Colors.red.shade700,
+      onError: AppColors.whiteColor,
+      background: AppColors.blueLight,
+      onBackground: AppColors.darkColor,
+      surface: AppColors.whiteColor,
+      onSurface: AppColors.blackColor,
+      surfaceVariant: AppColors.slateGrayColor.withAlpha(40),
+      onSurfaceVariant: AppColors.darkColor,
+      outline: AppColors.slateGrayColor,
+    ),
+
     scaffoldBackgroundColor: AppColors.blueLight,
+
     appBarTheme: AppBarTheme(
       centerTitle: true,
-      titleTextStyle: AppFontStyles.getSize24(fontColor: AppColors.blackColor),
       backgroundColor: AppColors.blueLight,
-      foregroundColor: AppColors.primaryGreenColor,
       surfaceTintColor: Colors.transparent,
+      foregroundColor: AppColors.primaryBlueColor,
+      elevation: 0,
+      titleTextStyle:
+          AppFontStyles.getSize24(fontColor: AppColors.darkColor),
     ),
-    fontFamily: AppFonts.fontFamily,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.darkColor,
-      onSurface: AppColors.darkColor,
-    ),
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.whiteColor,
-      selectedItemColor: AppColors.primaryGreenColor,
+      selectedItemColor: AppColors.primaryBlueColor,
       unselectedItemColor: AppColors.greyColor,
       showSelectedLabels: false,
       showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
     ),
+
+    // -------- LIGHT THEME INPUT FIELD --------
     inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.whiteColor, // ⭐ light fill
+      labelStyle: TextStyle(color: AppColors.darkColor),
+      hintStyle: TextStyle(color: AppColors.slateGrayColor),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide:
-            BorderSide(color: AppColors.slateGrayColor.withAlpha(50), width: 1),
+        borderSide: BorderSide(
+          color: AppColors.slateGrayColor.withAlpha(50),
+          width: 1,
+        ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: AppColors.primaryGreenColor, width: 1),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: Colors.red, width: 1),
+        borderSide: BorderSide(
+          color: AppColors.primaryBlueColor,
+          width: 1,
+        ),
       ),
     ),
   );
 
+  // ---------------- DARK THEME ---------------- //
   static ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: AppColors.greyColor,
+    useMaterial3: true,
+    fontFamily: AppFonts.fontFamily,
+
+    colorScheme: ColorScheme(
+      brightness: Brightness.dark,
+      primary: AppColors.primaryBlueColor,
+      onPrimary: AppColors.primaryDarkText,
+      secondary: AppColors.inactiveDarkAccent,
+      onSecondary: AppColors.primaryDarkText,
+      error: Colors.red.shade400,
+      onError: AppColors.primaryDarkText,
+      background: AppColors.darkModeBackground,
+      onBackground: AppColors.primaryDarkText,
+      surface: AppColors.darkCardSurface,
+      onSurface: AppColors.primaryDarkText,
+      surfaceVariant: AppColors.inactiveDarkAccent,
+      onSurfaceVariant: AppColors.primaryDarkText,
+      outline: AppColors.inactiveDarkAccent,
+    ),
+
+    scaffoldBackgroundColor: AppColors.darkModeBackground,
+
     appBarTheme: AppBarTheme(
       centerTitle: true,
-      titleTextStyle: AppFontStyles.getSize24(fontColor: AppColors.whiteColor),
-      backgroundColor: AppColors.greyColor,
-      foregroundColor: AppColors.primaryGreenColor,
+      backgroundColor: AppColors.darkCardSurface,
       surfaceTintColor: Colors.transparent,
+      foregroundColor: AppColors.primaryBlueColor,
       elevation: 0,
+      titleTextStyle:
+          AppFontStyles.getSize24(fontColor: AppColors.primaryDarkText),
     ),
-    fontFamily: AppFonts.fontFamily,
-    colorScheme: ColorScheme.dark(
-      primary: AppColors.primaryGreenColor,
-      onPrimary: AppColors.whiteColor,
-      background: AppColors.greyColor,
-      onBackground: AppColors.whiteColor,
-      surface: AppColors.greyColor,
-      onSurface: AppColors.whiteColor,
-    ),
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.greyColor,
-      selectedItemColor: AppColors.primaryGreenColor,
-      unselectedItemColor: AppColors.greyColor,
+      backgroundColor: AppColors.darkCardSurface,
+      selectedItemColor: AppColors.primaryBlueColor,
+      unselectedItemColor: AppColors.secondaryDarkText,
       showSelectedLabels: false,
       showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
     ),
+
+    // -------- DARK THEME INPUT FIELD --------
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: AppColors.greyColor,
       filled: true,
+      fillColor: AppColors.darkCardSurface, // ⭐ dark fill
+      labelStyle: TextStyle(color: AppColors.secondaryDarkText),
+      hintStyle: TextStyle(color: AppColors.secondaryDarkText),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(
-            color: AppColors.slateGrayColor.withAlpha(100), width: 1),
+          color: AppColors.inactiveDarkAccent,
+          width: 1,
+        ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: AppColors.primaryGreenColor, width: 1),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: Colors.red, width: 1),
+        borderSide: BorderSide(
+          color: AppColors.primaryBlueColor,
+          width: 1,
+        ),
       ),
     ),
   );

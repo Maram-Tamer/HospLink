@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/Intro/splash/widget/splash.dart';
-import 'package:medigo/features/auth/data/models/user.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,13 +14,18 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 1), () {
-      bool onBoarding = LocalHelper.getIsOnBoardingShown() ?? false;
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      final bool onBoarding = LocalHelper.getIsOnBoardingShown() ?? false;
+      final String? userId = LocalHelper.getUserId();
+      final String? userType = LocalHelper.getUserType();
+
       if (onBoarding) {
-        if (LocalHelper.getUserId() != null) {
-          if (LocalHelper.getUserType() == 'hospital') {
+        if (userId != null) {
+          if (userType == 'hospital') {
             pushWithReplacment(context: context, route: Routes.Main_hospital);
-          } else if (LocalHelper.getUserType() == 'patient') {
+          } else if (userType == 'patient') {
             pushWithReplacment(context: context, route: Routes.Main_patient);
           } else {
             pushWithReplacment(context: context, route: Routes.welcom);
@@ -36,14 +37,17 @@ class _SplashScreenState extends State<SplashScreen> {
         pushWithReplacment(context: context, route: Routes.onBoarding_1);
       }
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.blueLight,
-      body: Splash(),
-    );
-  }
+  final brightness = Theme.of(context).brightness;
+
+  return Scaffold(
+    backgroundColor: brightness == Brightness.dark
+        ? Colors.black // Dark mode background
+        : Colors.white, // Light mode background
+    body: const Splash(),
+  );
+}
 }

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
-import 'package:medigo/core/routes/navigation.dart';
-import 'package:medigo/core/routes/routes.dart';
+import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
 import 'package:medigo/features/Patient/data/model/getRequestModel.dart';
 import 'package:medigo/features/Patient/data/model/request-model.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
-import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
 import 'package:medigo/features/Patient/presentation/pages/requests/page/requestScreen.dart';
+import 'package:medigo/features/patient/presentation/pages/home/presentation/widget/hospital_card.dart';
 
 class RequestsPatient extends StatelessWidget {
   const RequestsPatient({super.key});
@@ -18,7 +17,7 @@ class RequestsPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: App_Bar(
+      appBar: MainAppBar(
         title: 'Requests',
       ),
       body: BlocProvider(
@@ -27,12 +26,29 @@ class RequestsPatient extends StatelessWidget {
           stream: FirebaseServices.getRequestsPatient(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text("No Requests"));
+              return const Center(child: CircularProgressIndicator());
             }
 
+            // Show Lottie animation if no requests
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(AppImages.profileWelcom, width: 90, height: 90,
+                    fit: BoxFit.cover,
+                    ),
+                    const Gap(10),
+                    const Text(
+                      "No Requests",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            // If only 1 request
             if (snapshot.hasData && snapshot.data!.length == 1) {
               final items = snapshot.data!;
               final hospital = items[0].hospital;
@@ -46,26 +62,24 @@ class RequestsPatient extends StatelessWidget {
                 accepted: true,
               );
             }
+
+            // Multiple requests
             return ListView.separated(
-                itemBuilder: (context, index) {
-                  if (!snapshot.hasData) {
-                    return Center(child: Text('No Data'));
-                  }
-                  final items = snapshot.data!;
-                  final hospital = items[index].hospital;
-                  final request = items[index].request;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: HospitalCard(
-                      hospital: HospitalModel.fromJson(hospital),
-                      request: RequestModel.fromJson(request),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Gap(10);
-                },
-                itemCount: snapshot.data!.length);
+              itemBuilder: (context, index) {
+                final items = snapshot.data!;
+                final hospital = items[index].hospital;
+                final request = items[index].request;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: HospitalCard(
+                    hospital: HospitalModel.fromJson(hospital),
+                    request: RequestModel.fromJson(request),
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => const Gap(10),
+              itemCount: snapshot.data!.length,
+            );
           },
         ),
       ),

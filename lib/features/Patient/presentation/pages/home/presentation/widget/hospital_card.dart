@@ -15,16 +15,19 @@ import 'package:medigo/features/Patient/data/model/request-model.dart';
 import 'package:medigo/features/Patient/data/repo/patient-repo.dart';
 
 class HospitalCard extends StatefulWidget {
-  const HospitalCard(
-      {super.key,
-      this.submitRequest = false,
-      required this.hospital,
-      this.km,
-      this.request});
+  const HospitalCard({
+    super.key,
+    this.submitRequest = false,
+    required this.hospital,
+    this.km,
+    this.request,
+  });
+
   final double? km;
   final bool submitRequest;
   final HospitalModel hospital;
   final RequestModel? request;
+
   @override
   State<HospitalCard> createState() => _HospitalCardState();
 }
@@ -35,14 +38,38 @@ class _HospitalCardState extends State<HospitalCard> {
   late bool isFavorite =
       patient.favoriteHospitals?.contains(widget.hospital.uid) ?? false;
 
+  Color _getStatusBackgroundColor(String state, ColorScheme colorScheme) {
+    if (state == 'Accepted') {
+      return Colors.green.withOpacity(0.15);
+    } else if (state == 'Rejected') {
+      return colorScheme.error.withOpacity(0.15);
+    }
+    return colorScheme.primary.withOpacity(0.1);
+  }
+
+  Color _getStatusTextColor(String state, ColorScheme colorScheme) {
+    return Colors.white; 
+  }
+
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    /// Updated Text Colors (responsive)
+    final primaryTextColor = isDark ? Colors.white : Colors.black87;
+    final secondaryTextColor =
+        isDark ? Colors.white70 : Colors.black54;
+
+    final favoriteIconColor = AppColors.red;
+    final starIconColor = Colors.yellow;
+
     return Dismissible(
       key: UniqueKey(),
       direction: (widget.request?.state == 'Rejected')
           ? DismissDirection.endToStart
           : DismissDirection.none,
-      background: SizedBox(),
+      background: const SizedBox(),
       onDismissed: (direction) {
         if (direction == DismissDirection.endToStart) {
           FirebaseServices.deleteRequest(widget.request?.requestID ?? '');
@@ -51,18 +78,18 @@ class _HospitalCardState extends State<HospitalCard> {
       secondaryBackground: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.red,
+          color: colorScheme.error,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Icon(Icons.delete_outline_outlined, color: AppColors.whiteColor),
-            Gap(8),
+            Icon(Icons.delete_outline_outlined, color: colorScheme.onError),
+            const Gap(8),
             Text(
               'Delete !',
               style: AppFontStyles.getSize14(
-                fontColor: AppColors.whiteColor,
+                fontColor: colorScheme.onError,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -94,36 +121,36 @@ class _HospitalCardState extends State<HospitalCard> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.whiteColor,
+            color: colorScheme.surface,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withValues(alpha: 30),
+                color: isDark
+                    ? Colors.black.withOpacity(0.4)
+                    : Colors.grey.withOpacity(0.3),
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
           child: Padding(
-            padding:
-                const EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
+            padding: const EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
             child: Column(
               children: [
-                Gap(5),
+                const Gap(5),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    /// IMAGE FIX — prevents crash when URL is empty
-
+                    /// IMAGE
                     Center(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
                           widget.hospital.imageUri?.isNotEmpty == true
                               ? widget.hospital.imageUri!
-                              : "https://via.placeholder.com/70", // fallback image
+                              : "https://via.placeholder.com/70",
                           width: 70,
                           height: 70,
                           fit: BoxFit.cover,
@@ -137,9 +164,9 @@ class _HospitalCardState extends State<HospitalCard> {
                       ),
                     ),
 
-                    Gap(15),
+                    const Gap(15),
 
-                    /// TEXT AREA (Expanded fixes overflow)
+                    /// TEXT AREA
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,52 +177,53 @@ class _HospitalCardState extends State<HospitalCard> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: AppFontStyles.getSize16(
-                              fontColor: AppColors.blackColor,
+                              fontColor: primaryTextColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Gap(5),
+                          const Gap(5),
 
                           /// Address
                           Row(
                             children: [
-                              Gap(5),
+                              const Gap(5),
                               Expanded(
                                 child: Text(
                                   widget.hospital.address ?? 'No address',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   style: AppFontStyles.getSize12(
-                                    fontColor: AppColors.slateGrayColor,
+                                    fontColor: secondaryTextColor,
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          Gap(5),
+                          const Gap(5),
 
-                          /// Rating
+                          /// Rating & Distance
                           Row(
                             children: [
-                              Icon(Icons.star, color: Colors.amber, size: 16),
-                              Gap(5),
+                              Icon(Icons.star, color: starIconColor, size: 16),
+                              const Gap(5),
                               SizedBox(
                                 width: 25,
                                 child: Text(
                                   '${widget.hospital.rate ?? "0.0"} ',
                                   style: AppFontStyles.getSize14(
-                                    fontColor: AppColors.slateGrayColor,
+                                    fontColor: secondaryTextColor,
                                   ),
                                 ),
                               ),
-                              Gap(10),
+                              const Gap(10),
+
                               if (widget.km != null) ...[
                                 Icon(Icons.location_on_sharp,
-                                    color: Colors.red, size: 16),
+                                    color: colorScheme.error, size: 16),
                                 Text(
                                   ' ${widget.km!.toStringAsFixed(2)} Km ',
                                   style: AppFontStyles.getSize14(
-                                    fontColor: AppColors.slateGrayColor,
+                                    fontColor: secondaryTextColor,
                                   ),
                                 ),
                               ],
@@ -203,12 +231,11 @@ class _HospitalCardState extends State<HospitalCard> {
                                 Row(
                                   children: [
                                     Icon(Icons.person_add_rounded,
-                                        color: AppColors.primaryGreenColor,
-                                        size: 16),
+                                        color: colorScheme.primary, size: 16),
                                     Text(
                                       ' +${widget.hospital.totalPatient} Patient',
                                       style: AppFontStyles.getSize14(
-                                        fontColor: AppColors.slateGrayColor,
+                                        fontColor: secondaryTextColor,
                                       ),
                                     ),
                                   ],
@@ -220,35 +247,30 @@ class _HospitalCardState extends State<HospitalCard> {
                       ),
                     ),
 
-                    /// Favorite Icon
+                    /// Request State / Favorite Icon
                     if (widget.request != null) ...[
                       SizedBox(
                         width: 85,
                         height: 25,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: (widget.request?.state == 'Accepted')
-                                  ? AppColors.greenLight
-                                  : (widget.request?.state == 'Rejected')
-                                      ? AppColors.redLight
-                                      : AppColors.blueight2,
-                              borderRadius: BorderRadius.circular(15)),
+                            color: _getStatusBackgroundColor(
+                                widget.request!.state.toString(), colorScheme),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                           child: Center(
                             child: Text(
-                              widget.request?.state ?? 'll',
+                              widget.request?.state ?? 'N/A',
                               style: AppFontStyles.getSize16(
                                 fontWeight: FontWeight.w500,
-                                fontColor: (widget.request?.state == 'Accepted')
-                                    ? AppColors.blue2
-                                    : (widget.request?.state == 'Rejected')
-                                        ? AppColors.red
-                                        : AppColors.primaryGreenColor,
+                                fontColor: Colors.white,
                               ),
                             ),
                           ),
                         ),
                       )
                     ],
+
                     if (widget.request == null) ...[
                       IconButton(
                         onPressed: () async {
@@ -269,18 +291,19 @@ class _HospitalCardState extends State<HospitalCard> {
                         },
                         icon: Icon(
                           isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : AppColors.darkColor,
+                          color:
+                              isFavorite ? favoriteIconColor : primaryTextColor,
                           size: 24,
                         ),
                       ),
                     ]
                   ],
                 ),
-                Gap(5),
+                const Gap(5),
 
-                /// Submit Request Button (if needed)
+                /// SUBMIT REQUEST BUTTON COLORS UPDATED ONLY
                 if (widget.submitRequest) ...[
-                  Gap(15),
+                  const Gap(15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -292,12 +315,21 @@ class _HospitalCardState extends State<HospitalCard> {
                             route: Routes.UnifiledpatientData,
                           );
                         },
-                        borderColor: AppColors.primaryGreenColor,
+
+                        /// ⬇️ COLOR FIX
+                        /// Dark mode → Blue background + white text
+                        /// Light mode → Default existing colors
+                        buttomColor: isDark
+                            ? colorScheme.primary
+                            : colorScheme.surface,
+                        textColor: isDark
+                            ? Colors.white
+                            : colorScheme.primary,
+
+                        borderColor: colorScheme.primary,
                         borderRadius: 30,
                         height: 40,
-                        textColor: AppColors.primaryGreenColor,
                         width: 200,
-                        buttomColor: AppColors.whiteColor,
                         borderWidth: 2,
                       ),
                     ],

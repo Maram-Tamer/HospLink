@@ -1,19 +1,19 @@
+// ignore_for_file: unused_import
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/constatnts/icons.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
-import 'package:medigo/core/utils/colors.dart';
+import 'package:medigo/core/utils/colors.dart'; // Keep for now if AppFontStyles uses it
 import 'package:medigo/core/utils/fonts.dart';
 import 'package:medigo/features/Hospital/data/model/hospital-model.dart';
 import 'package:medigo/features/Patient/presentation/pages/home/presentation/widget/calc.dart';
-import 'package:medigo/features/Patient/presentation/pages/home/widget/hospital_card.dart';
+import 'package:medigo/features/patient/presentation/pages/home/presentation/widget/hospital_card.dart';
 
 // ignore: must_be_immutable
 class HomePatient extends StatefulWidget {
@@ -27,10 +27,13 @@ class _HomePatientState extends State<HomePatient> {
   bool isTopRated = true;
   Position? _currentPosition;
   List<Map<String, dynamic>> hospitalNearest = [];
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: App_Bar(
+      // The AppBar now uses the theme colors defined previously
+      appBar: MainAppBar(
         title: 'Hospitals',
         action: true,
         icon: AppIcons.notificationFill,
@@ -40,41 +43,54 @@ class _HomePatientState extends State<HomePatient> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [searchAndFilters(), Gap(20), getHospitals(), Gap(15)],
+          children: [
+            searchAndFilters(context), // Pass context here
+            const Gap(20),
+            getHospitals(context), // Pass context here
+            const Gap(15)
+          ],
         ),
       ),
     );
   }
 
-  Container searchAndFilters() {
+  // Pass BuildContext to access Theme.of(context)
+  Container searchAndFilters(BuildContext context) {
+    // Get the color scheme from the current theme
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
-      color: AppColors.blueLight.withValues(alpha: 0.8),
+      
+      color: colorScheme.surface.withAlpha(0), 
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
-            Gap(10),
+            const Gap(10),
             Row(
               children: [
                 Expanded(
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: AppColors.greyColor.withValues(alpha: 0.7),
-                      borderRadius: BorderRadius.circular(30),
+                      // Replaced AppColors.greyColor with a suitable surface color.
+                      // This is the background for the Top Rated/Nearest toggle.
+                      color: colorScheme.surface,
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Gap(5),
+                        const Gap(5),
                         Expanded(
                           child: TextButton(
                             style: TextButton.styleFrom(
+                              // Active button uses the primary color (your purple accent)
                               backgroundColor: isTopRated
-                                  ? AppColors.primaryGreenColor
+                                  ? colorScheme.primary
                                   : Colors.transparent,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(25),
                               ),
                             ),
                             onPressed: () {
@@ -84,21 +100,26 @@ class _HomePatientState extends State<HomePatient> {
                             },
                             child: Text(
                               'Top Rated',
+                              // Text color for buttons is onPrimary/onSurface, but since 
+                              // we are coloring the button's background, using the text 
+                              // color for the background theme is better for contrast.
                               style: AppFontStyles.getSize16(
-                                fontColor: AppColors.whiteColor,
+                                // Replaced AppColors.whiteColor with onPrimary
+                                fontColor: isTopRated ? colorScheme.onPrimary : colorScheme.onSurface,
                               ),
                             ),
                           ),
                         ),
-                        Gap(5),
+                        const Gap(5),
                         Expanded(
                           child: TextButton(
                             style: TextButton.styleFrom(
                               backgroundColor: isTopRated
                                   ? Colors.transparent
-                                  : AppColors.primaryGreenColor,
+                                  // Active button uses the primary color (your purple accent)
+                                  : colorScheme.primary,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(25),
                               ),
                             ),
                             onPressed: () {
@@ -112,23 +133,24 @@ class _HomePatientState extends State<HomePatient> {
                             child: Text(
                               'Nearest',
                               style: AppFontStyles.getSize16(
-                                fontColor: AppColors.whiteColor,
+                                // Replaced AppColors.whiteColor with onPrimary
+                                fontColor: isTopRated ? colorScheme.onSurface : colorScheme.onPrimary,
                               ),
                             ),
                           ),
                         ),
-                        Gap(5),
+                        const Gap(5),
                       ],
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(5),
-                  width: 45,
+                  margin: const EdgeInsets.only(left: 10),                  width: 45,
                   height: 45,
                   decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(10)),
+                      // Replaced AppColors.whiteColor with the colorScheme's surface color
+                      color: colorScheme.surface, 
+                      borderRadius: BorderRadius.circular(15)),
                   child: IconButton(
                       onPressed: () {
                         pushTo(context: context, route: Routes.Search);
@@ -136,7 +158,8 @@ class _HomePatientState extends State<HomePatient> {
                       icon: Icon(
                         size: 30,
                         Icons.search,
-                        color: AppColors.greyColor,
+                        // Replaced AppColors.greyColor with onSurface (the primary text color)
+                        color: colorScheme.onSurface, 
                       )),
                 )
               ],
@@ -147,7 +170,11 @@ class _HomePatientState extends State<HomePatient> {
     );
   }
 
-  Widget getHospitals() {
+  // Pass BuildContext to access Theme.of(context)
+  Widget getHospitals(BuildContext context) {
+    // Get the color scheme from the current theme
+    final colorScheme = Theme.of(context).colorScheme;
+
     return FutureBuilder(
       future: isTopRated
           ? FirebaseServices.getTopRatedHospitals(limit: 15)
@@ -168,14 +195,15 @@ class _HomePatientState extends State<HomePatient> {
               Text(
                 'No hospitals found',
                 style: AppFontStyles.getSize18(
-                    fontColor: AppColors.primaryGreenColor,
+                    // Replaced AppColors.primaryGreenColor with primary
+                    fontColor: colorScheme.primary, 
                     fontWeight: FontWeight.w600),
               ),
             ],
           );
         }
 
-        // لو Top Rated
+        // ... (rest of the list generation logic remains the same)
         if (isTopRated) {
           var hospitals = snapshot.data.docs;
           return Padding(
@@ -205,7 +233,7 @@ class _HomePatientState extends State<HomePatient> {
             itemBuilder: (context, index) {
               return HospitalCard(
                 hospital: gethospital[index],
-                 km: hospitalNearest[index]['km'],
+                km: hospitalNearest[index]['km'],
               );
             },
           ),
@@ -214,6 +242,7 @@ class _HomePatientState extends State<HomePatient> {
     );
   }
 
+  // ... (Methods not involving direct color usage are unchanged)
   Future<List<HospitalModel>> _getNearestHospitalsOrdered() async {
     hospitalNearest.clear();
 
@@ -254,12 +283,12 @@ class _HomePatientState extends State<HomePatient> {
     final hasPermission = await _handleLocationPermission();
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(
+      locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,
         distanceFilter: 50,
       ),
     ).then((Position position) {
-      setState(() async {
+      setState(() {
         _currentPosition = position;
       });
     }).catchError((e) {
@@ -273,6 +302,7 @@ class _HomePatientState extends State<HomePatient> {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      // SnackBar color relies on default theme or ScaffoldMessenger
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(

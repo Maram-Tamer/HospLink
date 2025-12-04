@@ -6,7 +6,6 @@ import 'package:medigo/components/buttons/main_button.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
-import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/features/auth/data/models/user.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-cubit.dart';
 import 'package:medigo/features/auth/presentation/cubit/auth-state.dart';
@@ -40,25 +39,39 @@ class _RegesterScreenState extends State<RegesterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.routeAfterRegister);
-    var cubit = BlocProvider.of<AuthCubit>(context);
+    final cubit = BlocProvider.of<AuthCubit>(context);
+    final theme = Theme.of(context);
+
+    // Theme-aware colors
+    final cardColor = theme.colorScheme.surface;
+    final primaryColor = theme.colorScheme.primary;
+    final textColor = theme.textTheme.bodyMedium?.color ?? Colors.black87;
+
+    // Responsive scale
+    final width = MediaQuery.of(context).size.width;
+    double scale = (width / 430).clamp(0.85, 1.2);
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthErrorState) {
           showMyDialog(context, state.error);
         } else if (state is AuthSuccessState) {
           pushTo(context: context, route: widget.routeAfterRegister);
-        } else {
-          CircularProgressIndicator(
-            color: AppColors.primaryGreenColor,
+        } else if (state is AuthLoadingState) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => Center(
+              child: CircularProgressIndicator(color: primaryColor),
+            ),
           );
         }
       },
       child: Scaffold(
-        appBar: App_Bar(
+        appBar: MainAppBar(
           leading: true,
-          color: AppColors.primaryGreenColor,
-          colorIconBack: AppColors.whiteColor,
+          color: primaryColor,
+          colorIconBack: theme.colorScheme.onPrimary,
         ),
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
@@ -68,31 +81,33 @@ class _RegesterScreenState extends State<RegesterScreen> {
               children: [
                 CurveCard(),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                  padding: const EdgeInsets.symmetric(vertical: 25),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: 25 * scale, vertical: 20 * scale),
+                  padding: EdgeInsets.symmetric(vertical: 25 * scale),
                   decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(30),
+                    color: cardColor,
+                    borderRadius: BorderRadius.circular(30 * scale),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: .1),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
+                        color: Colors.black.withOpacity(.1),
+                        blurRadius: 10 * scale,
+                        offset: Offset(0, 5 * scale),
                       ),
                     ],
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(widget.icon, width: 60, height: 60),
-                      const Gap(20),
+                      Image.asset(widget.icon,
+                          width: 60 * scale, height: 60 * scale),
+                      Gap(20 * scale),
                       TextFormSignup(
-                          emailController: cubit.emailController,
-                          passwordController: cubit.passwordController,
-                          confirmPasswordController:
-                              cubit.confirmPasswordController),
-                      const Gap(10),
+                        emailController: cubit.emailController,
+                        passwordController: cubit.passwordController,
+                        confirmPasswordController:
+                            cubit.confirmPasswordController,
+                      ),
+                      Gap(10 * scale),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -104,13 +119,15 @@ class _RegesterScreenState extends State<RegesterScreen> {
                               });
                             },
                             shape: const CircleBorder(),
+                            activeColor: primaryColor,
                           ),
                           richText(),
                         ],
                       ),
-                      const Gap(20),
+                      Gap(20 * scale),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15 * scale),
                         child: MainButton(
                           buttonText: 'Sign Up',
                           onPressed: () {
@@ -118,22 +135,24 @@ class _RegesterScreenState extends State<RegesterScreen> {
                                 isChecked &&
                                 cubit.passwordController.text ==
                                     cubit.confirmPasswordController.text) {
-                              cubit.userType = (widget.routeAfterRegister ==
-                                      Routes.pageviewHospital)
-                                  ? UserType.hospital
-                                  : UserType.patient;
+                              cubit.userType =
+                                  (widget.routeAfterRegister ==
+                                          Routes.pageviewHospital)
+                                      ? UserType.hospital
+                                      : UserType.patient;
                               cubit.signup();
                             } else if (!isChecked) {
                               showMyDialog(context,
-                                  'please agrees to the privacy and policy.');
+                                  'Please agree to the privacy and policy.');
                             }
                           },
+                          buttomColor: primaryColor,
                         ),
                       ),
                     ],
                   ),
                 ),
-                CardLogin_RegisterWith(
+                CardLoginRegisterWith(
                   widget: widget,
                   title: 'Already have an account?  ',
                   subtitle: 'Login',

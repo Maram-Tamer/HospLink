@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
-import 'package:medigo/components/ScrrenBackgroung/background.dart';
 import 'package:medigo/components/buttons/main_button.dart';
+import 'package:medigo/components/screen_background/background.dart';
 import 'package:medigo/core/extentions/show_dialoges.dart';
 import 'package:medigo/core/routes/navigation.dart';
 import 'package:medigo/core/routes/routes.dart';
@@ -21,7 +21,7 @@ class ForgetPasswordMailSent extends StatelessWidget {
     var cubit = BlocProvider.of<AuthCubit>(context);
     return AppBackground(
       child: Scaffold(
-        appBar: App_Bar(leading: true,),
+        appBar: MainAppBar(leading: true,),
         body: Padding(
           padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
             child: BlocListener<AuthCubit, AuthState>(
@@ -35,7 +35,7 @@ class ForgetPasswordMailSent extends StatelessWidget {
                   barrierDismissible: false,
                   builder: (context) => const Center(
                     child: CircularProgressIndicator(
-                      color: AppColors.primaryGreenColor,
+                      color: AppColors.primaryBlueColor,
                     ),
                   ),
                 );

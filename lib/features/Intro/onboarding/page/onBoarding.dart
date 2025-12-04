@@ -18,6 +18,7 @@ class OnBoarding extends StatefulWidget {
 class _OnBoardingState extends State<OnBoarding> {
   int currentIndex = 0;
   PageController pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 });
               },
               itemBuilder: (context, index) {
-                return pagwViewDesign(index: index);
+                return PageViewDesign(index: index);
               },
               itemCount: 3,
             ),
@@ -41,7 +42,7 @@ class _OnBoardingState extends State<OnBoarding> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
             child: Column(
               children: [
-                smoothPage(pageController: pageController),
+                SmoothPage(pageController: pageController),
                 Gap(10),
                 MainButton(
                   height: 60,
@@ -66,14 +67,15 @@ class _OnBoardingState extends State<OnBoarding> {
                     }
                   },
                   borderRadius: 14,
+                  buttomColor: AppColors.primaryBlueColor,
                 ),
                 Gap(20),
                 MainButton(
                   height: 60,
                   borderWidth: 2,
-                  textColor: AppColors.primaryGreenColor,
-                  borderColor: AppColors.primaryGreenColor,
-                  buttomColor: AppColors.blueLight,
+                  textColor: AppColors.primaryBlueColor,
+                  borderColor: AppColors.primaryBlueColor,
+                  buttomColor: AppColors.primaryBlueColor,
                   buttonText: 'Skip',
                   onPressed: () {
                     LocalHelper.isOnBoardingShown(true);

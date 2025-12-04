@@ -35,11 +35,8 @@ class RequestsPatient extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(
-                      AppImages.profileWelcom,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
+                    Image.asset(AppImages.profileWelcom, width: 50, height: 50,
+                    fit: BoxFit.cover,
                     ),
                     const Gap(10),
                     const Text(

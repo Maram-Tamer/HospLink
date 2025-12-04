@@ -75,7 +75,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   borderWidth: 2,
                   textColor: AppColors.primaryBlueColor,
                   borderColor: AppColors.primaryBlueColor,
-                  buttomColor: AppColors.primaryBlueColor,
+                  buttomColor: Colors.transparent, // ✅ FIXED
                   buttonText: 'Skip',
                   onPressed: () {
                     LocalHelper.isOnBoardingShown(true);

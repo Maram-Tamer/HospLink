@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medigo/features/Intro/onboarding/widget/onBoardingModel.dart';
 
-// ignore: must_be_immutable
 class PageViewDesign extends StatelessWidget {
   PageViewDesign({super.key, required this.index});
   
@@ -28,7 +27,7 @@ class PageViewDesign extends StatelessWidget {
                   onboardingList[index].title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.black, // ← only color
                     fontSize: 35,
                     fontWeight: FontWeight.w600,
                   ),
@@ -39,7 +38,7 @@ class PageViewDesign extends StatelessWidget {
                 onboardingList[index].description,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: Colors.black, // ← only color
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),

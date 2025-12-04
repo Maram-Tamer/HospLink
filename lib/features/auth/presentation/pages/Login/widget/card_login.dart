@@ -7,7 +7,7 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/features/auth/presentation/pages/Login/page/login_screen.dart';
 
 class CardLogin extends StatelessWidget {
-  CardLogin({
+  const CardLogin({
     super.key,
     required this.routeForgetPassword,
     required this.widget,

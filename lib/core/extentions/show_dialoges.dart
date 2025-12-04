@@ -5,6 +5,8 @@ import 'package:medigo/core/utils/colors.dart';
 
 enum DialogType { error, success, warning }
 
+//====================== SHOW SNACKBAR DIALOG ======================//
+
 showMyDialog(
   BuildContext context,
   String message, {
@@ -12,7 +14,6 @@ showMyDialog(
 }) {
   final size = MediaQuery.of(context).size;
   double w(double value) => value * size.width / 390;
-  double h(double value) => value * size.height / 844;
 
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -21,18 +22,24 @@ showMyDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(w(12)),
       ),
-      backgroundColor: type == DialogType.error
-          ? AppColors.red
-          : type == DialogType.warning
-              ? Colors.orange
-              : AppColors.primaryBlueColor,
+      backgroundColor: 
+          type == DialogType.error
+              ? AppColors.red
+              : type == DialogType.warning
+                  ? Colors.orange
+                  : AppColors.primaryBlueColor,
       content: Text(
         message,
-        style: TextStyle(fontSize: w(16)),
+        style: TextStyle(
+          fontSize: w(16),
+          color: Colors.white,
+        ),
       ),
     ),
   );
 }
+
+//====================== FIXED LOADING DIALOG ======================//
 
 showLoadingDialog(BuildContext context) {
   final size = MediaQuery.of(context).size;
@@ -41,10 +48,18 @@ showLoadingDialog(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (context) => Center(
-      child: Lottie.asset(
-        AppImages.LodingJson,
-        width: w(250), // responsive loader width
+    builder: (context) => Dialog(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+
+      insetPadding: const EdgeInsets.all(20), // prevents overflow even with keyboard
+
+      child: Center(
+        child: Lottie.asset(
+          AppImages.LodingJson,
+          width: w(180), // responsive & safe size
+          fit: BoxFit.contain,
+        ),
       ),
     ),
   );

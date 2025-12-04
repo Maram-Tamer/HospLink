@@ -45,7 +45,6 @@ class _RegesterScreenState extends State<RegesterScreen> {
     // Theme-aware colors
     final cardColor = theme.colorScheme.surface;
     final primaryColor = theme.colorScheme.primary;
-    final textColor = theme.textTheme.bodyMedium?.color ?? Colors.black87;
 
     // Responsive scale
     final width = MediaQuery.of(context).size.width;

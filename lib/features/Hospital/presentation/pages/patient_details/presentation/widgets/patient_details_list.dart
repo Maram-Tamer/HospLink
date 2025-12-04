@@ -17,62 +17,68 @@ class PatientDetailsList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          
-          textAlign: TextAlign.left,
           "Description: ${request.description}",
+          textAlign: TextAlign.left,
+          maxLines: 6,
+          overflow: TextOverflow.ellipsis,
           style: AppFontStyles.getSize16(
-            
             fontWeight: FontWeight.w600,
             fontColor: theme.textTheme.bodyLarge?.color ?? Colors.black,
           ),
-          maxLines: 6,
-          overflow: TextOverflow.ellipsis,
         ),
         const Gap(10),
         Divider(color: theme.dividerColor, thickness: 1),
         const Gap(10),
-        // Contact Info
+
+        // Age
         HospitalDetailsTile(
           text: " Age: ${request.age}",
           icon: AppIcons.birthdayIMageNoBgSVG,
           style: AppFontStyles.getSize16(
-            
             fontWeight: FontWeight.w600,
             fontColor: theme.textTheme.bodyLarge?.color ?? Colors.black,
           ),
         ),
         const Gap(10),
+
+        // Blood
         HospitalDetailsTile(
           text: "Blood Type: ${request.blood}",
           icon: AppIcons.booldSVG,
           style: AppFontStyles.getSize16(
-            
             fontWeight: FontWeight.w600,
             fontColor: theme.textTheme.bodyLarge?.color ?? Colors.black,
-          ), // previously AppColors.red
+          ),
         ),
         const Gap(15),
+
+        // Phone
         HospitalDetailsTile(
-          
           text: "${request.phone}",
           icon: AppIcons.callFillSVG,
-          color: theme.colorScheme.secondary, // previously AppColors.green
+          color: theme.colorScheme.secondary,
         ),
         const Gap(15),
+
+        // Address
         HospitalDetailsTile(
           text: "${request.address}",
           icon: AppIcons.locationLine_SVG,
-          color: theme.colorScheme.error, // previously AppColors.red
+          color: theme.colorScheme.error,
         ),
         const Gap(15),
+
+        // Gender
         HospitalDetailsTile(
           text: "${request.gender}",
           icon: AppIcons.genderIMageNoBgSVG,
-          color: theme.colorScheme.primary, // previously AppColors.primaryGreenColor
+          color: theme.colorScheme.primary,
         ),
         const Gap(10),
+
         Divider(color: theme.dividerColor),
         const Gap(10),
+
         Text(
           "Patient Condition",
           style: AppFontStyles.getSize18(
@@ -81,6 +87,7 @@ class PatientDetailsList extends StatelessWidget {
           ),
         ),
         const Gap(10),
+
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.network(

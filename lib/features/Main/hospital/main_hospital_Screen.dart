@@ -16,7 +16,7 @@ class MainScreenHospital extends StatefulWidget {
 }
 
 class _MainScreenHospitalState extends State<MainScreenHospital> {
-  int currentIndex = 0;
+  late int currentIndex;
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _MainScreenHospitalState extends State<MainScreenHospital> {
     currentIndex = widget.initialIndex ?? currentIndex;
   }
 
-  final List<Widget> screens = [
+  late final List<Widget> screens = [
     const HospitalHomeScreen(),
     const HospitalNotificationScreen(),
     AcceptedPatientsScreen(),
@@ -43,81 +43,62 @@ class _MainScreenHospitalState extends State<MainScreenHospital> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: AppColors.blueLight,
+      backgroundColor: colorScheme.background,
       body: screens[currentIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: colorScheme.surface, // theme-responsive
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      bottomNavigationBar: SafeArea(
+        top: false, // remove space above nav bar
+        child: Container(
+          decoration: BoxDecoration(
+            color: colorScheme.surface,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: BottomNavigationBar(
+            elevation: 0,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.transparent,
+            selectedItemColor: AppColors.primaryBlueColor,
+            unselectedItemColor: isDark ? Colors.white70 : Colors.black54,
+            currentIndex: currentIndex,
+            onTap: (index) => setState(() => currentIndex = index),
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            items: [
+              BottomNavigationBarItem(
+                label: 'Home',
+                icon: _icon(AppIcons.homeMain, isDark ? Colors.white70 : Colors.black54),
+                activeIcon: _icon(AppIcons.homeActivMain, AppColors.primaryBlueColor),
+              ),
+              BottomNavigationBarItem(
+                label: 'Notifications',
+                icon: _icon(AppIcons.NotificationSVG, isDark ? Colors.white70 : Colors.black54),
+                activeIcon: _icon(AppIcons.notificationFill2, AppColors.primaryBlueColor),
+              ),
+              BottomNavigationBarItem(
+                label: 'Accepted',
+                icon: _icon(AppIcons.patient, isDark ? Colors.white70 : Colors.black54),
+                activeIcon: _icon(AppIcons.patientFill, AppColors.primaryBlueColor),
+              ),
+              BottomNavigationBarItem(
+                label: 'Setting',
+                icon: _icon(AppIcons.settingMain, isDark ? Colors.white70 : Colors.black54),
+                activeIcon: _icon(AppIcons.settingAcivMain, AppColors.primaryBlueColor),
+              ),
+            ],
           ),
         ),
-        child: _BottomNavigation(colorScheme, isDark),
       ),
     );
   }
 
-  // ignore: non_constant_identifier_names
-  BottomNavigationBar _BottomNavigation(ColorScheme colorScheme, bool isDark) {
-    return BottomNavigationBar(
-      elevation: 0,
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.transparent,
-      currentIndex: currentIndex,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      selectedItemColor: AppColors.primaryBlueColor,
-      unselectedItemColor: isDark ? Colors.white : Colors.black,
-      onTap: (index) {
-        setState(() => currentIndex = index);
-      },
-      items: [
-        BottomNavigationBarItem(
-          label: 'Home',
-          icon: _icon(AppIcons.homeMain, isDark),
-          activeIcon: _activeIcon(AppIcons.homeActivMain),
-        ),
-        BottomNavigationBarItem(
-          label: 'Notifications',
-          icon: _icon(AppIcons.NotificationSVG, isDark),
-          activeIcon: _activeIcon(AppIcons.notificationFill2),
-        ),
-        BottomNavigationBarItem(
-          label: 'Accepted',
-          icon: _icon(AppIcons.patient, isDark),
-          activeIcon: _activeIcon(AppIcons.patientFill),
-        ),
-        BottomNavigationBarItem(
-          label: 'Setting',
-          icon: _icon(AppIcons.settingMain, isDark),
-          activeIcon: _activeIcon(AppIcons.settingAcivMain),
-        ),
-      ],
-    );
-  }
-
-  Widget _icon(String asset, bool isDark) => SizedBox(
+  Widget _icon(String asset, Color color) => SizedBox(
         width: 25,
         height: 25,
         child: SvgPicture.asset(
           asset,
-          colorFilter: ColorFilter.mode(
-            isDark ? Colors.white : Colors.black,
-            BlendMode.srcIn,
-          ),
-        ),
-      );
-
-  Widget _activeIcon(String asset) => SizedBox(
-        width: 25,
-        height: 25,
-        child: SvgPicture.asset(
-          asset,
-          colorFilter: const ColorFilter.mode(
-            AppColors.primaryBlueColor,
-            BlendMode.srcIn,
-          ),
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
         ),
       );
 }

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:medigo/components/App_Bar/app__bar.dart';
@@ -10,17 +9,42 @@ import 'package:medigo/core/routes/routes.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
 import 'package:medigo/core/utils/colors.dart';
 import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/main.dart'; // needed for theme toggle
 
-class SettingsHospitalScreen extends StatelessWidget {
+class SettingsHospitalScreen extends StatefulWidget {
   const SettingsHospitalScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final textColor = brightness == Brightness.dark ? Colors.white : Colors.black;
+  State<SettingsHospitalScreen> createState() => _SettingsHospitalScreenState();
+}
 
-    final size = MediaQuery.of(context).size;
-    double responsiveFont(double value) => value * size.width / 390;
+class _SettingsHospitalScreenState extends State<SettingsHospitalScreen> {
+  bool isDarkThemeOn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load saved theme preference
+    isDarkThemeOn = LocalHelper.getData(LocalHelper.kDarkTheme) ?? false;
+  }
+
+  void _toggleDarkTheme(bool value) {
+    setState(() {
+      isDarkThemeOn = value;
+    });
+
+    LocalHelper.setData(LocalHelper.kDarkTheme, value);
+    log("Dark Theme: $value");
+
+    // Apply theme to whole app
+    MainApp.of(context)?.toggleTheme(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textColor =
+        theme.textTheme.titleLarge?.color ?? AppColors.blackColor;
 
     return Scaffold(
       appBar: MainAppBar(title: "Settings"),
@@ -28,15 +52,18 @@ class SettingsHospitalScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            Gap(20),
+            const Gap(10),
             Text(
               "Account",
               style: AppFontStyles.getSize18(
-                fontSize: responsiveFont(20),
+                fontColor: textColor,
+                fontSize: 20,
                 fontWeight: FontWeight.w500,
-              ).copyWith(color: textColor),
+              ),
             ),
             const Gap(10),
+
+            // ACCOUNT GROUP
             SettingsGroup(
               items: [
                 SettingsItem(
@@ -62,17 +89,30 @@ class SettingsHospitalScreen extends StatelessWidget {
                 ),
               ],
             ),
+
             const Gap(25),
+
             Text(
               "General",
               style: AppFontStyles.getSize18(
-                fontSize: responsiveFont(20),
+                fontColor: textColor,
+                fontSize: 20,
                 fontWeight: FontWeight.w500,
-              ).copyWith(color: textColor),
+              ),
             ),
             const Gap(10),
+
+            // GENERAL GROUP
             SettingsGroup(
               items: [
+                SettingsItem(
+                  icon: Icons.dark_mode,
+                  iconColor: Colors.deepPurple,
+                  title: "Dark Theme",
+                  hasSwitch: true,
+                  initialValue: isDarkThemeOn,
+                  onSwitchChanged: _toggleDarkTheme,
+                ),
                 SettingsItem(
                   icon: Icons.notifications,
                   iconColor: Colors.amber,
@@ -80,13 +120,6 @@ class SettingsHospitalScreen extends StatelessWidget {
                   hasSwitch: true,
                   initialValue: true,
                   onSwitchChanged: (v) => log("Notifications: $v"),
-                ),
-                SettingsItem(
-                  icon: Icons.dark_mode,
-                  iconColor: Colors.deepPurple,
-                  title: "Dark Theme",
-                  hasSwitch: true,
-                  onSwitchChanged: (v) => log("Dark Theme: $v"),
                 ),
                 SettingsItem(
                   icon: Icons.share,
@@ -110,11 +143,12 @@ class SettingsHospitalScreen extends StatelessWidget {
                   icon: Icons.info_outline,
                   iconColor: Colors.lightBlueAccent,
                   title: "About Us",
-                  onPressed: () => log("About Us tapped"),
+                  onPressed: () =>
+                      pushTo(context: context, route: Routes.aboutUs),
                 ),
                 SettingsItem(
                   icon: Icons.logout,
-                  iconColor: AppColors.red,
+                  iconColor: Colors.red,
                   title: "Logout",
                   onPressed: () {
                     pushAndRemoveUntil(

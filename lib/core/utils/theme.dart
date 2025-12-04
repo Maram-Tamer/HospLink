@@ -50,9 +50,21 @@ class AppTheme {
     // -------- LIGHT THEME INPUT FIELD --------
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.whiteColor, // ⭐ light fill
-      labelStyle: TextStyle(color: AppColors.darkColor),
+      fillColor: AppColors.whiteColor,
+
+      // ⭐ NEW: Text color inside TextFormField
       hintStyle: TextStyle(color: AppColors.slateGrayColor),
+      labelStyle: TextStyle(color: AppColors.darkColor),
+      counterStyle: TextStyle(color: AppColors.darkColor),
+
+      // ⭐ Prefix / Suffix Icons color
+      prefixIconColor: AppColors.primaryBlueColor,
+      suffixIconColor: AppColors.primaryBlueColor,
+
+      // ⭐ Cursor Color
+      // (This is needed because cursor uses primary automatically)
+      // Cursor color from theme → good already
+
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(
@@ -68,6 +80,13 @@ class AppTheme {
         ),
       ),
     ),
+
+    // ⭐ NEW: text inside Input fields
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.primaryBlueColor,
+      selectionColor: AppColors.primaryBlueColor.withOpacity(0.3),
+      selectionHandleColor: AppColors.primaryBlueColor,
+    ),
   );
 
   // ---------------- DARK THEME ---------------- //
@@ -78,7 +97,7 @@ class AppTheme {
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
       primary: AppColors.primaryBlueColor,
-      onPrimary: AppColors.primaryDarkText,
+      onPrimary: AppColors.whiteColor,
       secondary: AppColors.inactiveDarkAccent,
       onSecondary: AppColors.primaryDarkText,
       error: Colors.red.shade400,
@@ -116,9 +135,17 @@ class AppTheme {
     // -------- DARK THEME INPUT FIELD --------
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.darkCardSurface, // ⭐ dark fill
-      labelStyle: TextStyle(color: AppColors.secondaryDarkText),
+      fillColor: AppColors.darkCardSurface,
+
+      // ⭐ NEW: Text color inside TextFormField (DARK MODE)
       hintStyle: TextStyle(color: AppColors.secondaryDarkText),
+      labelStyle: TextStyle(color: AppColors.secondaryDarkText),
+      counterStyle: TextStyle(color: AppColors.primaryDarkText),
+
+      // ⭐ Prefix / Suffix Icons color
+      prefixIconColor: AppColors.primaryBlueColor,
+      suffixIconColor: AppColors.primaryBlueColor,
+
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(
@@ -133,6 +160,12 @@ class AppTheme {
           width: 1,
         ),
       ),
+    ),
+
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.primaryBlueColor,
+      selectionColor: AppColors.primaryBlueColor.withOpacity(0.3),
+      selectionHandleColor: AppColors.primaryBlueColor,
     ),
   );
 }

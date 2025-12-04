@@ -35,7 +35,7 @@ class RequestsPatient extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(AppImages.profileWelcom, width: 90, height: 90,
+                    Image.asset(AppImages.profileWelcom, width: 50, height: 50,
                     fit: BoxFit.cover,
                     ),
                     const Gap(10),

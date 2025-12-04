@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gap/flutter_gap.dart';
@@ -19,80 +18,108 @@ class ForgetBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<AuthCubit>(context);
+
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
-        child: BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthErrorState) {
-              pop(context);
-              showMyDialog(context, state.error);
-            } else if (state is AuthLoadingState) {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.primaryBlueColor,
-                  ),
-                ),
-              );
-            } else if (state is AuthSuccessState) {
-              pop(context);
-              print('success');
-              pushTo(
-                  context: context,
-                  route: Routes.forgetPasswordMailSent,
-                  extra: cubit.emailController.text);
-            }
-          },
-          child: Form(
-            key: cubit.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Forgot password",
-                  style: AppFontStyles.getSize32(fontWeight: FontWeight.w500),
-                ),
-                Gap(15),
-                Text(
-                  style: AppFontStyles.getSize14(
-                    fontColor: AppColors.slateGrayColor,
-                  ),
-                  "Enter your email for the verification proccesss,we will send 4 digits code to your email.",
-                ),
-                Gap(45),
-                MainTextFormField(
-                    ispassword: false,
-                    label: "Email",
-                    controller: cubit.emailController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-                      if (!emailRegex.hasMatch(value)) {
-                        return 'Please enter a valid email';
-                      }
-                      return null;
-                    }),
-                Gap(80),
-                Center(
-                  child: MainButton(
-                    buttonText: "Continue",
-                    onPressed: () {
-                      if (cubit.formKey.currentState!.validate()) {
-                        cubit.resetPassword();
-                      }
-                    },
-                    width: 295,
-                  ),
-                ),
-              ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: EdgeInsets.only(
+              top: constraints.maxHeight * 0.06,
+              left: 20,
+              right: 20,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 20,
             ),
-          ),
-        ),
+            child: BlocListener<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is AuthErrorState) {
+                  pop(context);
+                  showMyDialog(context, state.error);
+                } else if (state is AuthLoadingState) {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryBlueColor,
+                      ),
+                    ),
+                  );
+                } else if (state is AuthSuccessState) {
+                  pop(context);
+                  pushTo(
+                    context: context,
+                    route: Routes.forgetPasswordMailSent,
+                    extra: cubit.emailController.text,
+                  );
+                }
+              },
+              child: Form(
+                key: cubit.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// TITLE
+                    Text(
+                      "Forgot password",
+                      style: AppFontStyles.getSize32(
+                        fontWeight: FontWeight.w500,
+                        fontColor: isDark ? Colors.white : Colors.black,
+                      ),
+                    ),
+
+                    Gap(15),
+
+                    /// SUBTITLE
+                    Text(
+                      "Enter your email for the verification process. We will send a 4-digit code to your email.",
+                      style: AppFontStyles.getSize14(
+                        fontColor:
+                            isDark ? Colors.white70 : AppColors.slateGrayColor,
+                      ),
+                    ),
+
+                    Gap(45),
+
+                    /// EMAIL FIELD
+                    MainTextFormField(
+                      ispassword: false,
+                      label: "Email",
+                      controller: cubit.emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        final emailRegex =
+                            RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                        if (!emailRegex.hasMatch(value)) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    Gap(60),
+
+                    /// BUTTON
+                    Center(
+                      child: MainButton(
+                        buttonText: "Continue",
+                        onPressed: () {
+                          if (cubit.formKey.currentState!.validate()) {
+                            cubit.resetPassword();
+                          }
+                        },
+                        width: 295,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

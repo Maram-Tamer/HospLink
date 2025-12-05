@@ -35,13 +35,17 @@ class RequestsPatient extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(AppImages.profileWelcom, width: 50, height: 50,
-                    fit: BoxFit.cover,
+                    Image.asset(
+                      AppImages.profileWelcom,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
                     ),
                     const Gap(10),
                     const Text(
                       "No Requests",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -49,19 +53,19 @@ class RequestsPatient extends StatelessWidget {
             }
 
             // If only 1 request
-            if (snapshot.hasData && snapshot.data!.length == 1) {
-              final items = snapshot.data!;
-              final hospital = items[0].hospital;
-              final request = items[0].request;
+            // if (snapshot.hasData && snapshot.data!.length == 1) {
+            //   final items = snapshot.data!;
+            //   final hospital = items[0].hospital;
+            //   final request = items[0].request;
 
-              return Requestscreen(
-                data: {
-                  'hospital': HospitalModel.fromJson(hospital),
-                  'request': RequestModel.fromJson(request),
-                },
-                accepted: true,
-              );
-            }
+            //   return Requestscreen(
+            //     data: {
+            //       'hospital': HospitalModel.fromJson(hospital),
+            //       'request': RequestModel.fromJson(request),
+            //     },
+            //     accepted: true,
+            //   );
+            // }
 
             // Multiple requests
             return ListView.separated(

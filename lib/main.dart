@@ -53,6 +53,6 @@ class _MainAppState extends State<MainApp> {
       darkTheme: AppTheme.darkTheme,
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       debugShowCheckedModeBanner: false,
-    );  
+    );
   }
 }

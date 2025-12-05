@@ -12,7 +12,12 @@
           "package_name": "com.example.medigo"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "6936929859-ken7hqgq92l6itpr7gjft07ef6vinn1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBiN4a-y1z7b-JevplwMRrQAQReHjIm1Y8"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6936929859-ken7hqgq92l6itpr7gjft07ef6vinn1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "6936929859-u3gq2o8vlvrau0svddc67pfkngn2ds0j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medigo"
+              }
+            }
+          ]
         }
       }
     }

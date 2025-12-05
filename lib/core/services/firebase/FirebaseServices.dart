@@ -159,8 +159,16 @@ class FirebaseServices {
       'totalPatient': totalPatient.toString(),
     });
   }
-  static Future<QuerySnapshot> getHistory() {
+
+  // Get history for patients (filtered by patientId)
+  static Future<QuerySnapshot<Object?>> getHistory() {
     String patientID = LocalHelper.getUserId()!;
-    return _collectionHistory.where('patientID', isEqualTo: patientID).get();
+    return _collectionHistory.where('patientId', isEqualTo: patientID).get();
+  }
+
+  // Get history for hospitals (filtered by hospitalId)
+  static Future<QuerySnapshot<Object?>> getHistoryForHospital() {
+    String hospitalID = LocalHelper.getUserId()!;
+    return _collectionHistory.where('hospitalId', isEqualTo: hospitalID).get();
   }
 }

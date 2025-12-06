@@ -43,7 +43,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     // 3. Title Text Style (Use theme's headline style and primary text color)
     final titleStyle = textTheme.headlineSmall?.copyWith(
-      color: colorScheme.onBackground, // Use primary text color
+      color: colorScheme.onPrimary, // Use primary text color
       fontWeight: FontWeight.bold,
     ) ?? AppFontStyles.getSize24().copyWith(color: colorScheme.onBackground);
     

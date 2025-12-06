@@ -43,14 +43,12 @@ class _SettingsHospitalScreenState extends State<SettingsHospitalScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final textColor =
-        theme.textTheme.titleLarge?.color ?? AppColors.blackColor;
+    final textColor = theme.textTheme.titleLarge?.color ?? AppColors.blackColor;
 
     return Scaffold(
       appBar: MainAppBar(
-        title: 'Settings',
-        leading: false,
-        action: false,
+        title: "Settings",
+        color: theme.colorScheme.primary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -77,13 +75,13 @@ class _SettingsHospitalScreenState extends State<SettingsHospitalScreen> {
                   onPressed: () =>
                       pushTo(context: context, route: Routes.editProfile_H),
                 ),
-                SettingsItem(
-                  icon: Icons.history_rounded,
-                  iconColor: Colors.red,
-                  title: "Patients History",
-                  onPressed: () =>
-                      pushTo(context: context, route: Routes.PatientHistory),
-                ),
+                // SettingsItem(
+                //   icon: Icons.history_rounded,
+                //   iconColor: Colors.red,
+                //   title: "Patients History",
+                //   onPressed: () =>
+                //       pushTo(context: context, route: Routes.PatientHistory),
+                // ),
                 SettingsItem(
                   icon: Icons.lock,
                   iconColor: Colors.blue,

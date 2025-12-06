@@ -66,13 +66,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: () =>
                       pushTo(context: context, route: Routes.EditProfile),
                 ),
-                SettingsItem(
-                  icon: Icons.medical_information,
-                  iconColor: Colors.red,
-                  title: "Medical History",
-                  onPressed: () =>
-                      pushTo(context: context, route: Routes.MedicalHistory),
-                ),
+                // SettingsItem(
+                //   icon: Icons.medical_information,
+                //   iconColor: Colors.red,
+                //   title: "Medical History",
+                //   onPressed: () =>
+                //       pushTo(context: context, route: Routes.MedicalHistory),
+                // ),
                 SettingsItem(
                   icon: Icons.lock,
                   iconColor: Colors.blue,
@@ -86,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Text(
               "General",
               style: AppFontStyles.getSize18(
-                 fontColor: Theme.of(context).textTheme.titleMedium?.color ??
+                fontColor: Theme.of(context).textTheme.titleMedium?.color ??
                     AppColors.blackColor,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,

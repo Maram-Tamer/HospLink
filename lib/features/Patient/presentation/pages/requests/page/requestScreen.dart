@@ -30,6 +30,7 @@ class Requestscreen extends StatefulWidget {
   final Map<String, dynamic>? data;
   final bool accepted;
 
+  int curruntIndex = 0;
   @override
   State<Requestscreen> createState() => _RequestscreenState();
 }
@@ -48,6 +49,7 @@ class _RequestscreenState extends State<Requestscreen> {
       // ---------------- APPBAR ----------------
       appBar: !widget.accepted
           ? MainAppBar(
+              
               title: " Details    ",
               leading: true,
             )
@@ -139,7 +141,8 @@ class _RequestscreenState extends State<Requestscreen> {
                       Gap(10),
 
                       HospitalDetailsTile(
-                        onTap: () => launchUrl(Uri.parse(hospital?.website ?? '')),
+                        onTap: () =>
+                            launchUrl(Uri.parse(hospital?.website ?? '')),
                         text: 'Click here to go the website',
                         icon: AppIcons.webSVG,
                         style: TextStyle(
@@ -188,7 +191,6 @@ class _RequestscreenState extends State<Requestscreen> {
                     ],
                   ),
                 ),
-
                 Text(
                   'Request Details',
                   style: AppFontStyles.getSize24(
@@ -196,15 +198,12 @@ class _RequestscreenState extends State<Requestscreen> {
                     fontColor: theme.colorScheme.primary,
                   ),
                 ),
-
                 Gap(10),
-
                 Divider(color: theme.colorScheme.primary),
-
                 Gap(10),
-
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: PatientDetailsList(request: request!),
                 )
               ],
@@ -238,7 +237,8 @@ class _RequestscreenState extends State<Requestscreen> {
                   child: MainButton(
                     buttonText: "Complete",
                     onPressed: () {
-                      _showReviewBottomSheet(context, context.read<PatientCubit>());
+                      _showReviewBottomSheet(
+                          context, context.read<PatientCubit>());
                     },
                     icon: AppIcons.send2SVG,
                   ),
@@ -277,7 +277,7 @@ class _RequestscreenState extends State<Requestscreen> {
 
     showModalBottomSheet(
       context: context,
-        isScrollControlled: true,   // VERY IMPORTANT
+      isScrollControlled: true, // VERY IMPORTANT
 
       backgroundColor: theme.cardColor,
       shape: const RoundedRectangleBorder(
@@ -306,24 +306,20 @@ class _RequestscreenState extends State<Requestscreen> {
                   ),
                   Spacer(),
                   IconButton(
-                    icon: Icon(Icons.close_rounded,
-                        color: theme.iconTheme.color),
+                    icon:
+                        Icon(Icons.close_rounded, color: theme.iconTheme.color),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),
-
               Gap(10),
-
               Text(
                 "Share your experience",
                 style: AppFontStyles.getSize16(
                   fontColor: theme.colorScheme.onBackground.withOpacity(0.7),
                 ),
               ),
-
               Gap(10),
-
               TextFormField(
                 controller: cubit.commentController,
                 maxLines: 4,
@@ -339,20 +335,19 @@ class _RequestscreenState extends State<Requestscreen> {
                   ),
                 ),
               ),
-
               Gap(20),
-
               Center(
                 child: StarRating(
-                  rating: cubit.currentRating,
+                  rating: widget.curruntIndex,
                   onRatingChanged: (newRating) {
-                    setState(() => cubit.currentRating = newRating);
+                    setState(() {
+                      widget.curruntIndex = newRating;
+                      cubit.currentRating = newRating;
+                    });
                   },
                 ),
               ),
-
               Gap(20),
-
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -394,11 +389,11 @@ class _RequestscreenState extends State<Requestscreen> {
                     );
 
                     Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   icon: AppIcons.send2SVG,
                 ),
               ),
-
               Gap(20),
             ],
           ),

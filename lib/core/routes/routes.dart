@@ -151,7 +151,6 @@ class Routes {
         path: UnifiledpatientData,
         builder: (context, state) => BlocProvider(
           create: (context) {
-            log(state.extra as String);
             return PatientCubit();
           },
           child: UnifiedPatientScreen(HospitalId: state.extra as String),

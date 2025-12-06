@@ -308,9 +308,9 @@ class _HospitalCardState extends State<HospitalCard> {
                         buttonText: 'Submit Request',
                         onPressed: () {
                           pushTo(
-                            context: context,
-                            route: Routes.UnifiledpatientData,
-                          );
+                              context: context,
+                              route: Routes.UnifiledpatientData,
+                              extra: widget.hospital.uid);
                         },
 
                         /// ⬇️ COLOR FIX

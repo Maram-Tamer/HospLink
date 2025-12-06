@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/services/local/local-helper.dart';
@@ -17,13 +18,11 @@ class HospitalHomeScreen extends StatelessWidget {
     log(LocalHelper.getUserId() ?? '');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Home',
-          style: theme.textTheme.titleMedium
-              ?.copyWith(color: theme.colorScheme.onPrimary, fontSize: 22, fontWeight: FontWeight.w600),
-        ),
-        backgroundColor: theme.colorScheme.primary,
+      appBar: MainAppBar(
+        title: 'Home',
+        leading: false,
+        action: false,
+         // theme responsive
       ),
 
       body: FutureBuilder(

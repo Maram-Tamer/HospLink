@@ -43,9 +43,9 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     // 3. Title Text Style (Use theme's headline style and primary text color)
     final titleStyle = textTheme.headlineSmall?.copyWith(
-      color: colorScheme.onPrimary, // Use primary text color
+      color: colorScheme.onSecondary,// Use primary text color
       fontWeight: FontWeight.bold,
-    ) ?? AppFontStyles.getSize24().copyWith(color: colorScheme.onBackground);
+    ) ?? AppFontStyles.getSize24().copyWith(color: colorScheme.onPrimary);
     
     // 4. Action Icon Color
     // Default to the theme's primary accent color
@@ -61,7 +61,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: appBarColor, // Theme-responsive background
       
       // Title Style
-      title: Text(title, style: titleStyle.copyWith(fontSize: 24)),
+      title: Text(title, style: titleStyle.copyWith(fontSize: 24,color:colorScheme.onSurface )),
       centerTitle: true,
       leadingWidth: 75,
       

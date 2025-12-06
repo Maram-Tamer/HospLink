@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/core/constatnts/images.dart';
 import 'package:medigo/core/services/firebase/FirebaseServices.dart';
 import 'package:medigo/core/utils/fonts.dart';
@@ -17,16 +18,10 @@ class AcceptedPatientsScreen extends StatelessWidget {
     final theme = Theme.of(context); // Get theme
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: theme.colorScheme.primary, // theme-aware
-        title: Text(
-          'Accepted Patients',
-          style: theme.textTheme.titleMedium?.copyWith(
-              color: theme.colorScheme.onPrimary,
-              fontSize: 22,
-              fontWeight: FontWeight.w600),
-        ),
+      appBar: MainAppBar(
+        title: 'Accepted Patients',
+        leading: false,
+        action: false,
       ),
       body: FutureBuilder(
         future: FirebaseServices.getRequests(),

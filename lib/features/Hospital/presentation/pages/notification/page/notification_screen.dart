@@ -70,7 +70,6 @@ class _HospitalNotificationScreenState
         title: 'Notifications',
         leading: false,
         action: false,
-        color: theme.colorScheme.primary, // theme responsive
       ),
       body: Column(
         children: [

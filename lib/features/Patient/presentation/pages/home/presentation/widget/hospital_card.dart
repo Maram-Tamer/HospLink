@@ -38,11 +38,11 @@ class _HospitalCardState extends State<HospitalCard> {
 
   Color _getStatusBackgroundColor(String state, ColorScheme colorScheme) {
     if (state == 'Accepted') {
-      return Colors.green.withOpacity(0.15);
+      return Colors.green;
     } else if (state == 'Rejected') {
-      return colorScheme.error.withOpacity(0.15);
+      return colorScheme.error;
     }
-    return colorScheme.primary.withOpacity(0.1);
+    return colorScheme.primary;
   }
 
   Color _getStatusTextColor(String state, ColorScheme colorScheme) {

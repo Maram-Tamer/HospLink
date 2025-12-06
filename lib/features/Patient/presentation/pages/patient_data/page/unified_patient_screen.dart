@@ -43,23 +43,29 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
   String? _validateNationalId(String? value) {
     if (value == null || value.trim().isEmpty) return 'National ID is required';
     final trimmedValue = value.trim();
-    if (trimmedValue.length != 14) return 'National ID must be exactly 14 digits';
-    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) return 'National ID must contain only numbers';
+    if (trimmedValue.length != 14)
+      return 'National ID must be exactly 14 digits';
+    if (!RegExp(r'^\d+$').hasMatch(trimmedValue))
+      return 'National ID must contain only numbers';
     return null;
   }
 
   String? _validatePhone(String? value) {
-    if (value == null || value.trim().isEmpty) return 'Phone number is required';
+    if (value == null || value.trim().isEmpty)
+      return 'Phone number is required';
     final trimmedValue = value.trim();
-    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) return 'Phone number must contain only numbers';
-    if (trimmedValue.length < 10) return 'Phone number must be at least 10 digits';
+    if (!RegExp(r'^\d+$').hasMatch(trimmedValue))
+      return 'Phone number must contain only numbers';
+    if (trimmedValue.length < 10)
+      return 'Phone number must be at least 10 digits';
     return null;
   }
 
   String? _validateAge(String? value) {
     if (value == null || value.trim().isEmpty) return 'Age is required';
     final trimmedValue = value.trim();
-    if (!RegExp(r'^\d+$').hasMatch(trimmedValue)) return 'Please enter a valid age';
+    if (!RegExp(r'^\d+$').hasMatch(trimmedValue))
+      return 'Please enter a valid age';
     final age = int.tryParse(trimmedValue);
     if (age == null) return 'Please enter a valid age';
     return null;
@@ -86,8 +92,9 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Error picking image: $e'), backgroundColor: Colors.red));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Error picking image: $e'),
+          backgroundColor: Colors.red));
     }
   }
 
@@ -112,8 +119,9 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Error taking picture: $e'), backgroundColor: Colors.red));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Error taking picture: $e'),
+          backgroundColor: Colors.red));
     }
   }
 
@@ -124,9 +132,12 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
 
     final textColor = isDark ? Colors.white : AppColors.darkColor;
     final secondaryTextColor = isDark ? Colors.white70 : AppColors.greyColor;
-    final fieldBackground = isDark ? AppColors.darkModeBackground : Colors.white;
-    final scaffoldBackground = isDark ? AppColors.darkModeBackground : AppColors.blueLight2;
-    final borderColor = isDark ? Colors.white12 : AppColors.greyColor.withValues(alpha: 0.3);
+    final fieldBackground =
+        isDark ? AppColors.darkModeBackground : Colors.white;
+    final scaffoldBackground =
+        isDark ? AppColors.darkModeBackground : AppColors.blueLight2;
+    final borderColor =
+        isDark ? Colors.white12 : AppColors.greyColor.withValues(alpha: 0.3);
     final iconColor = isDark ? Colors.white70 : AppColors.greyColor;
 
     return BlocConsumer<PatientCubit, PatientState>(
@@ -149,13 +160,12 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios, color: textColor),
               onPressed: () => Navigator.pop(context),
-            ),  
+            ),
             title: Text("Patient Data",
                 style: AppFontStyles.getSize24(
                     fontColor: textColor, fontWeight: FontWeight.w600)),
             centerTitle: true,
           ),
-
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Form(
@@ -163,7 +173,6 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   /// ===========================
                   ///  CHOOSE PATIENT DROPDOWN
                   /// ===========================
@@ -191,7 +200,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                         ],
                         onChanged: (newValue) {
                           if (newValue != null) {
-                            setState(() => cubit.selectedPatientType = newValue);
+                            setState(
+                                () => cubit.selectedPatientType = newValue);
                           }
                         },
                       ),
@@ -203,21 +213,31 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                   /// ===========================
                   ///     PERSONAL DATA FIELDS
                   /// ===========================
-                  if (cubit.selectedPatientType == PatientType.anotherPatient) ...[
-                    _buildTextField("National ID", cubit.nationalIdController,
-                        "Enter 14-digit National ID", textColor,
-                        validator: _validateNationalId),
+                  if (cubit.selectedPatientType ==
+                      PatientType.anotherPatient) ...[
+                    _buildTextField(
+                      "National ID",
+                      cubit.nationalIdController,
+                      "Enter 14-digit National ID",
+                      textColor,
+                      [
+                        FilteringTextInputFormatter
+                            .digitsOnly, // يسمح بالأرقام فقط
+                        LengthLimitingTextInputFormatter(
+                            14), // يمنع تجاوز 14 رقم
+                      ],
+                      validator: _validateNationalId,
+                    ),
                     const SizedBox(height: 16),
                     _buildTextField("Name", cubit.nameController,
-                        "Enter full name", textColor,
+                        "Enter full name", textColor, [],
                         validator: (v) => _validateRequired(v, "Name")),
                     const SizedBox(height: 16),
                     _buildTextField("Phone", cubit.phoneController,
-                        "Enter phone number", textColor,
+                        "Enter phone number", textColor, [],
                         keyboardType: TextInputType.number,
                         validator: _validatePhone),
                     const SizedBox(height: 16),
-
                     Text("Gender",
                         style: AppFontStyles.getSize16(
                             fontColor: textColor, fontWeight: FontWeight.w500)),
@@ -248,8 +268,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                         ),
                       ],
                     ),
-                    _buildTextField("Age", cubit.ageController, "Enter age",
-                        textColor,
+                    _buildTextField(
+                        "Age", cubit.ageController, "Enter age", textColor, [],
                         keyboardType: TextInputType.number,
                         validator: _validateAge),
                     const SizedBox(height: 16),
@@ -287,9 +307,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                           }
                         },
                         icon: const Icon(Icons.my_location),
-                        label:  Text("Use My current Location"),
+                        label: Text("Use My current Location"),
                         style: ElevatedButton.styleFrom(
-                          
                           backgroundColor: AppColors.primaryBlueColor,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(
@@ -308,6 +327,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                       cubit.descriptionController,
                       "Write a detailed description of the case",
                       textColor,
+                      [],
                       maxLines: 4,
                       validator: (v) =>
                           _validateRequired(v, "Case Description")),
@@ -358,28 +378,22 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     );
   }
 
-  PreferredSize choosPatient(
-      PatientCubit cubit,
-      Color textColor,
-      Color borderColor,
-      Color fieldBackground,
-      Color iconColor) {
+  PreferredSize choosPatient(PatientCubit cubit, Color textColor,
+      Color borderColor, Color fieldBackground, Color iconColor) {
     return const PreferredSize(
-        preferredSize: Size.fromHeight(0),
-        child: SizedBox()
-    );
+        preferredSize: Size.fromHeight(0), child: SizedBox());
   }
 
   Widget _buildTextField(
-      String label,
-      TextEditingController controller,
-      String hintText,
-      Color textColor,
-      {
-        String? Function(String?)? validator,
-        TextInputType? keyboardType,
-        int maxLines = 1,
-      }) {
+    String label,
+    TextEditingController controller,
+    String hintText,
+    Color textColor,
+    List<TextInputFormatter>? inputFormat, {
+    String? Function(String?)? validator,
+    TextInputType? keyboardType,
+    int maxLines = 1,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -388,6 +402,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                 fontColor: textColor, fontWeight: FontWeight.w500)),
         const SizedBox(height: 8),
         MainTextFormField(
+          inputFormat: inputFormat ?? [],
           label: hintText,
           controller: controller,
           maxTextLines: maxLines,
@@ -399,11 +414,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     );
   }
 
-  Widget _buildBloodTypeField(
-      PatientCubit cubit,
-      Color textColor,
-      Color fieldBackground,
-      Color borderColor) {
+  Widget _buildBloodTypeField(PatientCubit cubit, Color textColor,
+      Color fieldBackground, Color borderColor) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -418,8 +430,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
             hintText: "Select blood type",
             hintStyle: AppFontStyles.getSize14(
                 fontColor: AppColors.greyColor, fontWeight: FontWeight.w400),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: borderColor)),
@@ -430,9 +441,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
             filled: true,
             fillColor: fieldBackground,
           ),
-          items: Boold.map((String bloodType) =>
-              DropdownMenuItem<String>(
-                  value: bloodType, child: Text(bloodType))).toList(),
+          items: Boold.map((String bloodType) => DropdownMenuItem<String>(
+              value: bloodType, child: Text(bloodType))).toList(),
           onChanged: (String? newValue) {
             setState(() => cubit.selectedBloodType = newValue ?? '');
           },
@@ -442,11 +452,8 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
     );
   }
 
-  Widget _buildImageUpload(
-      PatientCubit cubit,
-      Color fieldBackground,
-      Color textColor,
-      Color secondaryTextColor) {
+  Widget _buildImageUpload(PatientCubit cubit, Color fieldBackground,
+      Color textColor, Color secondaryTextColor) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -493,8 +500,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
                         const SizedBox(height: 4),
                         Text("PNG, JPG, GIF up to 10MB",
                             style: AppFontStyles.getSize14(
-                                fontColor:
-                                    secondaryTextColor.withOpacity(0.7),
+                                fontColor: secondaryTextColor.withOpacity(0.7),
                                 fontWeight: FontWeight.w400)),
                       ],
                     ),
@@ -549,7 +555,7 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
       ),
     ).then((position) {
       setState(() => _currentPosition = position);
-    // ignore: invalid_return_type_for_catch_error
+      // ignore: invalid_return_type_for_catch_error
     }).catchError((e) => log(e.toString()));
   }
 
@@ -561,17 +567,15 @@ class _UnifiedPatientScreenState extends State<UnifiedPatientScreen> {
       final place = placemarks[0];
 
       setState(() {
-        String cleanStreet =
-            place.street?.replaceAll(RegExp(r'\d+'), '') ?? '';
+        String cleanStreet = place.street?.replaceAll(RegExp(r'\d+'), '') ?? '';
 
-        _currentAddress =
-            '${cleanStreet.trim()} ${place.thoroughfare ?? ''}\n'
+        _currentAddress = '${cleanStreet.trim()} ${place.thoroughfare ?? ''}\n'
             'Area: ${place.subAdministrativeArea ?? ''}\n'
             'City: ${place.locality ?? ''}\n'
             'Governorate: ${place.administrativeArea ?? ''}\n'
             'Country: ${place.country ?? ''}';
       });
-    // ignore: invalid_return_type_for_catch_error
+      // ignore: invalid_return_type_for_catch_error
     }).catchError((e) => log(e.toString()));
   }
 

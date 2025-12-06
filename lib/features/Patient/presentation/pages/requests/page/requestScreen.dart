@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +51,6 @@ class _RequestscreenState extends State<Requestscreen> {
       // ---------------- APPBAR ----------------
       appBar: !widget.accepted
           ? MainAppBar(
-              
               title: " Details    ",
               leading: true,
             )
@@ -372,21 +373,26 @@ class _RequestscreenState extends State<Requestscreen> {
                           .doc()
                           .id,
                     );
+                    log('10   ${history}     ${request!.requestID}');
 
                     FirebaseServices.createHistory(history);
+                    log('100');
                     FirebaseServices.deleteRequest(request!.requestID ?? '');
-
+                    log('1000   ');
                     int total = int.parse(hospital?.totalPatient ?? "1");
-                    int oldRate = int.parse(hospital?.rate ?? '1');
+                    double oldRate = double.parse(hospital?.rate ?? '1');
 
-                    int totalScore = oldRate * total + cubit.currentRating;
+                    double totalScore = oldRate * total + cubit.currentRating;
                     double newRate = totalScore / (total + 1);
+
+                    log('11');
 
                     FirebaseServices.updateHospitalRate(
                       hospital?.uid ?? '',
                       newRate,
                       total + 1,
                     );
+                    log('12');
 
                     Navigator.pop(context);
                     Navigator.pop(context);

@@ -98,20 +98,6 @@ class LocalHelper {
     }
   }
 
-  // static setHospitalFavorit(List<HospitalModel>? hospital) async {
-  //   if (hospital == null) return;
-  //   var listOfString = hospital.map((e) => jsonEncode(e.toJson())).toList();
-
-  //   await pref.setStringList(kHospitalFavorit, listOfString);
-  // }
-
-  // static List<HospitalModel>? getHospitalFavorit() {
-  //   var data = pref.getStringList(kHospitalFavorit); //list os string
-  //   if (data == null) return null;
-  //   var hospital =
-  //       data.map((e) => HospitalModel.fromJson(jsonDecode(e))).toList();
-  //   return hospital;
-  // }
 
   static dynamic getData(String key) {
     return pref.get(key);

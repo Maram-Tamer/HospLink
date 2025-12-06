@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:io';
-
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -156,7 +156,7 @@ class FirebaseServices {
 
   static updateHospitalRate(String hospitalId, double rate, num totalPatient) {
     _collectionHospital.doc(hospitalId).update({
-      'rate': rate.toString(),
+      'rate': rate.toStringAsFixed(1),
       'totalPatient': totalPatient.toString(),
     });
   }
@@ -164,6 +164,7 @@ class FirebaseServices {
   // Get history for patients (filtered by patientId)
   static Future<QuerySnapshot<Object?>> getHistory() {
     String patientID = LocalHelper.getUserId()!;
+    log('${patientID}');
     return _collectionHistory.where('patientId', isEqualTo: patientID).get();
   }
 

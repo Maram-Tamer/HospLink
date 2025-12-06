@@ -29,9 +29,7 @@ class HospitalNotificationScreen extends StatefulWidget {
 
 class _HospitalNotificationScreenState
     extends State<HospitalNotificationScreen> {
-  bool showHighOnly = false;
-
-  final List<NotificationItem> allNotifications = [
+  List<NotificationItem> allNotifications = [
     NotificationItem(
       name: "Sarah Johnson",
       messagePreview: "Needs medical review — symptoms worsening.",
@@ -62,38 +60,76 @@ class _HospitalNotificationScreenState
     ),
   ];
 
-  List<NotificationItem> get filteredNotifications {
-    return allNotifications;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // ✅ Get theme
+    final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.colorScheme.background,
       appBar: MainAppBar(
         title: 'Notifications',
         leading: false,
         action: false,
-        color: theme.colorScheme.primary, // ✅ Dynamic AppBar color
+        color: theme.colorScheme.primary, // theme responsive
       ),
       body: Column(
         children: [
           const SizedBox(height: 12),
-          const SizedBox(height: 12),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: filteredNotifications.length,
+              itemCount: allNotifications.length,
               itemBuilder: (context, index) {
-                final notification = filteredNotifications[index];
-                return NotificationCard(
-                  notification: notification,
-                  onTap: () {
-                    setState(() {
-                      notification.isUnread = false;
-                    });
+                final notification = allNotifications[index];
+
+                return Dismissible(
+                  key: UniqueKey(),
+
+                  // 👉 Swipe RIGHT = Mark as Read
+                  // 👉 Swipe LEFT = Delete
+                  background: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    color: Colors.green,
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.only(left: 20),
+                    child:
+                        const Icon(Icons.done, color: Colors.white, size: 28),
+                  ),
+
+                  secondaryBackground: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.red,
+                    ),
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20),
+                    child:
+                        const Icon(Icons.delete, color: Colors.white, size: 28),
+                  ),
+
+                  confirmDismiss: (direction) async {
+                    if (direction == DismissDirection.startToEnd) {
+                      // swipe right — mark as read
+                      setState(() => notification.isUnread = false);
+                      return false; // don’t remove from the list
+                    } else {
+                      // swipe left — delete
+                      return true;
+                    }
                   },
+
+                  onDismissed: (_) {
+                    setState(() => allNotifications.removeAt(index));
+                  },
+
+                  child: NotificationCard(
+                    notification: notification,
+                    onTap: () {
+                      setState(() => notification.isUnread = false);
+                    },
+                  ),
                 );
               },
             ),

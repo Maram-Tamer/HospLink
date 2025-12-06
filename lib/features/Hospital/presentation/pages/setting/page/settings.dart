@@ -47,7 +47,9 @@ class _SettingsHospitalScreenState extends State<SettingsHospitalScreen> {
         theme.textTheme.titleLarge?.color ?? AppColors.blackColor;
 
     return Scaffold(
-      appBar: MainAppBar(title: "Settings"),
+      appBar: MainAppBar(title: "Settings",
+      color: theme.colorScheme.primary,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(

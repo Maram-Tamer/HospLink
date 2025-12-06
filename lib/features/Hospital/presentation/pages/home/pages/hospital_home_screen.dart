@@ -52,7 +52,7 @@ class HospitalHomeScreen extends StatelessWidget {
                   Text(
                     'No pending cases found',
                     style: AppFontStyles.getSize18(
-                      fontColor: theme.colorScheme.onPrimaryFixed,
+                      fontColor: theme.colorScheme.onSecondary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -83,7 +83,7 @@ class HospitalHomeScreen extends StatelessWidget {
                   Text(
                     'No pending cases found',
                     style: AppFontStyles.getSize18(
-                      fontColor: theme.colorScheme.onPrimaryFixed,
+                      fontColor: theme.colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

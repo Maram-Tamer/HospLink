@@ -59,7 +59,7 @@ class PatientCubit extends Cubit<PatientState> {
         }
       }
       emit(PatientSuccessState());
-    } on Exception catch (e) {
+    } on Exception {
       emit(PatientErrorState());
     }
   }
@@ -75,7 +75,7 @@ class PatientCubit extends Cubit<PatientState> {
             context,
           ) ??
           '';
-    } on Exception catch (e) {
+    } on Exception {
       emit(PatientErrorState());
 
       showMyDialog(context, 'لم يتم رفع الصور');

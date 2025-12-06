@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medigo/features/Intro/onboarding/widget/onBoardingModel.dart';
 
 class PageViewDesign extends StatelessWidget {
-  PageViewDesign({super.key, required this.index});
+  const PageViewDesign({super.key, required this.index});
   
   final int index;
 

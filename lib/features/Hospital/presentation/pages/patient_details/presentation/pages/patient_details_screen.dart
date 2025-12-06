@@ -9,7 +9,7 @@ import 'package:medigo/features/Patient/presentation/pages/hospital_data/present
 
 // ignore: must_be_immutable
 class PatientDetailsScreen extends StatefulWidget {
-  PatientDetailsScreen({super.key, required this.data});
+  const PatientDetailsScreen({super.key, required this.data});
   final Map<String, dynamic> data;
 
   @override

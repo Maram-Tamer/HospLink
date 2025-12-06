@@ -34,7 +34,7 @@ class AcceptedPatientsScreen extends StatelessWidget {
             return Center(
               child: Text(
                 'Error: ${snapshot.error}',
-                style: TextStyle(color: theme.colorScheme.onBackground),
+                style: TextStyle(color: theme.colorScheme.onSurface),
               ),
             );
           }
@@ -53,7 +53,7 @@ class AcceptedPatientsScreen extends StatelessWidget {
                   Text(
                     'No Accepted Cases found',
                     style: AppFontStyles.getSize18(
-                      fontColor: theme.colorScheme.onBackground,
+                      fontColor: theme.colorScheme.onSurface,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -78,7 +78,7 @@ class AcceptedPatientsScreen extends StatelessWidget {
               child: Text(
                 'No Accepted Cases found',
                 style: AppFontStyles.getSize18(
-                  fontColor: theme.colorScheme.onBackground,
+                  fontColor: theme.colorScheme.onSurface,
                   fontWeight: FontWeight.w600,
                 ),
               ),

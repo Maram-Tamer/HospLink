@@ -45,9 +45,6 @@ class _HospitalCardState extends State<HospitalCard> {
     return colorScheme.primary;
   }
 
-  Color _getStatusTextColor(String state, ColorScheme colorScheme) {
-    return Colors.white;
-  }
 
   @override
   Widget build(BuildContext context) {

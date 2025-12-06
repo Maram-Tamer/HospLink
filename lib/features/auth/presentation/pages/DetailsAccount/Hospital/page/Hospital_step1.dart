@@ -69,7 +69,7 @@ class HospitalStep1State extends State<HospitalStep1> {
                       controller: cubit.nameController,
                       label: 'Name',
                       ispassword: false,
-                      colorFill: Theme.of(context).colorScheme.surfaceVariant,
+                      colorFill: Theme.of(context).colorScheme.surfaceContainerHighest,
                     ),
                     Gap(30),
                     SelectDate(context, cubit),
@@ -152,7 +152,7 @@ class HospitalStep1State extends State<HospitalStep1> {
           decoration: InputDecoration(
             hint: Text(' Click To Select Date'),
             filled: true,
-            fillColor: Theme.of(context).colorScheme.surfaceVariant,
+            fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
             suffixIcon: Icon(
               Icons.calendar_month_sharp,
               color: Theme.of(context).colorScheme.primary,
@@ -174,7 +174,7 @@ class HospitalStep1State extends State<HospitalStep1> {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return Container(
+                  return SizedBox(
                     height: 200,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -208,7 +208,7 @@ class HospitalStep1State extends State<HospitalStep1> {
             },
             child: CircleAvatar(
               radius: 58,
-              backgroundColor: Theme.of(context).colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               child: CircleAvatar(
                 radius: 55,
                 backgroundImage: (cubit.imagFeile != null)
@@ -221,7 +221,7 @@ class HospitalStep1State extends State<HospitalStep1> {
             bottom: 3,
             right: 3,
             child: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               radius: 16,
               child: IconButton(
                 icon: Icon(

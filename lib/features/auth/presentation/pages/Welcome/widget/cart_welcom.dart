@@ -43,7 +43,7 @@ class CartWelcom extends StatelessWidget {
           buttonText: 'Sign Up',
           onPressed: () => pushTo(context: context, route: routeRegister),
           textColor: theme.colorScheme.primary,
-          buttomColor: theme.colorScheme.background,
+          buttomColor: theme.colorScheme.surface,
         
         ),
       ],

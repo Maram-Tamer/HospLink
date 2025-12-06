@@ -90,7 +90,7 @@ class _SettingsItemState extends State<SettingsItem> {
             widget.hasSwitch
                 ? Switch(
                     value: switchValue,
-                    activeColor: scheme.primary,
+                    activeThumbColor: scheme.primary,
                     activeTrackColor: scheme.primary.withOpacity(0.4),
                     onChanged: (value) {
                       setState(() => switchValue = value);

@@ -65,7 +65,7 @@ class _HospitalNotificationScreenState
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       appBar: MainAppBar(
         title: 'Notifications',
         leading: false,

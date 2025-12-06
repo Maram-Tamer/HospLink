@@ -12,7 +12,7 @@ class ChatScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     // COLORS FROM THEME
-    final bgColor = theme.colorScheme.background;
+    final bgColor = theme.colorScheme.surface;
     final topBarColor = theme.colorScheme.primary;
     final bubbleMe = theme.colorScheme.primary;
     final bubbleOther = theme.colorScheme.surface;

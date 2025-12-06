@@ -24,6 +24,7 @@ import 'package:medigo/features/Patient/presentation/pages/hospital_data/present
 import 'package:medigo/features/Patient/presentation/pages/hospital_data/presentation/widgets/star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// ignore: must_be_immutable
 class Requestscreen extends StatefulWidget {
   Requestscreen({super.key, required this.data, this.accepted = false});
 
@@ -76,7 +77,7 @@ class _RequestscreenState extends State<Requestscreen> {
                       Text(
                         hospital?.description ?? '',
                         style: AppFontStyles.getSize16(
-                          fontColor: theme.colorScheme.onBackground,
+                          fontColor: theme.colorScheme.onSurface,
                         ),
                         maxLines: 6,
                         overflow: TextOverflow.ellipsis,
@@ -94,7 +95,7 @@ class _RequestscreenState extends State<Requestscreen> {
                           Text(
                             hospital?.rate ?? '',
                             style: AppFontStyles.getSize16(
-                              fontColor: theme.colorScheme.onBackground,
+                              fontColor: theme.colorScheme.onSurface,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -111,7 +112,7 @@ class _RequestscreenState extends State<Requestscreen> {
                           Text(
                             hospital?.totalPatient ?? '',
                             style: AppFontStyles.getSize16(
-                              fontColor: theme.colorScheme.onBackground,
+                              fontColor: theme.colorScheme.onSurface,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -164,7 +165,7 @@ class _RequestscreenState extends State<Requestscreen> {
                       Text(
                         'click here to go google maps ↧',
                         style: AppFontStyles.getSize14(
-                          fontColor: theme.colorScheme.onBackground,
+                          fontColor: theme.colorScheme.onSurface,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -273,132 +274,147 @@ class _RequestscreenState extends State<Requestscreen> {
   // ------------------------------ BOTTOM SHEET ------------------------------
 
   void _showReviewBottomSheet(BuildContext context, PatientCubit cubit) {
-    final theme = Theme.of(context);
+  final theme = Theme.of(context);
 
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true, // VERY IMPORTANT
-
-      backgroundColor: theme.cardColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            left: 10,
-            right: 10,
-            top: 20,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Add Review',
-                    style: AppFontStyles.getSize24(
-                      fontWeight: FontWeight.w600,
-                      fontColor: theme.colorScheme.onBackground,
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    icon:
-                        Icon(Icons.close_rounded, color: theme.iconTheme.color),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-              Gap(10),
-              Text(
-                "Share your experience",
-                style: AppFontStyles.getSize16(
-                  fontColor: theme.colorScheme.onBackground.withOpacity(0.7),
-                ),
-              ),
-              Gap(10),
-              TextFormField(
-                controller: cubit.commentController,
-                maxLines: 4,
-                decoration: InputDecoration(
-                  hintText: "Write your review here...",
-                  filled: true,
-                  fillColor: theme.inputDecorationTheme.fillColor ??
-                      theme.cardColor.withOpacity(0.1),
-                  hintStyle: TextStyle(color: theme.hintColor),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: theme.cardColor,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (context) {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 10,
+          right: 10,
+          top: 20,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Add Review',
+                  style: AppFontStyles.getSize24(
+                    fontWeight: FontWeight.w600,
+                    fontColor: theme.colorScheme.onSurface,
                   ),
                 ),
+                Spacer(),
+                IconButton(
+                  icon: Icon(Icons.close_rounded,
+                      color: theme.iconTheme.color),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+
+            Gap(10),
+
+            Text(
+              "Share your experience",
+              style: AppFontStyles.getSize16(
+                fontColor: theme.colorScheme.onSurface.withOpacity(0.7),
               ),
-              Gap(20),
-              Center(
-                child: StarRating(
-                  rating: widget.curruntIndex,
-                  onRatingChanged: (newRating) {
-                    setState(() {
-                      widget.curruntIndex = newRating;
-                      cubit.currentRating = newRating;
-                    });
-                  },
+            ),
+
+            Gap(10),
+
+            TextFormField(
+              controller: cubit.commentController,
+              maxLines: 4,
+              decoration: InputDecoration(
+                hintText: "Write your review here...",
+                filled: true,
+                fillColor: theme.inputDecorationTheme.fillColor ??
+                    theme.cardColor.withOpacity(0.1),
+                hintStyle: TextStyle(color: theme.hintColor),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
                 ),
               ),
-              Gap(20),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: MainButton(
-                  buttonText: 'Submit Review',
-                  onPressed: () {
-                    final history = HistoryModel(
-                      addressHospital: hospital?.address,
-                      hospitalId: hospital?.uid,
-                      namePatient: request?.name,
-                      patientId: request?.patientID,
-                      phonePatient: request?.phone,
-                      profileHospital: hospital?.imageUri,
-                      profilePatient: request?.imageProfilePath,
-                      rateFromPatient: cubit.currentRating.toString(),
-                      message: cubit.commentController.text,
-                      date: date.DateFormat('yyyy-MM-dd')
-                          .format(DateTime.now())
-                          .toString(),
-                      historyId: FirebaseFirestore.instance
-                          .collection('history')
-                          .doc()
-                          .id,
-                    );
+            ),
 
-                    FirebaseServices.createHistory(history);
-                    FirebaseServices.deleteRequest(request!.requestID ?? '');
+            Gap(20),
 
-                    int total = int.parse(hospital?.totalPatient ?? "1");
-                    int oldRate = int.parse(hospital?.rate ?? '1');
+            // ⭐⭐⭐⭐⭐ STAR RATING WITH WORKING UPDATE
+            StatefulBuilder(
+              builder: (context, setModalState) {
+                return Center(
+                  child: StarRating(
+                    rating: widget.curruntIndex,
+                    onRatingChanged: (newRating) {
+                      setModalState(() {
+                        widget.curruntIndex = newRating;
+                        cubit.currentRating = newRating;
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
 
-                    int totalScore = oldRate * total + cubit.currentRating;
-                    double newRate = totalScore / (total + 1);
+            Gap(20),
 
-                    FirebaseServices.updateHospitalRate(
-                      hospital?.uid ?? '',
-                      newRate,
-                      total + 1,
-                    );
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: MainButton(
+                buttonText: 'Submit Review',
+                onPressed: () {
+                  pop(context);
+                  final history = HistoryModel(
+                    addressHospital: hospital?.address,
+                    hospitalId: hospital?.uid,
+                    namePatient: request?.name,
+                    patientId: request?.patientID,
+                    phonePatient: request?.phone,
+                    profileHospital: hospital?.imageUri,
+                    profilePatient: request?.imageProfilePath,
+                    rateFromPatient: cubit.currentRating.toString(),
+                    message: cubit.commentController.text,
+                    date: date.DateFormat('yyyy-MM-dd')
+                        .format(DateTime.now())
+                        .toString(),
+                    historyId: FirebaseFirestore.instance
+                        .collection('history')
+                        .doc()
+                        .id,
+                        
+                  );
 
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  },
-                  icon: AppIcons.send2SVG,
-                ),
+                  FirebaseServices.createHistory(history);
+                  FirebaseServices.deleteRequest(request!.requestID ?? '');
+
+                  int total = int.parse(hospital?.totalPatient ?? "1");
+                  int oldRate = int.parse(hospital?.rate ?? '1');
+
+                  int totalScore = oldRate * total + cubit.currentRating;
+                  double newRate = totalScore / (total + 1);
+
+                  FirebaseServices.updateHospitalRate(
+                    hospital?.uid ?? '',
+                    newRate,
+                    total + 1,
+                  );
+
+                 
+                },
+                icon: AppIcons.send2SVG,
               ),
-              Gap(20),
-            ],
-          ),
-        );
-      },
-    );
-  }
+            ),
+
+            Gap(20),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 }

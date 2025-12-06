@@ -50,7 +50,7 @@ class SettingsGroup extends StatelessWidget {
                   Divider(
                     height: 1,
                     thickness: 1,
-                    color: scheme.surfaceVariant.withOpacity(0.4),
+                    color: scheme.surfaceContainerHighest.withOpacity(0.4),
                   ),
               ],
             );

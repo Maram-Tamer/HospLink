@@ -43,7 +43,7 @@ class _MainScreenHospitalState extends State<MainScreenHospital> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: screens[currentIndex],
       bottomNavigationBar: SafeArea(
         top: false, // remove space above nav bar

@@ -15,7 +15,7 @@ class EditProfileScreenH extends StatelessWidget {
     final nationalIdController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.primary,
         elevation: 0,
@@ -74,7 +74,7 @@ class EditProfileScreenH extends StatelessWidget {
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           hintText: "Enter your phone number",
-                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onBackground.withOpacity(0.5)),
+                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onSurface.withOpacity(0.5)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -88,7 +88,7 @@ class EditProfileScreenH extends StatelessWidget {
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           hintText: "Enter your second phone number",
-                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onBackground.withOpacity(0.5)),
+                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onSurface.withOpacity(0.5)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -101,7 +101,7 @@ class EditProfileScreenH extends StatelessWidget {
                         controller: locationController,
                         decoration: InputDecoration(
                           hintText: "Enter your Email",
-                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onBackground.withOpacity(0.5)),
+                          suffixIcon: Icon(Icons.edit, color: theme.colorScheme.onSurface.withOpacity(0.5)),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -160,14 +160,14 @@ class EditProfileScreenH extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 48,
-                      backgroundColor: theme.colorScheme.background,
+                      backgroundColor: theme.colorScheme.surface,
                       child: const CircleAvatar(
                         radius: 45,
                         backgroundImage: AssetImage(AppImages.hospitalPhoto4),
                       ),
                     ),
                     CircleAvatar(
-                      backgroundColor: theme.colorScheme.background,
+                      backgroundColor: theme.colorScheme.surface,
                       radius: 16,
                       child: IconButton(
                         icon: Icon(

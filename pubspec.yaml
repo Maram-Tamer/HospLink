@@ -35,6 +35,8 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   url_launcher: ^6.3.2
 
+  http: any
+  shared_preferences: any
 dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:

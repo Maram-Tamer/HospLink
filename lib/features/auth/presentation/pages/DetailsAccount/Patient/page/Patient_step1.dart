@@ -109,7 +109,7 @@ class PatientStep1State extends State<PatientStep1> {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return Container(
+                  return SizedBox(
                     height: 200,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

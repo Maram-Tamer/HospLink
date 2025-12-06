@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gap/flutter_gap.dart';
-import 'package:medigo/core/utils/fonts.dart';
+import 'package:medigo/components/App_Bar/app__bar.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-cubit.dart';
 import 'package:medigo/features/Patient/presentation/cubit/patient-state.dart';
 import 'package:medigo/features/patient/presentation/pages/home/presentation/widget/hospital_card.dart';
@@ -31,18 +31,12 @@ class _FavouritePatientState extends State<FavouritePatient> {
           PatientCubit()..getFavoriteHospitals(),
       child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor, // plain background
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            'Favourites',
-            style: AppFontStyles.getSize24(
-              fontWeight: FontWeight.w600,
-              fontColor: appBarTextColor,
-              fontSize: responsiveFontSize,
-            ),
-          ),
+        appBar: MainAppBar(
+
+          title: 'Favourites',
         ),
+          
+        
         body: BlocBuilder<PatientCubit, PatientState>(
           builder: (context, state) {
             var cubit = context.read<PatientCubit>();

@@ -9,7 +9,7 @@ import 'package:medigo/features/Intro/onboarding/widget/pagw_view_design.dart';
 import 'package:medigo/features/Intro/onboarding/widget/smooth_page.dart';
 
 class OnBoarding extends StatefulWidget {
-  OnBoarding({super.key});
+  const OnBoarding({super.key});
 
   @override
   State<OnBoarding> createState() => _OnBoardingState();

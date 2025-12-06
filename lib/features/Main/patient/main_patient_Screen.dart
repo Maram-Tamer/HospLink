@@ -45,7 +45,7 @@ class _MainScreenState extends State<MainScreenPatient> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: screens[currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

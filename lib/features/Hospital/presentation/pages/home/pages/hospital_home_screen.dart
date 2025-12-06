@@ -36,7 +36,7 @@ class HospitalHomeScreen extends StatelessWidget {
             return Center(
               child: Text(
                 'Error: ${snapshot.error}',
-                style: TextStyle(color: theme.colorScheme.onBackground),
+                style: TextStyle(color: theme.colorScheme.onSurface),
               ),
             );
           }

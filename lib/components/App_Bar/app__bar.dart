@@ -35,11 +35,11 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     
     // 1. AppBar Background Color
     // Default to the provided color or the theme's background color
-    final appBarColor = color ?? colorScheme.background;
+    final appBarColor = color ?? Colors.transparent;
 
     // 2. Back Icon Color
     // Default to the provided color or the theme's primary text color (onBackground)
-    final backIconColor = colorIconBack ?? colorScheme.onBackground;
+    final backIconColor = colorIconBack ?? colorScheme.onSurface;
 
     // 3. Title Text Style (Use theme's headline style and primary text color)
     final titleStyle = textTheme.headlineSmall?.copyWith(
@@ -55,7 +55,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       scrolledUnderElevation: 0,
       // Use colorScheme.background for transparent surfaces to ensure theme consistency
-      surfaceTintColor: colorScheme.background, 
+      surfaceTintColor: colorScheme.surface, 
       elevation: 0,
       automaticallyImplyLeading: false,
       backgroundColor: appBarColor, // Theme-responsive background

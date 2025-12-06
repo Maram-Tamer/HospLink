@@ -21,7 +21,7 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.primary,
         elevation: 0,
@@ -87,11 +87,11 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
                     obscureText: !showCurrent,
                     decoration: InputDecoration(
                       hintText: "Enter current password",
-                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onBackground),
+                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onSurface),
                       suffixIcon: IconButton(
                         icon: Icon(
                           showCurrent ? Icons.visibility : Icons.visibility_off,
-                          color: theme.colorScheme.onBackground,
+                          color: theme.colorScheme.onSurface,
                         ),
                         onPressed: () =>
                             setState(() => showCurrent = !showCurrent),
@@ -109,11 +109,11 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
                     obscureText: !showNew,
                     decoration: InputDecoration(
                       hintText: "Enter new password",
-                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onBackground),
+                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onSurface),
                       suffixIcon: IconButton(
                         icon: Icon(
                           showNew ? Icons.visibility : Icons.visibility_off,
-                          color: theme.colorScheme.onBackground,
+                          color: theme.colorScheme.onSurface,
                         ),
                         onPressed: () => setState(() => showNew = !showNew),
                       ),
@@ -130,11 +130,11 @@ class _ChangePasswordScreenHState extends State<ChangePasswordScreenH> {
                     obscureText: !showConfirm,
                     decoration: InputDecoration(
                       hintText: "Re-enter new password",
-                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onBackground),
+                      prefixIcon: Icon(Icons.lock_outline, color: theme.colorScheme.onSurface),
                       suffixIcon: IconButton(
                         icon: Icon(
                           showConfirm ? Icons.visibility : Icons.visibility_off,
-                          color: theme.colorScheme.onBackground,
+                          color: theme.colorScheme.onSurface,
                         ),
                         onPressed: () =>
                             setState(() => showConfirm = !showConfirm),

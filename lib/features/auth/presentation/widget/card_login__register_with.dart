@@ -35,14 +35,14 @@ class CardLoginRegisterWith extends StatelessWidget {
                     thickness: 1,
                     endIndent: 15,
                     indent: 70,
-                    color: theme.colorScheme.onBackground.withOpacity(0.3),
+                    color: theme.colorScheme.onSurface.withOpacity(0.3),
                   ),
                 ),
                 Center(
                   child: Text(
                     'Or login with',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onBackground.withOpacity(0.6),
+                      color: theme.colorScheme.onSurface.withOpacity(0.6),
                     ),
                   ),
                 ),
@@ -51,7 +51,7 @@ class CardLoginRegisterWith extends StatelessWidget {
                     thickness: 1,
                     endIndent: 70,
                     indent: 15,
-                    color: theme.colorScheme.onBackground.withOpacity(0.3),
+                    color: theme.colorScheme.onSurface.withOpacity(0.3),
                   ),
                 ),
               ],
@@ -64,30 +64,30 @@ class CardLoginRegisterWith extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 25,
-                  backgroundColor: theme.colorScheme.background,
+                  backgroundColor: theme.colorScheme.surface,
                   child: CircleAvatar(
                     radius: 15,
-                    backgroundColor: theme.colorScheme.background,
+                    backgroundColor: theme.colorScheme.surface,
                     child: Image.asset(AppImages.facebook),
                   ),
                 ),
                 Gap(20),
                 CircleAvatar(
                   radius: 25,
-                  backgroundColor: theme.colorScheme.background,
+                  backgroundColor: theme.colorScheme.surface,
                   child: CircleAvatar(
                     radius: 15,
-                    backgroundColor: theme.colorScheme.background,
+                    backgroundColor: theme.colorScheme.surface,
                     child: Image.asset(AppImages.google),
                   ),
                 ),
                 Gap(20),
                 CircleAvatar(
                   radius: 25,
-                  backgroundColor: theme.colorScheme.background,
+                  backgroundColor: theme.colorScheme.surface,
                   child: CircleAvatar(
                     radius: 15,
-                    backgroundColor: theme.colorScheme.background,
+                    backgroundColor: theme.colorScheme.surface,
                     child: Image.asset(AppImages.apple),
                   ),
                 ),

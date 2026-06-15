@@ -1,8 +1,5 @@
 # HospLink
 
-<p align="center">
-  <img src="App Screens/HomeP.jpeg" width="850"/>
-</p>
 
 ## 📱 About The App
 
